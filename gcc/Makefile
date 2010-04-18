@@ -1,16 +1,16 @@
-all:	tst_sqmatrix tst_group
+all:	tst_group
 CFLAGS =-c -Wall -I /usr/include/boost 
 
 tst_group: tst_group.o
-	g++ $(CFLAGS) tst_group.o -o tst_group
+	g++ tst_group.o -o tst_group
 
 #test configuration for group class
-tst_group: tst_group.cpp
-	g++ $(CFLAGS) tst_group.cpp -o tst_group
+tst_group.o: tst_group.cpp
+	g++ $(CFLAGS) tst_group.cpp -o tst_group.o
 
 
 clean:
-	rm -rf *o tst_sqmatrix tst_group
+	rm -rf *o tst_group
 
 SRCS = *.cpp *.h
 CTAGS=ctags -x >tags

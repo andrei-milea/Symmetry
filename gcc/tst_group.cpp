@@ -5,7 +5,7 @@
 int main()
 {
 	std::cout<<"aaa";
-	AdMatG gr;
+	AdMatG gr(5);
 	std::cout<<"aaa";
 
 	return 0;	

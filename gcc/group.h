@@ -12,6 +12,7 @@ typename OpPolicy,
 template <class> class CONT>
 class cGroup
 {
+	typedef T ElementType;
 	typedef cGroup<T,OpPolicy,CONT> GroupType;
 public:
     cGroup(std::size_t size)
@@ -31,11 +32,10 @@ public:
 		return m_Order;
 	};
 	
-private:
+protected:
 	CONT<T> m_Set;
 	std::size_t m_Order;
 };
-
 
 
 typedef cGroup < cSqMatrixElement<int,5,Addition>, Addition, cSet> AdMatG;
