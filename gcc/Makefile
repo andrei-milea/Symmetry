@@ -1,9 +1,8 @@
 all:	tst_sqmatrix tst_group
 CFLAGS =-c -Wall -I /usr/include/boost 
 
-#test configuration for squared matrix class
-tst_sqmatrix: tst_sqmatrix.cpp
-	g++ $(CFLAGS) tst_sqmatrix.cpp -o tst_sqmatrix
+tst_group: tst_group.o
+	g++ $(CFLAGS) tst_group.o -o tst_group
 
 #test configuration for group class
 tst_group: tst_group.cpp
