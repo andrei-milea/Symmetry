@@ -20,6 +20,7 @@ class BinaryOp,
 class ConcreteRep = matrix<T> >
 class cSqMatrixElement : public ConcreteRep
 {
+	typedef cSqMatrixElement<T,SIZE,BinaryOp,ConcreteRep> SelfType;
 public:
     cSqMatrixElement()
     	:ConcreteRep(SIZE,SIZE)
@@ -30,7 +31,7 @@ public:
 	std::size_t GetOrder()
     {
 		std::size_t size = 0;
-		ConcreteRep temp = (*this);
+		SelfType temp = (*this);
         while(temp != cSqMatrixElement::GetIdentity())
         {
             temp = BinaryOp::BinOp(temp,(*this));
@@ -41,20 +42,20 @@ public:
 
 	std::size_t GetOrder(std::size_t group_order);
 
-	ElementType GetNthPower(std::size_t n)
+	SelfType GetNthPower(std::size_t n)
 	{
-		ElementType temp = cSqMatrixElement::GetIdentity();
+		SelfType temp = cSqMatrixElement::GetIdentity();
 		if(n%2 == 1)
 		{
-			this = this * temp;
+			(*this) = (*this) * temp;
 		}
 		while(n > 1)
 		{
-			this = this^2;
+			(*this) = (*this)^2;
 			n = n / 2;
 			if(n%2 == 1)
 			{
-				temp =  temp * this;
+				temp =  temp * (*this);
 			}
 		}
 		return temp;
