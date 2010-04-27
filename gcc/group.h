@@ -8,12 +8,12 @@
 #include "sqmatrix.h"
 
 template <typename T,
-typename OpPolicy,
 template <class> class CONT>
 class cGroup
 {
 	typedef T ElementType;
-	typedef cGroup<T,OpPolicy,CONT> GroupType;
+	typedef cGroup<T, CONT> SelfType;
+
 public:
     cGroup(std::size_t size)
 		:m_Order(size)
@@ -38,6 +38,6 @@ protected:
 };
 
 
-typedef cGroup < cSqMatrixElement<int,5,Addition>, Addition, cSet> AdMatG;
+typedef cGroup < cSqMatrixElement<int,5,Addition>, cSet> AdMatG;
 
 #endif
