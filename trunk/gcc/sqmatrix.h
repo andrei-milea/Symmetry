@@ -8,16 +8,17 @@
 #define _SQMATRIX_H
 
 #include <boost/numeric/ublas/matrix.hpp>
+#include <boost/numeric/ublas/io.hpp>
 #include "binary_op.h"
 
 
-using namespace boost::numeric::ublas;
+namespace boost_ubl = boost::numeric::ublas;
 
 //squared matrix element representation
 template <typename T,
 std::size_t SIZE,
 class BinaryOp,
-class ConcreteRep = matrix<T> >
+class ConcreteRep = boost_ubl::matrix<T> >
 class cSqMatrixElement : public ConcreteRep
 {
 	typedef cSqMatrixElement<T,SIZE,BinaryOp,ConcreteRep> SelfType;
@@ -61,13 +62,19 @@ public:
 		return temp;
 	};
 
+	friend std::ostream& operator<<(std::ostream &out, SelfType const &mat)
+	{
+		return (out << static_cast<ConcreteRep const &> (mat));
+	};
+
+
 private:
 	static ConcreteRep GetIdentity()
 	{
 		if(BinaryOp::isAdditive)
-			return zero_matrix<T>(SIZE, SIZE);
+			return boost_ubl::zero_matrix<T>(SIZE, SIZE);
 		else
-			return identity_matrix<T>(SIZE, SIZE);
+			return boost_ubl::identity_matrix<T>(SIZE, SIZE);
 	};
 };
 

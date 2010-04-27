@@ -1,5 +1,5 @@
 all:	tst_group
-CFLAGS =-c -Wall -I /usr/include/boost 
+CFLAGS =-c  -g -Wall -I /usr/include/boost 
 
 tst_group: tst_group.o
 	g++ tst_group.o -o tst_group
