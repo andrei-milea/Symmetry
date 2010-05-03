@@ -3,41 +3,44 @@
 
 #define INFINITE_ORDER  0
 
-#include "group_set.h"
+#include "slp_rep.h"
+#include "gen_rep.h"
 #include "binary_op.h"
 #include "sqmatrix.h"
 
-template <typename T,
-template <class> class CONT>
-class cGroup
+//group class
+template < typename T, typename <typename> group_rep = cGenRep<T> >
+class cGroup : public group_rep<T>
 {
 	typedef T ElementType;
-	typedef cGroup<T, CONT> SelfType;
+	typedef cGroup< T,group_rep<T> > SelfType;
+	typedef group_rep<T> RepType;
 
 public:
     cGroup(std::size_t size)
-		:m_Order(size)
+		:group_rep<T>(size)
     {};
 
     cGroup()
-		:m_Order(INFINITE_ORDER)
+		:group_rep<T>(INFINITE_ORDER)
 	{};
 
-    virtual ~cGroup()   {};
-	void GenerateGroupTable();
+    ~cGroup()   {};
 
+	void GenerateGroupTable();
 
 	std::size_t GetOrder()const
 	{
-		return m_Order;
+		return group_rep<T>::GetOrder();
 	};
-	
-protected:
-	CONT<T> m_Set;
-	std::size_t m_Order;
 };
 
 
-typedef cGroup < cSqMatrixElement<int,5,Addition>, cSet> AdMatG;
+
+//************concrete groups table**************//
+//squared matrix additive group
+typedef cGroup< cSqMatrixElement<int, 3, Additive> > cSqMatGroup3;	
+//general liniar group
+typedef cGroup< cSqMatrixElement<int, 3, Additive> > cGLGroup3;
 
 #endif
