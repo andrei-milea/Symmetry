@@ -68,7 +68,7 @@ public:
 	};
 
 
-private:
+public:
 	static ConcreteRep GetIdentity()
 	{
 		if(BinaryOp::isAdditive)
