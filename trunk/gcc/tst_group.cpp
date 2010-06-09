@@ -1,9 +1,11 @@
 #include "group.h"
+#include "intmodn.h"
 
 #include <iostream>
 
 int main()
 {
+	/*
 	//test squared matrix
 	typedef cSqMatrixElement<int, 3, Addition> sqmat3;
 	sqmat3 mat1;
@@ -26,6 +28,27 @@ int main()
 
 	//test matrix group
 	cSqMatGroup3 mat_group(4); 
+*/
+
+	typedef cSqMatrixElement<cIntModNElem<3>, 3, Addition> sqmatmod3;
+	sqmatmod3 matmod3_1;
+	matmod3_1(0,0) = cIntModNElem<3>(1);
+	matmod3_1(0,1) = cIntModNElem<3>(2);
+	matmod3_1(2,1) = cIntModNElem<3>(3);
+
+	sqmatmod3 matmod3_2;
+	matmod3_2(0,0) = cIntModNElem<3>(1);
+	matmod3_2(0,1) = cIntModNElem<3>(2);
+	matmod3_2(2,1) = cIntModNElem<3>(3);
+	matmod3_1 = matmod3_1 + matmod3_2 ;
+
+	std::cout<<matmod3_1;
+
+
+
+
+
+
 	return 0;	
 
 

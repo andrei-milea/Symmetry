@@ -43,7 +43,19 @@ public:
 		return size;
     };
 
-	std::size_t GetOrder(std::size_t group_order);
+	std::size_t GetOrder(std::size_t group_order)
+	{
+		for(unsigned int d=1; d<=group_order; d++)
+		{
+			if(group_order%d==0) 
+			{
+				if(GetNthPower(d)==cSqMatrixElement::GetIdentity())
+				{
+					return d;
+				}
+			}
+		}
+	};
 
 	SelfType GetNthPower(std::size_t n)
 	{
