@@ -9,6 +9,7 @@
 #define _BINARY_OP_H
 // Group operation policies
 
+
 class Addition
 {
 public:

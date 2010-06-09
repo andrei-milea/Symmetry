@@ -26,7 +26,7 @@ public:
 
     ~cGroup()   {};
 
-	void GenerateGroupTable();
+	void PrintGroupTable();
 
 	std::size_t GetOrder()const
 	{
