@@ -21,7 +21,9 @@ class BinaryOp,
 class ConcreteRep = boost_ubl::matrix<T> >
 class cSqMatrixElement : public ConcreteRep
 {
+public:
 	typedef cSqMatrixElement<T,SIZE,BinaryOp,ConcreteRep> SelfType;
+	typedef BinaryOp BinOpType;
 public:
     cSqMatrixElement()
     	:ConcreteRep(SIZE,SIZE)

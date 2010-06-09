@@ -5,15 +5,14 @@
 
 #include "slp_rep.h"
 #include "gen_rep.h"
-#include "binary_op.h"
 #include "sqmatrix.h"
 
 //group class
-template < typename T, typename <typename> group_rep = cGenRep<T> >
+template < typename T, template <typename> class group_rep = cGenRep >
 class cGroup : public group_rep<T>
 {
 	typedef T ElementType;
-	typedef cGroup< T,group_rep<T> > SelfType;
+	typedef cGroup<T, group_rep> SelfType;
 	typedef group_rep<T> RepType;
 
 public:
@@ -39,8 +38,8 @@ public:
 
 //************concrete groups table**************//
 //squared matrix additive group
-typedef cGroup< cSqMatrixElement<int, 3, Additive> > cSqMatGroup3;	
+typedef cGroup< cSqMatrixElement<int, 3, Addition> > cSqMatGroup3;	
 //general liniar group
-typedef cGroup< cSqMatrixElement<int, 3, Additive> > cGLGroup3;
+typedef cGroup< cSqMatrixElement<int, 3, Addition> > cGLGroup3;
 
 #endif
