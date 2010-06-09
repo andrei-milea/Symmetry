@@ -1,12 +1,13 @@
 all:	tst_group
-CFLAGS =-c  -g -Wall -I /usr/include/boost 
+CFLAGS =-c  -std=c++0x -g -Wall -I /usr/include/boost 
+GCC = /opt/usr/bin/g++
 
 tst_group: tst_group.o
-	g++ tst_group.o -o tst_group
+	$(GCC) tst_group.o -o tst_group
 
 #test configuration for group class
 tst_group.o: tst_group.cpp
-	g++ $(CFLAGS) tst_group.cpp -o tst_group.o
+	$(GCC) $(CFLAGS) tst_group.cpp -o tst_group.o
 
 
 clean:
