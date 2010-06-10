@@ -40,14 +40,9 @@ int main()
 	matmod3_2(0,0) = cIntModNElem<3>(1);
 	matmod3_2(0,1) = cIntModNElem<3>(2);
 	matmod3_2(2,1) = cIntModNElem<3>(3);
-	matmod3_1 = matmod3_1 + matmod3_2 ;
+	matmod3_1 = (matmod3_1 + matmod3_2) ;
 
 	std::cout<<matmod3_1;
-
-
-
-
-
 
 	return 0;	
 

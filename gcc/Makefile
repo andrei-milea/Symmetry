@@ -13,8 +13,8 @@ tst_group.o: tst_group.cpp
 clean:
 	rm -rf *o tst_group
 
-SRCS = *.cpp *.h
-CTAGS=ctags -x >tags
+SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
+CTAGS=etags -o tags
 
 tags:
 		${CTAGS} $(SRCS)
