@@ -14,7 +14,7 @@ class Addition
 {
 public:
 	template<typename T>	
-	static T BinOp(T &ob1, T &ob2)
+	T operator()(T &ob1, T &ob2)
 	{
 		T result = ob1 + ob2;
 		return result;
@@ -29,7 +29,7 @@ class Multiplication
 {
 public:
 	template<typename T>	
-	static T BinOp(T &ob1, T &ob2)
+	T operator()(T &ob1, T &ob2)
 	{
 		T result = ob1 * ob2;
 		return result;
