@@ -1,4 +1,3 @@
-
 #include <iostream>
 
 //Integers modulo n class  -- Zn -- Z/modn
@@ -14,27 +13,25 @@ public:
 	{};
 
 	explicit cIntModNElem(std::size_t v) 
-		: m_val(v)
+		: m_val(v%N)
    	{};
 
 	~cIntModNElem(){};
 
-	SelfType& operator+(const SelfType &a)
+	SelfType operator+(const SelfType &a)const
 	{
-		this->m_val = (this->m_val + a.m_val) % N;
-		return *this;
+		return SelfType((m_val + a.GetVal()) % N);
 	};
 
 	
-	SelfType& operator*(const SelfType &a)
+	SelfType operator*(const SelfType &a)const
 	{
-		this->m_val = (a.m_val * this->m_val) % N;
-		return *this;
+		 return SelftType((a.GetVal() * m_val) % N);
 	};
 
 	SelfType& operator=(const SelfType& intmodn)
 	{
-		this->m_val = intmodn.GetVal();
+		m_val = intmodn.GetVal();
 		return *this;
 	};
 	

@@ -25,10 +25,21 @@ public:
 	typedef cSqMatrixElement<T,SIZE,BinaryOp,ConcreteRep> SelfType;
 public:
     cSqMatrixElement()
-    	:ConcreteRep(SIZE,SIZE)
+    	:ConcreteRep(SIZE,SIZE),
+		m_BinOp()
 	{};
+
+	cSqMatrixElement(ConcreteRep& matrix_rep)
+		:ConcreteRep(matrix_rep),
+		m_BinOp()
+	{};
+
+	cSqMatrixElement(const cSqMatrixElement& mat)
+	{
+		ConcreteRep::operator=(mat);
+	};
     
-    virtual ~cSqMatrixElement()    {};
+    ~cSqMatrixElement()    {};
 
 
 	SelfType &operator=(const SelfType &mat)
@@ -36,22 +47,19 @@ public:
 		if(this != &mat)
 		{
 			ConcreteRep::operator=(mat);
-			m_BinOp = mat.GetBinOp();
+		}
+		return *this;
+	};
+	
+	SelfType &operator=(const ConcreteRep &mat)
+	{
+		if(this != &mat)
+		{
+			ConcreteRep::operator=(mat);
 		}
 		return *this;
 	};
 
-	SelfType &operator+(const SelfType &mat)
-	{
-		//ConcreteRep::operator+=( *static_cast<const ConcreteRep*>(&mat));
-		return *this;
-	};
-
-	SelfType& operator*(const SelfType &mat)
-	{
-		ConcreteRep::operator*(mat);
-		return *this;
-	};
 
 	std::size_t GetOrder()
     {
@@ -103,11 +111,6 @@ public:
 		return (out << static_cast<ConcreteRep const &> (mat));
 	};
 
-	BinaryOp GetBinOp()const
-	{
-		return m_BinOp;
-	};
-
 public:
 	static ConcreteRep GetIdentity()
 	{
@@ -119,7 +122,7 @@ public:
 
 
 private:
-	BinaryOp m_BinOp;
+	const BinaryOp m_BinOp;
 };
 
 
