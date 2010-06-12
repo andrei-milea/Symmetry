@@ -30,6 +30,21 @@ int main()
 	cSqMatGroup3 mat_group(4); 
 */
 
+
+	//test cIntModNElem  -- working
+	/*cIntModNElem<3> x1(1);
+	cIntModNElem<3> x2(3);
+	cIntModNElem<3> a = x1 + x2;
+	std::cout << "intmod element :"<<a<< "\n"; */
+
+/*working
+	boost_ubl::matrix<cIntModNElem<3> > matx(2,2);
+	boost_ubl::matrix<cIntModNElem<3> > maty(2,2);
+	boost_ubl::matrix<cIntModNElem<3> > matz(2,2);
+   	matz = matx + maty;
+	*/
+
+
 	typedef cSqMatrixElement<cIntModNElem<3>, 3, Addition> sqmatmod3;
 	sqmatmod3 matmod3_1;
 	matmod3_1(0,0) = cIntModNElem<3>(1);
