@@ -7,11 +7,12 @@
 
 namespace tr1 = std::tr1;
 
-//general group representation class
+//general (naive) group representation class
+//no public members -- used only from cGroup
 template <typename T>
 class cGenRep
 {
-public:
+protected:
 	cGenRep(std::size_t size)
 		:m_GroupOrder(size)
 	{
@@ -43,12 +44,15 @@ public:
 				});
 	};
 
-	/*void PrintElementTable(tr1::unordered_set<T>::const_iterator it)const
+	void PrintElementTable(typename tr1::unordered_set<T>::const_iterator &itt)const
 	{
-		std::for_each(m_Set.begin(), m_Set.end(), [&m_Set] (it))
-	};*/
-
-
+		std::cout<<	"Table for element " << itt <<":\n";
+		std::for_each(m_Set.begin(), m_Set.end(),
+			   	[&m_Set] (typename tr1::unordered_set<T>::const_iterator it1)
+				{
+					std::cout<< T::BinOpType::BinOp(*(it),*(it1));
+				});
+	};
 	
 
 private:

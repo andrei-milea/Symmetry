@@ -25,13 +25,6 @@ public:
 	{};
 
     ~cGroup()   {};
-
-	void PrintGroupTable();
-
-	std::size_t GetOrder()const
-	{
-		return group_rep<T>::GetOrder();
-	};
 };
 
 
