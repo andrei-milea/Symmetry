@@ -1,4 +1,6 @@
 #include <iostream>
+#include <boost/assert.hpp>
+
 
 //Integers modulo n class  -- Zn -- Z/modn
 //represents one group element modulo n 
@@ -9,43 +11,72 @@ class cIntModNElem
 
 public:
 	cIntModNElem()
-		: m_val(0)
+		: m_Val(0)
 	{};
 
 	explicit cIntModNElem(std::size_t v) 
-		: m_val(v%N)
+		: m_Val(v%N)
    	{};
 
 	~cIntModNElem(){};
 
+	cIntModNElem(const cIntModNElem& el)
+	{
+		m_Val = el.GetVal()%N;
+	};
+
+	SelfType& operator=(const SelfType& intmodn)
+	{
+		m_Val = intmodn.GetVal() % N;
+		return *this;
+	};
+	
+
+
+	SelfType GetInverse()const
+	{
+
+
+	};
+
 	SelfType operator+(const SelfType &a)const
 	{
-		return SelfType((m_val + a.GetVal()) % N);
+		return SelfType((m_Val + a.GetVal()) % N);
 	};
 
 	
 	SelfType operator*(const SelfType &a)const
 	{
-		 return SelftType((a.GetVal() * m_val) % N);
+		 return SelftType((a.GetVal() * m_Val) % N);
 	};
 
-	SelfType& operator=(const SelfType& intmodn)
-	{
-		m_val = intmodn.GetVal();
-		return *this;
-	};
-	
 	friend std::ostream& operator<<(std::ostream &of, const SelfType &intmodn)
 	{
+		BOOST_ASSERT(N > intmodn.GetVal());
 		of<<intmodn.GetVal();
 		return of;
 	};
 
 	std::size_t GetVal()const
 	{
-		return m_val;
+		BOOST_ASSERT(N > m_Val);
+		return m_Val;
+	};
+
+public:
+	template <typename OP>
+	static SelfType GetIdentity(OP BinaryOp)
+	{
+		if(BinaryOp::isAdditive)
+		{
+			return SelfType(0);
+		}
+		else
+		{
+			return SelfType(1);
+		}
 	};
 
 private:
-	std::size_t m_val;
+	std::size_t m_Val;
 };

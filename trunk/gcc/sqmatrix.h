@@ -15,32 +15,29 @@
 namespace boost_ubl = boost::numeric::ublas;
 
 //squared matrix element representation
+//T = field element type
 template <typename T,
 std::size_t SIZE,
-class BinaryOp,
 class ConcreteRep = boost_ubl::matrix<T> >
 class cSqMatrixElement : public ConcreteRep
 {
-public:
-	typedef cSqMatrixElement<T,SIZE,BinaryOp,ConcreteRep> SelfType;
+	typedef cSqMatrixElement<T, SIZE, ConcreteRep> SelfType;
+
 public:
     cSqMatrixElement()
-    	:ConcreteRep(SIZE,SIZE),
-		m_BinOp()
+    	:ConcreteRep(SIZE,SIZE)
 	{};
 
 	cSqMatrixElement(ConcreteRep& matrix_rep)
-		:ConcreteRep(matrix_rep),
-		m_BinOp()
+		:ConcreteRep(matrix_rep)
 	{};
 
 	cSqMatrixElement(const cSqMatrixElement& mat)
 	{
-		ConcreteRep::operator=(mat);
+		ConcreteRep(static_cast<ConcreteRep&>(mat));
 	};
     
     ~cSqMatrixElement()    {};
-
 
 	SelfType &operator=(const SelfType &mat)
 	{
@@ -60,69 +57,24 @@ public:
 		return *this;
 	};
 
-
-	std::size_t GetOrder()
-    {
-		std::size_t size = 0;
-		SelfType temp = (*this);
-        while(temp != cSqMatrixElement::GetIdentity())
-        {
-            temp = m_BinOp(temp,(*this));
-			size++;
-        }
-		return size;
-    };
-
-	std::size_t GetOrder(std::size_t group_order)
-	{
-		for(unsigned int d=1; d<=group_order; d++)
-		{
-			if(group_order%d==0) 
-			{
-				if(GetNthPower(d)==cSqMatrixElement::GetIdentity())
-				{
-					return d;
-				}
-			}
-		}
-	};
-
-	SelfType GetNthPower(std::size_t n)
-	{
-		SelfType temp = cSqMatrixElement::GetIdentity();
-		if(n%2 == 1)
-		{
-			(*this) = m_BinOp(*this, temp);
-		}
-		while(n > 1)
-		{
-			(*this) = m_BinOp (*this, *this);
-			n = n / 2;
-			if(n%2 == 1)
-			{
-				temp =  m_BinOp(temp, *this);
-			}
-		}
-		return temp;
-	};
-
 	friend std::ostream& operator<<(std::ostream &out, SelfType const &mat)
 	{
 		return (out << static_cast<ConcreteRep const &> (mat));
 	};
 
 public:
-	static ConcreteRep GetIdentity()
+	template <typename OP>
+	static ConcreteRep GetIdentity(OP BinaryOp)
 	{
 		if(BinaryOp::isAdditive)
+		{
 			return boost_ubl::zero_matrix<T>(SIZE, SIZE);
+		}
 		else
+		{
 			return boost_ubl::identity_matrix<T>(SIZE, SIZE);
+		}
 	};
-
-
-private:
-	const BinaryOp m_BinOp;
 };
 
 
