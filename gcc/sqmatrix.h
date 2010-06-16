@@ -34,7 +34,7 @@ public:
 
 	cSqMatrixElement(const cSqMatrixElement& mat)
 	{
-		ConcreteRep(static_cast<ConcreteRep&>(mat));
+		ConcreteRep(static_cast<const ConcreteRep&>(mat));
 	};
     
     ~cSqMatrixElement()    {};
@@ -66,7 +66,7 @@ public:
 	template <typename OP>
 	static ConcreteRep GetIdentity(OP BinaryOp)
 	{
-		if(BinaryOp::isAdditive)
+		if(OP::isAdditive)
 		{
 			return boost_ubl::zero_matrix<T>(SIZE, SIZE);
 		}

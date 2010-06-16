@@ -67,7 +67,7 @@ public:
 	template <typename OP>
 	static SelfType GetIdentity(OP BinaryOp)
 	{
-		if(BinaryOp::isAdditive)
+		if(OP::isAdditive)
 		{
 			return SelfType(0);
 		}
