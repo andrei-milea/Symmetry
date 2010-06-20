@@ -30,6 +30,6 @@ public:
 //squared matrix additive group
 typedef cGroup< cGroupElem< cSqMatrixElement<int, 3>, Addition, 20> > cSqMatGroup3;	
 //general liniar group
-typedef cGroup< cGroupElem< cSqMatrixElement<int, 3>, Multiplication, 20> > cGLgroup3;	
+typedef cGroup< cGroupElem< cSqMatrixElement<cIntModNElem<20>, 3>, Multiplication, 20> > cGLgroup3;	
 
 #endif
