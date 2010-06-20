@@ -1,5 +1,5 @@
-#ifndef GEN_REP_H_
-#define GEN_REP_H_
+#ifndef _GEN_REP_H
+#define _GEN_REP_H
 
 #include <tr1/unordered_set>
 #include <algorithm>
@@ -18,6 +18,8 @@ public:
 	typename tr1::unordered_set<T>::iterator IteratorType;
 	
 public:
+
+	//constructors
 	cGenRep()
 		:m_GroupOrder(T::GroupOrder)
 	{
@@ -31,12 +33,6 @@ public:
 	};
 
 	~cGenRep()	{};
-
-	tr1::unordered_set<T>& GetGroupSet()const
-	{
-		return m_Set;
-	};
-
 
 	typename tr1::unordered_set<T>::const_iterator GetRandomIterator()const
 	{
@@ -65,6 +61,17 @@ public:
 				{
 					std::cout<< T::BinOpType::BinOp(*(itt),*(it1));
 				});
+	};
+
+
+	//getter, setter
+	tr1::unordered_set<T>& GetGroupSet()const
+	{
+		return m_Set;
+	};
+	void SetGroupSet(tr1::unordered_set<T> &set)
+	{
+		m_Set = set;
 	};
 	
 

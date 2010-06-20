@@ -24,21 +24,22 @@ class cSqMatrixElement : public ConcreteRep
 	typedef cSqMatrixElement<T, SIZE, ConcreteRep> SelfType;
 
 public:
+
+	//constructors
     cSqMatrixElement()
     	:ConcreteRep(SIZE,SIZE)
 	{};
-
 	cSqMatrixElement(ConcreteRep& matrix_rep)
 		:ConcreteRep(matrix_rep)
 	{};
 
+    ~cSqMatrixElement()    {};
+
+	//copy constructor and assign operator
 	cSqMatrixElement(const cSqMatrixElement& mat)
 	{
 		ConcreteRep(static_cast<const ConcreteRep&>(mat));
 	};
-    
-    ~cSqMatrixElement()    {};
-
 	SelfType &operator=(const SelfType &mat)
 	{
 		if(this != &mat)
@@ -47,7 +48,6 @@ public:
 		}
 		return *this;
 	};
-	
 	SelfType &operator=(const ConcreteRep &mat)
 	{
 		if(this != &mat)
@@ -60,6 +60,12 @@ public:
 	friend std::ostream& operator<<(std::ostream &out, SelfType const &mat)
 	{
 		return (out << static_cast<ConcreteRep const &> (mat));
+	};
+
+protected:
+	SelfType GetInverse()const
+	{
+
 	};
 
 public:

@@ -7,11 +7,11 @@ tst_group: tst_group.o
 
 #test configuration for group class
 tst_group.o: tst_group.cpp
-	$(GCC) $(CFLAGS) tst_group.cpp -o tst_group.o
+	$(GCC) $(CFLAGS) tst_group.cpp -o tst_group.o 
 
 
 clean:
-	rm -rf *o tst_group
+	rm -rf *o tst_group 
 
 SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
 CTAGS=etags -o tags

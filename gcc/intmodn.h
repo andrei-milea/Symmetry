@@ -1,3 +1,6 @@
+#ifndef _INTMODN_H
+#define _INTMODN_H
+
 #include <iostream>
 #include <boost/assert.hpp>
 
@@ -10,46 +13,38 @@ class cIntModNElem
 	typedef cIntModNElem<N> SelfType;
 
 public:
+
+	//constructors
 	cIntModNElem()
 		: m_Val(0)
 	{};
-
 	explicit cIntModNElem(std::size_t v) 
 		: m_Val(v%N)
    	{};
 
-	~cIntModNElem(){};
 
+	//copy constructor and assign operator
 	cIntModNElem(const cIntModNElem& el)
 	{
 		m_Val = el.GetVal()%N;
 	};
-
 	SelfType& operator=(const SelfType& intmodn)
 	{
 		m_Val = intmodn.GetVal() % N;
 		return *this;
 	};
-	
 
+	~cIntModNElem(){};
 
-	SelfType GetInverse()const
-	{
-
-
-	};
-
+	//overloaded operators
 	SelfType operator+(const SelfType &a)const
 	{
 		return SelfType((m_Val + a.GetVal()) % N);
 	};
-
-	
 	SelfType operator*(const SelfType &a)const
 	{
 		 return SelftType((a.GetVal() * m_Val) % N);
 	};
-
 	friend std::ostream& operator<<(std::ostream &of, const SelfType &intmodn)
 	{
 		BOOST_ASSERT(N > intmodn.GetVal());
@@ -57,10 +52,22 @@ public:
 		return of;
 	};
 
+	SelfType GetInverse()const
+	{
+
+
+	};
+
+	//getter , setter
 	std::size_t GetVal()const
 	{
 		BOOST_ASSERT(N > m_Val);
 		return m_Val;
+	};
+	void SetVal(std::size_t val)
+	{
+		m_Val = val;
+		BOOST_ASSERT(N > m_Val);
 	};
 
 public:
@@ -80,3 +87,7 @@ public:
 private:
 	std::size_t m_Val;
 };
+
+
+#endif
+

@@ -1,21 +1,25 @@
-#ifndef GROUP_ELEM_
-#define GROUP_ELEM_
+#ifndef _GROUP_ELEM
+#define _GROUP_ELEM
 
 #include "sqmatrix.h"
+#include "intmodn.h"
 
 template <typename T, typename BinaryOp, std::size_t SIZE>
 class cGroupElem : public T
 {
 	typedef cGroupElem<T, BinaryOp, SIZE> SelfType;
 public:
+
+	//constructors
 	cGroupElem()
 	{
 	};
-
-	~cGroupElem()
+	
+	//copy constructor and assign operator
+	cGroupElem(const SelfType &group_elem)
 	{
+		T::operator=(group_elem);
 	};
-
 	SelfType &operator=(const SelfType &elem)
 	{
 		if(this != &elem)
@@ -25,6 +29,10 @@ public:
 		return *this;
 	};
 	
+	~cGroupElem()
+	{
+	};
+
 	std::size_t GetOrder()const
     {
 		std::size_t size = 0;
