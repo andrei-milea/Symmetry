@@ -17,30 +17,31 @@ public:
 	//constructors
 	cPermElem()
 	{
-		for(std::size_t index = 0; index < N; index++)
+		for(std::size_t index = 1; index <= N; index++)
 		{
 			m_PermutationArray[index] = index;
 		}
 	};
-	cPermElem(std::array<std::size_t, N> &permutation_array)
+	cPermElem(std::array<std::size_t, N+1> &permutation_array)
 		:m_PermutationArray(permutation_array)
 	{};
 	cPermElem(std::initializer_list<std::size_t> perm_sq)
 	{
 		cPermElem();
 		for(std::initializer_list<std::size_t>::iterator iter = perm_sq.begin();
-			   	iter != perm_sq.end(); iter++)
+			   	iter < perm_sq.end()-1; iter++)
 		{
-			if(*iter -1 < N)
+			if(*iter < N && *iter != 0)
 			{
-				m_PermutationArray[(*iter) -1] = *(iter+1);
+				m_PermutationArray[(*iter)] = *(iter+1);
 			}
 			else
 			{
 				//error
+				BOOST_ASSERT(0);
 			}
-			m_PermutationArray[*iter - 1] = *perm_sq.begin();
 		}
+		m_PermutationArray[*(perm_sq.end()-1)] = *perm_sq.begin();
 	};
 
 	//copy constructor and assign operator
@@ -58,11 +59,11 @@ public:
 
 
 	//getter,setter
-	std::array<std::size_t, N> GetPermutationArray()const
+	std::array<std::size_t, N+1> GetPermutationArray()const
 	{
 		return m_PermutationArray;
 	};
-	void SetPermutationArray(std::array<std::size_t, N> permutation_array)
+	void SetPermutationArray(std::array<std::size_t, N+1> permutation_array)
 	{
 		m_PermutationArray = permutation_array;
 	};
@@ -70,8 +71,8 @@ public:
 	//permutation mutiplication operator
 	SelfType operator*(SelfType &perm)const
 	{
-		std::array<std::size_t, N> temp_perm;
-		for(std::size_t index = 0; index < N; index++)
+		std::array<std::size_t, N+1> temp_perm;
+		for(std::size_t index = 1; index <= N; index++)
 		{
 			temp_perm[index] = perm.GetPermutationArray()[m_PermutationArray[index]];
 		}
@@ -82,9 +83,9 @@ public:
 	{
 		std::string perm_index;
 		std::string perm_val;
-		for(std::size_t index = 0; index < N; index++)
+		for(std::size_t index = 1; index <= N; index++)
 		{
-			perm_index += boost::lexical_cast<std::string>(index + 1) + " ";
+			perm_index += boost::lexical_cast<std::string>(index) + " ";
 			perm_val += boost::lexical_cast<std::string>(perm.GetPermutationArray()[index]) + " ";
 		}
 		return std::cout<<perm_index<<"\n"<<perm_val<<"\n";
@@ -92,7 +93,7 @@ public:
 
 
 private:
-	std::array<std::size_t, N> m_PermutationArray;
+	std::array<std::size_t, N+1> m_PermutationArray;
 };
 
 #endif
