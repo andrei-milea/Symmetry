@@ -91,6 +91,13 @@ public:
 		return std::cout<<perm_index<<"\n"<<perm_val<<"\n";
 	};
 
+public:
+	static SelfType GetIdentity()
+	{
+		return SelfType();
+	};
+	static const std::size_t GroupSize = 0;
+
 
 private:
 	std::array<std::size_t, N+1> m_PermutationArray;

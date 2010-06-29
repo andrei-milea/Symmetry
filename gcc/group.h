@@ -6,6 +6,7 @@
 #include "slp_rep.h"
 #include "gen_rep.h"
 #include "group_elem.h"
+#include "symmetric_rep.h"
 
 //group class
 template < typename T, template <typename> class group_rep = cGenRep >
@@ -31,5 +32,6 @@ public:
 typedef cGroup< cGroupElem< cSqMatrixElement<int, 3>, Addition, 20> > cSqMatGroup3;	
 //general liniar group
 typedef cGroup< cGroupElem< cSqMatrixElement<cIntModNElem<20>, 3>, Multiplication, 20> > cGLgroup3;	
+typedef cGroup< cGroupElem< cPermElem<3>, Multiplication >, cSymmetricRep > S3;
 
 #endif
