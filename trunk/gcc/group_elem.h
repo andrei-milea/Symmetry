@@ -3,8 +3,9 @@
 
 #include "sqmatrix.h"
 #include "intmodn.h"
+#include "permutation.h"
 
-template <typename T, typename BinaryOp, std::size_t SIZE>
+template <typename T, typename BinaryOp, std::size_t SIZE = T::GroupSize>
 class cGroupElem : public T
 {
 	typedef cGroupElem<T, BinaryOp, SIZE> SelfType;
