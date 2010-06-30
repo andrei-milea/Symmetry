@@ -65,12 +65,13 @@ badd +33 symmetric_rep.h
 badd +1 theorems.h
 badd +1 binary_op.h
 badd +1 group.h
-badd +55 sqmatrix.h
+badd +70 sqmatrix.h
 badd +1 subgroup.h
 badd +1 tst_group.cpp
 badd +31 ~/.gvimrc
 badd +1 Makefile
 badd +1 blast.sh
+badd +0 factorial.h
 silent! argdel *
 edit gen_rep.h
 set splitbelow splitright
@@ -283,14 +284,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 93 - ((0 * winheight(0) + 12) / 24)
+let s:l = 65 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-93
-normal! 0
+65
+normal! 01l
 lcd /home/projects/absalg_root/absalg/gcc
-tabedit /home/projects/absalg_root/absalg/gcc/sqmatrix.h
+tabedit /home/projects/absalg_root/absalg/gcc/factorial.h
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -392,12 +393,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 78 - ((0 * winheight(0) + 12) / 24)
+let s:l = 20 - ((19 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-78
-normal! 02l
+20
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/symmetric_rep.h
 set splitbelow splitright
@@ -449,7 +450,7 @@ setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=0
-setlocal imsearch=2
+setlocal imsearch=0
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=
@@ -501,12 +502,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 79 - ((0 * winheight(0) + 12) / 24)
+let s:l = 73 - ((3 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-79
-normal! 07l
+73
+normal! 06l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/group_elem.h
 set splitbelow splitright
@@ -610,11 +611,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 50 - ((0 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-50
+1
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/homomorphism.h
@@ -993,7 +994,7 @@ setlocal formatexpr=
 setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
-setlocal iminsert=2
+setlocal iminsert=0
 setlocal imsearch=2
 setlocal include=
 setlocal includeexpr=
@@ -1046,11 +1047,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 27 - ((0 * winheight(0) + 12) / 25)
+let s:l = 9 - ((8 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-27
+9
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/subgroup.h
@@ -1264,14 +1265,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 25)
+let s:l = 4 - ((3 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 04l
+4
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
-tabnext 2
+tabnext 4
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif
