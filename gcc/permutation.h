@@ -4,8 +4,10 @@
 #include <array>
 #include <initializer_list>
 #include<boost/lexical_cast.hpp>
+#include "factorial.h"
 
 namespace tr1 = std::tr1;
+
 
 template <std::size_t N>
 class cPermElem
@@ -96,7 +98,9 @@ public:
 	{
 		return SelfType();
 	};
-	static const std::size_t GroupSize = 0;
+
+	//GroupSize = permutation_size!
+	static const std::size_t GroupSize = Factorial<N>::value;
 
 
 private:
