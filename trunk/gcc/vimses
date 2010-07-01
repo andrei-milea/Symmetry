@@ -45,7 +45,7 @@ set showcmd
 set tabstop=4
 set termencoding=utf-8
 set whichwrap=b,s,,,,,,,,,,,,,<,>,h,l
-set window=24
+set window=22
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -71,7 +71,7 @@ badd +1 tst_group.cpp
 badd +31 ~/.gvimrc
 badd +1 Makefile
 badd +1 blast.sh
-badd +0 factorial.h
+badd +1 factorial.h
 silent! argdel *
 edit gen_rep.h
 set splitbelow splitright
@@ -284,7 +284,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 65 - ((0 * winheight(0) + 12) / 24)
+let s:l = 65 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -393,7 +393,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 20 - ((19 * winheight(0) + 12) / 24)
+let s:l = 20 - ((19 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -502,12 +502,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 73 - ((3 * winheight(0) + 12) / 24)
+let s:l = 20 - ((16 * winheight(0) + 11) / 22)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-73
-normal! 06l
+20
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/group_elem.h
 set splitbelow splitright
