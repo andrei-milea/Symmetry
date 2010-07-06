@@ -6,12 +6,12 @@
 
 int main()
 {
+	cPermElem<4> perm1({1,2});
+	cPermElem<4> perm2({3,4});
+	cPermElem<4> perm3({1,3,2,4});
+	cPermElem<4> perm4({2,3,4});
 
-	cPermElem<3> perm1({1,2,3});
-	cPermElem<3> perm2({1,2,3});
-	perm1 = perm1 * perm2;
-	std::cout<<perm1;
-	std::cout<<perm2;
+	S4 sim4(perm1, perm2, perm3, perm4);
 	return 0;	
 };
 
