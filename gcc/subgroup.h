@@ -2,8 +2,15 @@
 #define _SUBGROUP_H
 
 template<typename G>
-class cSubGroup : public G
+class cSubgroup : public G
 {
+public:
+	cSubgroup()
+	{
+	};
+	~cSubgroup()
+	{};
+
 	BOOL isNormal()const;
 };
 

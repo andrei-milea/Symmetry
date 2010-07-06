@@ -21,11 +21,11 @@ public:
 	{
 		for(std::size_t index = 1; index <= N; index++)
 		{
-			m_PermutationArray[index] = index;
+			m_PermArray[index] = index;
 		}
 	};
 	cPermElem(std::array<std::size_t, N+1> &permutation_array)
-		:m_PermutationArray(permutation_array)
+		:m_PermArray(permutation_array)
 	{};
 	cPermElem(std::initializer_list<std::size_t> perm_sq)
 	{
@@ -35,7 +35,7 @@ public:
 		{
 			if(*iter < N && *iter != 0)
 			{
-				m_PermutationArray[(*iter)] = *(iter+1);
+				m_PermArray[(*iter)] = *(iter+1);
 			}
 			else
 			{
@@ -43,17 +43,17 @@ public:
 				BOOST_ASSERT(0);
 			}
 		}
-		m_PermutationArray[*(perm_sq.end()-1)] = *perm_sq.begin();
+		m_PermArray[*(perm_sq.end()-1)] = *perm_sq.begin();
 	};
 
 	//copy constructor and assign operator
 	cPermElem(const SelfType &permutation)
 	{
-		m_PermutationArray = permutation.GetPermutationArray();
+		m_PermArray = permutation.GetPermutationArray();
 	};
 	SelfType operator=(const SelfType &permutation)
 	{
-		return m_PermutationArray = permutation.GetPermutationArray();
+		return m_PermArray = permutation.GetPermutationArray();
 	};
 
 	~cPermElem()
@@ -63,11 +63,11 @@ public:
 	//getter,setter
 	std::array<std::size_t, N+1> GetPermutationArray()const
 	{
-		return m_PermutationArray;
+		return m_PermArray;
 	};
 	void SetPermutationArray(std::array<std::size_t, N+1> permutation_array)
 	{
-		m_PermutationArray = permutation_array;
+		m_PermArray = permutation_array;
 	};
 
 	//permutation mutiplication operator
@@ -76,7 +76,7 @@ public:
 		std::array<std::size_t, N+1> temp_perm;
 		for(std::size_t index = 1; index <= N; index++)
 		{
-			temp_perm[index] = perm.GetPermutationArray()[m_PermutationArray[index]];
+			temp_perm[index] = perm.GetPermutationArray()[m_PermArray[index]];
 		}
 		return temp_perm;
 	};
@@ -93,6 +93,11 @@ public:
 		return std::cout<<perm_index<<"\n"<<perm_val<<"\n";
 	};
 
+	std::size_t GetImage(const std::size_t set_element)const
+	{
+		return m_PermArray[set_element];
+	};
+
 public:
 	static SelfType GetIdentity()
 	{
@@ -104,8 +109,11 @@ public:
 
 
 private:
-	std::array<std::size_t, N+1> m_PermutationArray;
+	std::array<std::size_t, N+1> m_PermArray;
 };
 
+typedef cPermElem<1> cTransp;
+
 #endif
+
 

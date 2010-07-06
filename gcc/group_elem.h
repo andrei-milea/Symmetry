@@ -8,7 +8,7 @@
 template <typename T, typename BinaryOp, std::size_t SIZE = T::GroupSize>
 class cGroupElem : public T
 {
-	typedef cGroupElem<T, BinaryOp, SIZE> SelfType;
+	typedef typename cGroupElem<T, BinaryOp, SIZE> SelfType;
 public:
 
 	//constructors
@@ -89,6 +89,33 @@ public:
 			}
 		}
 		return temp;
+	};
+
+/////PROPERTIES//////
+	bool CommutesWith(const SelfType &element)const
+	{
+		return( m_BinOp((*this), element) == m_BinOp(element, (*this)) );
+	};
+
+	bool IsCentralizer(const SelfType & element)const
+	{
+		return m_BinOp( m_BinOp((*this), element),  GetInverse()) == element;
+	};
+	bool IsNormalizer(const cGroup<T> &group)const
+	{
+		vector<T> &elements = group.GetElementsDimino();
+		bool is = true;
+		std::for_each(elements.begin(), elements.end(), [&elements, this, &is](std::vetor<T>::iterator it)
+		{
+			T element = m_BinOp( m_BinOp(*this, *it),  GetInverse());
+			if(std::find(elemenets.begin(), elements.end(), element) == elements.end())
+			{
+				is = false;	
+				return is;
+			}
+
+		});
+		return is;
 	};
 
 private:
