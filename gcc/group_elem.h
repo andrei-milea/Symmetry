@@ -5,10 +5,11 @@
 #include "intmodn.h"
 #include "permutation.h"
 
+
 template <typename T, typename BinaryOp, std::size_t SIZE = T::GroupSize>
 class cGroupElem : public T
 {
-	typedef typename cGroupElem<T, BinaryOp, SIZE> SelfType;
+	typedef cGroupElem<T, BinaryOp, SIZE> SelfType;
 public:
 
 	//constructors
@@ -101,14 +102,14 @@ public:
 	{
 		return m_BinOp( m_BinOp((*this), element),  GetInverse()) == element;
 	};
-	bool IsNormalizer(const cGroup<T> &group)const
+	bool IsNormalizer(const std::vector<T> &elements)const
 	{
-		vector<T> &elements = group.GetElementsDimino();
 		bool is = true;
-		std::for_each(elements.begin(), elements.end(), [&elements, this, &is](std::vetor<T>::iterator it)
+		std::for_each(elements.begin(), elements.end(),
+			   [&, m_BinOp](typename std::vector<T>::iterator it)
 		{
-			T element = m_BinOp( m_BinOp(*this, *it),  GetInverse());
-			if(std::find(elemenets.begin(), elements.end(), element) == elements.end())
+			T element = m_BinOp( m_BinOp((*this), (*it)),  GetInverse());
+			if(std::find(elements.begin(), elements.end(), element) == elements.end())
 			{
 				is = false;	
 				return is;

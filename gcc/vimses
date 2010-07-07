@@ -45,7 +45,7 @@ set showcmd
 set tabstop=4
 set termencoding=utf-8
 set whichwrap=b,s,,,,,,,,,,,,,<,>,h,l
-set window=23
+set window=24
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -176,7 +176,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 64 - ((0 * winheight(0) + 13) / 26)
+let s:l = 64 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -285,7 +285,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 42 - ((0 * winheight(0) + 13) / 26)
+let s:l = 42 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -394,7 +394,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 8 - ((5 * winheight(0) + 13) / 26)
+let s:l = 8 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -503,12 +503,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 45 - ((18 * winheight(0) + 12) / 24)
+let s:l = 107 - ((7 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-45
-normal! 0
+107
+normal! 02l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/cayley_graph.h
 set splitbelow splitright
@@ -612,7 +612,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 5 - ((0 * winheight(0) + 12) / 24)
+let s:l = 5 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -721,11 +721,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 91 - ((0 * winheight(0) + 12) / 24)
+let s:l = 121 - ((22 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-91
+121
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/homomorphism.h
@@ -830,7 +830,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -939,7 +939,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1048,7 +1048,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 2 - ((0 * winheight(0) + 12) / 24)
+let s:l = 2 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1157,11 +1157,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 19 - ((0 * winheight(0) + 12) / 24)
+let s:l = 50 - ((19 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-19
+50
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/subgroup.h
@@ -1266,12 +1266,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 14 - ((13 * winheight(0) + 13) / 26)
+let s:l = 13 - ((10 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-14
-normal! 0
+13
+normal! 01l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/tst_group.cpp
 set splitbelow splitright
@@ -1375,11 +1375,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 15 - ((0 * winheight(0) + 13) / 26)
+let s:l = 14 - ((13 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-15
+14
 normal! 01l
 lcd /home/projects/absalg_root/absalg/gcc
 tabnext 10

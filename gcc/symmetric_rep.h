@@ -17,7 +17,7 @@ class cSymmetricRep
 public:
 	typedef typename std::vector<T>::iterator Iter;
 	typedef cSymmetricRep<T> SelfType;
-	typedef typename T ElementType;
+	typedef T ElementType;
 
 public:
 	//constructors
@@ -85,7 +85,7 @@ public:
 					new_order = elements.size() + 1;
 					for(Iter it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
 					{
-						element = *it * elements[new_order];
+						T element = *it * elements[new_order];
 						if(find(elements.begin(), elements.end(), element) == elements.end())
 						{
 							AddCoset(elements, element)	;
@@ -104,7 +104,7 @@ public:
 
 	std::vector<std::size_t> GetOrbit(const std::size_t &set_element)const
 	{
-		typename std::vector<std::size_t>::iterator _Iter;
+		typedef typename std::vector<std::size_t>::iterator _Iter;
 		std::vector<std::size_t> orbit;
 		orbit.push_back(set_element);
 		std::for_each(orbit.begin(), orbit.end(), [&m_GenSet, &orbit](_Iter it)
@@ -117,7 +117,8 @@ public:
 							orbit.push_back(image);
 						}
 					}
-				})
+				});
+		return orbit;
 	};
 
 	void InsertElement(const T& element)
