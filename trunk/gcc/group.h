@@ -7,13 +7,14 @@
 #include "gen_rep.h"
 #include "group_elem.h"
 #include "symmetric_rep.h"
+#include "subgroup.h"
 
 //group class
 template < typename T, template <typename> class group_rep = cGenRep >
 class cGroup : public group_rep<T>
 {
 public:
-	typedef typename T ElementType;
+	typedef T ElementType;
 	typedef cGroup<T, group_rep> SelfType;
 	typedef group_rep<T> RepType;
 
@@ -21,43 +22,72 @@ public:
     cGroup()
 		:group_rep<T>()
     {};
+	cGroup(std::vector<ElementType> &gr_vec)
+		:group_rep<ElementType> (gr_vec)
+	{};
 
     ~cGroup()   {};
 
 
-	cSubGroup<SelfType> GetCentralizer(ElementType &element)const
+	cSubgroup<SelfType> GetCentralizer(ElementType &element)const
 	{
 		typedef typename std::vector<ElementType> GrpVec;
 		GrpVec subgrp_el;
 		subgrp_el.push_back(ElementType::GetIdentity());
 		GrpVec grp_el = this->GetElementsDimino();
 		GrpVec rem_el = grp_el;
-		std::remove(rem_el.begin(), rem_e.end(), ElementType::GetIdentity());
+		std::remove(rem_el.begin(), rem_el.end(), ElementType::GetIdentity());
 		while(!rem_el.empty())
 		{
 			std::for_each(grp_el.begin(), grp_el.end(), 
-					[&rem_el, &subgrp_el] (GrpVec::iterator it1)
+					[&rem_el, &subgrp_el] (typename GrpVec::iterator it1)
 			{
-				if(rem_el.begin()->IsCentralizer(*it))
+				if(rem_el.begin()->IsCentralizer(*it1))
 				{
 					subgrp_el.push_back(rem_el.begin());
 					rem_el.erase(rem_el.begin());
 				}
 				else
 				{
-					rem_el.erase(it);
+					rem_el.erase(it1);
 				}
-			})
+			});
 		}
-		return cSubGroup<SelfType>(subgrp_el);
+		cSubgroup<SelfType> subgroup(subgrp_el);
+		subgroup.isNormal(true);
+		return subgroup;
 	};
 
-	cSubGroup<SelfType> GetCenter()const
+	cSubgroup<SelfType> GetCenter()const
 	{
-
+		typedef typename std::vector<ElementType> GrpVec;
+		GrpVec subgrp_el;
+		subgrp_el.push_back(ElementType::GetIdentity());
+		GrpVec grp_el = this->GetElementsDimino();
+		GrpVec rem_el = grp_el;
+		std::remove(rem_el.begin(), rem_el.end(), ElementType::GetIdentity());
+		while(!rem_el.empty())
+		{
+			bool commutes = true;
+			for(typename GrpVec::iterator it = grp_el.begin(); it != grp_el.end(); it++)
+			{
+				if(!rem_el.begin()->CommutesWith(*it))
+				{
+					commutes = false;
+					break;
+				}
+			}
+			if(commutes)
+			{
+				subgrp_el.push_back(*rem_el.begin());
+			}
+			rem_el.erase(rem_el.begin());
+		}
+		cSubgroup<SelfType> subgroup(subgrp_el);
+		subgroup.isNormal(true);
+		return subgroup;
 	};
 };
-
 
 
 //************concrete groups table**************//
