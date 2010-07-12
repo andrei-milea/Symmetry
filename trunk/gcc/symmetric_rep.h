@@ -125,18 +125,7 @@ public:
 	{
 		m_Elements.push_back(element);
 	};
-
-
-private:
-	void AddCoset(std::vector<T>& elements, const T& element)
-	{
-		std::size_t order = elements.end();
-		for(std::size_t index = 0; index < order; index++)
-		{
-			elements.push_back(element * elements[index]);
-		}
-	};
-
+	
 	std::vector<T> GetCyclicGroup(T& element)const
 	{
 		std::vector<T> cyclic_group = T::GetIdentity();
@@ -156,6 +145,16 @@ private:
 	void SetGeneratorsSet(std::vector<T> &gen_set)
 	{
 		m_GenSet = gen_set;
+	};
+
+private:
+	void AddCoset(std::vector<T>& elements, const T& element)
+	{
+		std::size_t order = elements.end();
+		for(std::size_t index = 0; index < order; index++)
+		{
+			elements.push_back(element * elements[index]);
+		}
 	};
 
 private:
