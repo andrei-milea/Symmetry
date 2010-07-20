@@ -9,7 +9,9 @@
 template <typename T, typename BinaryOp, std::size_t SIZE = T::GroupSize>
 class cGroupElem : public T
 {
+public:
 	typedef cGroupElem<T, BinaryOp, SIZE> SelfType;
+	typedef T ConcreteElType;
 public:
 
 	//constructors

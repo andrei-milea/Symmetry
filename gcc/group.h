@@ -25,8 +25,10 @@ public:
 	cGroup(std::vector<ElementType> &gr_vec)
 		:group_rep<ElementType> (gr_vec)
 	{};
-	cGroup(RepType&& rep)
-		:group_rep<ElementType>(rep)
+	//TODO -- add constructor inheritance in the next gcc release
+	//broken compiler ???
+	cGroup (std::initializer_list<T> ini_list)
+		:group_rep<T>(ini_list)
 	{};
 
     ~cGroup()   {};
@@ -40,12 +42,12 @@ public:
 
 	cSubgroup<SelfType> GetCenter()const
 	{
-		cSubgroup<SelfType> subgroup(GetCenterEl(element));
+		cSubgroup<SelfType> subgroup(GetCenterEl());
 		subgroup.isNormal(true);
 		return subgroup;
 	};
 	
-	cSubgroup<SelfType> GetNormalizerEl(const cSubgroup<SelfType> &_subgrp)const
+	cSubgroup<SelfType> GetNormalizer(const cSubgroup<SelfType> &_subgrp)const
 	{
 		cSubgroup<SelfType> subgroup(GetNormalizerEl(_subgrp));
 		subgroup.isNormal(true);

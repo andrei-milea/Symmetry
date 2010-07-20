@@ -42,7 +42,9 @@ public:
 					layer0.push_back(subgrp);
 				}
 			});
-		m_Lattice[0] = layer0;
+		
+		std::size_t layer_index = 0;
+		m_Lattice[layer_index] = layer0;
 
 		//loop through the lattice layers
 		//generate ith layer from (i-1)th layer
@@ -71,10 +73,25 @@ public:
 				while(!avoid_old_elem.empty())
 				{
 					T g = avoid_old_elem.begin();
-					while(g != )
+					if(Contains_prime_pow_el(subgroup_el, g))
+					{
+						cSubgroup<T> newsubgrp();
+						newsubgrp.AddCoset(subgroup_el, g);
+						avoid_old_elem = avoid_old_elem - newsubgrp.GetElementsDimino;
+					}
+					else
+					{
+						avoid_old_elem.remove(g);
+					}
 				}
 			}
 		}
+	};
+
+private:
+	bool Contains_prime_pow_el(const cSubgroup<T> grp, const T element)const
+	{
+
 	};
 
 private:
