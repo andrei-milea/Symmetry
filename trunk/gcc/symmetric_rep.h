@@ -30,7 +30,11 @@ public:
 	};
 	cSymmetricRep(std::initializer_list<T> perm_list)
 	{
-
+		for(std::initializer_list<std::size_t>::iterator iter = perm_list.begin();
+			   	iter < perm_list.end()-1; iter++)
+		{
+			m_GenSet.insert(m_GenSet.end(),(*iter));
+		}
 	};
 
 	//copy constructor and assign operator
