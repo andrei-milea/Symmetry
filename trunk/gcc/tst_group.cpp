@@ -6,6 +6,11 @@
 
 int main()
 {
+	cPermElem<3> perm;
+	cPermElem<3> permt({1,3,2});
+	//perm = perm * permt;
+	//if(perm * permt == permt * perm)
+		std::cout<<perm<<"\n"<<permt<<"\n";
 	cPermElem<4> perm1({1,2});
 	cPermElem<4> perm2({3,4});
 	cPermElem<4> perm3({1,3,2,4});
