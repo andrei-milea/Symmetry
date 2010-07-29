@@ -4,9 +4,11 @@
 #include <array>
 #include <initializer_list>
 #include<boost/lexical_cast.hpp>
+#include <iostream>
+#include <boost/assert.hpp>
 #include "factorial.h"
 
-namespace tr1 = std::tr1;
+//namespace tr1 = std::tr1;
 
 
 template <std::size_t N>
@@ -33,14 +35,13 @@ public:
 		for(std::initializer_list<std::size_t>::iterator iter = perm_sq.begin();
 			   	iter < perm_sq.end()-1; iter++)
 		{
-			if(*iter < N && *iter != 0)
+			if(*iter <= N && *iter != 0)
 			{
 				m_PermArray[(*iter)] = *(iter+1);
 			}
 			else
 			{
-				//error
-				BOOST_ASSERT(0);
+				BOOST_ASSERT(false);
 			}
 		}
 		m_PermArray[*(perm_sq.end()-1)] = *perm_sq.begin();
@@ -71,7 +72,7 @@ public:
 	};
 
 	//permutation mutiplication operator
-	SelfType operator*(SelfType &perm)const
+	SelfType operator*(const SelfType &perm)const
 	{
 		std::array<std::size_t, N+1> temp_perm;
 		for(std::size_t index = 1; index <= N; index++)
@@ -80,6 +81,18 @@ public:
 		}
 		return temp_perm;
 	};
+
+	bool operator==(const SelfType &perm)
+	{
+		for(std::size_t index = 1; index <= N; index++)
+		{
+			if(m_PermArray[index] != perm.GetPermutationArray()[index])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
 	friend std::ostream& operator<<(std::ostream &of, const SelfType &perm)
 	{
