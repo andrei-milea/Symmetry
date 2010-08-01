@@ -6,16 +6,14 @@
 
 int main()
 {
-	cPermElem<3> perm;
-	cPermElem<3> permt({1,3,2});
-	//perm = perm * permt;
-	//if(perm * permt == permt * perm)
-		std::cout<<perm<<"\n"<<permt<<"\n";
-	cPermElem<4> perm1({1,2});
-	cPermElem<4> perm2({3,4});
-	cPermElem<4> perm3({1,3,2,4});
-	cPermElem<4> perm4({2,3,4});
-
+	cPermElem<3> s1;
+	cPermElem<3> s2({2,3});
+	cPermElem<3> s3({1,2});
+	cGroupElem< cPermElem<3>, Multiplication> elem1(s1);
+	cGroupElem< cPermElem<3>, Multiplication> elem2(s2);
+	cGroupElem< cPermElem<3>, Multiplication> elem3(s3);
+	std::cout<<elem1.GetOrder()<<"\n"<<elem2.GetOrder()<<"\n"<<elem3.GetOrder()<<"\n";
+	std::cout<<"aaa: " <<elem2.GetOrder(cGroupElem< cPermElem<3>, Multiplication>::GroupSize)<<"\n";
 	//S4 sim4({perm1, perm2, perm3, perm4});
 	return 0;	
 };

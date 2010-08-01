@@ -18,7 +18,15 @@ public:
 	cGroupElem()
 	{
 	};
-	
+	cGroupElem(T &concrete_obj)
+		:T(concrete_obj)
+	{
+	};
+
+	cGroupElem(const T &concrete_obj)
+		:T(concrete_obj)
+	{
+	};
 	//copy constructor and assign operator
 	cGroupElem(const SelfType &group_elem)
 	{
@@ -39,9 +47,9 @@ public:
 
 	std::size_t GetOrder()const
     {
-		std::size_t size = 0;
+		std::size_t size = 1;
 		SelfType temp = (*this);
-        while(temp != T::GetIdentity(m_BinOp))
+        while(temp != ConcreteElType::GetIdentity(m_BinOp))
         {
             temp = m_BinOp(temp,(*this));
 			size++;
@@ -49,7 +57,7 @@ public:
 		return size;
     };
 
-	std::size_t GetOrder(std::size_t group_order)const
+	std::size_t GetOrder(std::size_t group_order)//const
 	{
 		for(unsigned int d=1; d<=group_order; d++)
 		{
@@ -61,6 +69,7 @@ public:
 				}
 			}
 		}
+		return 0;
 	};
 
 	SelfType GetInverse()const
@@ -77,19 +86,19 @@ public:
 
 	SelfType GetNthPower(std::size_t n)const
 	{
-		SelfType temp = T::GetIdentity(m_BinOp);
-		if(n%2 == 1)
+		SelfType temp = SelfType(T::GetIdentity(m_BinOp));
+		while(n > 2)
 		{
-			(*this) = m_BinOp(*this, temp);
-		}
-		while(n > 1)
-		{
-			(*this) = m_BinOp (*this, *this);
-			n = n / 2;
 			if(n%2 == 1)
 			{
 				temp =  m_BinOp(temp, *this);
+				n--;
 			}
+			else
+			{
+				temp = m_BinOp (temp, temp);
+				n = n / 2;
+			}			
 		}
 		return temp;
 	};
@@ -119,6 +128,11 @@ public:
 
 		});
 		return is;
+	};
+
+	BinaryOp GetBinaryOp()const
+	{
+		return m_BinOp;
 	};
 
 private:
