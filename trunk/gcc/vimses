@@ -59,7 +59,7 @@ badd +1 permutation.h
 badd +1 Makefile
 badd +1 symmetric_rep.h
 badd +1 tst_group.cpp
-badd +0 gen_rep.h
+badd +1 gen_rep.h
 args permutation.h
 edit permutation.h
 set splitbelow splitright
@@ -163,12 +163,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 46 - ((20 * winheight(0) + 12) / 24)
+let s:l = 128 - ((23 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-46
-normal! 02l
+128
+normal! 018l
 tabedit symmetric_rep.h
 set splitbelow splitright
 set nosplitbelow
@@ -271,12 +271,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 170 - ((0 * winheight(0) + 12) / 24)
+let s:l = 71 - ((20 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-170
-normal! 0
+71
+normal! 01l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/tst_group.cpp
 set splitbelow splitright
@@ -380,12 +380,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 11 - ((0 * winheight(0) + 12) / 24)
+let s:l = 12 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
-normal! 02l
+12
+normal! 027l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/gen_rep.h
 set splitbelow splitright
@@ -489,11 +489,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 44 - ((23 * winheight(0) + 12) / 24)
+let s:l = 45 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-44
+45
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/Makefile
@@ -605,7 +605,7 @@ normal! zt
 16
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
-tabnext 4
+tabnext 3
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

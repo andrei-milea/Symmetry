@@ -21,7 +21,7 @@ public:
 	//constructors
 	cPermElem()
 	{
-		for(std::size_t index = 1; index <= N; index++)
+		for(std::size_t index = 0; index <= N; index++)
 		{
 			m_PermArray[index] = index;
 		}
@@ -31,17 +31,17 @@ public:
 	{};
 	cPermElem(std::initializer_list<std::size_t> perm_sq)
 	{
-		cPermElem();
+		//g++  bug??
+		for(std::size_t index = 0; index <= N; index++)
+		{
+			m_PermArray[index] = index;
+		}
 		for(std::initializer_list<std::size_t>::iterator iter = perm_sq.begin();
 			   	iter < perm_sq.end()-1; iter++)
 		{
 			if(*iter <= N && *iter != 0)
 			{
 				m_PermArray[(*iter)] = *(iter+1);
-			}
-			else
-			{
-				BOOST_ASSERT(false);
 			}
 		}
 		m_PermArray[*(perm_sq.end()-1)] = *perm_sq.begin();
@@ -82,7 +82,7 @@ public:
 		return temp_perm;
 	};
 
-	bool operator==(const SelfType &perm)
+	bool operator==(const SelfType &perm)const
 	{
 		for(std::size_t index = 1; index <= N; index++)
 		{
@@ -92,7 +92,13 @@ public:
 			}
 		}
 		return true;
-	}
+	};
+
+	bool operator!=(const SelfType &perm)const
+	{
+		return !(perm == *this);
+	};
+
 
 	friend std::ostream& operator<<(std::ostream &of, const SelfType &perm)
 	{
@@ -112,7 +118,8 @@ public:
 	};
 
 public:
-	static SelfType GetIdentity()
+	template <typename OP>
+	static SelfType GetIdentity(OP &op)
 	{
 		return SelfType();
 	};
@@ -125,7 +132,7 @@ private:
 	std::array<std::size_t, N+1> m_PermArray;
 };
 
-typedef cPermElem<1> cTransp;
+typedef cPermElem<2> cTransp;
 
 #endif
 

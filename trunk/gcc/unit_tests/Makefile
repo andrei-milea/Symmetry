@@ -1,4 +1,4 @@
-all: test_perm test_group_el test_symmetric
+all: test_group_el test_symmetric
 CFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 GCC = /opt/usr/bin/g++
 

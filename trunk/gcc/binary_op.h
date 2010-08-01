@@ -10,26 +10,27 @@
 // Group operation policies
 
 
-class Addition
+class Addition 
 {
 public:
 	template<typename T>	
-	T operator()(T &ob1, T &ob2)
+	T operator()(const T &ob1, const T &ob2)const
 	{
 		T result = ob1 + ob2;
 		return result;
 	};
+
 
 	static const bool isAdditive = true;
 	static const bool isMultiplicative = false;
 	static const bool isComposition = false;
 };
 
-class Multiplication
+class Multiplication 
 {
 public:
 	template<typename T>	
-	T operator()(T &ob1, T &ob2)
+	T operator()(const T &ob1, const T &ob2)const
 	{
 		T result = ob1 * ob2;
 		return result;
@@ -40,11 +41,11 @@ public:
 	static const bool isComposition = false;
 };
 
-class Composition
+class Composition 
 {
 public:
 	template<typename T>	
-	static T BinOp(T &ob1, T &ob2)
+	T operator()(const T &ob1, const T &ob2)const
 	{
 		T result = ob1 * ob2;
 		return result;
