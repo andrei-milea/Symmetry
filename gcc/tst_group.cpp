@@ -14,6 +14,7 @@ int main()
 	cGroupElem< cPermElem<3>, Multiplication> elem3(s3);
 	std::cout<<elem1.GetOrder()<<"\n"<<elem2.GetOrder()<<"\n"<<elem3.GetOrder()<<"\n";
 	std::cout<<"aaa: " <<elem2.GetOrder(cGroupElem< cPermElem<3>, Multiplication>::GroupSize)<<"\n";
+	std::cout<<elem2.GetNthPower(2);
 	//S4 sim4({perm1, perm2, perm3, perm4});
 	return 0;	
 };

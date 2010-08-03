@@ -86,21 +86,7 @@ public:
 
 	SelfType GetNthPower(std::size_t n)const
 	{
-		SelfType temp = SelfType(T::GetIdentity(m_BinOp));
-		while(n > 2)
-		{
-			if(n%2 == 1)
-			{
-				temp =  m_BinOp(temp, *this);
-				n--;
-			}
-			else
-			{
-				temp = m_BinOp (temp, temp);
-				n = n / 2;
-			}			
-		}
-		return temp;
+		return GetNthPower(n,*this);
 	};
 
 /////PROPERTIES//////
@@ -133,6 +119,28 @@ public:
 	BinaryOp GetBinaryOp()const
 	{
 		return m_BinOp;
+	};
+
+private:
+	SelfType GetNthPower(std::size_t n, const SelfType &element)const
+	{
+		if(0 == n)
+		{
+			return T::GetIdentity(m_BinOp);
+		}
+		if(1 == n)
+		{
+			return *this;
+		}
+		if(n % 2 == 0)
+		{
+			return m_BinOp(GetNthPower(n/2, element),GetNthPower(n/2, element));
+		}
+		else
+		{
+			return m_BinOp(m_BinOp(GetNthPower(n/2, element), GetNthPower(n/2, element)),
+				   element);
+		}
 	};
 
 private:
