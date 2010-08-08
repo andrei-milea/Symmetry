@@ -60,7 +60,7 @@ badd +1 Makefile
 badd +1 symmetric_rep.h
 badd +1 tst_group.cpp
 badd +1 gen_rep.h
-badd +0 group_elem.h
+badd +1 group_elem.h
 args permutation.h
 edit permutation.h
 set splitbelow splitright
@@ -164,7 +164,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 128 - ((0 * winheight(0) + 12) / 24)
+let s:l = 128 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -272,7 +272,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 71 - ((0 * winheight(0) + 12) / 24)
+let s:l = 71 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -381,7 +381,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 142 - ((18 * winheight(0) + 12) / 24)
+let s:l = 142 - ((20 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -490,7 +490,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 17 - ((10 * winheight(0) + 12) / 24)
+let s:l = 17 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -599,7 +599,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 45 - ((0 * winheight(0) + 12) / 24)
+let s:l = 45 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -708,7 +708,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 16 - ((0 * winheight(0) + 12) / 24)
+let s:l = 16 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt

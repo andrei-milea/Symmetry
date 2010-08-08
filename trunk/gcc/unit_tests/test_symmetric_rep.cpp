@@ -1,7 +1,14 @@
-#include "group.h"
+
+#include "../group.h"
+
+#include "boost/test/included/unit_test.hpp"
+using namespace boost::unit_test;
 
 void test_s3_trivial()
 {
+
+	//test constructors
+	
 	//build the group
 	//use this construction to avoid g++ bug with 
 	//initializer list
@@ -13,6 +20,14 @@ void test_s3_trivial()
 	generators.push_back(elem1);
 	generators.push_back(elem2);
 	S3 g1(generators);
+
+	S3 g2;
+	g2.SetGeneratorsSet(generators);
+
+	BOOST_CHECK(g1 == g2);
+
+
+	//test copy and assignment
 
 }
 
