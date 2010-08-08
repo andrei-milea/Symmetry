@@ -28,14 +28,16 @@ public:
 		:m_GenSet(generators_set)
 	{
 	};
-	cSymmetricRep(std::initializer_list<T> perm_list)
+
+	//gcc bug?
+	/*cSymmetricRep(std::initializer_list<T> perm_list)
 	{
 		for(std::initializer_list<std::size_t>::iterator iter = perm_list.begin();
 			   	iter < perm_list.end()-1; iter++)
 		{
 			m_GenSet.insert(m_GenSet.end(),(*iter));
 		}
-	};
+	};*/
 
 	//copy constructor and assign operator
 	cSymmetricRep(const SelfType &sym_rep)		
@@ -130,6 +132,28 @@ public:
 		m_Elements.push_back(element);
 	};
 	
+	//getter, setter
+	const std::vector<T> &GetGeneratorsSet()const
+	{
+		return m_GenSet;
+	};
+	
+	void SetGeneratorsSet(const std::vector<T> &gen_set)
+	{
+		m_GenSet = gen_set;
+	};
+
+	bool operator==(const SelfType &symgrp)const
+	{
+		return m_GenSet == symgrp.GetGeneratorsSet();
+	};
+
+	bool operator!=(const SelfType &symgrp)const
+	{
+		return !(*this == symgrp);
+	};
+
+private:
 	std::vector<T> GetCyclicGroup(T& element)const
 	{
 		std::vector<T> cyclic_group = T::GetIdentity();
@@ -141,17 +165,7 @@ public:
 		return cyclic_group;
 	};
 
-	//getter, setter
-	std::vector<T> &GetGeneratorsSet()const
-	{
-		return m_GenSet;
-	};
-	void SetGeneratorsSet(std::vector<T> &gen_set)
-	{
-		m_GenSet = gen_set;
-	};
 
-private:
 	void AddCoset(std::vector<T>& elements, const T& element)
 	{
 		std::size_t order = elements.end();

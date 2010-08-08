@@ -117,6 +117,24 @@ public:
 		return m_PermArray[set_element];
 	};
 
+	SelfType GetMultInverse()const
+	{
+		SelfType perm;
+		std::array<std::size_t, N+1> perm_array;
+		for(std::size_t index = 0; index <= N; index++) 
+		{
+			 perm_array[m_PermArray[index]] = index;
+		}
+		perm.SetPermutationArray(perm_array);
+		return perm;
+	};
+
+	SelfType GetAdInverse()const
+	{
+		return GetMultInverse();
+	};
+
+
 public:
 	template <typename OP>
 	static SelfType GetIdentity(OP &op)

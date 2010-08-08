@@ -99,21 +99,18 @@ public:
 	{
 		return m_BinOp( m_BinOp((*this), element),  GetInverse()) == element;
 	};
-	bool IsNormalizer(const std::vector<T> &elements)const
+	bool IsNormalizer(std::vector<SelfType> &elements)
 	{
-		bool is = true;
-		std::for_each(elements.begin(), elements.end(),
-			   [&, m_BinOp](typename std::vector<T>::iterator it)
+		for(std::size_t index = 0; index < elements.size(); index++)
 		{
-			T element = m_BinOp( m_BinOp((*this), (*it)),  GetInverse());
+			SelfType element = m_BinOp( m_BinOp((*this), elements[index]), GetInverse());
 			if(std::find(elements.begin(), elements.end(), element) == elements.end())
 			{
-				is = false;	
-				return is;
+				return false;
 			}
 
-		});
-		return is;
+		};
+		return true;
 	};
 
 	BinaryOp GetBinaryOp()const

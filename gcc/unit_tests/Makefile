@@ -1,4 +1,4 @@
-all: test_group_el test_symmetric
+all: test_symmetric
 CFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 GCC = /opt/usr/bin/g++
 
@@ -7,6 +7,10 @@ test_perm: test_permutation.cpp
 
 test_group_el: test_group_elem.cpp
 	$(GCC) $(CFLAGS) test_group_elem.cpp -o test_group_el
+
+test_symmetric: test_symmetric_rep.cpp
+	$(GCC) $(CFLAGS) test_symmetric_rep.cpp -o test_symmetric
+
 
 
 

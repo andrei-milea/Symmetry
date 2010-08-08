@@ -29,9 +29,11 @@ void test_order_power()
 	cPermElem<3> s1;
 	cPermElem<3> s2({2,3});
 	cPermElem<3> s3({1,2});
+	cPermElem<3> s4({3,2});
 	cGroupElem< cPermElem<3>, Multiplication> elem1(s1);
 	cGroupElem< cPermElem<3>, Multiplication> elem2(s2);
 	cGroupElem< cPermElem<3>, Multiplication> elem3(s3);
+	cGroupElem< cPermElem<3>, Multiplication> elem4(s4);
 
 	//test perm elem power
 	BOOST_CHECK(elem1.GetNthPower(2) == elem1);
@@ -49,9 +51,8 @@ void test_order_power()
 
 
 	//test inverse
-	//BOOST_CHECK(elem1.GetInverse() == elem1);
-	//BOOST_CHECK(elem2.GetInverse() == elem2);
-	//BOOST_CHECK(elem3.GetInverse() == elem3);
+	BOOST_CHECK(elem1.GetInverse() == elem1);
+	BOOST_CHECK(elem2.GetInverse() == elem4);
 
 	}
 
@@ -71,6 +72,17 @@ void test_properties()
 	BOOST_CHECK(!elem2.CommutesWith(elem3));
 	BOOST_CHECK(!elem3.CommutesWith(elem2));
 
+	//test is centralizer
+	BOOST_CHECK(elem1.IsCentralizer(elem2));
+	BOOST_CHECK(elem1.IsCentralizer(elem3));
+	BOOST_CHECK(!elem2.IsCentralizer(elem3));
+
+	//test is normalizer
+	std::vector<cGroupElem< cPermElem<3>, Multiplication> > elements;
+	elements.push_back(elem1);
+	elements.push_back(elem2);
+	elements.push_back(elem3);
+	BOOST_CHECK(elem1.IsNormalizer(elements));
 }
 
 
