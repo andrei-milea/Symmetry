@@ -103,11 +103,6 @@ public:
 		}
 	};
 
-	void SetElements()
-	{
-		m_Elements = GetElementsDimino();
-	};
-
 	std::vector<std::size_t> GetOrbit(const std::size_t &set_element)const
 	{
 		typedef typename std::vector<std::size_t>::iterator _Iter;
@@ -127,11 +122,6 @@ public:
 		return orbit;
 	};
 
-	void InsertElement(const T& element)
-	{
-		m_Elements.push_back(element);
-	};
-	
 	//getter, setter
 	const std::vector<T> &GetGeneratorsSet()const
 	{
@@ -153,14 +143,21 @@ public:
 		return !(*this == symgrp);
 	};
 
-private:
-	std::vector<T> GetCyclicGroup(T& element)const
+	T GetIdentity()const
 	{
-		std::vector<T> cyclic_group = T::GetIdentity();
-		while(element != T::GetIdentity())
+		return T::GetIdentity();
+	};
+
+	public://private:
+	std::vector<T> GetCyclicGroup(const T& element)const
+	{
+		T temp_el = element;
+		std::vector<T> cyclic_group;
+	    cyclic_group.push_back(T::GetIdentity());
+		while(temp_el != T::GetIdentity())
 		{
-			cyclic_group.push_back(element);
-			element = element * element;
+			cyclic_group.push_back(temp_el);
+			temp_el = temp_el * element;
 		}
 		return cyclic_group;
 	};
@@ -177,7 +174,6 @@ private:
 
 private:
 	std::vector<T> m_GenSet;
-	std::vector<T> m_Elements;
 };
 
 #endif
