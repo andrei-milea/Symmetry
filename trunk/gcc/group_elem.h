@@ -113,6 +113,12 @@ public:
 		return true;
 	};
 
+	static SelfType GetIdentity()
+	{
+		BinaryOp _BinOp;
+		return SelfType(ConcreteElType::GetIdentity(_BinOp));
+	};
+
 	BinaryOp GetBinaryOp()const
 	{
 		return m_BinOp;
@@ -122,22 +128,14 @@ private:
 	SelfType GetNthPower(std::size_t n, const SelfType &element)const
 	{
 		if(0 == n)
-		{
 			return T::GetIdentity(m_BinOp);
-		}
 		if(1 == n)
-		{
 			return *this;
-		}
-		if(n % 2 == 0)
-		{
+		if(0 == n % 2 )
 			return m_BinOp(GetNthPower(n/2, element),GetNthPower(n/2, element));
-		}
 		else
-		{
 			return m_BinOp(m_BinOp(GetNthPower(n/2, element), GetNthPower(n/2, element)),
 				   element);
-		}
 	};
 
 private:

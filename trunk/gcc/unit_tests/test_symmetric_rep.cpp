@@ -4,6 +4,9 @@
 #include "boost/test/included/unit_test.hpp"
 using namespace boost::unit_test;
 
+
+	//BOOST_TEST_MESSAGE( "cyc_grp:" << cyc_grp[0]<<"\n" << cyc_grp[1]<<"\n");
+	
 void test_s3_trivial()
 {
 
@@ -28,16 +31,83 @@ void test_s3_trivial()
 
 
 	//test copy and assignment
+	S3 g3(g2);
+	S3 g4 = g1;
+
+	BOOST_CHECK(g3 == g4);
+	BOOST_CHECK(g4 == g2);
 
 }
 
-void test_s3_order_power()
+void test_s3_private()
 {
+	//REMEMBER: make methods public first
+	
+/////////test get_cyclic_group//////////
+	
+	cPermElem<3> s1({1,2});
+	cPermElem<3> s2({2,3});
+	cGroupElem< cPermElem<3>, Multiplication> elem1(s1);
+	cGroupElem< cPermElem<3>, Multiplication> elem2(s2);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> >  generators;
+	generators.push_back(elem1);
+	generators.push_back(elem2);
+	S3 g1(generators);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > cyc_grp;
+
+	//test for identity
+	cyc_grp.push_back(g1.GetIdentity());
+	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(g1.GetIdentity()));
+
+	//test for elem1
+	cyc_grp.clear();
+	cyc_grp.push_back(g1.GetIdentity());
+	cyc_grp.push_back(elem1);
+
+	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem1));
+
+	//test for elem2
+	cyc_grp.clear();
+	cyc_grp.push_back(g1.GetIdentity());
+	cyc_grp.push_back(elem2);
+	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem2));
+
+	//test for elem3
+	cPermElem<3> s3({1,3,2});
+	cPermElem<3> s4({1,2,3});
+	cGroupElem< cPermElem<3>, Multiplication> elem3(s3);
+	cGroupElem< cPermElem<3>, Multiplication> elem4(s4);
+	cyc_grp.clear();
+	cyc_grp.push_back(g1.GetIdentity());
+	cyc_grp.push_back(elem3);
+	cyc_grp.push_back(elem4);
+	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem3));
+
+	//test for elem4
+	cyc_grp.clear();
+	cyc_grp.push_back(g1.GetIdentity());
+	cyc_grp.push_back(elem4);
+	cyc_grp.push_back(elem3);
+	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem4));
+
+///////////////////////////////////////
+
+/////////////test add_coset//////////////
+
+
+
+
+///////////////////////////////////////
+
 }
 
 
-void test_s3_properties()
+void test_s3_elements()
 {
+	//test get elements naive
+	
+
+	//test get elements dimino
 }
 
 
@@ -45,10 +115,7 @@ void test_s3_properties()
 test_suite* init_unit_test_suite( int argc, char* argv[] ) 
 {
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_trivial ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_order_power ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_properties ) );
-
-    return 0;
-};
-
-
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_private ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_elements ) );
+	return 0;
+}; 
