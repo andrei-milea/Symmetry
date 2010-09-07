@@ -93,8 +93,15 @@ void test_s3_private()
 ///////////////////////////////////////
 
 /////////////test add_coset//////////////
-
-
+	g1.AddCoset(cyc_grp, elem2);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > tst_vec;
+	tst_vec.push_back(g1.GetIdentity());
+	tst_vec.push_back(elem4);
+	tst_vec.push_back(elem3);
+	tst_vec.push_back(elem2);
+	tst_vec.push_back(elem2 * elem4);
+	tst_vec.push_back(elem2 * elem3);
+	BOOST_CHECK(cyc_grp == tst_vec);
 
 
 ///////////////////////////////////////
@@ -104,10 +111,25 @@ void test_s3_private()
 
 void test_s3_elements()
 {
+
 	//test get elements naive
-	
+	cPermElem<3> s1({1,2});
+	cPermElem<3> s2({2,3});
+	cGroupElem< cPermElem<3>, Multiplication> elem1(s1);
+	cGroupElem< cPermElem<3>, Multiplication> elem2(s2);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> >  generators;
+	generators.push_back(elem1);
+	generators.push_back(elem2);
+	S3 g1(generators);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements = g1.GetElementstNaive();
+	/*for(std::size_t i = 0; i < elements.size(); i++)
+	{
+		BOOST_TEST_MESSAGE( "element:\n" <<elements[i]<<"\n");
+	}*/
 
 	//test get elements dimino
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elementsD = g1.GetElementsDimino();
+	//BOOST_ASSERT(elements == elementsD);
 }
 
 

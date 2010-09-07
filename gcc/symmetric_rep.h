@@ -15,7 +15,7 @@ template <typename T>
 class cSymmetricRep
 {
 public:
-	typedef typename std::vector<T>::iterator Iter;
+	typedef typename std::vector<T>::const_iterator Iter;
 	typedef cSymmetricRep<T> SelfType;
 	typedef T ElementType;
 
@@ -57,20 +57,20 @@ public:
 	{
 		std::vector<T> elements;
 		elements.push_back(T::GetIdentity());
-		std::for_each(elements.begin(),elements.end(), [&m_GenSet,&elements]
-			(typename std::vector<T>::Iter it)
+		for( std::size_t index = 0; index < elements.size(); index++)
+		{
+			for(Iter set_iter = m_GenSet.begin();
+				set_iter != m_GenSet.end(); set_iter++)
 			{
-				for(std::vector<T> set_iter = m_GenSet.begin();
-					set_iter != m_GenSet.end(); set_iter++)
+				T element = (*set_iter) * elements[index];
+				if(find(elements.begin(), elements.end(), element) == elements.end())
 				{
-					T element = (*set_iter) * (*it);
-					if(elements.find(element) == elements.end())
-					{
-						elements.push_back(element);
-					}
+					elements.push_back(element);
 				}
+			}
 
-			});
+		}
+		return elements;
 	};
 
 	std::vector<T> GetElementsDimino()const
@@ -101,6 +101,7 @@ public:
 				}
 			}
 		}
+		return elements;
 	};
 
 	std::vector<std::size_t> GetOrbit(const std::size_t &set_element)const
@@ -163,11 +164,12 @@ public:
 	};
 
 
-	void AddCoset(std::vector<T>& elements, const T& element)
+	void AddCoset(std::vector<T>& elements, const T& element)const
 	{
-		std::size_t order = elements.end();
+		std::size_t order = elements.size();
 		for(std::size_t index = 0; index < order; index++)
 		{
+			//BOOST_ASSERT(elements.find(element) != elements.size());
 			elements.push_back(element * elements[index]);
 		}
 	};
