@@ -1,7 +1,8 @@
 
 #include "../group.h"
-
 #include "boost/test/included/unit_test.hpp"
+#include "../std_ex.h"
+
 using namespace boost::unit_test;
 
 
@@ -122,14 +123,10 @@ void test_s3_elements()
 	generators.push_back(elem2);
 	S3 g1(generators);
 	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements = g1.GetElementstNaive();
-	/*for(std::size_t i = 0; i < elements.size(); i++)
-	{
-		BOOST_TEST_MESSAGE( "element:\n" <<elements[i]<<"\n");
-	}*/
 
 	//test get elements dimino
 	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elementsD = g1.GetElementsDimino();
-	//BOOST_ASSERT(elements == elementsD);
+	BOOST_ASSERT(std_ex::set_equality(elements, elementsD));
 }
 
 
