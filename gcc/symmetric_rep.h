@@ -77,21 +77,20 @@ public:
 	{
 		//generate cyclic group of the first generator	
 		std::vector<T> elements = GetCyclicGroup(*m_GenSet.begin());
-
+	
 		//inductive step
 		for(Iter it = m_GenSet.begin(); it != m_GenSet.end(); it++)
 		{
 			if(find(elements.begin(),elements.end(),*it) == elements.end())
 			{
+				std::size_t new_order = elements.size() + 1;
 				AddCoset(elements,*it);
 
-				std::size_t new_order = 0;
 				while(new_order < elements.size())
 				{
-					new_order = elements.size() + 1;
 					for(Iter it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
 					{
-						T element = *it * elements[new_order];
+						T element = *it1 * elements[new_order];
 						if(find(elements.begin(), elements.end(), element) == elements.end())
 						{
 							AddCoset(elements, element)	;
@@ -169,8 +168,11 @@ public:
 		std::size_t order = elements.size();
 		for(std::size_t index = 0; index < order; index++)
 		{
-			//BOOST_ASSERT(elements.find(element) != elements.size());
-			elements.push_back(element * elements[index]);
+			T el = element * elements[index];
+			if(find(elements.begin(), elements.end(), el) == elements.end())
+			{
+				elements.push_back(el);
+			}
 		}
 	};
 

@@ -34,7 +34,7 @@ int main()
 	S3 g1(generators);
 
 	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements = g1.GetElementstNaive();
-//	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elementsD = g1.GetElementsDimino();
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elementsD = g1.GetElementsDimino();
 
 	std::cout<<"ELEMENTS:\n";
 	for(std::size_t i = 0; i < elements.size(); i++)
@@ -42,11 +42,11 @@ int main()
 		std::cout<< "element:\n" <<elements[i]<<"\n";
 	}
 	
-//	std::cout<<"ELEMENTSD:\n";
-//	for(std::size_t i = 0; i < elementsD.size(); i++)
-//	{
-//		std::cout<< "element:\n" <<elementsD[i]<<"\n";
-//	}
+	std::cout<<"ELEMENTSD:\n";
+	for(std::size_t i = 0; i < elementsD.size(); i++)
+	{
+		std::cout<< "element:\n" <<elementsD[i]<<"\n";
+	}
 
 	return 0;	
 };

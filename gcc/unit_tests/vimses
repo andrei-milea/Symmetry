@@ -4,6 +4,7 @@ let s:cpo_save=&cpo
 set cpo&vim
 imap <F8> :make test
 map <silent>  :if expand("%") == "":browse confirm w:else:confirm w:endif
+vmap / :s/^/\/\//
 map Q gq
 nmap gx <Plug>NetrwBrowseX
 nmap <F11> :!make && konsole -e "gdb ./tst_group"
@@ -171,7 +172,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 12 - ((0 * winheight(0) + 12) / 24)
+let s:l = 12 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -280,7 +281,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 5 - ((0 * winheight(0) + 12) / 24)
+let s:l = 5 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -389,7 +390,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 107 - ((0 * winheight(0) + 12) / 24)
+let s:l = 107 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -498,7 +499,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 14 - ((0 * winheight(0) + 12) / 24)
+let s:l = 14 - ((0 * winheight(0) + 13) / 26)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -607,12 +608,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 71 - ((17 * winheight(0) + 12) / 24)
+let s:l = 174 - ((20 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-71
-normal! 04l
+174
+normal! 024l
 lcd /home/projects/absalg_root/absalg/gcc/unit_tests
 tabnext 5
 if exists('s:wipebuf')
