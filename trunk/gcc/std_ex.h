@@ -1,9 +1,15 @@
 #ifndef _STD_EX_H
 #define _STD_EX_H
 
+#include <iostream>
+
 namespace std_ex
 {
 
+	/*****************************************
+	* set operations 
+	*****************************************/
+	
 template <typename SET_REP>
 bool set_inclusion(SET_REP &set1, SET_REP &set2)	//set2 contains set1 ?
 {
@@ -28,6 +34,24 @@ bool set_equality(SET_REP &set1, SET_REP &set2)
 		return false;
 	}
 	return true;
+};
+
+	/*****************************************
+	* overloaded operator for printing a 
+	* STL sequece (vector, array, list, etc)
+	*****************************************/
+template <typename T>
+std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec)
+{
+	out<<"Vector - Begin:\n";
+	typename std::vector<T>::const_iterator it;
+	for(it = vec.begin(); it != vec.end(); it++)
+	{
+		out<<*it;
+		out<<"\n";
+	}
+	out<<"End\n";
+	return out;
 };
 
 };

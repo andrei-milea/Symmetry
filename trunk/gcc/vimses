@@ -4,6 +4,7 @@ let s:cpo_save=&cpo
 set cpo&vim
 imap <F8> :make test
 map <silent>  :if expand("%") == "":browse confirm w:else:confirm w:endif
+vmap / :s/^/\/\//
 map Q gq
 nmap gx <Plug>NetrwBrowseX
 nmap <F11> :!make && konsole -e "gdb ./tst_group"
@@ -45,7 +46,7 @@ set showcmd
 set tabstop=4
 set termencoding=utf-8
 set whichwrap=b,s,<,>,h,l
-set window=24
+set window=23
 set nowritebackup
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 let v:this_session=expand("<sfile>:p")
@@ -61,6 +62,7 @@ badd +1 symmetric_rep.h
 badd +1 tst_group.cpp
 badd +1 gen_rep.h
 badd +1 group_elem.h
+badd +44 ~/.gvimrc
 args permutation.h
 edit permutation.h
 set splitbelow splitright
@@ -164,7 +166,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 128 - ((0 * winheight(0) + 13) / 26)
+let s:l = 128 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -272,12 +274,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 71 - ((0 * winheight(0) + 13) / 26)
+let s:l = 72 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-71
-normal! 01l
+72
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/group_elem.h
 set splitbelow splitright
@@ -381,7 +383,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 142 - ((20 * winheight(0) + 13) / 26)
+let s:l = 142 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -490,11 +492,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 17 - ((0 * winheight(0) + 12) / 24)
+let s:l = 20 - ((3 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-17
+20
 normal! 017l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/gen_rep.h
@@ -599,7 +601,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 45 - ((0 * winheight(0) + 13) / 26)
+let s:l = 45 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -708,14 +710,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 16 - ((0 * winheight(0) + 13) / 26)
+let s:l = 16 - ((0 * winheight(0) + 11) / 23)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 16
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
-tabnext 4
+tabnext 6
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

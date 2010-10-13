@@ -122,13 +122,42 @@ void test_s3_elements()
 	generators.push_back(elem1);
 	generators.push_back(elem2);
 	S3 g1(generators);
-	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements = g1.GetElementstNaive();
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements = g1.GetElementsNaive();
 
 	//test get elements dimino
 	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elementsD = g1.GetElementsDimino();
 	BOOST_ASSERT(std_ex::set_equality(elements, elementsD));
+
+	cPermElem<3> s3({1,2});
+	cPermElem<3> s4({1,2,3});
+	cGroupElem< cPermElem<3>, Multiplication> elem3(s3);
+	cGroupElem< cPermElem<3>, Multiplication> elem4(s4);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> >  generators1;
+	generators1.push_back(elem3);
+	generators1.push_back(elem4);
+	S3 g2(generators1);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements1 = g2.GetElementsNaive();
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements1D = g2.GetElementsDimino();
+
+	BOOST_ASSERT(std_ex::set_equality(elements, elements1));
+	BOOST_ASSERT(std_ex::set_equality(elements, elements1D));
 }
 
+void test_s3_getorbit()
+{
+	cPermElem<3> s3({1,2});
+	cPermElem<3> s4({1,2,3});
+	cGroupElem< cPermElem<3>, Multiplication> elem3(s3);
+	cGroupElem< cPermElem<3>, Multiplication> elem4(s4);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> >  generators1;
+	generators1.push_back(elem3);
+	generators1.push_back(elem4);
+	S3 g2(generators1);
+	std::vector<std::size_t> orbit1 = g2.GetOrbit(1);
+	std::vector<std::size_t> orbit2 = g2.GetOrbit(2);
+	std_ex::cout<<orbit1;
+	std_ex::cout<<orbit2;
+};
 
 
 test_suite* init_unit_test_suite( int argc, char* argv[] ) 
