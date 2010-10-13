@@ -53,7 +53,7 @@ public:
 	{};
 
 
-	std::vector<T> GetElementstNaive()const
+	std::vector<T> GetElementsNaive()const
 	{
 		std::vector<T> elements;
 		elements.push_back(T::GetIdentity());
@@ -105,20 +105,21 @@ public:
 
 	std::vector<std::size_t> GetOrbit(const std::size_t &set_element)const
 	{
-		typedef typename std::vector<std::size_t>::iterator _Iter;
 		std::vector<std::size_t> orbit;
 		orbit.push_back(set_element);
-		std::for_each(orbit.begin(), orbit.end(), [&m_GenSet, &orbit](_Iter it)
+		std::vector<T> elements = GetElementsDimino();
+
+		for(std::size_t index = 0; index < orbit.size(); index++)
+		{
+			for(Iter it1 = elements.begin(); it1 != elements.end(); it1++)
+			{
+				std::size_t image = it1->GetImage(orbit[index]);
+				if(find(orbit.begin(), orbit.end(), image) == orbit.end())
 				{
-					for(Iter it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
-					{
-						std::size_t image = it1->GetImage(*it);
-						if(find(orbit.begin(), orbit.end(), image) == orbit.end())
-						{
-							orbit.push_back(image);
-						}
-					}
-				});
+					orbit.push_back(image);
+				}
+			}
+		}
 		return orbit;
 	};
 
