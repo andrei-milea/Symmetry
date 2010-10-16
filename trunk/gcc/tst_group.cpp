@@ -2,6 +2,7 @@
 #include "intmodn.h"
 #include "permutation.h"
 #include "std_ex.h"
+#include "group_lattice.h"
 
 
 #include <iostream>
@@ -17,25 +18,8 @@ int main()
 	generators1.push_back(elem3);
 	generators1.push_back(elem4);
 	S3 g2(generators1);
-	std::vector< cGroupElem<cPermElem<3>, Multiplication> >el = g2.GetElementsDimino();
-	std_ex::cout<<el;
+	cGrpLattice S3_lattice(g2);
 
-	std::vector<std::size_t> orbit1 = g2.GetOrbit(1);
-	std::vector<std::size_t> orbit2 = g2.GetOrbit(2);
-	std_ex::cout<<orbit1;
-	std_ex::cout<<orbit2;
-
-//	std::cout<<"ELEMENTS:\n";
-//	for(std::size_t i = 0; i < elements1.size(); i++)
-//	{
-//		std::cout<< "element:\n" <<elements1[i]<<"\n";
-//	}
-	
-//	std::cout<<"ELEMENTSD:\n";
-//	for(std::size_t i = 0; i < elementsD.size(); i++)
-//	{
-//		std::cout<< "element:\n" <<elementsD[i]<<"\n";
-//	}
 
 	return 0;	
 };

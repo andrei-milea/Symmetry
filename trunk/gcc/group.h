@@ -33,6 +33,11 @@ public:
 
     ~cGroup()   {};
 
+	bool isSoluble()const
+	{
+		return true;
+	};
+
 	cSubgroup<SelfType> GetCentralizerEl(const cSubgroup<SelfType> &_subgrp)const
 	{
 		cSubgroup<SelfType> subgroup(GetCentralizerEl(_subgrp));
