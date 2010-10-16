@@ -73,11 +73,11 @@ public:
 				while(!avoid_old_elem.empty())
 				{
 					T g = avoid_old_elem.begin();
-					if(Contains_prime_pow_el(subgroup_el, g))
+					if(Has_prime_pow_el(subgroup_el, g))
 					{
 						cSubgroup<T> newsubgrp();
 						newsubgrp.AddCoset(subgroup_el, g);
-						avoid_old_elem = avoid_old_elem - newsubgrp.GetElementsDimino;
+						avoid_old_elem = avoid_old_elem - newsubgrp.Elements();
 					}
 					else
 					{
@@ -89,9 +89,17 @@ public:
 	};
 
 private:
-	bool Contains_prime_pow_el(const cSubgroup<T> grp, const T element)const
+	bool Has_prime_pow_el(const cSubgroup<T> grp, const T element)const
 	{
-
+		std::size_t prime = 2;
+		std::size_t elem_order = element.GetOrder();
+		while(prime < elem_order)
+		{
+			if(grp.Contains(element.GetNthPower(prime)))
+				return true;
+			prime = NextPrime(prime);
+		}
+		return false;
 	};
 
 private:

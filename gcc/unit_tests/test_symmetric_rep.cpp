@@ -155,8 +155,7 @@ void test_s3_getorbit()
 	S3 g2(generators1);
 	std::vector<std::size_t> orbit1 = g2.GetOrbit(1);
 	std::vector<std::size_t> orbit2 = g2.GetOrbit(2);
-	std_ex::cout<<orbit1;
-	std_ex::cout<<orbit2;
+	BOOST_ASSERT(std_ex::set_equality(orbit1, orbit2));
 };
 
 
@@ -165,5 +164,7 @@ test_suite* init_unit_test_suite( int argc, char* argv[] )
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_trivial ) );
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_private ) );
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_elements ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_getorbit ) );
 	return 0;
 }; 
+

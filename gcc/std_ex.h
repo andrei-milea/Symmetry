@@ -36,12 +36,18 @@ bool set_equality(SET_REP &set1, SET_REP &set2)
 	return true;
 };
 
+};
+
+namespace std
+{
+
 	/*****************************************
 	* overloaded operator for printing a 
 	* STL sequece (vector, array, list, etc)
 	*****************************************/
+
 template <typename T>
-std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec)
+std::ostream operator<<(std::ostream out, const std::vector<T>& vec)
 {
 	out<<"Vector - Begin:\n";
 	typename std::vector<T>::const_iterator it;
@@ -54,8 +60,7 @@ std::ostream& operator<<(std::ostream& out, const std::vector<T>& vec)
 	return out;
 };
 
-};
-
+}
 
 #endif
 
