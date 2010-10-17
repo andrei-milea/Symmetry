@@ -53,6 +53,12 @@ public:
 	{};
 
 
+	bool Contains(T &element)const
+	{
+		std::vector<T> elements = GetElementsDimino();
+		return (std::find(elements, element) != elements.end());
+	};
+
 	std::vector<T> GetElementsNaive()const
 	{
 		std::vector<T> elements;

@@ -2,6 +2,7 @@
 #define GROUP_LATTICE
 
 #include <vector>
+#include <boost/math/special_functions/prime.hpp>
 
 template <typename T>
 class cGrpLattice
@@ -55,7 +56,7 @@ public:
 			for(std::vector< cSubgroup<T> >::iterator subgrp_iter = (*iter).begin()
 					subgrp_iter != (*iter).end(); subgrp_iter++)
 			{
-				std::vector<T> subgroup_el = (*subgrp_iter).Elements();
+				std::vector<T> subgroup_el = (*subgrp_iter).GetElementsDimino();
 				std::vector<T> normal_subgrp_el = group.GetNormalizerEl((*subgrp_iter));
 				std::vector<T> avoid_old_elem = normal_subgrp_el - subgroup_el;
 				//remove already generated subgroups
@@ -91,13 +92,13 @@ public:
 private:
 	bool Has_prime_pow_el(const cSubgroup<T> grp, const T element)const
 	{
-		std::size_t prime = 2;
+		std::size_t prime_index = 0;
 		std::size_t elem_order = element.GetOrder();
 		while(prime < elem_order)
 		{
-			if(grp.Contains(element.GetNthPower(prime)))
+			if(grp.Contains(element.GetNthPower(boost::math::prime(prime_index))))
 				return true;
-			prime = NextPrime(prime);
+			prime_index++;
 		}
 		return false;
 	};
