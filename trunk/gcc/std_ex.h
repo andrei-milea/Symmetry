@@ -36,16 +36,31 @@ bool set_equality(SET_REP &set1, SET_REP &set2)
 	return true;
 };
 
+//set difference 
+template <typename T>
+std::vector<T>& set_difference(std::vector<T> &vec1, std::vector<T> &vec2)
+{
+	for(typename std::vector<T>::iterator iter = vec2.begin(); iter != vec2.end(); iter++)
+	{
+		typename std::vector<T>::iterator found_iter = find(vec1.begin(), vec1.end(), *iter);
+		if(found_iter != vec1.end())
+		{
+			vec1.remove(*found_iter);
+		}
+	}
+	return vec1;
+}
+
 };
 
 namespace std
 {
 
 	/*****************************************
-	* overloaded operator for printing a 
-	* STL sequece (vector, array, list, etc)
+	* overloaded operators for vector
 	*****************************************/
 
+//output
 template <typename T>
 std::ostream operator<<(std::ostream out, const std::vector<T>& vec)
 {
@@ -59,6 +74,8 @@ std::ostream operator<<(std::ostream out, const std::vector<T>& vec)
 	out<<"End\n";
 	return out;
 };
+
+
 
 }
 

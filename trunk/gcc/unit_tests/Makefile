@@ -14,10 +14,12 @@ test_symmetric: test_symmetric_rep.cpp
 test_std_ex: test_std_ex.cpp
 	$(GCC) $(CFLAGS) test_std_ex.cpp -o test_std_ex
 
+test_group: test_group.cpp
+	$(GCC) $(CFLAGS) test_group.cpp -o test_group
 
 clean:
 	rm -rf *.o $(TESTS)
-TESTS = test_perm test_group_el test_symmetric test_std_ex
+TESTS = test_perm test_group_el test_symmetric test_std_ex test_group
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
 #CTAGS=etags -o tags
 
