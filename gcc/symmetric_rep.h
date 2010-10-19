@@ -17,7 +17,6 @@ class cSymmetricRep
 public:
 	typedef typename std::vector<T>::const_iterator Iter;
 	typedef cSymmetricRep<T> SelfType;
-	typedef T ElementType;
 
 public:
 	//constructors
@@ -140,6 +139,11 @@ public:
 		m_GenSet = gen_set;
 	};
 
+	void AddGenerator(const T &element)
+	{
+		m_GenSet.push_back(element);
+	};
+
 	bool operator==(const SelfType &symgrp)const
 	{
 		return m_GenSet == symgrp.GetGeneratorsSet();
@@ -155,8 +159,7 @@ public:
 		return T::GetIdentity();
 	};
 
-	public://private:
-	std::vector<T> GetCyclicGroup(const T& element)const
+	std::vector<T> GetCyclicSubgroup(const T& element)const
 	{
 		T temp_el = element;
 		std::vector<T> cyclic_group;

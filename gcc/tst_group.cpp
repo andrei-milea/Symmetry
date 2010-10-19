@@ -18,7 +18,8 @@ int main()
 	generators1.push_back(elem3);
 	generators1.push_back(elem4);
 	S3 g2(generators1);
-	cGrpLattice S3_lattice(g2);
+
+	cGrpLattice<S3> S3_lattice(g2);
 
 
 	return 0;	

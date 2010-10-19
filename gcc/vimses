@@ -57,13 +57,14 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +19 tst_group.cpp
+badd +20 tst_group.cpp
 badd +1 group_lattice.h
 badd +1 symmetric_rep.h
 badd +1 std_ex.h
 badd +149 group.h
 badd +1 group_elem.h
-badd +0 primes.h
+badd +3 primes.h
+badd +1 subgroup.h
 args tst_group.cpp
 edit tst_group.cpp
 set splitbelow splitright
@@ -167,12 +168,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 21 - ((16 * winheight(0) + 12) / 24)
+let s:l = 22 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-21
-normal! 027l
+22
+normal! 014l
 tabedit group.h
 set splitbelow splitright
 set nosplitbelow
@@ -275,12 +276,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 24)
+let s:l = 110 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+110
+normal! 03l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/group_lattice.h
 set splitbelow splitright
@@ -384,14 +385,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 100 - ((15 * winheight(0) + 12) / 24)
+let s:l = 29 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-100
-normal! 027l
+29
+normal! 01l
 lcd /home/projects/absalg_root/absalg/gcc
-tabedit /home/projects/absalg_root/absalg/gcc/primes.h
+tabedit /home/projects/absalg_root/absalg/gcc/subgroup.h
 set splitbelow splitright
 set nosplitbelow
 set nosplitright
@@ -493,12 +494,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 17 - ((16 * winheight(0) + 12) / 24)
+let s:l = 28 - ((14 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-17
-normal! 0
+28
+normal! 032l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/group_elem.h
 set splitbelow splitright
@@ -602,12 +603,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 72 - ((23 * winheight(0) + 12) / 24)
+let s:l = 125 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-72
-normal! 010l
+125
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/symmetric_rep.h
 set splitbelow splitright
@@ -658,7 +659,7 @@ setlocal formatexpr=
 setlocal formatoptions=croql
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
-setlocal iminsert=2
+setlocal iminsert=0
 setlocal imsearch=0
 setlocal include=
 setlocal includeexpr=
@@ -711,12 +712,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 184 - ((22 * winheight(0) + 12) / 24)
+let s:l = 142 - ((14 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-184
-normal! 0
+142
+normal! 024l
 lcd /home/projects/absalg_root/absalg/gcc
 tabedit /home/projects/absalg_root/absalg/gcc/std_ex.h
 set splitbelow splitright
@@ -820,14 +821,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 36 - ((0 * winheight(0) + 12) / 24)
+let s:l = 52 - ((14 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-36
+52
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc
-tabnext 4
+tabnext 3
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif
