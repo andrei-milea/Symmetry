@@ -1,6 +1,7 @@
 #ifndef _STD_EX_H
 #define _STD_EX_H
 
+#include <algorithm>
 #include <iostream>
 
 namespace std_ex
@@ -37,18 +38,15 @@ bool set_equality(SET_REP &set1, SET_REP &set2)
 };
 
 //set difference 
-template <typename T>
-std::vector<T>& set_difference(std::vector<T> &vec1, std::vector<T> &vec2)
+template <typename SET_REP>
+SET_REP& set_difference(SET_REP &set1, SET_REP &set2)
 {
-	for(typename std::vector<T>::iterator iter = vec2.begin(); iter != vec2.end(); iter++)
+
+	for(typename SET_REP::const_iterator it = set1.begin(); it != set1.end(); it++)
 	{
-		typename std::vector<T>::iterator found_iter = find(vec1.begin(), vec1.end(), *iter);
-		if(found_iter != vec1.end())
-		{
-			vec1.remove(*found_iter);
-		}
+		std::remove(set1.begin(), set1.end(), *it);
 	}
-	return vec1;
+	return set1;
 }
 
 };
@@ -74,7 +72,6 @@ std::ostream operator<<(std::ostream out, const std::vector<T>& vec)
 	out<<"End\n";
 	return out;
 };
-
 
 
 }
