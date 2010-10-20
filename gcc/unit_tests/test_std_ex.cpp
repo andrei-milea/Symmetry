@@ -65,11 +65,42 @@ void test_set_equality()
 };
 
 
+void test_set_difference()
+{
+	std::vector<int> set1(999);
+	std::vector<int> set2(999);
+	std::vector<int> set3;
+
+	for(int index = 0; index < 999; index++)
+	{
+		int x = get_random();
+		set1[index]	= x;
+		set2[index] = x;
+	}
+
+	BOOST_CHECK(std_ex::set_equality(set3, std_ex::set_difference(set1, set2)));
+
+	set1.push_back(1);
+	set1.push_back(2);
+	set1.push_back(9);
+	set1.push_back(7);
+
+	set2.push_back(9);
+	set2.push_back(1);
+
+	set3.push_back(2);
+	set3.push_back(7);
+
+	BOOST_CHECK(std_ex::set_equality(set3, std_ex::set_difference(set1, set2)));
+};
+
 
 test_suite* init_unit_test_suite( int argc, char* argv[] ) 
 {
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_inclusion ) );
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_equality ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_difference ) );
+
     return 0;
 };
 
