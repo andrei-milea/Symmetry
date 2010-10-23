@@ -121,7 +121,7 @@ public:
 	{
 		SelfType perm;
 		std::array<std::size_t, N+1> perm_array;
-		for(std::size_t index = 0; index <= N; index++) 
+		for(std::size_t index = 1; index <= N; index++) 
 		{
 			 perm_array[m_PermArray[index]] = index;
 		}

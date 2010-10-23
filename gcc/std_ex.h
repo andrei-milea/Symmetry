@@ -41,38 +41,30 @@ bool set_equality(SET_REP &set1, SET_REP &set2)
 template <typename SET_REP>
 SET_REP& set_difference(SET_REP &set1, SET_REP &set2)
 {
-
-	for(typename SET_REP::const_iterator it = set1.begin(); it != set1.end(); it++)
+	for(typename SET_REP::const_iterator it = set2.begin(); it != set2.end(); it++)
 	{
-		std::remove(set1.begin(), set1.end(), *it);
+		typename SET_REP::iterator found_iter = find(set1.begin(), set1.end(), *it);
+		if(found_iter != set1.end())
+			set1.erase(find(set1.begin(), set1.end(), *it));
 	}
 	return set1;
-}
-
 };
 
-namespace std
-{
-
 	/*****************************************
-	* overloaded operators for vector
+	* print vector elements
 	*****************************************/
-
-//output
 template <typename T>
-std::ostream operator<<(std::ostream out, const std::vector<T>& vec)
+void print_vector(const std::vector<T>& vec)
 {
-	out<<"Vector - Begin:\n";
+	std::cout<<"Vector - Begin:\n";
 	typename std::vector<T>::const_iterator it;
 	for(it = vec.begin(); it != vec.end(); it++)
 	{
-		out<<*it;
-		out<<"\n";
+		std::cout<<*it;
+		std::cout<<"\n";
 	}
-	out<<"End\n";
-	return out;
+	std::cout<<"End\n";
 };
-
 
 }
 

@@ -77,8 +77,9 @@ void test_set_difference()
 		set1[index]	= x;
 		set2[index] = x;
 	}
-
-	BOOST_CHECK(std_ex::set_equality(set3, std_ex::set_difference(set1, set2)));
+	std_ex::set_difference(set1, set2);
+	BOOST_CHECK(set1.empty());
+	set2.clear();
 
 	set1.push_back(1);
 	set1.push_back(2);
@@ -90,8 +91,9 @@ void test_set_difference()
 
 	set3.push_back(2);
 	set3.push_back(7);
+	std_ex::set_difference(set1, set2);
 
-	BOOST_CHECK(std_ex::set_equality(set3, std_ex::set_difference(set1, set2)));
+	BOOST_CHECK(std_ex::set_equality(set3, set1));
 };
 
 

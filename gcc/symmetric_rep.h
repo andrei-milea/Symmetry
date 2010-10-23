@@ -81,7 +81,7 @@ public:
 	std::vector<T> GetElementsDimino()const
 	{
 		//generate cyclic group of the first generator	
-		std::vector<T> elements = GetCyclicGroup(*m_GenSet.begin());
+		std::vector<T> elements = GetCyclicSubgroup(*m_GenSet.begin());
 	
 		//inductive step
 		for(Iter it = m_GenSet.begin(); it != m_GenSet.end(); it++)

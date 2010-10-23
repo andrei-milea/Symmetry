@@ -95,11 +95,11 @@ public:
 		return( m_BinOp((*this), element) == m_BinOp(element, (*this)) );
 	};
 
-	bool IsCentralizer(const SelfType & element)const
+	bool IsNormalizer(const SelfType & element)const
 	{
 		return m_BinOp( m_BinOp((*this), element),  GetInverse()) == element;
 	};
-	bool IsNormalizer(std::vector<SelfType> &elements)
+	bool IsNormalizer(const std::vector<SelfType> &elements)const
 	{
 		for(std::size_t index = 0; index < elements.size(); index++)
 		{
@@ -109,7 +109,7 @@ public:
 				return false;
 			}
 
-		};
+		}
 		return true;
 	};
 
