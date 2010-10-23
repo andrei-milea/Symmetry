@@ -1,4 +1,4 @@
-all: test_std_ex
+all: test_lattice
 CFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 GCC = /opt/usr/bin/g++
 
@@ -17,9 +17,12 @@ test_std_ex: test_std_ex.cpp
 test_group: test_group.cpp
 	$(GCC) $(CFLAGS) test_group.cpp -o test_group
 
+test_lattice: test_lattice.cpp
+	$(GCC) $(CFLAGS) test_lattice.cpp -o test_lattice
+
 clean:
 	rm -rf *.o $(TESTS)
-TESTS = test_perm test_group_el test_symmetric test_std_ex test_group
+TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_lattice
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
 #CTAGS=etags -o tags
 

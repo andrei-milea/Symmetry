@@ -38,7 +38,7 @@ public:
 		return true;
 	};
 
-	cSubgroup<SelfType> GetCentralizerEl(const cSubgroup<SelfType> &_subgrp)const
+	cSubgroup<SelfType> GetCentralizer(const cSubgroup<SelfType> &_subgrp)const
 	{
 		cSubgroup<SelfType> subgroup(GetCentralizerEl(_subgrp));
 		subgroup.isNormal(true);
@@ -59,32 +59,17 @@ public:
 		return subgroup;
 	};
 
-
 	std::vector<ElementType> GetCentralizerEl(ElementType &element)const
 	{
-		typedef typename std::vector<ElementType> GrpVec;
-		GrpVec subgrp_el;
-		subgrp_el.push_back(ElementType::GetIdentity());
-		GrpVec grp_el = this->GetElementsDimino();
-		GrpVec rem_el = grp_el;
-		std::remove(rem_el.begin(), rem_el.end(), ElementType::GetIdentity());
-		while(!rem_el.empty())
+		typedef typename std::vector<ElementType>::iterator Elem_Iter ;
+		std::vector<ElementType> grp_el = this->GetElementsDimino();
+		std::vector<ElementType> centralizer;
+		for(Elem_Iter iter = grp_el.begin(); iter != grp_el.end(); iter++)
 		{
-			std::for_each(grp_el.begin(), grp_el.end(), 
-					[&rem_el, &subgrp_el] (typename GrpVec::iterator it1)
-			{
-				if(rem_el.begin()->IsCentralizer(*it1))
-				{
-					subgrp_el.push_back(rem_el.begin());
-					rem_el.erase(rem_el.begin());
-				}
-				else
-				{
-					rem_el.erase(it1);
-				}
-			});
+			if(iter->CommutesWith(element))
+				centralizer.push_back(*iter);
 		}
-		return subgrp_el;
+		return centralizer;
 	};
 
 	std::vector<ElementType> GetCenterEl()const
