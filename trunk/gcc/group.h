@@ -8,6 +8,7 @@
 #include "group_elem.h"
 #include "symmetric_rep.h"
 #include "subgroup.h"
+#include "std_ex.h"
 
 //group class
 template < typename T, template <typename> class group_rep = cGenRep >
@@ -17,6 +18,7 @@ public:
 	typedef T ElementType;
 	typedef cGroup<T, group_rep> SelfType;
 	typedef group_rep<T> RepType;
+	typedef typename std::vector<ElementType> GrpVec;
 
 public:
     cGroup()
@@ -62,8 +64,8 @@ public:
 	std::vector<ElementType> GetCentralizerEl(ElementType &element)const
 	{
 		typedef typename std::vector<ElementType>::iterator Elem_Iter ;
-		std::vector<ElementType> grp_el = this->GetElementsDimino();
-		std::vector<ElementType> centralizer;
+		GrpVec grp_el = this->GetElementsDimino();
+		GrpVec centralizer;
 		for(Elem_Iter iter = grp_el.begin(); iter != grp_el.end(); iter++)
 		{
 			if(iter->CommutesWith(element))
@@ -74,7 +76,6 @@ public:
 
 	std::vector<ElementType> GetCenterEl()const
 	{
-		typedef typename std::vector<ElementType> GrpVec;
 		GrpVec subgrp_el;
 		subgrp_el.push_back(ElementType::GetIdentity());
 		GrpVec grp_el = this->GetElementsDimino();
@@ -102,29 +103,25 @@ public:
 
 	std::vector<ElementType> GetNormalizerEl(const cSubgroup<SelfType> &_subgrp)const
 	{
-		typedef typename std::vector<ElementType> GrpVec;
 		GrpVec subgrp_el;
 		subgrp_el.push_back(ElementType::GetIdentity());
+
 		GrpVec grp_el = this->GetElementsDimino();
 		GrpVec rem_el = grp_el;
+
 		const GrpVec _subgrp_el = _subgrp.GetElementsDimino();
 		std::remove(rem_el.begin(), rem_el.end(), ElementType::GetIdentity());
 		while(!rem_el.empty())
 		{
-			bool normalizes = true;
-			for(typename GrpVec::iterator it = grp_el.begin(); it != grp_el.end(); it++)
-			{
-				if(!rem_el.begin()->IsNormalizer(_subgrp_el));
-				{
-					normalizes = false;
-					break;
-				}
-			}
-			if(normalizes)
+			if(rem_el.begin()->IsNormalizer(_subgrp_el))
 			{
 				subgrp_el.push_back(*rem_el.begin());
+				std_ex::set_difference(rem_el, GetCyclicSubgroup(*rem_el.begin()));
 			}
-			rem_el.erase(rem_el.begin());
+			else
+			{
+				rem_el.erase(rem_el.begin());
+			}
 		}
 		return subgrp_el;
 	};

@@ -11,6 +11,7 @@ namespace std_ex
 	* set operations 
 	*****************************************/
 	
+//tests if set2 constains set1
 template <typename SET_REP>
 bool set_inclusion(SET_REP &set1, SET_REP &set2)	//set2 contains set1 ?
 {
@@ -23,6 +24,7 @@ bool set_inclusion(SET_REP &set1, SET_REP &set2)	//set2 contains set1 ?
 	return true;
 };
 
+//test 2 sets for equality
 template <typename SET_REP>
 bool set_equality(SET_REP &set1, SET_REP &set2)
 {
@@ -38,21 +40,51 @@ bool set_equality(SET_REP &set1, SET_REP &set2)
 };
 
 //set difference 
+//returns the first set without the elements of the second set
 template <typename SET_REP>
-SET_REP& set_difference(SET_REP &set1, SET_REP &set2)
+SET_REP& set_difference(SET_REP &set1, const SET_REP &set2)
 {
 	for(typename SET_REP::const_iterator it = set2.begin(); it != set2.end(); it++)
 	{
 		typename SET_REP::iterator found_iter = find(set1.begin(), set1.end(), *it);
 		if(found_iter != set1.end())
-			set1.erase(find(set1.begin(), set1.end(), *it));
+			set1.erase(found_iter);
 	}
 	return set1;
 };
 
-	/*****************************************
-	* print vector elements
-	*****************************************/
+//set intersection 
+//returns a new constructed set with common elements
+template <typename SET_REP>
+SET_REP set_intersection(SET_REP &set1, const SET_REP &set2)
+{
+	SET_REP new_set;
+	for(typename SET_REP::const_iterator it = set2.begin(); it != set2.end(); it++)
+	{
+		typename SET_REP::iterator found_iter = find(set1.begin(), set1.end(), *it);
+		if(found_iter != set1.end())
+			new_set.push_back(*found_iter);
+	}
+	return new_set;
+};
+
+
+template <typename T, template <typename ELEM, typename ALLOC = std::allocator<ELEM> >
+   	class CONT>
+void set_remove(CONT<T> &set1, const T &element)
+{
+	while(true)
+	{
+		typename CONT<T>::iterator found_iter = find(set1.begin(), set1.end(), element);
+		if(found_iter != set1.end())
+			set1.erase(found_iter);
+		else
+			return;
+	}
+};
+
+
+	/***************************************** * print vector elements *****************************************/
 template <typename T>
 void print_vector(const std::vector<T>& vec)
 {
@@ -60,13 +92,12 @@ void print_vector(const std::vector<T>& vec)
 	typename std::vector<T>::const_iterator it;
 	for(it = vec.begin(); it != vec.end(); it++)
 	{
-		std::cout<<*it;
-		std::cout<<"\n";
+		std::cout<<*it<<"\n";
 	}
 	std::cout<<"End\n";
 };
 
-}
+};
 
 #endif
 
