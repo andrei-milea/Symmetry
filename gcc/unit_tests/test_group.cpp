@@ -79,6 +79,12 @@ void test_s3_normalizer_el()
 	generators.clear();
 	generators.push_back(g1.GetIdentity());
 	BOOST_CHECK(std_ex::set_equality(normalizer_el, generators));
+
+	std::vector< cGroupElem< cPermElem<3>, Multiplication> > iden_el;
+	iden_el.push_back(g1.GetIdentity());
+	cSubgroup<S3> iden(iden_el);
+	S3 g2(g1.GetNormalizer(iden));
+	BOOST_CHECK(std_ex::set_equality(g1.GetElementsDimino(), g2.GetElementsDimino()));
 };
 
 

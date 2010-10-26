@@ -7,6 +7,8 @@
 #include <boost/random.hpp>
 #include <ctime>
 #include <initializer_list>
+#include <cassert>
+#include "std_ex.h"
 
 
 //symmertric group internal representation
@@ -43,7 +45,7 @@ public:
 	{
 		m_GenSet = sym_rep.GetGeneratorsSet();
 	};
-	cSymmetricRep& operator=(const SelfType& sym_rep)
+	void operator=(const SelfType& sym_rep)
 	{
 		m_GenSet = sym_rep.GetGeneratorsSet();
 	};
@@ -51,11 +53,21 @@ public:
 	~cSymmetricRep()
 	{};
 
+	friend std::ostream& operator<<(std::ostream& out,const SelfType &group_rep)
+	{
+		out<<"< \n";
+		for(Iter iter = group_rep.m_GenSet.begin(); iter != group_rep.m_GenSet.end(); iter++)
+		{
+			out<<*iter<<"\n";
+		}
+		out<<" \n>";
+		return out;
+	};
 
-	bool Contains(T &element)const
+	bool Contains(const T &element)const
 	{
 		std::vector<T> elements = GetElementsDimino();
-		return (std::find(elements, element) != elements.end());
+		return (std::find(elements.begin(), elements.end(), element) != elements.end());
 	};
 
 	std::vector<T> GetElementsNaive()const
@@ -80,6 +92,10 @@ public:
 
 	std::vector<T> GetElementsDimino()const
 	{
+		assert(!m_GenSet.empty());
+		if(m_GenSet.empty())
+			throw;
+
 		//generate cyclic group of the first generator	
 		std::vector<T> elements = GetCyclicSubgroup(*m_GenSet.begin());
 	
@@ -88,21 +104,23 @@ public:
 		{
 			if(find(elements.begin(),elements.end(),*it) == elements.end())
 			{
-				std::size_t new_order = elements.size() + 1;
+				std::size_t prev_order = elements.size() - 1;
 				AddCoset(elements,*it);
 
-				while(new_order < elements.size())
+				std::size_t rep_pos = prev_order + 1;	//cosset rep position
+				do
 				{
 					for(Iter it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
 					{
-						T element = *it1 * elements[new_order];
+						T element = elements[rep_pos] * (*it1);
 						if(find(elements.begin(), elements.end(), element) == elements.end())
 						{
 							AddCoset(elements, element)	;
 						}
 					}
-					new_order += elements.size();
+					rep_pos += prev_order;
 				}
+				while(rep_pos > elements.size());
 			}
 		}
 		return elements;

@@ -1,8 +1,12 @@
 
-#include "../group.h"
 #include "boost/test/included/unit_test.hpp"
 #include "../std_ex.h"
 
+//allow to test private methods
+#define private public
+#define protected public
+
+#include "../group.h"
 using namespace boost::unit_test;
 
 
@@ -58,20 +62,20 @@ void test_s3_private()
 
 	//test for identity
 	cyc_grp.push_back(g1.GetIdentity());
-	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(g1.GetIdentity()));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(g1.GetIdentity()));
 
 	//test for elem1
 	cyc_grp.clear();
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem1);
 
-	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem1));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem1));
 
 	//test for elem2
 	cyc_grp.clear();
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem2);
-	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem2));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem2));
 
 	//test for elem3
 	cPermElem<3> s3({1,3,2});
@@ -82,14 +86,14 @@ void test_s3_private()
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem3);
 	cyc_grp.push_back(elem4);
-	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem3));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem3));
 
 	//test for elem4
 	cyc_grp.clear();
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem4);
 	cyc_grp.push_back(elem3);
-	BOOST_CHECK(cyc_grp == g1.GetCyclicGroup(elem4));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem4));
 
 ///////////////////////////////////////
 
@@ -141,6 +145,22 @@ void test_s3_elements()
 
 	BOOST_ASSERT(std_ex::set_equality(elements, elements1));
 	BOOST_ASSERT(std_ex::set_equality(elements, elements1D));
+
+	cPermElem<3> s5({1,2,3});
+	cGroupElem< cPermElem<3>, Multiplication> elem5(s5);
+	generators.clear();
+	generators.push_back(g1.GetIdentity());
+	generators.push_back(elem5);
+	S3 g5(generators);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements5 = g5.GetElementsDimino();
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> > elements5_check;
+	elements5_check.push_back(g1.GetIdentity());
+	elements5_check.push_back(elem5);
+	cPermElem<3> s6({1,3,2});
+	cGroupElem< cPermElem<3>, Multiplication> elem6(s6);
+	elements5_check.push_back(elem6);
+
+	BOOST_ASSERT(std_ex::set_equality(elements5, elements5_check));
 }
 
 void test_s3_getorbit()

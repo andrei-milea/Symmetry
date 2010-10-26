@@ -5,13 +5,13 @@ template<typename G>
 class cSubgroup : public G
 {
 public:
-	typedef typename G::ElementType ElemType;
+	typedef typename G::ElementType T;
 	cSubgroup()
 		:m_isNormal(false)
 	{
 	};
 
-	cSubgroup(std::vector<ElemType> gr_vec)
+	cSubgroup(std::vector<T> gr_vec)
 		:G(gr_vec),
 		m_isNormal(false)
 	{};

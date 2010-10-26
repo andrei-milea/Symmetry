@@ -97,11 +97,46 @@ void test_set_difference()
 };
 
 
+void test_set_remove()
+{
+	std::vector<int> set1(9);
+	std::vector<int> set2(9);
+	set1.push_back(3);
+	set2.push_back(3);
+
+	set1.push_back(3);
+	set2.push_back(3);
+
+	set1.push_back(4);
+	set1.push_back(4);
+
+	set1.push_back(5);
+	set2.push_back(5);
+
+	set1.push_back(6);
+
+	set1.push_back(5);
+	set2.push_back(5);
+
+	set1.push_back(7);
+	set2.push_back(7);
+
+	set1.push_back(6);
+
+	std_ex::set_remove(set1, 6);
+	std_ex::set_remove(set1, 4);
+
+	BOOST_CHECK(std_ex::set_equality(set1, set2));
+	
+};
+
+
 test_suite* init_unit_test_suite( int argc, char* argv[] ) 
 {
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_inclusion ) );
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_equality ) );
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_difference ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_remove ) );
 
     return 0;
 };

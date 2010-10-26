@@ -19,23 +19,20 @@ int main()
 	generators.push_back(elem2);
 	S3 g1(generators);
 
-	std::vector< cGroupElem< cPermElem<3>, Multiplication> > normalizer_el;
 
-	cPermElem<3> a1({1,2,3});
-	cPermElem<3> a2({1,3,2});
-	cGroupElem< cPermElem<3>, Multiplication> elem_a1(a1);
-	cGroupElem< cPermElem<3>, Multiplication> elem_a2(a2);
-	std::vector< cGroupElem< cPermElem<3>, Multiplication> > a3_el;
-
-	a3_el.push_back(g1.GetIdentity());
-	a3_el.push_back(elem_a1);
-	a3_el.push_back(elem_a2);
-	S3 a3(a3_el);
-	cSubgroup<S3> A3(a3_el);
-	normalizer_el = g1.GetNormalizerEl(A3);
-
-	std_ex::print_vector(normalizer_el);
+	cPermElem<3> s3({1,2,3});
+	cGroupElem< cPermElem<3>, Multiplication> elem3(s3);
+	generators.clear();
+	generators.push_back(g1.GetIdentity());
+	generators.push_back(elem3);
+	S3 g2(generators);
+	std::vector< cGroupElem<cPermElem<3>, Multiplication> >  elements = g2.GetElementsDimino();
+	std_ex::print_vector(elements);
+//	cGrpLattice<S3> s3_lattice(g1);
+//	s3_lattice.CyclicExtensionMethod();
+//	std::cout<<s3_lattice;
 
 	return 0;	
+
 };
 
