@@ -17,7 +17,8 @@ template <typename T>
 class cSymmetricRep
 {
 public:
-	typedef typename std::vector<T>::const_iterator Iter;
+	typedef typename std::vector<T>::iterator Iter;
+	typedef typename std::vector<T>::const_iterator IterC;
 	typedef cSymmetricRep<T> SelfType;
 
 public:
@@ -76,7 +77,7 @@ public:
 		elements.push_back(T::GetIdentity());
 		for( std::size_t index = 0; index < elements.size(); index++)
 		{
-			for(Iter set_iter = m_GenSet.begin();
+			for(IterC set_iter = m_GenSet.begin();
 				set_iter != m_GenSet.end(); set_iter++)
 			{
 				T element = (*set_iter) * elements[index];
@@ -95,32 +96,46 @@ public:
 		assert(!m_GenSet.empty());
 		if(m_GenSet.empty())
 			throw;
+		if(m_GenSet.size() == 1)
+			return GetCyclicSubgroup(*m_GenSet.begin());
 
 		//generate cyclic group of the first generator	
 		std::vector<T> elements = GetCyclicSubgroup(*m_GenSet.begin());
 	
 		//inductive step
-		for(Iter it = m_GenSet.begin(); it != m_GenSet.end(); it++)
+		for(IterC it = (m_GenSet.begin() + 1); it != m_GenSet.end(); it++)
 		{
 			if(find(elements.begin(),elements.end(),*it) == elements.end())
 			{
 				std::size_t prev_order = elements.size() - 1;
-				AddCoset(elements,*it);
-
-				std::size_t rep_pos = prev_order + 1;	//cosset rep position
-				do
+				elements.push_back(*it);
+				for(std::size_t index = 1; index <= prev_order; index++)
 				{
-					for(Iter it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
+					assert(find(elements.begin(), elements.end(), elements[index] *
+								(*it)) == elements.end());
+					elements.push_back(elements[index] * (*it));
+				}
+				std::size_t rep_pos = prev_order + 1;	//cosset rep position
+				while(true)
+				{
+					for(IterC it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
 					{
 						T element = elements[rep_pos] * (*it1);
 						if(find(elements.begin(), elements.end(), element) == elements.end())
 						{
-							AddCoset(elements, element)	;
+							elements.push_back(element);
+							for(std::size_t index = 1; index <= prev_order; index++)
+							{
+								assert(find(elements.begin(), elements.end(), elements[index] *
+											element) == elements.end());
+								elements.push_back(elements[index] * element);
+							}
 						}
 					}
 					rep_pos += prev_order;
+					if(rep_pos > elements.size() - 1)
+						break;
 				}
-				while(rep_pos > elements.size());
 			}
 		}
 		return elements;
@@ -134,7 +149,7 @@ public:
 
 		for(std::size_t index = 0; index < orbit.size(); index++)
 		{
-			for(Iter it1 = elements.begin(); it1 != elements.end(); it1++)
+			for(IterC it1 = elements.begin(); it1 != elements.end(); it1++)
 			{
 				std::size_t image = it1->GetImage(orbit[index]);
 				if(find(orbit.begin(), orbit.end(), image) == orbit.end())
@@ -188,20 +203,6 @@ public:
 			temp_el = temp_el * element;
 		}
 		return cyclic_group;
-	};
-
-
-	void AddCoset(std::vector<T>& elements, const T& element)const
-	{
-		std::size_t order = elements.size();
-		for(std::size_t index = 0; index < order; index++)
-		{
-			T el = element * elements[index];
-			if(find(elements.begin(), elements.end(), el) == elements.end())
-			{
-				elements.push_back(el);
-			}
-		}
 	};
 
 private:
