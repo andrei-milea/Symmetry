@@ -66,7 +66,7 @@ badd +54 /home/projects/absalg_root/absalg/gcc/std_ex.h
 badd +24 /home/projects/absalg_root/absalg/gcc/tst_group.cpp
 badd +12 /home/projects/absalg_root/absalg/gcc/group_lattice.h
 badd +2 /home/projects/absalg_root/absalg/gcc/Makefile
-badd +38 /home/projects/absalg_root/absalg/gcc/group.h
+badd +15 /home/projects/absalg_root/absalg/gcc/group.h
 badd +56 /home/projects/absalg_root/absalg/gcc/symmetric_rep.h
 badd +112 /home/projects/absalg_root/absalg/gcc/permutation.h
 badd +102 /home/projects/absalg_root/absalg/gcc/group_elem.h
@@ -175,7 +175,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 25)
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -284,12 +284,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 133 - ((22 * winheight(0) + 12) / 25)
+let s:l = 148 - ((20 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-133
-normal! 01l
+148
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/unit_tests
 tabedit /home/projects/absalg_root/absalg/gcc/symmetric_rep.h
 set splitbelow splitright
@@ -393,11 +393,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 151 - ((0 * winheight(0) + 12) / 25)
+let s:l = 93 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-151
+93
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/unit_tests
 tabedit /home/projects/absalg_root/absalg/gcc/unit_tests/Makefile
@@ -502,7 +502,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 12) / 25)
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt

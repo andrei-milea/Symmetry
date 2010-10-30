@@ -16,11 +16,11 @@ using namespace boost::unit_test;
 void test_s3_lattice_has_prime_power_el()
 {
 	
-	cPermElem<3> s1({1,2,3});
-	cPermElem<3> s2({1,3,2});
-	cGroupElem< cPermElem<3>, Multiplication> elem1(s1);
-	cGroupElem< cPermElem<3>, Multiplication> elem2(s2);
-	std::vector< cGroupElem<cPermElem<3>, Multiplication> >  generators;
+	cPermElem s1(3,{1,2,3});
+	cPermElem s2(3,{1,3,2});
+	cGroupElem< cPermElem, Multiplication> elem1(s1);
+	cGroupElem< cPermElem, Multiplication> elem2(s2);
+	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
 	generators.push_back(elem1.GetIdentity());
 	generators.push_back(elem1);
 	generators.push_back(elem2);
@@ -36,17 +36,17 @@ void test_s3_lattice_has_prime_power_el()
 void test_s3_lattice()
 {
 
-	cPermElem<3> s1({1,2});
-	cPermElem<3> s2({2,3});
-	cGroupElem< cPermElem<3>, Multiplication> elem1(s1);
-	cGroupElem< cPermElem<3>, Multiplication> elem2(s2);
-	std::vector< cGroupElem<cPermElem<3>, Multiplication> >  generators;
+	cPermElem s1(3,{1,2});
+	cPermElem s2(3,{2,3});
+	cGroupElem< cPermElem, Multiplication> elem1(s1);
+	cGroupElem< cPermElem, Multiplication> elem2(s2);
+	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
 	generators.push_back(elem1);
 	generators.push_back(elem2);
 	S3 g1(generators);
 
 	cGrpLattice<S3> s3_lattice(g1);
-	//s3_lattice.CyclicExtensionMethod();
+	s3_lattice.CyclicExtensionMethod();
 
 
 };
