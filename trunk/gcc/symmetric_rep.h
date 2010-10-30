@@ -31,15 +31,14 @@ public:
 	{
 	};
 
-	//gcc bug?
-	/*cSymmetricRep(std::initializer_list<T> perm_list)
+	cSymmetricRep(std::initializer_list<T> perm_list)
 	{
-		for(std::initializer_list<std::size_t>::iterator iter = perm_list.begin();
+		for(typename std::initializer_list<T>::iterator iter = perm_list.begin();
 			   	iter < perm_list.end()-1; iter++)
 		{
-			m_GenSet.insert(m_GenSet.end(),(*iter));
+			m_GenSet.push_back(*iter);
 		}
-	};*/
+	};
 
 	//copy constructor and assign operator
 	cSymmetricRep(const SelfType &sym_rep)		
@@ -74,7 +73,7 @@ public:
 	std::vector<T> GetElementsNaive()const
 	{
 		std::vector<T> elements;
-		elements.push_back(T::GetIdentity());
+		elements.push_back(GetIdentity());
 		for( std::size_t index = 0; index < elements.size(); index++)
 		{
 			for(IterC set_iter = m_GenSet.begin();
@@ -133,7 +132,7 @@ public:
 						}
 					}
 					rep_pos += prev_order;
-					if(rep_pos > elements.size() - 1)
+					if( (prev_order == 0) || (rep_pos > elements.size() - 1) )
 						break;
 				}
 			}
@@ -189,15 +188,16 @@ public:
 
 	T GetIdentity()const
 	{
-		return T::GetIdentity();
+		assert(m_GenSet.size() != 0);
+		return m_GenSet.begin()->GetIdentity();
 	};
 
 	std::vector<T> GetCyclicSubgroup(const T& element)const
 	{
 		T temp_el = element;
 		std::vector<T> cyclic_group;
-	    cyclic_group.push_back(T::GetIdentity());
-		while(temp_el != T::GetIdentity())
+	    cyclic_group.push_back(GetIdentity());
+		while(temp_el != GetIdentity())
 		{
 			cyclic_group.push_back(temp_el);
 			temp_el = temp_el * element;

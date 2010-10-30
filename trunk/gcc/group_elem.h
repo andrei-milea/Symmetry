@@ -6,18 +6,17 @@
 #include "permutation.h"
 
 
-template <typename T, typename BinaryOp, std::size_t SIZE = T::GroupSize>
+template <typename T, typename BinaryOp>
 class cGroupElem : public T
 {
 public:
-	typedef cGroupElem<T, BinaryOp, SIZE> SelfType;
+	typedef cGroupElem<T, BinaryOp> SelfType;
 	typedef T ConcreteElType;
 public:
 
-	//constructors
 	cGroupElem()
-	{
-	};
+		:T()
+	{};
 	cGroupElem(T &concrete_obj)
 		:T(concrete_obj)
 	{
@@ -27,11 +26,13 @@ public:
 		:T(concrete_obj)
 	{
 	};
+
 	//copy constructor and assign operator
 	cGroupElem(const SelfType &group_elem)
 	{
 		T::operator=(group_elem);
 	};
+
 	SelfType &operator=(const SelfType &elem)
 	{
 		if(this != &elem)
@@ -49,7 +50,7 @@ public:
     {
 		std::size_t size = 1;
 		SelfType temp = (*this);
-        while(temp != ConcreteElType::GetIdentity(m_BinOp))
+        while(temp != GetIdentity())
         {
             temp = m_BinOp(temp,(*this));
 			size++;
@@ -63,7 +64,7 @@ public:
 		{
 			if(group_order%d==0) 
 			{
-				if(GetNthPower(d)==T::GetIdentity(m_BinOp))
+				if(GetNthPower(d)==GetIdentity())
 				{
 					return d;
 				}
@@ -113,7 +114,7 @@ public:
 		return true;
 	};
 
-	static SelfType GetIdentity()
+	SelfType GetIdentity()const
 	{
 		BinaryOp _BinOp;
 		return SelfType(ConcreteElType::GetIdentity(_BinOp));
@@ -128,7 +129,7 @@ private:
 	SelfType GetNthPower(std::size_t n, const SelfType &element)const
 	{
 		if(0 == n)
-			return T::GetIdentity(m_BinOp);
+			return GetIdentity();
 		if(1 == n)
 			return *this;
 		if(0 == n % 2 )
@@ -140,9 +141,6 @@ private:
 
 private:
 	BinaryOp m_BinOp;
-	
-public:
-	const static std::size_t GroupOrder = SIZE;
 };
 
 

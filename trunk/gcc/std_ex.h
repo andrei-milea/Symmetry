@@ -26,7 +26,7 @@ bool set_inclusion(SET_REP &set1, SET_REP &set2)	//set2 contains set1 ?
 
 //test 2 sets for equality
 template <typename SET_REP>
-bool set_equality(SET_REP &set1, SET_REP &set2)
+bool set_equality(const SET_REP &set1, const SET_REP &set2)
 {
 	if(set1.size() != set2.size())
 		return false;
@@ -92,7 +92,7 @@ void print_vector(const std::vector<T>& vec)
 	typename std::vector<T>::const_iterator it;
 	for(it = vec.begin(); it != vec.end(); it++)
 	{
-		std::cout<<*it<<"\n";
+		std::cout<<*it<<"\n\n";
 	}
 	std::cout<<"End\n";
 };

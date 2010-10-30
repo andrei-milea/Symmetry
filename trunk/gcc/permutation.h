@@ -1,92 +1,121 @@
 #ifndef PERMUTATION_H_
 #define PERMUTATION_H_ 
 
-#include <array>
+#include <vector>
 #include <initializer_list>
 #include<boost/lexical_cast.hpp>
 #include <iostream>
-#include <boost/assert.hpp>
-#include "factorial.h"
+#include <cassert>
+#include "std_ex.h"
+#include <algorithm>
 
-//namespace tr1 = std::tr1;
 
+	/*****************************************
+	 * permutation element class 
+	*****************************************/
 
-template <std::size_t N>
 class cPermElem
 {
 public:
-	typedef cPermElem<N> SelfType;
 
-public:
 	//constructors
 	cPermElem()
+		:m_PermArray(NULL),
+			m_Size(0)
+	{};
+
+	explicit cPermElem(std::size_t size)
+		:m_PermArray(NULL),
+		m_Size(size)
 	{
-		for(std::size_t index = 0; index <= N; index++)
+		m_PermArray = new std::vector<std::size_t>(m_Size);
+		for(std::size_t index = 0; index < size; index++)
 		{
-			m_PermArray[index] = index;
+			(*m_PermArray)[index] = index + 1;
 		}
 	};
-	cPermElem(std::array<std::size_t, N+1> &permutation_array)
-		:m_PermArray(permutation_array)
-	{};
-	cPermElem(std::initializer_list<std::size_t> perm_sq)
+
+	cPermElem(std::vector<std::size_t> &permutation_array)
 	{
-		//g++  bug??
-		for(std::size_t index = 0; index <= N; index++)
+		m_Size = permutation_array.size();
+		m_PermArray = new std::vector<std::size_t>(m_Size);
+		(*m_PermArray) = permutation_array;
+	};
+	
+	cPermElem(std::vector<std::size_t> *permutation_array)
+	{
+
+		m_PermArray = permutation_array;
+		m_Size = m_PermArray->size();
+	};
+
+	cPermElem(std::size_t size, const std::initializer_list<std::size_t> &perm_sq)
+		:m_PermArray(NULL)
+	{
+		m_Size = size;
+		m_PermArray = new std::vector<std::size_t>(m_Size);
+		for(std::size_t index = 0; index < m_Size; index++)
 		{
-			m_PermArray[index] = index;
+			(*m_PermArray)[index] = index + 1;
 		}
-		for(std::initializer_list<std::size_t>::iterator iter = perm_sq.begin();
-			   	iter < perm_sq.end()-1; iter++)
+		for(std::initializer_list<std::size_t>::const_iterator iter = perm_sq.begin();
+			  	iter != perm_sq.end()-1; iter++)
 		{
-			if(*iter <= N && *iter != 0)
+			if(*iter <= m_Size && *iter != 0)
 			{
-				m_PermArray[(*iter)] = *(iter+1);
+				(*m_PermArray)[(*iter) - 1] = *(iter+1);
 			}
 		}
-		m_PermArray[*(perm_sq.end()-1)] = *perm_sq.begin();
+		(*m_PermArray)[(*(perm_sq.end()-1)) - 1] = *perm_sq.begin();
 	};
 
 	//copy constructor and assign operator
-	cPermElem(const SelfType &permutation)
+	cPermElem(const cPermElem &permutation)
 	{
-		m_PermArray = permutation.GetPermutationArray();
+		m_Size = permutation.GetSize();
+		m_PermArray = new std::vector<std::size_t>(m_Size);
+		(*m_PermArray) = (*permutation.GetPermutationArray());
 	};
-	SelfType operator=(const SelfType &permutation)
+
+	cPermElem& operator=(const cPermElem &permutation)
 	{
-		return m_PermArray = permutation.GetPermutationArray();
+		m_Size = permutation.GetSize(); 
+		m_PermArray = new std::vector<std::size_t>(m_Size);
+		(*m_PermArray) = (*permutation.GetPermutationArray());
+		return *this;
 	};
 
 	~cPermElem()
-	{};
+	{
+		if(m_PermArray)
+			delete m_PermArray;
+	};
 
-
-	//getter,setter
-	std::array<std::size_t, N+1> GetPermutationArray()const
+	//getter
+	std::vector<std::size_t>* GetPermutationArray()const
 	{
 		return m_PermArray;
 	};
-	void SetPermutationArray(std::array<std::size_t, N+1> permutation_array)
-	{
-		m_PermArray = permutation_array;
-	};
 
 	//permutation mutiplication operator
-	SelfType operator*(const SelfType &perm)const
+	cPermElem operator*(const cPermElem &perm)const
 	{
-		std::array<std::size_t, N+1> temp_perm;
-		for(std::size_t index = 1; index <= N; index++)
+		assert(perm.GetSize() == m_Size);
+		std::vector<std::size_t> temp_perm(m_Size);
+		for(std::size_t index = 0; index < m_Size; index++)
 		{
-			temp_perm[index] = perm.GetPermutationArray()[m_PermArray[index]];
+			temp_perm[index] = (*perm.GetPermutationArray())[(*m_PermArray)[index] - 1];
 		}
-		return temp_perm;
+		return cPermElem(temp_perm);
 	};
 
-	bool operator==(const SelfType &perm)const
+	bool operator==(const cPermElem &perm)const
 	{
-		for(std::size_t index = 1; index <= N; index++)
+		if(perm.GetSize() != m_Size)
+			return false;
+		for(std::size_t index = 0; index < m_Size; index++)
 		{
-			if(m_PermArray[index] != perm.GetPermutationArray()[index])
+			if((*m_PermArray)[index] != (*perm.GetPermutationArray())[index])
 			{
 				return false;
 			}
@@ -94,63 +123,66 @@ public:
 		return true;
 	};
 
-	bool operator!=(const SelfType &perm)const
+	bool operator!=(const cPermElem &perm)const
 	{
 		return !(perm == *this);
 	};
 
 
-	friend std::ostream& operator<<(std::ostream &of, const SelfType &perm)
+	friend std::ostream& operator<<(std::ostream &of, const cPermElem &perm)
 	{
 		std::string perm_index;
 		std::string perm_val;
-		for(std::size_t index = 1; index <= N; index++)
+		for(std::size_t index = 0; index < perm.m_Size; index++)
 		{
-			perm_index += boost::lexical_cast<std::string>(index) + " ";
-			perm_val += boost::lexical_cast<std::string>(perm.GetPermutationArray()[index]) + " ";
+			perm_index += boost::lexical_cast<std::string>(index+1) + " ";
+			perm_val += boost::lexical_cast<std::string>((*perm.GetPermutationArray())[index]) + " ";
 		}
 		return std::cout<<perm_index<<"\n"<<perm_val;
 	};
 
 	std::size_t GetImage(const std::size_t set_element)const
 	{
-		return m_PermArray[set_element];
+		return (*m_PermArray)[set_element - 1];
 	};
 
-	SelfType GetMultInverse()const
+	cPermElem GetMultInverse()const
 	{
-		SelfType perm;
-		std::array<std::size_t, N+1> perm_array;
-		for(std::size_t index = 1; index <= N; index++) 
+		std::vector<std::size_t> perm_array(m_Size);
+		for(std::size_t index = 0; index < m_Size; index++) 
 		{
-			 perm_array[m_PermArray[index]] = index;
+			 perm_array[(*m_PermArray)[index] - 1] = index + 1;
 		}
-		perm.SetPermutationArray(perm_array);
-		return perm;
+		return cPermElem(perm_array);
 	};
 
-	SelfType GetAdInverse()const
+	cPermElem GetAdInverse()const
 	{
 		return GetMultInverse();
 	};
 
-
-public:
-	template <typename OP>
-	static SelfType GetIdentity(OP &op)
+	std::size_t GetSize()const
 	{
-		return SelfType();
+		return m_Size;
 	};
 
-	//GroupSize = permutation_size!
-	static const std::size_t GroupSize = Factorial<N>::value;
+	void SetSize(const std::size_t size)
+	{
+		m_Size = size;
+	};
+
+	template <typename BINOP>
+	cPermElem GetIdentity(BINOP binop)const
+	{
+		return cPermElem(m_Size);
+	};
 
 
 private:
-	std::array<std::size_t, N+1> m_PermArray;
+	std::vector<std::size_t> *m_PermArray;
+	std::size_t m_Size;
 };
 
-typedef cPermElem<2> cTransp;
 
 #endif
 

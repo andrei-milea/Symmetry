@@ -1,4 +1,4 @@
-all: test_symmetric
+all: 	test_lattice
 CFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 GCC = /opt/usr/bin/g++
 

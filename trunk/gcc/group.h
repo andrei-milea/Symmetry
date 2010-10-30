@@ -77,10 +77,10 @@ public:
 	std::vector<ElementType> GetCenterEl()const
 	{
 		GrpVec subgrp_el;
-		subgrp_el.push_back(ElementType::GetIdentity());
+		subgrp_el.push_back(RepType::GetIdentity());
 		GrpVec grp_el = this->GetElementsDimino();
 		GrpVec rem_el = grp_el;
-		std::remove(rem_el.begin(), rem_el.end(), ElementType::GetIdentity());
+		std::remove(rem_el.begin(), rem_el.end(), RepType::GetIdentity());
 		while(!rem_el.empty())
 		{
 			bool commutes = true;
@@ -103,37 +103,55 @@ public:
 
 	std::vector<ElementType> GetNormalizerEl(const cSubgroup<SelfType> &_subgrp)const
 	{
-		GrpVec subgrp_el;
-		subgrp_el.push_back(ElementType::GetIdentity());
+		GrpVec normalizer_el;
+		normalizer_el.push_back(RepType::GetIdentity());
 
 		GrpVec grp_el = this->GetElementsDimino();
 		GrpVec rem_el = grp_el;
 
 		const GrpVec _subgrp_el = _subgrp.GetElementsDimino();
-		std::remove(rem_el.begin(), rem_el.end(), ElementType::GetIdentity());
+
+		//remove identity
+		rem_el = GrpVec(rem_el.begin(),
+				std::remove(rem_el.begin(), rem_el.end(), RepType::GetIdentity()));
+
 		while(!rem_el.empty())
 		{
 			if(rem_el.begin()->IsNormalizer(_subgrp_el))
 			{
-				subgrp_el.push_back(*rem_el.begin());
-				std_ex::set_difference(rem_el, GetCyclicSubgroup(*rem_el.begin()));
+				normalizer_el.push_back(*rem_el.begin());
+				SelfType H(normalizer_el);
+				normalizer_el = H.GetElementsNaive();
+//				//H=<H,g>   OPTIMIZATION******TODO
+//				for(std::size_t rep_pos = 0; rep_pos < normalizer_el.size(); rep_pos++)
+//				{
+//					ElementType elt = (*rem_el.begin()) * normalizer_el[rep_pos];
+//					if(find(normalizer_el.begin(), normalizer_el.end(), elt) == 
+//							normalizer_el.end() )
+//					{
+//						rep_pos = normalizer_el.size() - 1;
+//						normalizer_el.push_back(elt);
+//						std::size_t normalizer_size = normalizer_el.size();
+//						for(std::size_t index = 0; index < normalizer_size; index++)
+//						{
+//							normalizer_el.push_back(normalizer_el[index] * elt);
+//						}
+//					}
+//				}
+
+				std_ex::set_difference(rem_el, normalizer_el);
 			}
 			else
 			{
 				rem_el.erase(rem_el.begin());
 			}
 		}
-		return subgrp_el;
+		return normalizer_el;
 	};
 };
 
 
 //************concrete groups table**************//
-//squared matrix additive group
-typedef cGroup< cGroupElem< cSqMatrixElement<int, 3>, Addition, 20> > cSqMatGroup3;	
-//general liniar group
-typedef cGroup< cGroupElem< cSqMatrixElement<cIntModNElem<20>, 3>, Multiplication, 20> > cGLgroup3;	
-typedef cGroup< cGroupElem< cPermElem<3>, Multiplication >, cSymmetricRep > S3;
-typedef cGroup< cGroupElem< cPermElem<4>, Multiplication >, cSymmetricRep > S4;
+typedef cGroup< cGroupElem< cPermElem, Multiplication >, cSymmetricRep > S3;
 
 #endif
