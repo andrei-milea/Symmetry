@@ -49,6 +49,7 @@ public:
 		m_Size = m_PermArray->size();
 	};
 
+	//cycle constructor
 	cPermElem(std::size_t size, const std::initializer_list<std::size_t> &perm_sq)
 		:m_PermArray(NULL)
 	{
@@ -68,6 +69,24 @@ public:
 		}
 		(*m_PermArray)[(*(perm_sq.end()-1)) - 1] = *perm_sq.begin();
 	};
+
+	//image constructor
+	cPermElem(const std::initializer_list<std::size_t> &perm_sq)
+		:m_PermArray(NULL)
+	{
+		m_Size = perm_sq.size();
+		m_PermArray = new std::vector<std::size_t>(m_Size);
+
+		std::size_t index = 0;
+		for(std::initializer_list<std::size_t>::const_iterator iter = perm_sq.begin();
+			  	iter != perm_sq.end(); iter++)
+		{
+			(*m_PermArray)[index] = (*iter);
+			index++;
+		}
+	};
+
+
 
 	//copy constructor and assign operator
 	cPermElem(const cPermElem &permutation)

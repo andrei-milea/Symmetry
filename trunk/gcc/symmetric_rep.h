@@ -56,7 +56,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& out,const SelfType &group_rep)
 	{
 		out<<"< \n";
-		for(Iter iter = group_rep.m_GenSet.begin(); iter != group_rep.m_GenSet.end(); iter++)
+		for(IterC iter = group_rep.m_GenSet.begin(); iter != group_rep.m_GenSet.end(); iter++)
 		{
 			out<<*iter<<"\n";
 		}

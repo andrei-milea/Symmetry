@@ -35,6 +35,19 @@ void test_perm_multiplication()
     BOOST_CHECK(perm1 * perm3 == cPermElem(3,{1, 3, 2}));
     BOOST_CHECK(perm1 * perm1 * perm1 == perm1);
     BOOST_CHECK(perm1 * perm2 * perm3 == perm2 * perm1 * perm3);
+
+
+	//test multiplication for elements of S4(D8)
+	cPermElem elt1(4);
+	cPermElem elt2(4,{1,4,3,2});
+	cPermElem elt3(4,{1,3});
+	elt3 = elt3 * cPermElem(4,{2,4});
+	cPermElem elt4(4,{1,2,3,4});
+	cPermElem elt5({1,4,3,2});
+	cPermElem elt6({2,1,4,3});
+	BOOST_CHECK(elt3 == elt2 * elt2);
+	BOOST_CHECK(elt4 == elt2 * elt2 * elt2);
+	BOOST_CHECK(elt2 * elt5 == elt6);
 }
 
 
@@ -65,7 +78,7 @@ void test_perm_trivial()
     BOOST_CHECK(perm6 == perm1);
     
 	//test get identity
-    BOOST_CHECK(perm4.GetIdentity() == perm1);
+    BOOST_CHECK(perm4.GetIdentity(1) == perm1);
 }
 
 
