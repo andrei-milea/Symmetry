@@ -26,6 +26,10 @@ void test_trivial()
 
 void test_order_power()
 {
+	/*****************************************
+	 * tests for S3
+	*****************************************/
+
 	cPermElem s1(3);
 	cPermElem s2(3,{2,3});
 	cPermElem s3(3,{1,2});
@@ -54,11 +58,36 @@ void test_order_power()
 	BOOST_CHECK(elem1.GetInverse() == elem1);
 	BOOST_CHECK(elem2.GetInverse() == elem4);
 
-	}
+	/*****************************************
+	 * tests for D8 
+	*****************************************/
+
+	cGroupElem<cPermElem, Multiplication> elt1(4);
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt4({2,3,4,1});
+	
+	//test getnthpower
+	BOOST_CHECK(elt2.GetNthPower(2) == elt3);
+	BOOST_CHECK(elt2.GetNthPower(3) == elt4);
+
+	//test getorder
+	BOOST_CHECK(elt2.GetOrder() == 4);
+	BOOST_CHECK(elt3.GetOrder() == 2);
+	BOOST_CHECK(elt2.GetOrder() == elt2.GetOrder(8));
+
+	//test getinverse
+	BOOST_CHECK(elt3.GetInverse() == elt3);
+
+}
 
 
 void test_properties()
 {
+	/*****************************************
+	 * tests for S3
+	*****************************************/
+
 	//test commutes with
 	cPermElem s1(3);
 	cPermElem s2(3,{2,3});
@@ -78,6 +107,32 @@ void test_properties()
 	elements.push_back(elem2);
 	elements.push_back(elem3);
 	BOOST_CHECK(elem1.IsNormalizer(elements));
+
+
+	/*****************************************
+	 * tests for D8
+	*****************************************/
+
+	cGroupElem<cPermElem, Multiplication> elt1(4);
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt4({2,3,4,1});
+
+	std::vector< cGroupElem<cPermElem, Multiplication> > elem;
+	elem.push_back(elt1);
+	elem.push_back(elt2);
+	elem.push_back(elt3);
+
+	//test commutes with
+	BOOST_CHECK(elt1.CommutesWith(elt2));
+	BOOST_CHECK(elt1.CommutesWith(elt3));
+	BOOST_CHECK(elt1.CommutesWith(elt4));
+	BOOST_CHECK(elt3.CommutesWith(elt3));
+	BOOST_CHECK(elt2.CommutesWith(elt3));
+
+	//test is normalizer
+	BOOST_CHECK(elt1.IsNormalizer(elem));
+	BOOST_CHECK(elt2.IsNormalizer(elem));
 }
 
 

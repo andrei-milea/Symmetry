@@ -24,7 +24,7 @@ public:
 			m_Size(0)
 	{};
 
-	explicit cPermElem(std::size_t size)
+	cPermElem(std::size_t size)
 		:m_PermArray(NULL),
 		m_Size(size)
 	{

@@ -121,25 +121,7 @@ public:
 			{
 				normalizer_el.push_back(*rem_el.begin());
 				SelfType H(normalizer_el);
-				normalizer_el = H.GetElementsNaive();
-//				//H=<H,g>   OPTIMIZATION******TODO
-//				for(std::size_t rep_pos = 0; rep_pos < normalizer_el.size(); rep_pos++)
-//				{
-//					ElementType elt = (*rem_el.begin()) * normalizer_el[rep_pos];
-//					if(find(normalizer_el.begin(), normalizer_el.end(), elt) == 
-//							normalizer_el.end() )
-//					{
-//						rep_pos = normalizer_el.size() - 1;
-//						normalizer_el.push_back(elt);
-//						std::size_t normalizer_size = normalizer_el.size();
-//						for(std::size_t index = 0; index < normalizer_size; index++)
-//						{
-//							normalizer_el.push_back(normalizer_el[index] * elt);
-//						}
-//					}
-//				}
-
-				std_ex::set_difference(rem_el, normalizer_el);
+				std_ex::set_difference(rem_el, H.GetElementsNaive());
 			}
 			else
 			{

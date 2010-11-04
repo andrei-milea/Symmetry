@@ -30,6 +30,21 @@ void test_s3_centralizer_el()
 	BOOST_CHECK(std_ex::set_equality(centralizer_el, res));
 };
 
+void test_d8_centralizer_el()
+{
+	cGroupElem<cPermElem, Multiplication> elt1({1,2,3,4});
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+
+	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
+	D8.AddGenerator(elt2);
+	D8.AddGenerator(elt5);
+	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCentralizerEl(elt3);
+	BOOST_CHECK(std_ex::set_equality(elts, D8.GetElementsDimino()));
+
+};
+
 void test_s3_center_el()
 {
 	cPermElem s1(3,{1,2});
@@ -46,6 +61,21 @@ void test_s3_center_el()
 	std::vector< cGroupElem<cPermElem, Multiplication> >  center_el1;
 	center_el1.push_back(g1.GetIdentity());
 	BOOST_CHECK(std_ex::set_equality(center_el, center_el1));
+};
+
+void test_d8_center_el()
+{
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+
+	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
+	D8.AddGenerator(elt5);
+	D8.AddGenerator(elt2);
+	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCenterEl();
+	std::vector< cGroupElem<cPermElem, Multiplication> > elts1 = D8.GetCyclicSubgroup(elt2 * elt2);
+
+	BOOST_CHECK(std_ex::set_equality(elts,elts1));
+
 };
 
 void test_s3_normalizer_el()
@@ -84,12 +114,33 @@ void test_s3_normalizer_el()
 	BOOST_CHECK(std_ex::set_equality(g1.GetElementsDimino(), g2.GetElementsDimino()));
 };
 
+void test_d8_normalizer_el()
+{
+
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+
+	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
+	D8.AddGenerator(elt5);
+	D8.AddGenerator(elt2);
+	std::vector< cGroupElem<cPermElem, Multiplication> > elts_subgrp = D8.GetCenterEl();
+
+	//the whole subgroup normalizes the center
+	BOOST_CHECK(std_ex::set_equality(D8.GetNormalizerEl(elts_subgrp), D8.GetElementsDimino()));
+};
+
 
 test_suite* init_unit_test_suite( int argc, char* argv[] ) 
 {
+	//tests for S3
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_centralizer_el ) );
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_center_el ) );
     framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_normalizer_el ) );
+
+	//tests for D8
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_d8_centralizer_el ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_d8_center_el) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_d8_normalizer_el ) );
 	return 0;
 }; 
 

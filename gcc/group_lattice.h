@@ -59,7 +59,7 @@ public:
 
 		bool need_new_layer = false;
 		//main loop -- iterate through every layer
-		for(std::size_t index = 1; /*index < m_Lattice.size()*/ index < 2; index++)	
+		for(std::size_t index = 1; index < m_Non_Triv_Layers; index++)	
 		{
 			need_new_layer = true;
 			//for each subgroup in the layer
@@ -69,8 +69,13 @@ public:
 				//compute generators of possible subgroups
 				//possible_gen = (cyc_gen ^ (N(U) - U) ) - subgrps in the ith layer
 				ElemVec norm_elem = m_Group.GetNormalizerEl(*subgrp_iter);
+				std_ex::print_vector(norm_elem);
 
 				std_ex::set_difference(norm_elem, (*subgrp_iter).GetElementsDimino());
+
+
+				std_ex::print_vector(norm_elem);
+
 				ElemVec possible_gen = std_ex::set_intersection(m_CycSubgrpsGen, 
 						norm_elem);
 
@@ -142,8 +147,16 @@ private:
 		{
 			cSubgroup<G> newsubgroup;
 			newsubgroup.AddGenerator(*cyc_subgrp_gen.begin());
-			m_Lattice[1].push_back(newsubgroup);
-			std_ex::set_difference(cyc_subgrp_gen, newsubgroup.GetElementsDimino());
+			if(newsubgroup.GetCyclicSubgroup(*cyc_subgrp_gen.begin()).size() 
+					== m_SmallestPrimeOrder)
+			{
+				m_Lattice[1].push_back(newsubgroup);
+				std_ex::set_difference(cyc_subgrp_gen, newsubgroup.GetElementsDimino());
+			}
+			else
+			{
+				cyc_subgrp_gen.erase(cyc_subgrp_gen.begin());
+			}
 		}
 	};
 
@@ -156,8 +169,10 @@ private:
 	};
 
 	//build cyclic subgroups of prime power order
+	//also computes the number of non-trivial layers
 	void BuildCycSubgrpPPOrder()
 	{
+		m_SmallestPrimeOrder = (size_t)-1;
 		ElemVec group_elements = m_Group.GetElementsDimino();
 		for(typename ElemVec::iterator iter = group_elements.begin();
 				iter != group_elements.end(); iter++)
@@ -166,8 +181,29 @@ private:
 			if(isPrime(cyc_subgrp_elem.size()))
 			{
 				m_CycSubgrpsGen.push_back(*iter);
+				if(cyc_subgrp_elem.size() < m_SmallestPrimeOrder)
+					m_SmallestPrimeOrder = cyc_subgrp_elem.size();
 			}
 		}
+
+		//set the number of non-trivial layers
+		//factor the group order -- TODO : improve algorithm
+		//trial division -- bad complexity
+		std::size_t group_order = group_elements.size();
+		std::size_t index = 0;
+		std::size_t non_triv_layers = 0;
+		while(group_order > 1)
+		{
+			std::size_t prime = boost::math::prime(index);
+			while(group_order % prime == 0)
+			{
+				group_order = group_order / prime;
+				non_triv_layers++;
+			}
+			index++;
+		}
+
+		m_Non_Triv_Layers = non_triv_layers - 1;
 	};
 
 	//check if a subgroup contains the element at prime power order
@@ -203,6 +239,8 @@ private:
 	G												m_Group;
 	ElemVec		 									m_CycSubgrpsGen;
 	std::vector< std::vector< cSubgroup<G> > > 		m_Lattice;
+	std::size_t 									m_Non_Triv_Layers;
+	std::size_t										m_SmallestPrimeOrder;
 };
 
 #endif
