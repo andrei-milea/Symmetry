@@ -12,14 +12,12 @@ using namespace boost::unit_test;
 
 	//BOOST_TEST_MESSAGE( "cyc_grp:" << cyc_grp[0]<<"\n" << cyc_grp[1]<<"\n");
 	
-void test_s3_trivial()
+void test_trivial()
 {
 
 	//test constructors
 	
 	//build the group
-	//use this construction to avoid g++ bug with 
-	//initializer list
 	cPermElem s1(3,{1,2});
 	cPermElem s2(3,{2,3});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
@@ -44,9 +42,12 @@ void test_s3_trivial()
 
 }
 
-void test_s3_private()
+void test_private()
 {
-	//REMEMBER: make methods public first
+
+	/*****************************************
+	 * tests for S3
+	*****************************************/
 	
 /////////test get_cyclic_group//////////
 	
@@ -97,11 +98,37 @@ void test_s3_private()
 
 ///////////////////////////////////////
 
+
+	/*****************************************
+	 * tests for D8
+	*****************************************/
+
+	//test get cyclic subgroup
+	cGroupElem<cPermElem, Multiplication> elt1(4);
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt4({2,3,4,1});
+
+	std::vector<cGroupElem<cPermElem, Multiplication> > cyc_grp__;
+	cyc_grp__.push_back(elt1);
+	cyc_grp__.push_back(elt2);
+	cyc_grp__.push_back(elt3);
+	cyc_grp__.push_back(elt4);
+
+	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep >  cyc_grp_;
+	cyc_grp_.AddGenerator(elt1);
+	BOOST_CHECK(std_ex::set_equality(cyc_grp_.GetCyclicSubgroup(elt2), cyc_grp__));
+
+///////////////////////////////////////
 }
 
 
-void test_s3_elements()
+void test_elements()
 {
+
+	/*****************************************
+	 * tests for S3
+	*****************************************/
 
 	//test get elements naive
 	cPermElem s1(3,{1,2});
@@ -135,7 +162,6 @@ void test_s3_elements()
 	cPermElem s5(3,{1,2,3});
 	cGroupElem< cPermElem, Multiplication> elem5(s5);
 	generators.clear();
-	//generators.push_back(g1.GetIdentity());
 	generators.push_back(elem5);
 	S3 g5(generators);
 	std::vector< cGroupElem<cPermElem, Multiplication> > elements5 = g5.GetElementsDimino();
@@ -148,10 +174,29 @@ void test_s3_elements()
 
 	BOOST_ASSERT(std_ex::set_equality(elements5, elements5_check));
 
+
+	/*****************************************
+	 * tests for D8
+	*****************************************/
+
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
+	D8.AddGenerator(elt2);
+
+	BOOST_CHECK(std_ex::set_equality(D8.GetElementsDimino(), D8.GetElementsNaive()));
+
+	D8.AddGenerator(elt5);
+
+	BOOST_CHECK(std_ex::set_equality(D8.GetElementsDimino(), D8.GetElementsNaive()));
 }
 
-void test_s3_getorbit()
+void test_getorbit()
 {
+	/*****************************************
+	 * tests o S3
+	*****************************************/
+
 	cPermElem s3(3,{1,2});
 	cPermElem s4(3,{1,2,3});
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
@@ -162,16 +207,33 @@ void test_s3_getorbit()
 	S3 g2(generators1);
 	std::vector<std::size_t> orbit1 = g2.GetOrbit(1);
 	std::vector<std::size_t> orbit2 = g2.GetOrbit(2);
-	BOOST_ASSERT(std_ex::set_equality(orbit1, orbit2));
+	BOOST_CHECK(std_ex::set_equality(orbit1, orbit2));
+
+	/*****************************************
+	 * tests on D8
+	*****************************************/
+
+	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
+	D8.AddGenerator(elt2);
+	D8.AddGenerator(elt5);
+
+	std::vector<std::size_t> orbit = {1,2,3,4};
+
+	BOOST_CHECK(std_ex::set_equality(orbit, D8.GetOrbit(1)));
+
+	BOOST_CHECK(std_ex::set_equality(orbit, D8.GetOrbit(2)));
+
 };
 
 
 test_suite* init_unit_test_suite( int argc, char* argv[] ) 
 {
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_trivial ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_private ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_elements ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_getorbit ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_trivial ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_private ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_elements ) );
+    framework::master_test_suite().add( BOOST_TEST_CASE( &test_getorbit ) );
 	return 0;
 }; 
 

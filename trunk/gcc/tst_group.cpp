@@ -23,6 +23,17 @@ int main()
 	s3_lattice.CyclicExtensionMethod();
 	std::cout<<s3_lattice;
 
+//
+//	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
+//	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+//	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
+//	D8.AddGenerator(elt2);
+//	D8.AddGenerator(elt5);
+//
+//	cGrpLattice<cGroup<cGroupElem<cPermElem,Multiplication>, cSymmetricRep> > D8_lat(D8);
+//	D8_lat.CyclicExtensionMethod();
+//	std::cout<<D8_lat;
+//
 	return 0;	
 };
 
