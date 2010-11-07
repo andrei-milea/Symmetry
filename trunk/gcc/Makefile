@@ -13,7 +13,7 @@ tst_group.o: tst_group.cpp
 clean:
 	rm -rf *o tst_group 
 
-SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
+SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp /usr/include/boost/graph/adjacency_list.hpp
 CTAGS=etags -o tags
 
 tags:

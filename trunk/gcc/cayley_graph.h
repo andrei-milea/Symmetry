@@ -1,75 +1,134 @@
 #ifndef CAYLEY_GRAPH_H_
 #define CAYLEY_GRAPH_H_
 
+#include <boost/graph/adjacency_list.hpp>
 #include <vector>
+#include <algorithm>
+#include <cassert>
 #include "group.h"
 
 
 //implementation of a Cayley Graph
 //used to represent an abbreviated 
 //multiplication table
-template <typename T, typename R>
+//template must be instantiated with a group type
+template <typename G>
 class cCayleyGrf
 {
-typedef property<edge_index_t, T> edge_property;
-typedef boost::adjacency_matrix<boost::undirectedS, no_property
-    edge_property> Graph;
-typedef typename graph_traits<Graph>::vertex_descriptor Vertex;
-
+public:
+	typedef typename G::ElementType ElemType;
+	typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS, 
+    	ElemType, ElemType> Graph;
+	typedef typename boost::graph_traits<Graph>::vertex_descriptor Vertex;
+	typedef typename boost::graph_traits<Graph>::edge_descriptor Edge;
 
 public:
-	cCayleyGrf(std::vector<T> elements, std::vector<T> generators)
+	cCayleyGrf(std::vector<ElemType> &elements, std::vector<ElemType> &generators)
 		:m_Elements(elements),
 		m_Generators(generators),
 		m_Graph(NULL)
 	{};
-	cCayleyGrf(cGroup<T, R> &group )
+
+	cCayleyGrf(G &group )
+		:m_Graph(NULL)
 	{
 		m_Elements = group.GetElementsDimino();
 		m_Generators = group.GetGeneratorsSet();
-	}
-	~cCayleyGrf()
-	{};
+	};
 
+	~cCayleyGrf()
+	{
+		if(NULL != m_Graph)
+			delete m_Graph;
+	};
+
+	//copy constructor and assignment op
+	cCayleyGrf(const cCayleyGrf &graph)
+	{
+		m_Elements = graph.GetElements();
+		m_Generators = graph.GetGenerators();
+		m_Graph = new Graph(graph.GetGraph());
+	};
+
+	cCayleyGrf &operator=(const cCayleyGrf &graph)
+	{
+		m_Elements = graph.GetElements();
+		m_Generators = graph.GetGenerators();
+		m_Graph = new Graph(graph.GetGraph());
+	};
 
 	void BuildGraph()
 	{
 		m_Graph = new Graph(m_Elements.size());
-		std::size_t edge_id;
-		for(std::vector<T>::iterator it_el = m_Elements.begin(); it_el!= m_Elements.end();
-			   	it_el++)
+
+		//add edges
+		for(std::size_t index_gen = 0; index_gen < m_Generators.size(); index_gen++)
 		{
-			for(std::vector<T>::iterator it_gen = m_Generators.begin();
-			  it_gen != m_Generators.end(), it_gen++)
+			for(std::size_t index_el = 0; index_el < m_Elements.size(); index_el++)
 			{
-				edge_property eprop(edge_id, *it_gen);
-				add_edge(*it_el, T::BinOp((*it_el), (*it_gen)), eprop, m_Graph);
+				ElemType result = m_Elements[index_el].GetBinaryOp()(m_Elements[index_el],
+						m_Generators[index_gen]);
+				
+				assert(m_Elements.end() != std::find(m_Elements.begin(),
+						  m_Elements.end(), result));
+				typename Graph::vertex_descriptor source, target;
+				target = (*vertices(*m_Graph).first) + 
+				 (std::find(m_Elements.begin(), m_Elements.end(), result) - m_Elements.begin());
+
+				//set bundle vertices properties	
+				source = (*vertices(*m_Graph).first) + index_el; 
+				(*m_Graph)[source] = m_Elements[index_el];
+				(*m_Graph)[target] = result;
+
+				add_edge(source, target, *m_Graph);
 			}
 		}
 	};
 
 
-	std::vector<T> GetRelations()
+//	std::vector<T> GetRelations()
+//	{
+//		if(NULL == m_Graph)
+//		{
+//			BuildGraph();
+//		}
+//		else
+//		{
+//		}
+//
+//		//colour edges of the spanning tree`
+//	};
+
+
+	//output operator overloaded
+//	std::ostream& operator<<(std::ostream& out, const cCayleyGrf &graph)
+//	{
+//		while()
+//		{
+//		}
+//	};
+//
+	//getters
+	std::vector<ElemType>& GetElements()const
 	{
-		if(0 == m_Graph.size())
-		{
-			BuildGraph();
-		}
+		return m_Elements;
+	};
 
-		//build spanning tree
+	std::vector<ElemType>& GetGenerators()const
+	{
+		return m_Generators;
+	};
 
+	Graph* GetGraph()const
+	{
+		if(NULL != m_Graph)
+			return m_Graph;
+		else throw;
+	};
 
-		//colour edges of the spanning tree`
-
-
-	}
-
-
-
-	GetGraph()const;
 private:
-	std::vector<T> m_Elements;
-	std::vector<T> m_Generators;
+	std::vector<ElemType> m_Elements;
+	std::vector<ElemType> m_Generators;
 	Graph		   *m_Graph;		
 };
 
