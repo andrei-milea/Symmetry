@@ -91,16 +91,30 @@ public:
 	//copy constructor and assign operator
 	cPermElem(const cPermElem &permutation)
 	{
-		m_Size = permutation.GetSize();
-		m_PermArray = new std::vector<std::size_t>(m_Size);
-		(*m_PermArray) = (*permutation.GetPermutationArray());
+		m_Size = permutation.GetSize(); 
+		if(0 != m_Size)
+		{
+			m_PermArray = new std::vector<std::size_t>(m_Size);
+			(*m_PermArray) = (*permutation.GetPermutationArray());
+		}
+		else
+		{
+			m_PermArray = NULL;
+		}
 	};
 
 	cPermElem& operator=(const cPermElem &permutation)
 	{
 		m_Size = permutation.GetSize(); 
-		m_PermArray = new std::vector<std::size_t>(m_Size);
-		(*m_PermArray) = (*permutation.GetPermutationArray());
+		if(0 != m_Size)
+		{
+			m_PermArray = new std::vector<std::size_t>(m_Size);
+			(*m_PermArray) = (*permutation.GetPermutationArray());
+		}
+		else
+		{
+			m_PermArray = NULL;
+		}
 		return *this;
 	};
 
