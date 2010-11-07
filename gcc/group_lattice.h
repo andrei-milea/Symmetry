@@ -2,6 +2,7 @@
 #define GROUP_LATTICE
 
 #include <vector>
+#include <map>
 #include <boost/math/special_functions/prime.hpp>
 #include <iostream>
 #include <cassert>
@@ -61,7 +62,22 @@ public:
 		//main loop -- iterate through every layer
 		for(std::size_t index = 1; index < m_Non_Triv_Layers; index++)	
 		{
-			need_new_layer = true;
+			//add cyclic subgroups of order p^index
+			if(m_CycSubgrpsGen[index+1].empty())
+			{
+				need_new_layer = true;
+			}
+			else
+			{
+				AddNewLayer();	
+				for(typename ElemVec::iterator it = m_CycSubgrpsGen[index+1].begin();
+						it != m_CycSubgrpsGen[index+1].end(); it++)
+				{
+					cSubgroup<G> subgrp;
+					subgrp.AddGenerator(*it);
+					GetLayer(index+1).push_back(subgrp);
+				}
+			}
 			//for each subgroup in the layer
 			for(SubGrp_Iterator subgrp_iter = GetLayer(index).begin();
 					subgrp_iter != GetLayer(index).end(); subgrp_iter++)
@@ -69,14 +85,14 @@ public:
 				//compute generators of possible subgroups
 				//possible_gen = (cyc_gen ^ (N(U) - U) ) - subgrps in the ith layer
 				ElemVec norm_elem = m_Group.GetNormalizerEl(*subgrp_iter);
-				std_ex::print_vector(norm_elem);
+				//std_ex::print_vector(norm_elem);
 
 				std_ex::set_difference(norm_elem, (*subgrp_iter).GetElementsDimino());
 
 
-				std_ex::print_vector(norm_elem);
+				//std_ex::print_vector(norm_elem);
 
-				ElemVec possible_gen = std_ex::set_intersection(m_CycSubgrpsGen, 
+				ElemVec possible_gen = std_ex::set_intersection(m_CycSubgrpsGen[1], 
 						norm_elem);
 
 				//remove subgroups already in the ith layer
@@ -142,21 +158,14 @@ private:
 	void AddSecondLayer()
 	{
 		AddNewLayer();
-		ElemVec cyc_subgrp_gen = m_CycSubgrpsGen;
-		while(!cyc_subgrp_gen.empty())
+		
+		for(typename ElemVec::iterator iter = m_CycSubgrpsGen[1].begin();
+				iter != m_CycSubgrpsGen[1].end(); iter++)
 		{
 			cSubgroup<G> newsubgroup;
-			newsubgroup.AddGenerator(*cyc_subgrp_gen.begin());
-			if(newsubgroup.GetCyclicSubgroup(*cyc_subgrp_gen.begin()).size() 
-					== m_SmallestPrimeOrder)
-			{
-				m_Lattice[1].push_back(newsubgroup);
-				std_ex::set_difference(cyc_subgrp_gen, newsubgroup.GetElementsDimino());
-			}
-			else
-			{
-				cyc_subgrp_gen.erase(cyc_subgrp_gen.begin());
-			}
+			newsubgroup.AddGenerator(*iter);
+			assert(isPrime(newsubgroup.GetCyclicSubgroup(*iter).size()));
+			m_Lattice[1].push_back(newsubgroup);
 		}
 	};
 
@@ -172,38 +181,55 @@ private:
 	//also computes the number of non-trivial layers
 	void BuildCycSubgrpPPOrder()
 	{
-		m_SmallestPrimeOrder = (size_t)-1;
 		ElemVec group_elements = m_Group.GetElementsDimino();
-		for(typename ElemVec::iterator iter = group_elements.begin();
-				iter != group_elements.end(); iter++)
-		{
-			ElemVec cyc_subgrp_elem = m_Group.GetCyclicSubgroup(*iter);
-			if(isPrime(cyc_subgrp_elem.size()))
-			{
-				m_CycSubgrpsGen.push_back(*iter);
-				if(cyc_subgrp_elem.size() < m_SmallestPrimeOrder)
-					m_SmallestPrimeOrder = cyc_subgrp_elem.size();
-			}
-		}
 
 		//set the number of non-trivial layers
 		//factor the group order -- TODO : improve algorithm
 		//trial division -- bad complexity
 		std::size_t group_order = group_elements.size();
-		std::size_t index = 0;
+		std::size_t index1 = 0;
 		std::size_t non_triv_layers = 0;
 		while(group_order > 1)
 		{
-			std::size_t prime = boost::math::prime(index);
+			std::size_t prime = boost::math::prime(index1);
 			while(group_order % prime == 0)
 			{
 				group_order = group_order / prime;
 				non_triv_layers++;
 			}
-			index++;
+			index1++;
+		}
+		m_Non_Triv_Layers = non_triv_layers - 1;
+
+
+		while(!group_elements.empty())
+		{
+			ElemVec cyc_subgrp_elem = m_Group.GetCyclicSubgroup(*group_elements.begin());
+			std::size_t cyc_subgrp_size = cyc_subgrp_elem.size();
+			if(isPrime(cyc_subgrp_size))
+			{
+				m_CycSubgrpsGen[1].push_back(*group_elements.begin());
+			}
+			else
+			{
+				std::size_t index = 0;
+				std::size_t power = 0;
+				while(cyc_subgrp_size > 1)
+				{
+					std::size_t prime = boost::math::prime(index);
+					while(cyc_subgrp_size % prime == 0)
+					{
+						cyc_subgrp_size = cyc_subgrp_size / prime;
+						power++;
+					}
+					index++;
+				}
+				m_CycSubgrpsGen[power].push_back(*group_elements.begin());
+			}
+			//TODO
+			std_ex::set_difference(group_elements, cyc_subgrp_elem);
 		}
 
-		m_Non_Triv_Layers = non_triv_layers - 1;
 	};
 
 	//check if a subgroup contains the element at prime power order
@@ -237,10 +263,9 @@ private:
 
 private:
 	G												m_Group;
-	ElemVec		 									m_CycSubgrpsGen;
+	std::map<int, ElemVec>							m_CycSubgrpsGen;
 	std::vector< std::vector< cSubgroup<G> > > 		m_Lattice;
 	std::size_t 									m_Non_Triv_Layers;
-	std::size_t										m_SmallestPrimeOrder;
 };
 
 #endif
