@@ -43,6 +43,7 @@ int main()
 
 	cCayleyGrf<cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> > graph(D8);
 	graph.BuildGraph();
+	std::cout<<graph;
 
 	return 0;	
 };

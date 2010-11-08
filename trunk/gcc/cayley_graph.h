@@ -2,6 +2,7 @@
 #define CAYLEY_GRAPH_H_
 
 #include <boost/graph/adjacency_list.hpp>
+#include <boost/graph/graph_utility.hpp>
 #include <vector>
 #include <algorithm>
 #include <cassert>
@@ -101,13 +102,25 @@ public:
 
 
 	//output operator overloaded
-//	std::ostream& operator<<(std::ostream& out, const cCayleyGrf &graph)
-//	{
-//		while()
-//		{
-//		}
-//	};
-//
+	friend std::ostream& operator<<(std::ostream& out, const cCayleyGrf &graph)
+	{
+		//print graph
+		out<<"GRAPH:\n";
+		boost::print_graph(*graph.GetGraph());
+		
+//		//print edges
+//		out<<"\nEDGES:\n";
+//		boost::print_edges(*graph.GetGraph(), get(boost::vertex_bundle,
+//					*graph.GetGraph()));
+
+		//print vertices
+		out<<"\nVERTICES:\n";
+		boost::print_vertices((*graph.GetGraph()), get(boost::vertex_bundle,
+					*graph.GetGraph()));
+
+		return out;
+	};
+
 	//getters
 	std::vector<ElemType>& GetElements()const
 	{

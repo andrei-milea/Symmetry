@@ -171,7 +171,7 @@ public:
 			perm_index += boost::lexical_cast<std::string>(index+1) + " ";
 			perm_val += boost::lexical_cast<std::string>((*perm.GetPermutationArray())[index]) + " ";
 		}
-		return std::cout<<perm_index<<"\n"<<perm_val;
+		return std::cout<<"\n"<<perm_index<<"\n"<<perm_val<<"\n";
 	};
 
 	std::size_t GetImage(const std::size_t set_element)const
