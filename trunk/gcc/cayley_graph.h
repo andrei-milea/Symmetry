@@ -56,6 +56,7 @@ public:
 		m_Elements = graph.GetElements();
 		m_Generators = graph.GetGenerators();
 		m_Graph = new Graph(graph.GetGraph());
+		return *this;
 	};
 
 	void BuildGraph()
@@ -73,6 +74,8 @@ public:
 				assert(m_Elements.end() != std::find(m_Elements.begin(),
 						  m_Elements.end(), result));
 				typename Graph::vertex_descriptor source, target;
+				typename Graph::edge_descriptor edge;
+
 				target = (*vertices(*m_Graph).first) + 
 				 (std::find(m_Elements.begin(), m_Elements.end(), result) - m_Elements.begin());
 
@@ -81,24 +84,21 @@ public:
 				(*m_Graph)[source] = m_Elements[index_el];
 				(*m_Graph)[target] = result;
 
-				add_edge(source, target, *m_Graph);
+				edge = add_edge(source, target, *m_Graph).first;
+				(*m_Graph)[edge] = m_Generators[index_gen];
 			}
 		}
 	};
 
 
-//	std::vector<T> GetRelations()
-//	{
-//		if(NULL == m_Graph)
-//		{
-//			BuildGraph();
-//		}
-//		else
-//		{
-//		}
-//
-//		//colour edges of the spanning tree`
-//	};
+	std::vector<T> GetRelations()
+	{
+		assert(NULL == m_Graph);
+
+		//colour edges of the spanning tree`
+		cColourEdgesVis colour_visitor;
+		boost::depth_first_search((*m_Graph), boost::visitor(colour_visitor));
+	};
 
 
 	//output operator overloaded
@@ -108,10 +108,10 @@ public:
 		out<<"GRAPH:\n";
 		boost::print_graph(*graph.GetGraph());
 		
-//		//print edges
-//		out<<"\nEDGES:\n";
-//		boost::print_edges(*graph.GetGraph(), get(boost::vertex_bundle,
-//					*graph.GetGraph()));
+		//print edges
+		out<<"\nEDGES:\n";
+		boost::print_edges(*graph.GetGraph(), get(boost::vertex_bundle,
+					*graph.GetGraph()));
 
 		//print vertices
 		out<<"\nVERTICES:\n";
@@ -140,9 +140,29 @@ public:
 	};
 
 private:
+	//inner class that colours the edges in the spanning tree used in
+	//the colouring algorithm  to obtain a set of defining relations
+	//inherits from boost::default_dfs_visitor
+	class cColourEdgesVis : boost::default_dfs_visitor
+	{
+	public:
+		cColourEdgesVis()		{};
+		~cColourEdgesVis()		{};
+
+		template <typename EDGE, typename GRF>
+		void tree_edge(EDGE edge, const GRF& graph)
+		{
+			//found edge in the spaning tree -> colour it!
+
+
+		};
+	};
+
+
+private:
 	std::vector<ElemType> m_Elements;
 	std::vector<ElemType> m_Generators;
-	Graph		   *m_Graph;		
+	Graph				  *m_Graph;		
 };
 
 

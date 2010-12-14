@@ -45,9 +45,10 @@ public:
 	{
 		m_GenSet = sym_rep.GetGeneratorsSet();
 	};
-	void operator=(const SelfType& sym_rep)
+	cSymmetricRep& operator=(const SelfType& sym_rep)
 	{
 		m_GenSet = sym_rep.GetGeneratorsSet();
+		return *this;
 	};
 	
 	~cSymmetricRep()
