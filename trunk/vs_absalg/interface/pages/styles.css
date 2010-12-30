@@ -1,0 +1,45 @@
+
+
+/* button style*/
+.sbutton{
+padding: 0px;
+margin: 0px;
+}
+
+.sbutton a {
+background-color: #F2F2F2;
+color: #CCC;
+text-decoration: none;
+padding-left: 2px;
+padding-right: 2px;
+width: 100%;
+border-left-style:solid;
+border-left-color:#FFF;
+border-left-width:3px;
+border-right-style:solid;
+border-right-color:#FFF;
+border-right-width:3px;;
+}
+
+.sbutton a:hover {
+text-decoration: none;
+color: #000; 
+border-left-style:solid;
+border-left-color:#808080;
+border-left-width:3px;
+border-right-style:solid;
+border-right-color:#808080;
+border-right-width:3px;
+}
+
+/*canvas style*/
+.scanvas
+{
+border: solid;
+margin-top: 30;
+margin-right: 30;
+margin-left: 30;
+position: absolute;
+width: 90%; height: 85%;
+}
+
