@@ -24,7 +24,10 @@ public:
 	~cSubgroup()
 	{};
 
-	bool isNormal()const;
+	bool isNormal()const
+	{
+		return m_isNormal;
+	};
 	void isNormal(const bool normal)
 	{
 		m_isNormal = normal;
