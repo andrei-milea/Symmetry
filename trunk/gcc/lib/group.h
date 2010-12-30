@@ -37,6 +37,7 @@ public:
 
 	bool isSoluble()const
 	{
+		//TODO
 		return true;
 	};
 

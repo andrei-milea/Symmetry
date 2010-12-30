@@ -6,6 +6,8 @@
 #include <vector>
 #include <algorithm>
 #include <cassert>
+#include <pair>
+#include <string>
 #include "group.h"
 
 
@@ -17,11 +19,12 @@ template <typename G>
 class cCayleyGrf
 {
 public:
-	typedef typename G::ElementType ElemType;
 	typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS, 
-    	ElemType, ElemType> Graph;
+    		ElemType, std::pair<ElemType,bool> > Graph;
+	typedef typename G::ElementType ElemType;
 	typedef typename boost::graph_traits<Graph>::vertex_descriptor Vertex;
 	typedef typename boost::graph_traits<Graph>::edge_descriptor Edge;
+	typedef typename boost::graph_traits<Graph>::vertex_iterator VertexIterator;
 
 public:
 	cCayleyGrf(std::vector<ElemType> &elements, std::vector<ElemType> &generators)
@@ -73,8 +76,8 @@ public:
 				
 				assert(m_Elements.end() != std::find(m_Elements.begin(),
 						  m_Elements.end(), result));
-				typename Graph::vertex_descriptor source, target;
-				typename Graph::edge_descriptor edge;
+				Vertex source, target;
+				Edge edge;
 
 				target = (*vertices(*m_Graph).first) + 
 				 (std::find(m_Elements.begin(), m_Elements.end(), result) - m_Elements.begin());
@@ -85,19 +88,40 @@ public:
 				(*m_Graph)[target] = result;
 
 				edge = add_edge(source, target, *m_Graph).first;
-				(*m_Graph)[edge] = m_Generators[index_gen];
+				(*m_Graph)[edge].first = m_Generators[index_gen];
+				(*m_Graph)[edge].second = false;
 			}
 		}
 	};
 
-
-	std::vector<T> GetRelations()
+	//extract the set of defining relations
+	void BuildDefRelations()
 	{
 		assert(NULL == m_Graph);
 
-		//colour edges of the spanning tree`
+		//colour edges of the spanning tree
 		cColourEdgesVis colour_visitor;
 		boost::depth_first_search((*m_Graph), boost::visitor(colour_visitor));
+		for(std::vector<Edge>::iterator edges_it = colour_visitor.GetUncolouredEdges().begin();
+				edges_it != colour_visitor.GetUncolouredEdges().end(); edges_it++)
+		{
+			if(false == m_Graph[*edges_it].second) //if edge is not coloured
+			{
+				Add_DefRelation(m_Graph[*edge_it]);
+				m_Graph[*edge_it].second = true;	//colour edge
+				for(std::vector<cRelation>::iterator relation_it = m_DefRelations.begin();
+						relation_it != m_DefRelations.end(); relation_it++)
+				{
+					for(VertexIterator vertex_it = boost::vertices(*m_Graph).begin();
+							vertex_it != boost::vertices(*m_Graph).end(); vertex_it++)
+					{
+						//trace relation around vertex
+
+					}
+
+				}
+			}
+		}
 	};
 
 
@@ -132,6 +156,11 @@ public:
 		return m_Generators;
 	};
 
+	const std::vector<cRelation>& GetDefRelations()const
+	{
+		return m_DefRelations;
+	};
+
 	Graph* GetGraph()const
 	{
 		if(NULL != m_Graph)
@@ -140,6 +169,10 @@ public:
 	};
 
 private:
+	void Add_DefRelation(const Edge &edge)
+	{
+
+	};
 	//inner class that colours the edges in the spanning tree used in
 	//the colouring algorithm  to obtain a set of defining relations
 	//inherits from boost::default_dfs_visitor
@@ -152,10 +185,24 @@ private:
 		template <typename EDGE, typename GRF>
 		void tree_edge(EDGE edge, const GRF& graph)
 		{
-			//found edge in the spaning tree -> colour it!
-
-
+			//found edge in the spaning tree -> colour edge
+			edge.second = true;
 		};
+
+		void non_tree_edge(EDGE edge, const GRF& graph)
+		{
+			//found edge not in the spaning tree
+			//add it to the list of uncoloured edges 
+			m_UncolouredEdges.push_back(edge);
+		};
+
+		std::vector<EDGES> &GetUncolouredEdges()
+		{
+			return m_UncolouredEdges;
+		};
+
+	private:
+		std::vector<EDGE> m_UncolouredEdges;
 	};
 
 
@@ -163,6 +210,39 @@ private:
 	std::vector<ElemType> m_Elements;
 	std::vector<ElemType> m_Generators;
 	Graph				  *m_Graph;		
+	std::vector<cRelation> m_DefRelations;
+};
+
+template <typename T>
+class cRelation
+{
+public:
+	cRelation()
+	{};
+	~cRelation()
+	{};
+
+
+	void AddElement(T element, int power)
+	{
+		m_Elements.push_back(std::pair<T, int>(element, power));
+	};
+
+	void Simplify()
+	{
+		for(std::size_t index = 0; index < m_Elements.size(); index++)
+		{
+			if(m_Elements[index].first == m_Elements[index+1].first)
+			{
+				m_Elements[index].second += m_Elements[index+1].second;
+				m_Elements.erase(m_Elements.begin() + (index+1));
+			}
+		}
+
+	};
+
+private:
+	std::vector<std::pair<T,int> > m_Elements;
 };
 
 

@@ -5,6 +5,9 @@
 #include "intmodn.h"
 #include "permutation.h"
 
+/*****************************************
+ * class for group element representation
+*****************************************/
 
 template <typename T, typename BinaryOp>
 class cGroupElem : public T
