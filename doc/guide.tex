@@ -9,20 +9,183 @@ Symmetry -- Group Theory Library
 
 \section{Introduction}
 	Yet another abstract algebra library. What is different from existing ones (GAP,MAPLE,SINGULAR)? Well, the main differences are the focus only on Group Theory and the fact that this one is actually maintainable, written entirely in C++ with a nice object oriented design. Other unique trait is the user interface which is provided in a webpage by a minimal custom http server. Besides the usual operations provided by an abstract algebra library(create a group and investigate it's elements, properties, subgroups, isomorphisms, etc) the user will be able to actually visualize the group structure through the geometry it describes by exploiting the relation between group theory and geometry. These drawings are made with the help of Java Script and WebGl technology and rendered with the graphics card(using acceleration).
-	So, the application is logically composed from the following components:
+	So, the application is logically built from the following components:
 \begin{enumerate}
 \item
-Algebra Library -- written entirely in C++ 0X (using STL and BOOST) with a generic design made possible by template programming.
+Groups  Library -- written entirely in C++ 0X (using STL and BOOST) with a generic design made possible by template programming.
 \item
-A custom HTTP server -- used to serve the user interface(html pages) and written also in C++ with BOOST ASIO.
+HTTP server -- used to serve the user interface(html pages), written also in C++ with BOOST ASIO.
 \item
-A Java Script(WebGl) engine -- used to render 3d graphics and make the user interation easier.
+Web drawing framework-- used to render 3d graphics and make the user interation easier, written in Java Script(WebGl).
 \item
-A C++ distributed engine -- which connects the user interface with the algebra library, by spawning multiple processes on (different) machines, gathering and feeding data to the HTTP server
+Distributed engine -- which connects the user interface with the algebra library, by spawning multiple processes on (different) machines, gathering and feeding data to the HTTP server.
 \end{enumerate}
 
-\section{Components}
+\section{Components description}
 
-\subsection{The library}
+\subsection{Groups Library}
+Classes:\\
+\begin{enumerate}
+\item
+Binary operation classes: \verb=Addition, Multiplication, Composition=. They are functors used to represent binary operations between elements of the groups. The overloaded operator() implements the operation described by each class. Also used as policies.\\
+Files: \verb=binary_op.h=
+\item
+\verb=cPermElem= -- permutation element class.\\
+Public methods:
+\begin{itemize}
+\item
+\verb=cPermElem()= -- default constructor implements empty permutation
+\item
+\verb=cPermElem(std::size_t size)= -- constructs the identity permutation of a given size
+\item
+\verb=cPermElem(std::vector<std::size_t> &permutation_array)= and \verb=cPermElem(std::vector<std::size_t> *permutation_array)= -- constructs a permutation with the given permutation array
+\item
+\verb=cPermElem(std::size_t size, const std::initializer_list<std::size_t> &perm_sq)= -- constructs a permutation from a given cycle representation (Ex: cPermElem(3, {1, 2}) is the permutation $1\mapsto2;2\mapsto1;3\mapsto3$)
+\item
+\verb=cPermElem(const std::initializer_list<std::size_t> &perm_sq)= -- constructs a permutation with the image array given as parameter(Ex: cPermElem({1, 2}) is the permutation $1\mapsto1;2\mapsto2$)
+\item
+\verb=cPermElem(const cPermElem &permutation)= and \verb+cPermElem& operator=(const cPermElem &permutation)+ -- copy constructor and assignment operator
+\item
+\verb=~cPermElem()= -- destructor
+\item
+\verb=std::vector<std::size_t>* GetPermutationArray()const= -- returns the underlying permutation array
+\item
+\verb=cPermElem operator*(const cPermElem &perm)const= -- multiplication operator for permutations
+\item
+\verb+bool operator==(const cPermElem &perm)const+ and \verb+bool operator!=(const cPermElem &perm)const+ -- test for equality/inequality operators
+\item
+\verb=friend std::ostream& operator<<(std::ostream &of, const cPermElem &perm)= -- output operator
+\item
+\verb=std::size_t GetImage(const std::size_t set_element)const= -- return the image of an element under the permutation action
+\item
+\verb=cPermElem GetMultInverse()const= -- returns the inverse of the permutation
+\item
+\verb=std::size_t GetSize()const= / \verb=void SetSize(const std::size_t size)= -- gets/sets permutation size
+\item
+\verb=cPermElem GetIdentity(BINOP binop)const= -- returns the identity permutation of the same size(Multiplication must be given as parameter)
+\end{itemize}
+Files: \verb=permutation.h=
+\item
+\verb=cGroupElem= -- class to represent the group elements, must be instantiated with the element type and binary operation supported(Ex: \verb=cGroupElem<cPermElem, Multiplication> group_perm_elem;=)\\
+Public methods:
+\begin{itemize}
+\item
+\verb=cGroupElem(); cGroupElem(T &concrete_obj); cGroupElem(const T &concrete_obj)= -- constructors
+\item
+\verb=cGroupElem(const SelfType &group_elem)= and \verb+SelfType &operator=(const SelfType &elem)+ -- copy constructor and assignment operator
+\item
+\verb=std::size_t GetOrder()const= -- returns the element order
+\item
+\verb=std::size_t GetOrder(std::size_t group_order)= -- returns the element order using the group order as parameter by applying Lagrange theorem
+\item
+\verb=SelfType GetInverse()const= -- returns the inverse of the element
+\item
+\verb=SelfType GetNthPower(std::size_t n)const= -- returns the nth power of the element
+\item
+\verb=bool CommutesWith(const SelfType &element)const= -- returns true if the element commutes with the element given as parameter, otherwise returns false
+\item
+\verb=bool IsNormalizer(const std::vector<SelfType> &elements)const= -- returns true if the element is a normalizer for the given set, otherwise returns false
+\item
+\verb=SelfType GetIdentity()const= -- returns the identity for this type of group element
+\item
+\verb=BinaryOp GetBinaryOp()const= -- returns the binary operation used to instantiate the class
+\end{itemize}
+Files:\verb=group_elem.h=
+\item
+\verb=cSymmetricRep= -- this class is one of the internal representation types for groups of permutations; must be instantiated with the group element type(Ex: \verb=cSymmetricRep<cGroupElem<cPermElem, Multiplication> >=) and must be used as the underlying representation for \verb=cGroup= class(Ex: \verb=cGroup< cGroupElem< cPermElem, Multiplication >, cSymmetricRep > SymmetricGroup=)\\
+Public methods:
+\begin{itemize}
+\item
+\verb=cSymmetricRep()=, \verb=cSymmetricRep(std::vector<T> &generators_set)=, \verb=cSymmetricRep(std::initializer_list<T> perm_list)= -- constructors, this class must be constructed by giving a set of generators
+\item
+\verb=cSymmetricRep(const SelfType &sym_rep)= and \verb+cSymmetricRep& operator=(const SelfType& sym_rep)+ -- copy constructor and assignment
+\item
+\verb=friend std::ostream& operator<<(std::ostream& out,const SelfType &group_rep)= -- output operator
+\item
+\verb=bool Contains(const T &element)const= -- checks if the group contains the element given as argument(uses Dimino algorithm to obtain the list of elements)
+\item
+\verb=std::vector<T> GetElementsNaive()const= -- returns the elements of the group using the naive algorithm
+\item
+\verb=std::vector<T> GetElementsDimino()const= -- returns the elements of the group using the Dimino algorithm
+\item
+\verb=std::vector<std::size_t> GetOrbit(const std::size_t &set_element)const= -- returns the orbit of the given element under the group actions
+\item
+\verb=const std::vector<T> &GetGeneratorsSet()const= / \verb=void SetGeneratorsSet(const std::vector<T> &gen_set)= -- get/set the group generators
+\item
+\verb=void AddGenerator(const T &element)= -- adds new generator to the group(just adds it to the generator list member; doesn't recompute the group elements)
+\item
+\verb+bool operator==(const SelfType &symgrp)const+ and \verb+bool operator!=(const SelfType &symgrp)const+ -- equality/inequality test operator
+\item
+\verb=T GetIdentity()const= -- returns the group identity element
+\item
+\verb=std::vector<T> GetCyclicSubgroup(const T& element)const= -- returns the cyclic subgroup generated by the element given as parameter
+\end{itemize}
+Files: \verb=symmetric_rep.h=
+\item
+\verb=cGroup= -- class used to represent a group, it instantiates and automatically inherits a group representation(Ex: cSymmetricRep)\\
+Public Methods:
+\begin{itemize}
+\item
+\verb=cGroup(), cGroup(std::vector<ElementType> &gr_vec), cGroup (std::initializer_list<T> ini_list)= -- constructors
+\item
+\verb=cSubgroup<SelfType> GetCentralizer(const cSubgroup<SelfType> &_subgrp)const= -- returns the centralizer subgroup
+\item
+\verb=cSubgroup<SelfType> GetCenter()const= -- returns the center subgroup
+\item
+\verb=cSubgroup<SelfType> GetNormalizer(const cSubgroup<SelfType> &_subgrp)const= -- returns the subgroup with the elements normalizing the subgroup given as parameter
+\item
+\verb=std::vector<ElementType> GetCentralizerEl(ElementType &element)const= -- returns the elements composing the centralizer subgroup of the group
+\item
+\verb=std::vector<ElementType> GetCenterEl()const= -- returns the elements composing the center subgroup of the group
+\item
+\verb=std::vector<ElementType> GetNormalizerEl(const cSubgroup<SelfType> &_subgrp)const= -- returns the elements normalizing the subgroup given as parameter
+\end{itemize}
+Files: \verb=group.h=
+\item 
+\verb=cSubgroup= -- represents a subgroup, inherits from cGroup class\\
+Public methods:
+\begin{itemize}
+\item
+\verb=cSubgroup(), cSubgroup(std::vector<T> gr_vec), cSubgroup(G &group)= -- constructors
+\item
+\verb=bool isNormal()const= -- returns true is the subgroup is a normal subgroup, otherwise returns false
+\verb=void isNormal(const bool normal)= -- sets the normality attribute of the subgroup
+\end{itemize}
+Files: \verb=subgroup.h=
+\item 
+\verb=cCayleyGrf= -- represents the cayley graph of the group (uses the boost graph library for the graph underlying structure)\\
+Public methods:
+\begin{itemize}
+\item
+\verb=cCayleyGrf(std::vector<ElemType> &elements, std::vector<ElemType> &generators), cCayleyGrf(G &group )= -- constructors
+\item
+\verb+cCayleyGrf(const cCayleyGrf &graph), cCayleyGrf &operator=(const cCayleyGrf &graph)+ -- copy constructor and assignment operator
+\item
+\verb=void BuildGraph()= -- builds the cayley graph of the group
+\item
+\verb=void BuildDefRelations()= -- builds the set of defining relations
+\item
+\verb=friend std::ostream& operator<<(std::ostream& out, const cCayleyGrf &graph)= -- output operator(prints the cayley graph)
+\item
+\verb=Graph* GetGraph()const= -- returns the cayley graph
+\item
+\verb=const std::vector<cRelation>& GetDefRelations()const= -- returns the defining relations of the group
+\end{itemize}
+Files: \verb=cayley_graph.h=
+\item
+\verb=cRelation= -- class used to represent a group relation as a vector of pairs of group elements\\
+Files: \verb=cayley_graph.h=
+\end{enumerate}
+\subsection{Web drawing framework}
+Classes:
+
+
+\subsection{Distributed engine}
+Classes:
+
+
 \section{Development}
+\subsection{Coding standards}
+\subsection{Compilation}
+In order to compile you must have the latest sources from BOOST and the latest version of g++/Visual Studio installed. Every component has it's own makefile/project file and can be compiled separately, the makefile/solution file in the root folder of the project compiles and links the whole project.
 \end {document}
