@@ -1,5 +1,5 @@
 all: test_lattice
-CFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
+CFLAGS = -std=c++0x -g -Wall -I /home/boost_1_45_0 
 GCC = /opt/usr/bin/g++
 
 test_perm: test_permutation.cpp

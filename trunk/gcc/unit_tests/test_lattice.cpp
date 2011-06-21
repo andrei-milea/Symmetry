@@ -1,5 +1,5 @@
-#include "../group.h"
-#include "../std_ex.h"
+#include "../lib/group.h"
+#include "../lib/std_ex.h"
 
 
 #include "boost/test/included/unit_test.hpp"
@@ -8,7 +8,7 @@
 #define private public
 #define protected public
 
-#include "../group_lattice.h"
+#include "../lib/group_lattice.h"
 
 
 using namespace boost::unit_test;

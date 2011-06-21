@@ -1,12 +1,12 @@
 
 #include "boost/test/included/unit_test.hpp"
-#include "../std_ex.h"
+#include "../lib/std_ex.h"
 
 //allow to test private methods
 #define private public
 #define protected public
 
-#include "../group.h"
+#include "../lib/group.h"
 using namespace boost::unit_test;
 
 

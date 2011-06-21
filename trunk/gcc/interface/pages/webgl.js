@@ -14,9 +14,9 @@ function initBuffers(shape)
 {
     vertexPositionBuffer = gl.createBuffer();
     gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, vertexPositionBuffer);
-    vertexPositionBuffer.vertexSize = shape.getVertexPosSize();
-    vertexPositionBuffer.vertexNum = shape.getVertexNum();
+    gl.bufferData(gl.ARRAY_BUFFER, shape.getVerticesAsFloat32(), gl.STATIC_DRAW);
+    vertexPositionBuffer.vertexSize = shape.getVertexSize();
+    vertexPositionBuffer.vertexNum = shape.getVerticesNum();
 }
 
 function getShader(id) 
@@ -88,6 +88,21 @@ function initShaders()
     shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
 }
 
+function clearScene()
+{
+        gl.clearColor(0, 0, 0, 1);
+        gl.clearDepth(1.0);
+        gl.enable(gl.DEPTH_TEST);
+        gl.depthFunc(gl.LEQUAL);
+}
+
+function drawLogo()
+{
+    var logo = Polygon;
+    logo.load(3,3, [0.0,  1.0,  0.0, -1.0, -1.0,  0.0, 1.0, -1.0,  0.0]);
+    initBuffers(logo);
+}
+
 //public functions
 return  {
     initWebGL: function()   {
@@ -96,19 +111,19 @@ return  {
         {
             gl = canvas.getContext("experimental-webgl");
             gl.viewport(0, 0, canvas.width, canvas.height);
-        } catch(e) {}
-        if (gl) 
-        {
-            alert("Could not initialise WebGL, please update your browser!");
-        }
-        initShaders();
-    },
-
-    clearScene: function(color)    {
-        gl.clearColor(color.r, color.g, color.b, color.a);
-        gl.clearDepth(1.0);
-        gl.enable(gl.DEPTH_TEST);
-        gl.depthFunc(gl.LEQUAL);
+            if (!gl) 
+            {
+                alert("Could not initialise WebGL, please update your browser!");
+            }
+            initShaders();
+            clearScene();
+            drawLogo();
+         }
+         catch(e)
+         {
+            document.writeln(e.name + ': ' + e.message);
+         }
+            
     },
 
     drawShape: function(shape)  {

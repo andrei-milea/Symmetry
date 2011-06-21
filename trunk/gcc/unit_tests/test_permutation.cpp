@@ -1,6 +1,6 @@
 
 
-#include "../permutation.h"
+#include "../lib/permutation.h"
 
 
 

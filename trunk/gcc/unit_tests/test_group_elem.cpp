@@ -1,4 +1,4 @@
-#include "../group.h"
+#include "../lib/group.h"
 
 
 #include "boost/test/included/unit_test.hpp"
