@@ -1,5 +1,5 @@
-#include "../group.h"
-#include "../std_ex.h"
+#include "../lib/group.h"
+#include "../lib/std_ex.h"
 
 #include "boost/test/included/unit_test.hpp"
 

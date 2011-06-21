@@ -1,0 +1,44 @@
+set backupdir=/tmp
+:ab c1 /*****************************************
+:ab c2 *****************************************/
+:ab cmp1 //Computes:
+:ab use1 //Uses:
+set cindent
+set guifont=Courier\ 13
+set shiftwidth=4
+set antialias
+set background=dark
+syntax on
+colorscheme pablo
+set tabstop=4
+set backspace=2
+set whichwrap+=<,>,h,l
+set nowritebackup
+:set autowrite 
+:set number
+:set guioptions-=m
+:set guioptions-=T
+" save with ctrl+s
+if has("gui_running")
+  " If the current buffer has never been saved, it will have no name,
+  " call the file browser to save it, otherwise just save it.
+  :map <silent> <C-S> :if expand("%") == ""<CR>:browse confirm w<CR>:else<CR>:confirm w<CR>:endif<CR>
+endif
+
+:nmap <F1> :tabprevious<CR>
+:nmap <F2> :tabnext<CR>
+:nmap <F3> :tabnew<CR>
+" map ":make" to the F9 key
+nmap <F9> :!konsole --workdir . --hold -e "make"<CR>
+nmap <F10> <ESC>:!rxvt -e "/home/projects/absalg_root/absalg/gcc/blast.sh"<CR>
+nmap <F7> :make clean<CR>
+
+"map ":make test" to the F8 key
+imap <F8> <ESC>:make test<CR>
+nmap <F8> :make test<CR>
+nmap <F12> :mkses! vimses <CR>:wqa<CR>
+nmap <F11> :!make && konsole -e "gdb ./tst_group"<CR>
+vmap / :s/^/\/\//<CR>
+vmap * :s/\/\///<CR>
+:nohlsearch
+

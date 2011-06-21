@@ -177,6 +177,11 @@ public:
 		m_GenSet.push_back(element);
 	};
 
+	void ClearGenerators()
+	{
+		m_GenSet.clear();
+	};
+
 	bool operator==(const SelfType &symgrp)const
 	{
 		return m_GenSet == symgrp.GetGeneratorsSet();

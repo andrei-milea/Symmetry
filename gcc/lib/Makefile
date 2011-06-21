@@ -1,5 +1,5 @@
 all:	tst_group
-CFLAGS =-c  -std=c++0x -g -Wall -I /usr/include/boost 
+CFLAGS =-c  -std=c++0x -g -Wall -I /home/boost_1_45_0
 GCC = /opt/usr/bin/g++
 
 tst_group: tst_group.o
@@ -13,7 +13,7 @@ tst_group.o: tst_group.cpp
 clean:
 	rm -rf *o tst_group 
 
-SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp /usr/include/boost/graph/adjacency_list.hpp
+SRCS = *.cpp *.h
 CTAGS=etags -o tags
 
 tags:
