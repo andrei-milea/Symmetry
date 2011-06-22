@@ -3,6 +3,10 @@
 
 #include <pair>
 #include <algorithm>
+#include <boost/signals2/mutex.hpp>
+
+using namespace boost::interprocess;
+MutexType mutex;
 
 typedef cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> SymmGrp;
 typedef std::vector< cGroupElem<cPermElem, Multiplication> >  SymmGrpGen;
@@ -16,7 +20,11 @@ public://methods
 	static cGroupFact* GetInstance()
 	{
 		if(NULL == s_Instance)
-			s_Instance = new cGroupFact;
+      {
+         scoped_lock<MutexType> lock(mutex);
+         if(NULL == s_Instance) 
+           s_Instance = new cGroupFact;
+      }
 		return s_Instance;
 	};
 
