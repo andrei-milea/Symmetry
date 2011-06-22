@@ -11,7 +11,8 @@ void cHttpConnection::HandleClient()
 {
     //read
     boost::asio::async_read_until(m_Socket, m_RequestBuf, "\r\n",
-        boost::bind(&cHttpConnection::HandleRequest, shared_from_this(), boost::asio::placeholders::error));
+        boost::bind(&cHttpConnection::HandleRequest, shared_from_this(),
+			boost::asio::placeholders::error));
 };
 
 
@@ -35,6 +36,10 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
                     boost::asio::placeholders::error));
                 
             }
+			else
+			{
+				_request.GetSessionId();
+			}
             break;
         case POST_M:
             break;

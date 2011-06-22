@@ -16,10 +16,12 @@ void cHttpServer::StartAccept()
     cHttpConnection::pointer new_connection = cHttpConnection::Create(m_Acceptor.io_service());
 
     m_Acceptor.async_accept(new_connection->GetSocket(),
-        boost::bind(&cHttpServer::HandleConnection, this, new_connection, boost::asio::placeholders::error));
+    boost::bind(&cHttpServer::HandleConnection, this, new_connection,
+	   boost::asio::placeholders::error));
 };
 
-void cHttpServer::HandleConnection(cHttpConnection::pointer new_connection, const boost::system::error_code& error)
+void cHttpServer::HandleConnection(cHttpConnection::pointer new_connection,
+		const boost::system::error_code& error)
 {
     if (!error)
     {

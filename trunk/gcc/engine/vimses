@@ -36,6 +36,7 @@ set guifont=Courier\ 13
 set guioptions=aegirLt
 set helplang=en
 set history=50
+set iminsert=0
 set incsearch
 set nomodeline
 set mouse=a
@@ -55,13 +56,13 @@ if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
   let s:wipebuf = bufnr('%')
 endif
 set shortmess=aoO
-badd +0 group_factory.h
-badd +0 /home/projects/absalg_root/absalg/gcc/unit_tests/test_group.cpp
-badd +0 .interpreter.h
-badd +0 interpreter.h
-badd +0 session.h
-badd +0 command.h
-badd +0 createcommand.cpp
+badd +1 group_factory.h
+badd +1 /home/projects/absalg_root/absalg/gcc/unit_tests/test_group.cpp
+badd +1 .interpreter.h
+badd +1 interpreter.h
+badd +1 session.h
+badd +1 command.h
+badd +1 createcommand.cpp
 args /home/projects/absalg_root/absalg/gcc/engine
 edit group_factory.h
 set splitbelow splitright
@@ -165,11 +166,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 79 - ((22 * winheight(0) + 11) / 23)
+let s:l = 12 - ((11 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-79
+12
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/unit_tests/test_group.cpp
@@ -274,7 +275,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 81 - ((20 * winheight(0) + 11) / 23)
+let s:l = 81 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -383,11 +384,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 5 - ((4 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-5
+1
 normal! 015l
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/session.h
@@ -492,12 +493,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 29 - ((23 * winheight(0) + 12) / 24)
+let s:l = 9 - ((8 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-29
-normal! 05l
+9
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/command.h
 set splitbelow splitright
@@ -601,11 +602,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 48 - ((20 * winheight(0) + 12) / 24)
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-48
+1
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/createcommand.cpp
@@ -710,14 +711,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 20 - ((19 * winheight(0) + 12) / 24)
+let s:l = 4 - ((3 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-20
+4
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/engine
-tabnext 4
+tabnext 6
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

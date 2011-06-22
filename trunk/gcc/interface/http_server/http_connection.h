@@ -5,11 +5,14 @@
 #include <boost/asio.hpp>
 #include <boost/enable_shared_from_this.hpp>
 
+#include "../../engine/session.h"
+
 class cHttpConnection
     : public boost::enable_shared_from_this<cHttpConnection>
 {
 public:
-     typedef boost::shared_ptr<cHttpConnection> pointer;
+
+    typedef boost::shared_ptr<cHttpConnection> pointer;
 
      static pointer Create(boost::asio::io_service& io_service)
      {
@@ -36,6 +39,8 @@ private:
     boost::asio::ip::tcp::socket m_Socket;
     boost::asio::streambuf m_RequestBuf;
     boost::asio::streambuf m_ResponseBuf;
+
+	std::vector<cSession> m_Sessions;
     
 };
 
