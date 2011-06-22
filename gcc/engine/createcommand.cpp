@@ -1,7 +1,5 @@
 
-
 #include "command.h"
-
 
 cCreateCommand::cCreateCommand(std::string &params)
 {

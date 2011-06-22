@@ -3,27 +3,24 @@
 
 #include <pair>
 #include <algorithm>
-#include <boost/signals2/mutex.hpp>
-
-using namespace boost::interprocess;
-MutexType mutex;
-
-typedef cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> SymmGrp;
-typedef std::vector< cGroupElem<cPermElem, Multiplication> >  SymmGrpGen;
+#include <boost/interprocess/sync/interprocess_mutex.hpp>
 
 //singleton class used to facilitate creation of groups
 //contains a pool of groups for optimization
 class cGroupFactory
 {
-public://methods
+using namespace boost::interprocess;
+typedef cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> SymmGrp;
+typedef std::vector< cGroupElem<cPermElem, Multiplication> >  SymmGrpGen;
 
-	static cGroupFact* GetInstance()
+public://methods
+	static cGroupFact& GetInstance()
 	{
 		if(NULL == s_Instance)
       {
-         scoped_lock<MutexType> lock(mutex);
-         if(NULL == s_Instance) 
-           s_Instance = new cGroupFact;
+		  scoped_lock<interprocess_mutex> lock(m_Mutex);
+		  if(NULL == s_Instance)
+			  s_Instance = new cGroupFact;
       }
 		return s_Instance;
 	};
@@ -31,6 +28,7 @@ public://methods
 
 	SymmetricGrp* GetSymmGrp(SymmGrpGen &generators)
 	{
+		scoped_lock<interprocess_mutex> lock(m_Mutex);
 		for(m_SymmGrps::iterator it = m_SymmGrps.begin(); it != m_SymmGrps.end(); it++)
 		{
 			if(false == it->second)
@@ -51,6 +49,7 @@ public://methods
 
 	void ReleaseSymmGrp(SymmGrp *group)
 	{
+		scoped_lock<interprocess_mutex> lock(m_Mutex);
 		for(m_SymmGrps::iterator it = m_SymmGrps.begin(); it != m_SymmGrps.end(); it++)
 		{
 			if(group == it->first)
@@ -63,6 +62,7 @@ public://methods
 
 	void CleanUp()
 	{
+		scoped_lock<interprocess_mutex> lock(m_Mutex);
 		m_SymmGrps.clear();
 	};
 
@@ -70,8 +70,13 @@ public://methods
 private://methods
 	cGroupFactory()
 	{};
+	cGroupFactory(const cGroupFactory& grpfact)
+	{};
+	cGroupFactory& operator=(cGroupFactory& grpfact)
+	{};
 
 private://members
+	interprocess_mutex m_Mutex;
 	std::vector< std::pair<SymmGrp*, bool> *> m_SymmGrps;
 
 private://static member

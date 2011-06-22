@@ -1,6 +1,4 @@
 #include "http_request.h"
-
-
                 
                 /************************************************************/
                 /********************REQUEST PARSER TOOLS********************/
@@ -14,7 +12,6 @@ using boost::spirit::qi::parse;
 using namespace boost::spirit;
 using namespace boost::spirit::qi;
 using namespace boost::spirit::ascii;
-
 
 
 //parsing symbol table
