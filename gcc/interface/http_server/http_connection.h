@@ -5,6 +5,11 @@
 #include <boost/asio.hpp>
 #include <boost/enable_shared_from_this.hpp>
 
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_int.hpp>
+#include <boost/random/variate_generator.hpp>
+#include <limits.h>
+
 #include "../../engine/session.h"
 
 class cHttpConnection
@@ -35,12 +40,26 @@ private:
     {
     };
 
+	static unsigned int GetRandUniqueId()const
+	{
+		static boost::mt19937 gen;
+    	static boost::uniform_int<> dist(1, MAXINT);
+    	static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rnd(gen, dist);
+
+		unsigned int random_id = rnd();
+
+		if(m_Sessions.find(random_id) != m_Sessions::end())
+    		return random_id;
+		else
+			return GetRandUniqueId();
+	};
+
 private:
     boost::asio::ip::tcp::socket m_Socket;
     boost::asio::streambuf m_RequestBuf;
     boost::asio::streambuf m_ResponseBuf;
 
-	std::vector<cSession> m_Sessions;
+	static std::map<unsigned int, cSession> m_Sessions;
     
 };
 

@@ -1,11 +1,12 @@
 
 #include "http_connection.h"
-#include <iostream>
-#include <boost/bind.hpp>
-
 #include "http_request.h"
 #include "http_response.h"
+#include "html_js_parts.h"
+#include "../../engine/session.h"
 
+#include <iostream>
+#include <boost/bind.hpp>
 
 void cHttpConnection::HandleClient()
 {
@@ -29,16 +30,32 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
             if(_request.GetResource() == "/")
             {
                 cResponse response(m_ResponseBuf);
-                response.BuildResponse(OK, "<html>test</html>");
+				const std::string index_page  = cPageBuilder::GetInstance().GetIndexPage(
+						cHttpConnection::GetRandUniqueId());
+                response.BuildResponse(OK, index_page);
 
                 boost::asio::async_write(m_Socket, m_ResponseBuf,
                     boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
                     boost::asio::placeholders::error));
-                
             }
 			else
 			{
-				_request.GetSessionId();
+                cResponse response(m_ResponseBuf);
+				unsigned int ses_id = _request.GetSessionId()
+				if(m_Sessions.find(ses_id) != m_Sessions::end())
+				{
+					const std::string res = m_Sessions[ses_id].Execute(_request.GetCommand());
+					response.BuildResponse(OK, cPageBuilder::GetInstance().GetPage(res, ses_id));
+				}
+				else
+				{
+					const std::string index_page  = cPageBuilder::GetInstance().GetIndexPage(
+						ses_id);
+                	response.BuildResponse(OK, index_page);
+				}
+				boost::asio::async_write(m_Socket, m_ResponseBuf,
+               		boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
+                   	boost::asio::placeholders::error));
 			}
             break;
         case POST_M:

@@ -22,7 +22,7 @@ public://methods
 		  if(NULL == s_Instance)
 			  s_Instance = new cGroupFact;
       }
-		return s_Instance;
+		return (*s_Instance);
 	};
 
 
