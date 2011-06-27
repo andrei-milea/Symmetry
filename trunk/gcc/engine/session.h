@@ -9,16 +9,12 @@
 class cSession
 {
 public:
-	cSession()
-	{
-	};
-	~cSession()
-	{
-	};
+	cSession();
+	~cSession();
 
-	RunCommand(cCommand &command);
-	TerminateCommand();
-	GetProgess();
+	const string RunCommand(cCommand &command);
+	void TerminateCommand();
+	unsigned int GetProgess();
 
 private:
 	int m_SessionId;

@@ -29,9 +29,14 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
         case GET_M:
             if(_request.GetResource() == "/")
             {
+				//add new session
+				unsigned int ses_id = cHttpConnection::GetRandUniqueId();
+				cSession session(ses_id);
+				m_Sessions.push_back(session);
+
+				//send response
                 cResponse response(m_ResponseBuf);
-				const std::string index_page  = cPageBuilder::GetInstance().GetIndexPage(
-						cHttpConnection::GetRandUniqueId());
+				const std::string index_page = cPageBuilder::GetInstance().GetIndexPage(ses_id);
                 response.BuildResponse(OK, index_page);
 
                 boost::asio::async_write(m_Socket, m_ResponseBuf,
@@ -49,6 +54,10 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				}
 				else
 				{
+					//add new session
+					cSession session(ses_id);
+					m_Sessions.push_back(session);
+
 					const std::string index_page  = cPageBuilder::GetInstance().GetIndexPage(
 						ses_id);
                 	response.BuildResponse(OK, index_page);
