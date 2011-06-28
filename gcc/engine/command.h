@@ -26,6 +26,7 @@ protected://members
 };
 
 
+//getsubgroup
 class cSelectCommand : public cCommand
 {
 public:
@@ -36,6 +37,7 @@ public:
 
 };
 
+//get elements
 class cCreateCommand : public cCommand
 {
 public:
