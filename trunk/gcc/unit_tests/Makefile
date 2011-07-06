@@ -1,5 +1,6 @@
-all: test_lattice
-CFLAGS = -std=c++0x -g -Wall -I /home/boost_1_45_0 
+all: test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main
+CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
+LFLAGS = -lboost_thread
 GCC = /opt/usr/bin/g++
 
 test_perm: test_permutation.cpp
@@ -20,9 +21,39 @@ test_group: test_group.cpp
 test_lattice: test_lattice.cpp
 	$(GCC) $(CFLAGS) test_lattice.cpp -o test_lattice
 
+########################
+#test_engine compilation
+########################
+
+test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o 
+	$(GCC) $(LFLAGS) test_engine.o getsubgrp_command.o getelem_command.o estimate.o session.o -o test_engine_main 
+
+
+test_engine.o: test_engine.cpp
+	$(GCC) $(CFLAGS) test_engine.cpp -o test_engine.o
+
+estimate.o: ../engine/estimate.cpp
+	$(GCC) $(CFLAGS) ../engine/estimate.cpp -o estimate.o 
+
+getsubgrp_command.o: ../engine/getsubgrp_command.cpp
+	$(GCC) $(CFLAGS) ../engine/getsubgrp_command.cpp -o getsubgrp_command.o
+
+getelem_command.o: ../engine/getelem_command.cpp
+	$(GCC) $(CFLAGS) ../engine/getelem_command.cpp -o getelem_command.o
+
+session.o: ../engine/session.cpp
+	$(GCC) $(CFLAGS) ../engine/session.cpp -o session.o
+
+
+########################
+########################
+
+
 clean:
 	rm -rf *.o $(TESTS)
-TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_lattice
+TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main
+#test_lattice
+
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
 #CTAGS=etags -o tags
 

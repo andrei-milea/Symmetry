@@ -13,6 +13,14 @@ using namespace boost::spirit;
 using namespace boost::spirit::qi;
 using namespace boost::spirit::ascii;
 
+/**************http request grammar rules**************/
+//METHOD_TYPE	= GET | POST | HEAD | PUT | OPTIONS 
+//				| DELETE | TRACE | CONNECT 
+//
+//
+//HTTP_REQUEST	= METHOD_TYPE >> " " >> RESOURCE >> 
+//				>> " " >> VERSION >> "\r" >> HEADER >>
+//				>> "\r\n" ;
 
 //parsing symbol table
 struct method_: symbols<char, short>
@@ -33,6 +41,8 @@ struct method_: symbols<char, short>
 } method;
 
 
+                /************************************************************/
+                /************************************************************/
                 /************************************************************/
 
 

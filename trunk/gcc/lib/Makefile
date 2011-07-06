@@ -1,5 +1,5 @@
 all:	tst_group
-CFLAGS =-c  -std=c++0x -g -Wall -I /home/boost_1_45_0
+CFLAGS =-c  -std=c++0x -g -Wall -I /usr/include/boost -lboost_thread
 GCC = /opt/usr/bin/g++
 
 tst_group: tst_group.o

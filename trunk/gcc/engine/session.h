@@ -1,18 +1,17 @@
 #ifndef _SESSION_H
 #define _SESSION_H
 
-#include "group_factory.h"
-#include "command.h"
-
-
+#include <string>
+class cCommand;
 
 class cSession
 {
 public:
 	cSession();
+	cSession(unsigned int ses_id);
 	~cSession();
 
-	const string RunCommand(cCommand &command);
+	const std::string RunCommand(cCommand &command);
 	void TerminateCommand();
 	unsigned int GetProgess();
 

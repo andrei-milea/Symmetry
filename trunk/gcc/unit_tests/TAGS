@@ -1,0 +1,161 @@
+
+Makefile,515
+all:all1,0
+CFLAGS 2,84
+LFLAGS 3,139
+GCC 4,163
+test_perm:test_perm6,187
+test_group_el:test_group_el9,272
+test_symmetric:test_symmetric12,363
+test_std_ex:test_std_ex15,462
+test_group:test_group18,541
+test_lattice:test_lattice21,616
+test_engine_main:test_engine_main28,775
+test_engine.o:test_engine.o32,981
+estimate.o:estimate.o35,1064
+getsubgrp_command.o:getsubgrp_command.o38,1156
+getelem_command.o:getelem_command.o41,1283
+session.o:session.o44,1402
+clean:clean52,1542
+TESTS 54,1570
+
+test_engine.cpp,185
+#define BOOST_TEST_MODULE 6,113
+class cSessionFix11,234
+	cSessionFix(cSessionFix::cSessionFix14,262
+	~cSessionFix(cSessionFix::~cSessionFix18,287
+BOOST_FIXTURE_TEST_SUITE(27,348
+
+test_engine.o,1399
+‹U‹U79,85150
+‹U‹U80,85278
+‹U‹U81,85342
+‹UÌ‹UÌ83,95738
+şÿÿ‰D$ÇD$112,174533
+I627,269374
+:ss1113,347012
+Tg‘4ƒ’®ÄZ:Ø»x\@ ƒ’®àZ:ØÉy\@ u$lgÉ4g'4g»4gó4ƒ"ƒ	 gó4ƒgó48397,1286997
+‹U‰T$‰U‰T$8741,1493910
+‰$èüÿÿ$èüÿ8743,1502468
+‹U‹9ÑU‹98756,1578671
+]ÃU‰å‹U‰å8759,1616678
+]ÃU‰å‹E‹U‰]ÃU‰åƒì‹E‰D$U‰åƒì‹E‰D$8759,1616678
+]ÃU‰å‹E‹U‰]ÃU‰åƒì‹E‰D$‹E‰D$‹E‰$èüÿÿÿÉÃU‰åƒì‹E‰$èüÿÿÿ;E’À„ÀE’À„8759,1616678
+]ÃU‰U8760,1634038
+]ÃU‰å¸ÌÌÌ]ÃU‰åƒìHU‰åƒì8760,1634038
+]ÃU‰åƒU‰å8762,1634832
+‹U‰T$‹U‰U‰T$‹U8763,1723184
+‹U‰T$‹U‰U‰T$‹U8764,1723248
+‹U‰T$‹U‰U‰T$‹U8765,1724260
+‹U‰T$‹U‰U‰T$‹U8766,1724376
+‹U‰T$‹U‰U‰T$‹U8767,1724440
+‹U‰T$‹U‰U‰T$‹U8768,1725288
+‹U‰T$‹U‰U‰T$‹U8769,1725404
+‹U‰T$‹U‰U‰T$‹U8770,1725468
+‹U‰T$‹U‰U‰T$‹U8771,1726344
+‹U‰T$‹U‰U‰T$‹U8772,1726460
+‹U‰T$‹U‰U‰T$‹U8773,1726524
+‹U‰T$‹U‰U‰T$‹U8774,1727400
+‹U‰T$‹U‰U‰T$‹U8775,1727516
+‹U‰T$‹U‰U‰T$‹U8776,1727580
+‹U‰T$‹U‰U‰T$‹U8777,1728428
+‹U‰T$‹U‰U‰T$‹U8778,1728544
+‹U‰T$‹U‰U‰T$‹U8779,1728608
+‹U‰T$‹U‰U‰T$‹U8780,1729464
+‹U‰T$‹U‰U‰T$‹U8781,1729580
+‹U‰T$‹U‰U‰T$‹U8782,1729644
+‹U‰T$‹U‰U‰T$‹U8783,1730496
+MM13561,6476965
+e13593,6490117
+TT13783,7475269
+u	13986,7687581
+QQ18733,7895781
+
+test_group.cpp,252
+void test_s3_centralizer_el(8,135
+void test_d8_centralizer_el(33,1001
+void test_s3_center_el(48,1532
+void test_d8_center_el(66,2125
+void test_s3_normalizer_el(81,2610
+void test_d8_normalizer_el(117,3733
+test_suite* init_unit_test_suite(133,4222
+
+test_group_elem.cpp,128
+void test_trivial(9,110
+void test_order_power(27,649
+void test_properties(85,2268
+test_suite* init_unit_test_suite(140,3840
+
+test_lattice,107
+•ÿÿ…À•À„Àt=t55,46503
+‹U‰T$‰U‰T$156,195802
+DıÿÉÃU‰åƒDıÿÉÃU‰å157,196695
+‰$èZØÿÿ$èZØÿ161,204474
+
+test_lattice.cpp,167
+#define private 8,143
+#define protected 9,166
+void test_s3_lattice_has_prime_power_el(16,263
+void test_s3_lattice(36,787
+test_suite* init_unit_test_suite(54,1187
+
+test_permutation.cpp,141
+void test_perm_unity(15,237
+void test_perm_multiplication(24,409
+void test_perm_trivial(54,1335
+test_suite* init_unit_test_suite(87,2065
+
+test_std_ex.cpp,221
+boost::mt19937 gen;14,277
+int get_random(16,298
+void test_set_inclusion(23,464
+void test_set_equality(44,843
+void test_set_difference(68,1347
+void test_set_remove(100,1903
+test_suite* init_unit_test_suite(134,2386
+
+test_symmetric_rep.cpp,201
+#define private 6,106
+#define protected 7,129
+void test_trivial(15,295
+void test_private(45,833
+void test_elements(126,3125
+void test_getorbit(194,5521
+test_suite* init_unit_test_suite(231,6609
+
+vimses,1315
+let SessionLoad 1,0
+setlocal foldmethod=106,2759
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t112,2913
+setlocal grepprg=113,2966
+setlocal indentkeys=0{,0},:,0#,!^F,F119,3085
+setlocal indentkeys=0{,0},:,0#,!^F,o,119,3085
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,119,3085
+setlocal iskeyword=121,3147
+setlocal nrformats=130,3348
+setlocal cinkeys=0{,0},0),:,0#,!^F,F190,4667
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,190,4667
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,190,4667
+setlocal cinoptions=191,4708
+setlocal foldmethod=215,5288
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t221,5442
+setlocal grepprg=222,5495
+setlocal indentkeys=0{,0},:,0#,!^F,F228,5614
+setlocal indentkeys=0{,0},:,0#,!^F,o,228,5614
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,228,5614
+setlocal iskeyword=230,5676
+setlocal nrformats=239,5877
+setlocal cinkeys=0{,0},0),:,0#,!^F,F299,7201
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,299,7201
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,299,7201
+setlocal cinoptions=300,7242
+setlocal foldmethod=324,7822
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t330,7976
+setlocal grepprg=331,8029
+setlocal indentkeys=0{,0},:,0#,!^F,F337,8148
+setlocal indentkeys=0{,0},:,0#,!^F,o,337,8148
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,337,8148
+setlocal iskeyword=339,8210
+setlocal nrformats=348,8411
+
+estimate.o,0
