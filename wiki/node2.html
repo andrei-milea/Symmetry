@@ -1,0 +1,109 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="guide.css">
+
+<LINK REL="next" HREF="node3.html">
+<LINK REL="previous" HREF="node1.html">
+<LINK REL="up" HREF="guide.html">
+<LINK REL="next" HREF="node3.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html44"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html40"
+  HREF="guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html34"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html42"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html45"
+  HREF="node3.html">Components description</A>
+<B> Up:</B> <A NAME="tex2html41"
+  HREF="guide.html">guide</A>
+<B> Previous:</B> <A NAME="tex2html35"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html43"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00020000000000000000">
+Introduction</A>
+</H1>
+	Yet another abstract algebra library. What is different from existing ones (GAP,MAPLE,SINGULAR)? Well, the main differences are the focus only on Group Theory and the fact that this one is actually maintainable, written entirely in C++ with a nice object oriented design. Other unique trait is the user interface which is provided in a webpage by a minimal custom http server. Besides the usual operations provided by an abstract algebra library(create a group and investigate it's elements, properties, subgroups, isomorphisms, etc) the user will be able to actually visualize the group structure through the geometry it describes by exploiting the relation between group theory and geometry. These drawings are made with the help of Java Script and WebGl technology and rendered with the graphics card(using acceleration).
+	So, the application is logically built from the following components:
+
+<OL>
+<LI>Groups  Library - written entirely in C++ 0X (using STL and BOOST) with a generic design made possible by template programming.
+</LI>
+<LI>HTTP server - used to serve the user interface(html pages), written also in C++ with BOOST ASIO.
+</LI>
+<LI>Web drawing framework- used to render 3d graphics and make the user interation easier, written in Java Script(WebGl).
+</LI>
+<LI>Distributed engine - which connects the user interface with the algebra library, by spawning multiple processes on (different) machines, gathering and feeding data to the HTTP server.
+</LI>
+</OL>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html44"
+  HREF="node3.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html40"
+  HREF="guide.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html34"
+  HREF="node1.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html42"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html45"
+  HREF="node3.html">Components description</A>
+<B> Up:</B> <A NAME="tex2html41"
+  HREF="guide.html">guide</A>
+<B> Previous:</B> <A NAME="tex2html35"
+  HREF="node1.html">Contents</A>
+ &nbsp; <B>  <A NAME="tex2html43"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2011-06-28
+</ADDRESS>
+</BODY>
+</HTML>

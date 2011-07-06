@@ -1,0 +1,272 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Groups Library</TITLE>
+<META NAME="description" CONTENT="Groups Library">
+<META NAME="keywords" CONTENT="guide">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="guide.css">
+
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
+<LINK REL="up" HREF="node3.html">
+<LINK REL="next" HREF="node5.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html71"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html67"
+  HREF="node3.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html61"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html69"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html72"
+  HREF="node5.html">Web drawing framework</A>
+<B> Up:</B> <A NAME="tex2html68"
+  HREF="node3.html">Components description</A>
+<B> Previous:</B> <A NAME="tex2html62"
+  HREF="node3.html">Components description</A>
+ &nbsp; <B>  <A NAME="tex2html70"
+  HREF="node1.html">Contents</A></B> 
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00031000000000000000">
+Groups Library</A>
+</H2>
+Classes:
+<BR>
+<OL>
+<LI>Binary operation classes: <code>Addition, Multiplication, Composition</code>. They are functors used to represent binary operations between elements of the groups. The overloaded operator() implements the operation described by each class. Also used as policies.
+<BR>
+Files: <code>binary_op.h</code>
+</LI>
+<LI><code>cPermElem</code> - permutation element class.
+<BR>
+Public methods:
+
+<UL>
+<LI><code>cPermElem()</code> - default constructor implements empty permutation
+</LI>
+<LI><code>cPermElem(std::size_t size)</code> - constructs the identity permutation of a given size
+</LI>
+<LI><code>cPermElem(std::vector&lt;std::size_t&gt; &amp;permutation_array)</code> and <code>cPermElem(std::vector&lt;std::size_t&gt; *permutation_array)</code> - constructs a permutation with the given permutation array
+</LI>
+<LI><code>cPermElem(std::size_t size, const std::initializer_list&lt;std::size_t&gt; &amp;perm_sq)</code> - constructs a permutation from a given cycle representation (Ex: cPermElem(3, 1, 2) is the permutation <!-- MATH
+ $1\mapsto2;2\mapsto1;3\mapsto3$
+ -->
+<IMG
+ WIDTH="154" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$1\mapsto2;2\mapsto1;3\mapsto3$">)
+</LI>
+<LI><code>cPermElem(const std::initializer_list&lt;std::size_t&gt; &amp;perm_sq)</code> - constructs a permutation with the image array given as parameter(Ex: cPermElem(1, 2) is the permutation <!-- MATH
+ $1\mapsto1;2\mapsto2$
+ -->
+<IMG
+ WIDTH="101" HEIGHT="31" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$1\mapsto1;2\mapsto2$">)
+</LI>
+<LI><code>cPermElem(const cPermElem &amp;permutation)</code> and <code>cPermElem&amp; operator=(const cPermElem &amp;permutation)</code> - copy constructor and assignment operator
+</LI>
+<LI><code>~cPermElem()</code> - destructor
+</LI>
+<LI><code>std::vector&lt;std::size_t&gt;* GetPermutationArray()const</code> - returns the underlying permutation array
+</LI>
+<LI><code>cPermElem operator*(const cPermElem &amp;perm)const</code> - multiplication operator for permutations
+</LI>
+<LI><code>bool operator==(const cPermElem &amp;perm)const</code> and <code>bool operator!=(const cPermElem &amp;perm)const</code> - test for equality/inequality operators
+</LI>
+<LI><code>friend std::ostream&amp; operator&lt;&lt;(std::ostream &amp;of, const cPermElem &amp;perm)</code> - output operator
+</LI>
+<LI><code>std::size_t GetImage(const std::size_t set_element)const</code> - return the image of an element under the permutation action
+</LI>
+<LI><code>cPermElem GetMultInverse()const</code> - returns the inverse of the permutation
+</LI>
+<LI><code>std::size_t GetSize()const</code> / <code>void SetSize(const std::size_t size)</code> - gets/sets permutation size
+</LI>
+<LI><code>cPermElem GetIdentity(BINOP binop)const</code> - returns the identity permutation of the same size(Multiplication must be given as parameter)
+</LI>
+</UL>
+Files: <code>permutation.h</code>
+</LI>
+<LI><code>cGroupElem</code> - class to represent the group elements, must be instantiated with the element type and binary operation supported(Ex: <code>cGroupElem&lt;cPermElem, Multiplication&gt; group_perm_elem;</code>)
+<BR>
+Public methods:
+
+<UL>
+<LI><code>cGroupElem(); cGroupElem(T &amp;concrete_obj); cGroupElem(const T &amp;concrete_obj)</code> - constructors
+</LI>
+<LI><code>cGroupElem(const SelfType &amp;group_elem)</code> and <code>SelfType &amp;operator=(const SelfType &amp;elem)</code> - copy constructor and assignment operator
+</LI>
+<LI><code>std::size_t GetOrder()const</code> - returns the element order
+</LI>
+<LI><code>std::size_t GetOrder(std::size_t group_order)</code> - returns the element order using the group order as parameter by applying Lagrange theorem
+</LI>
+<LI><code>SelfType GetInverse()const</code> - returns the inverse of the element
+</LI>
+<LI><code>SelfType GetNthPower(std::size_t n)const</code> - returns the nth power of the element
+</LI>
+<LI><code>bool CommutesWith(const SelfType &amp;element)const</code> - returns true if the element commutes with the element given as parameter, otherwise returns false
+</LI>
+<LI><code>bool IsNormalizer(const std::vector&lt;SelfType&gt; &amp;elements)const</code> - returns true if the element is a normalizer for the given set, otherwise returns false
+</LI>
+<LI><code>SelfType GetIdentity()const</code> - returns the identity for this type of group element
+</LI>
+<LI><code>BinaryOp GetBinaryOp()const</code> - returns the binary operation used to instantiate the class
+</LI>
+</UL>
+Files:<code>group_elem.h</code>
+</LI>
+<LI><code>cSymmetricRep</code> - this class is one of the internal representation types for groups of permutations; must be instantiated with the group element type(Ex: <code>cSymmetricRep&lt;cGroupElem&lt;cPermElem, Multiplication&gt; &gt;</code>) and must be used as the underlying representation for <code>cGroup</code> class(Ex: <code>cGroup&lt; cGroupElem&lt; cPermElem, Multiplication &gt;, cSymmetricRep &gt; SymmetricGroup</code>)
+<BR>
+Public methods:
+
+<UL>
+<LI><code>cSymmetricRep()</code>, <code>cSymmetricRep(std::vector&lt;T&gt; &amp;generators_set)</code>, <code>cSymmetricRep(std::initializer_list&lt;T&gt; perm_list)</code> - constructors, this class must be constructed by giving a set of generators
+</LI>
+<LI><code>cSymmetricRep(const SelfType &amp;sym_rep)</code> and <code>cSymmetricRep&amp; operator=(const SelfType&amp; sym_rep)</code> - copy constructor and assignment
+</LI>
+<LI><code>friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out,const SelfType &amp;group_rep)</code> - output operator
+</LI>
+<LI><code>bool Contains(const T &amp;element)const</code> - checks if the group contains the element given as argument(uses Dimino algorithm to obtain the list of elements)
+</LI>
+<LI><code>std::vector&lt;T&gt; GetElementsNaive()const</code> - returns the elements of the group using the naive algorithm
+</LI>
+<LI><code>std::vector&lt;T&gt; GetElementsDimino()const</code> - returns the elements of the group using the Dimino algorithm
+</LI>
+<LI><code>std::vector&lt;std::size_t&gt; GetOrbit(const std::size_t &amp;set_element)const</code> - returns the orbit of the given element under the group actions
+</LI>
+<LI><code>const std::vector&lt;T&gt; &amp;GetGeneratorsSet()const</code> / <code>void SetGeneratorsSet(const std::vector&lt;T&gt; &amp;gen_set)</code> - get/set the group generators
+</LI>
+<LI><code>void AddGenerator(const T &amp;element)</code> - adds new generator to the group(just adds it to the generator list member; doesn't recompute the group elements)
+</LI>
+<LI><code>bool operator==(const SelfType &amp;symgrp)const</code> and <code>bool operator!=(const SelfType &amp;symgrp)const</code> - equality/inequality test operator
+</LI>
+<LI><code>T GetIdentity()const</code> - returns the group identity element
+</LI>
+<LI><code>std::vector&lt;T&gt; GetCyclicSubgroup(const T&amp; element)const</code> - returns the cyclic subgroup generated by the element given as parameter
+</LI>
+</UL>
+Files: <code>symmetric_rep.h</code>
+</LI>
+<LI><code>cGroup</code> - class used to represent a group, it instantiates and automatically inherits a group representation(Ex: cSymmetricRep)
+<BR>
+Public Methods:
+
+<UL>
+<LI><code>cGroup(), cGroup(std::vector&lt;ElementType&gt; &amp;gr_vec), cGroup (std::initializer_list&lt;T&gt; ini_list)</code> - constructors
+</LI>
+<LI><code>cSubgroup&lt;SelfType&gt; GetCentralizer(const cSubgroup&lt;SelfType&gt; &amp;_subgrp)const</code> - returns the centralizer subgroup
+</LI>
+<LI><code>cSubgroup&lt;SelfType&gt; GetCenter()const</code> - returns the center subgroup
+</LI>
+<LI><code>cSubgroup&lt;SelfType&gt; GetNormalizer(const cSubgroup&lt;SelfType&gt; &amp;_subgrp)const</code> - returns the subgroup with the elements normalizing the subgroup given as parameter
+</LI>
+<LI><code>std::vector&lt;ElementType&gt; GetCentralizerEl(ElementType &amp;element)const</code> - returns the elements composing the centralizer subgroup of the group
+</LI>
+<LI><code>std::vector&lt;ElementType&gt; GetCenterEl()const</code> - returns the elements composing the center subgroup of the group
+</LI>
+<LI><code>std::vector&lt;ElementType&gt; GetNormalizerEl(const cSubgroup&lt;SelfType&gt; &amp;_subgrp)const</code> - returns the elements normalizing the subgroup given as parameter
+</LI>
+</UL>
+Files: <code>group.h</code>
+</LI>
+<LI><code>cSubgroup</code> - represents a subgroup, inherits from cGroup class
+<BR>
+Public methods:
+
+<UL>
+<LI><code>cSubgroup(), cSubgroup(std::vector&lt;T&gt; gr_vec), cSubgroup(G &amp;group)</code> - constructors
+</LI>
+<LI><code>bool isNormal()const</code> - returns true is the subgroup is a normal subgroup, otherwise returns false
+<code>void isNormal(const bool normal)</code> - sets the normality attribute of the subgroup
+</LI>
+</UL>
+Files: <code>subgroup.h</code>
+</LI>
+<LI><code>cCayleyGrf</code> - represents the cayley graph of the group (uses the boost graph library for the graph underlying structure)
+<BR>
+Public methods:
+
+<UL>
+<LI><code>cCayleyGrf(std::vector&lt;ElemType&gt; &amp;elements, std::vector&lt;ElemType&gt; &amp;generators), cCayleyGrf(G &amp;group )</code> - constructors
+</LI>
+<LI><code>cCayleyGrf(const cCayleyGrf &amp;graph), cCayleyGrf &amp;operator=(const cCayleyGrf &amp;graph)</code> - copy constructor and assignment operator
+</LI>
+<LI><code>void BuildGraph()</code> - builds the cayley graph of the group
+</LI>
+<LI><code>void BuildDefRelations()</code> - builds the set of defining relations
+</LI>
+<LI><code>friend std::ostream&amp; operator&lt;&lt;(std::ostream&amp; out, const cCayleyGrf &amp;graph)</code> - output operator(prints the cayley graph)
+</LI>
+<LI><code>Graph* GetGraph()const</code> - returns the cayley graph
+</LI>
+<LI><code>const std::vector&lt;cRelation&gt;&amp; GetDefRelations()const</code> - returns the defining relations of the group
+</LI>
+</UL>
+Files: <code>cayley_graph.h</code>
+</LI>
+<LI><code>cRelation</code> - class used to represent a group relation as a vector of pairs of group elements
+<BR>
+Files: <code>cayley_graph.h</code>
+</LI>
+</OL><HR>
+<!--Navigation Panel-->
+<A NAME="tex2html71"
+  HREF="node5.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/lib/latex2html/icons/next.png"></A> 
+<A NAME="tex2html67"
+  HREF="node3.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/lib/latex2html/icons/up.png"></A> 
+<A NAME="tex2html61"
+  HREF="node3.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/lib/latex2html/icons/prev.png"></A> 
+<A NAME="tex2html69"
+  HREF="node1.html">
+<IMG WIDTH="65" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="contents"
+ SRC="file:/usr/lib/latex2html/icons/contents.png"></A>  
+<BR>
+<B> Next:</B> <A NAME="tex2html72"
+  HREF="node5.html">Web drawing framework</A>
+<B> Up:</B> <A NAME="tex2html68"
+  HREF="node3.html">Components description</A>
+<B> Previous:</B> <A NAME="tex2html62"
+  HREF="node3.html">Components description</A>
+ &nbsp; <B>  <A NAME="tex2html70"
+  HREF="node1.html">Contents</A></B> 
+<!--End of Navigation Panel-->
+<ADDRESS>
+
+2011-06-28
+</ADDRESS>
+</BODY>
+</HTML>
