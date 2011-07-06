@@ -1,0 +1,109 @@
+
+command.h,243
+#define _COMMAND_H2,19
+#define PROGRESS_START 6,58
+#define PROGRESS_END 7,84
+class cCommand9,111
+	virtual ~cCommand(cCommand::~cCommand12,136
+	cCommand(cCommand::cCommand19,213
+class cSelectCommand 29,313
+class cCreateCommand 39,443
+
+createcommand.cpp,68
+cCreateCommand::cCreateCommand(4,23
+cCreateCommand::Execute(9,101
+
+group_factory.h,704
+#define _GROUP_FACTORY2,23
+class cGroupFactory10,244
+typedef cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> SymmGrp;cGroupFactory::SymmGrp13,303
+typedef std::vector< cGroupElem<cPermElem, Multiplication> >  SymmGrpGen;cGroupFactory::SymmGrpGen14,381
+	static cGroupFact& GetInstance(cGroupFactory::GetInstance17,473
+	SymmetricGrp* GetSymmGrp(cGroupFactory::GetSymmGrp29,690
+	void ReleaseSymmGrp(cGroupFactory::ReleaseSymmGrp50,1293
+	void CleanUp(cGroupFactory::CleanUp63,1571
+	cGroupFactory(cGroupFactory::cGroupFactory71,1685
+	cGroupFactory(cGroupFactory::cGroupFactory73,1707
+	cGroupFactory& operator=(cGroupFactory::operator=75,1757
+cGroupFactory::s_Instance 87,1980
+
+interpreter.h,52
+#define _INTERPRETER_H2,23
+class cInterpreter7,91
+
+session.h,120
+#define _SESSION_H2,19
+class cSession9,90
+	cSession(cSession::cSession12,115
+	~cSession(cSession::~cSession15,134
+
+vimses,2814
+let SessionLoad 1,0
+setlocal foldmethod=108,2735
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t114,2889
+setlocal grepprg=115,2942
+setlocal indentkeys=0{,0},:,0#,!^F,F121,3061
+setlocal indentkeys=0{,0},:,0#,!^F,o,121,3061
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,121,3061
+setlocal iskeyword=123,3123
+setlocal nrformats=132,3324
+setlocal cinkeys=0{,0},0),:,0#,!^F,F192,4636
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,192,4636
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,192,4636
+setlocal cinoptions=193,4677
+setlocal foldmethod=217,5257
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t223,5411
+setlocal grepprg=224,5464
+setlocal indentkeys=0{,0},:,0#,!^F,F230,5583
+setlocal indentkeys=0{,0},:,0#,!^F,o,230,5583
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,230,5583
+setlocal iskeyword=232,5645
+setlocal nrformats=241,5846
+setlocal cinkeys=0{,0},0),:,0#,!^F,F301,7153
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,301,7153
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,301,7153
+setlocal cinoptions=302,7194
+setlocal foldmethod=326,7774
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t332,7928
+setlocal grepprg=333,7981
+setlocal indentkeys=0{,0},:,0#,!^F,F339,8100
+setlocal indentkeys=0{,0},:,0#,!^F,o,339,8100
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,339,8100
+setlocal iskeyword=341,8162
+setlocal nrformats=350,8363
+setlocal cinkeys=0{,0},0),:,0#,!^F,F410,9666
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,410,9666
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,410,9666
+setlocal cinoptions=411,9707
+setlocal foldmethod=435,10287
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t441,10441
+setlocal grepprg=442,10494
+setlocal indentkeys=0{,0},:,0#,!^F,F448,10613
+setlocal indentkeys=0{,0},:,0#,!^F,o,448,10613
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,448,10613
+setlocal iskeyword=450,10675
+setlocal nrformats=459,10876
+setlocal cinkeys=0{,0},0),:,0#,!^F,F519,12180
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,519,12180
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,519,12180
+setlocal cinoptions=520,12221
+setlocal foldmethod=544,12801
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t550,12955
+setlocal grepprg=551,13008
+setlocal indentkeys=0{,0},:,0#,!^F,F557,13127
+setlocal indentkeys=0{,0},:,0#,!^F,o,557,13127
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,557,13127
+setlocal iskeyword=559,13189
+setlocal nrformats=568,13390
+setlocal cinkeys=0{,0},0),:,0#,!^F,F628,14701
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,628,14701
+setlocal cinkeys=0{,0},0),:,0#,!^F,o,O,628,14701
+setlocal cinoptions=629,14742
+setlocal foldmethod=653,15322
+setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\t659,15476
+setlocal grepprg=660,15529
+setlocal indentkeys=0{,0},:,0#,!^F,F666,15648
+setlocal indentkeys=0{,0},:,0#,!^F,o,666,15648
+setlocal indentkeys=0{,0},:,0#,!^F,o,O,666,15648
+setlocal iskeyword=668,15710
+setlocal nrformats=677,15911

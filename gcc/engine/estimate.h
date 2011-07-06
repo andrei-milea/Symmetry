@@ -1,17 +1,20 @@
 #ifndef _ESTIMATE_H
 #define _ESTIMATE_H
 
+class cGetElemCommand;
+class cGetSubgrpCommand;
+
+#include <string>
+
 //estimate time in minutes
 class cEstimator
 {
 public:
-	cEstimator()
-	{};
-	virtual ~cEstimator()
-	{};
+	cEstimator();
+	virtual ~cEstimator();
 
-	virtual unsigned int EstimateCreate(const cGetElemCommand& getelem_command);
-	virtual unsigned int EstimateSelect(const cGetSubgrpCommand& getsubgrp_command);
+	virtual std::size_t Estimate(const cGetElemCommand& getelem_command)const;
+	virtual std::size_t Estimate(const cGetSubgrpCommand& getsubgrp_command)const;
 };
 
 #endif

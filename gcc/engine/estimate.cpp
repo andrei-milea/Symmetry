@@ -1,16 +1,21 @@
 #include "estimate.h"
 
+#include "groupgen_command.h"
 
 cEstimator::cEstimator()
 {};
 
-~cEstimator::cEstimator()
+cEstimator::~cEstimator()
 {};
 
-cEstimator::EstimateCreate(const cGetElemCommand& getelem_command);
+std::size_t cEstimator::Estimate(const cGetElemCommand& getelem_command)const
 {
+	return 0;
 };
 
-cEstimator::EstimateSelect(const cGetSubgrpCommand& getsubgrp_command);
+std::size_t cEstimator::Estimate(const cGetSubgrpCommand& getsubgrp_command)const
 {
+	return 0;
 };
+
+
