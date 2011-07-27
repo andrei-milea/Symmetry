@@ -31,7 +31,7 @@ public:
     cRequest(std::istream &stream);
     ~cRequest() {};
 
-    void ParseRequest();
+    bool ParseRequest();
     std::vector<cHeader*> ParseHeaders();
     void ParseBody();
 
@@ -49,6 +49,7 @@ private:
     std::string                     m_Headers;
 
     //stream iterators
+	std::istream					m_Stream;
     forward_iterator_type           m_Fwd_begin;
     forward_iterator_type           m_Fwd_end;
 

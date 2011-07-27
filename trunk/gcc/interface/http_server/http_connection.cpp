@@ -23,7 +23,12 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
     {
         std::istream is(&m_RequestBuf);
         cRequest _request(is);
-        _request.ParseRequest();
+        if(false == _request.ParseRequest())
+		{
+			std::string request_str;
+			is>>request_str;
+			throw std::runtime_error(CONTEXT_STR + "failed to parse request :" + request_str);
+		}
         switch(_request.GetMethod())
         {
         case GET_M:
@@ -49,7 +54,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				unsigned int ses_id = _request.GetSessionId()
 				if(m_Sessions.find(ses_id) != m_Sessions::end())
 				{
-					const std::string res = m_Sessions[ses_id].Execute(_request.GetCommand());
+					const std::string res = m_Sessions[ses_id].RunCommand(_request.GetCommand());
 					response.BuildResponse(OK, cPageBuilder::GetInstance().GetPage(res, ses_id));
 				}
 				else
@@ -88,7 +93,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
     }
     else
     {
-        std::cout<<"error : "<<error<<"\n";
+		throw std::runtime_error(CONTEXT_STR + error.message());
     }
 };
 
@@ -96,6 +101,6 @@ void cHttpConnection::HandleWriteResponse(const boost::system::error_code& error
 {
     if(error)
     {
-        std::cout<<"error : "<<error<<"\n";
+		throw std::runtime_error(CONTEXT_STR + error.message());
     }
 };
