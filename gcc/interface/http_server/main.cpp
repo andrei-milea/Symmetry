@@ -13,7 +13,8 @@ int main()
     }
     catch(std::exception& e)
     {
-         std::cerr << e.what() << std::endl;
+		cLogger log(LOG_SEV_ERROR);
+        log<< e.what();
     }
 
 };

@@ -19,6 +19,9 @@ int main()
 	generators.push_back(elem1);
 	generators.push_back(elem2);
 	S3 g1(generators);
+	std::vector< cGroupElem< cPermElem, Multiplication> > elements = g1.GetElementsDimino();
+	std_ex::print_vector(elements);
+	
 
 //	cGrpLattice<S3> s3_lattice(g1);
 //	s3_lattice.CyclicExtensionMethod();

@@ -3,7 +3,7 @@
 
 #include <utility>
 #include <algorithm>
-#include "boost/thread.hpp"
+#include <boost/thread.hpp>
 
 #include "../lib/group.h"
 

@@ -3,12 +3,14 @@
 
 #include "command.h"
 #include "group_factory.h"
+#include "logger.h"
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
 #include <boost/any.hpp>
+#include <exception>
 
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
@@ -31,6 +33,23 @@ public:
 		return "";
 	};
 
+	GROUP_TYPE GetGroupType()const
+	{
+		return m_GroupType;
+	};
+
+	std::vector<boost::any>& GetGenerators()
+	{
+		if(ParseParams())
+		{
+			return m_Generators;
+		}
+		else
+		{
+			throw std::runtime_error(CONTEXT_STR + " Failed to parse command params : " + m_Params);
+		}
+	};
+
 protected:
 	cGroupGenCommand(std::string &params)
 		:cCommand(params),
@@ -46,22 +65,23 @@ protected:
 		using phoenix::ref;
 		using ascii::char_;
 
-//					 >> char_('}') 
-//					 [boost::bind(&cGroupGenCommand::AddSymmGrpGen, this, gen_vec)]
-
-		std::vector<unsigned int> gen_vec;
 		unsigned int grp_type = 0;
-		bool result = qi::parse(m_Params.begin(), m_Params.end(), 
+		std::vector<unsigned int> Gen_vec;
+		AddGrpGen add_grp_gen(&Gen_vec, &m_Generators);
+
+		std::string::iterator iter = m_Params.begin();
+		bool result = qi::parse(iter, m_Params.end(), 
 					/////////gramar
 					( 
-					 uint_[ref(grp_type) = _1]
-					 >> char_(' ') >> char_('{')
-					 //>> uint_[push_back(phoenix::ref(gen_vec), _1)] % ',')
+					 group_type[ref(grp_type) = _1] >>
+					 *(char_(' ') >> char_('{')
+					 >> uint_[push_back(phoenix::ref(Gen_vec), _1)] % ','
+					 >> char_('}') [add_grp_gen])
 					)
 					/////////
 				);
-//		m_GroupType = grp_type;
-		return result;
+		m_GroupType = static_cast<GROUP_TYPE>(grp_type);
+		return result && (iter == m_Params.end());
 	};
 
 	virtual unsigned int EstimateRunTime(const cEstimator &estimator)const
@@ -70,17 +90,30 @@ protected:
 	};
 
 private:
-	void AddSymmGrpGen(std::vector<unsigned int> &generator)
-	{
-		cPermElem perm_el(generator);
-		cGroupElem< cPermElem, Multiplication> grp_elem();
-		//m_Generators.push_back(grp_elem);
-		generator.clear();
-	};
+	class AddGrpGen
+    {
+	public:
+		AddGrpGen(std::vector<unsigned int> *gen_vec, std::vector<boost::any> *generators)
+			:m_Gen_vec(gen_vec),
+			m_Generators(generators)	{};
+
+        void operator()(char const& i, qi::unused_type, qi::unused_type)const
+        {
+			cPermElem perm_el(*m_Gen_vec);
+			cGroupElem< cPermElem, Multiplication> grp_elem(perm_el);
+			m_Generators->push_back(grp_elem);
+			m_Gen_vec->clear();
+        };
+
+	private:
+		mutable std::vector<unsigned int> *m_Gen_vec;
+		mutable std::vector<boost::any>  *m_Generators;
+    };
 
 private:
 	GROUP_TYPE m_GroupType;
 	std::vector<boost::any>  m_Generators;
+	
 
 protected:
 

@@ -54,10 +54,10 @@ cRequest::cRequest(std::istream &stream)
     m_Fwd_begin = make_default_multi_pass(in_begin);
 };
 
-void cRequest::ParseRequest()
+bool cRequest::ParseRequest()
 {
     short method_;
-    bool result = parse(m_Fwd_begin, m_Fwd_end,
+    return parse(m_Fwd_begin, m_Fwd_end,
         /////grammar
        (
         method
@@ -75,9 +75,6 @@ void cRequest::ParseRequest()
         m_Headers
         );
         m_Method = (REQ_METHOD)method_;
-    if(false == result)
-        throw ;
-
 };
 
 void cRequest::ParseBody()

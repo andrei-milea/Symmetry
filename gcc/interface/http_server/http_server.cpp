@@ -1,6 +1,7 @@
 
 #include "http_server.h"
 #include <boost/bind.hpp>
+#include "../../engine/logger.h"
 
 
 using namespace boost::asio::ip;
@@ -28,4 +29,8 @@ void cHttpServer::HandleConnection(cHttpConnection::pointer new_connection,
         new_connection->HandleClient();
         StartAccept();
     }
+	else
+	{
+		throw std::runtime_error(CONTEXT_STR + error.message());
+	}
 };

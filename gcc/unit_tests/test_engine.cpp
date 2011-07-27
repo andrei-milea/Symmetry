@@ -37,3 +37,15 @@ BOOST_AUTO_TEST_SUITE_END()
 
 
 
+BOOST_AUTO_TEST_SUITE( test_command )
+
+BOOST_AUTO_TEST_CASE( test_command_parsing )
+{
+	std::string command_txt("SYMMETRIC_GROUP {1,2,3} {1,3,2} {3,2,1}");
+	cGetElemCommand command(command_txt);
+	std::vector<cGroupElem< cPermElem, Multiplication> > generators = boost::any_cast<std::vector<cGroupElem< cPermElem, Multiplication> > >(command.GetGenerators());
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
