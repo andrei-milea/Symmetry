@@ -21,14 +21,13 @@ cThreadPool::~cThreadPool()
 
 void cThreadPool::StartPool()
 {
-	assert(false == m_Started);
+	m_Started = true;
 	try
 	{
 		for(unsigned int i = 0; i < m_Num_Threads; i++)
 		{
 			m_ThreadPool.create_thread(boost::bind(&cThreadPool::Run, this));
 		}
-		m_Started = true;
 	}
 	catch(std::exception &ex)
 	{
