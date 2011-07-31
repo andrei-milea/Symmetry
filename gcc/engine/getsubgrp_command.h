@@ -8,10 +8,10 @@ class cEstimator;
 class cGetSubgrpCommand : public cGroupGenCommand
 {
 public:
-	cGetSubgrpCommand(std::string &params);
+	cGetSubgrpCommand(const std::string &params, std::string *result);
 	virtual ~cGetSubgrpCommand();
 
-	std::string Execute();
+	void Execute();
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 };
 

@@ -15,20 +15,20 @@ public:
 	{
 	};
 
-	virtual std::string Execute()=0;
+	virtual void Execute()=0;
 	virtual unsigned int EstimateRunTime(const cEstimator &estimator)const=0;
 
 protected://methods
-	cCommand(std::string params)
-	:m_Progress(0)
+	cCommand(const std::string& params, std::string* result)
+	: m_Result(result)
 	{
 		m_Params = params;
 	};
 	virtual bool ParseParams()=0;
 
 protected://members
+	std::string *m_Result;
 	std::string m_Params;
-	int m_Progress;
 };
 
 

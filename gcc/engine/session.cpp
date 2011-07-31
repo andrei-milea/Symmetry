@@ -20,10 +20,15 @@ cSession::~cSession()
 
 const std::string cSession::RunCommand(cCommand *command)
 {
+	std::string estimation_str;
+	cEstimator estimator;
+	command->EstimateRunTime(estimator);
+
 	if(!cSession::sThreadPool.isStarted())
 		cSession::sThreadPool.StartPool();
 	cSession::sThreadPool.AddToCommandQueue(command);
-	return "";
+
+	return estimation_str;
 };
 
 

@@ -51,18 +51,27 @@ void cThreadPool::AddToCommandQueue(cCommand *command)
 
 void cThreadPool::Run()
 {
-	while(true)
+	try
 	{
-		boost::scoped_ptr<cCommand> pCommand(m_CommandQueue.Remove());
-		try
+		while(true)
 		{
-			pCommand->Execute();
+			boost::scoped_ptr<cCommand> pCommand(m_CommandQueue.Remove());
+			try
+			{
+				pCommand->Execute();
+			}
+			catch(const std::exception &ex)
+			{
+				cLogger log(LOG_SEV_ERROR);
+				log<<ex.what();
+			}
+			boost::this_thread::interruption_point();
 		}
-		catch(std::exception &ex)
-		{
-			cLogger log(LOG_SEV_ERROR);
-			log<<ex.what();
-		}
+	}
+	catch(const boost::thread_interrupted&)
+	{
+		cLogger log(LOG_SEV_INFO);
+		log<<CONTEXT_STR<<"Thread interrupted";
 	}
 };
 

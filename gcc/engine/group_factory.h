@@ -7,7 +7,8 @@
 
 #include "../lib/group.h"
 
-typedef cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> SymmGrp;
+typedef cGroupElem< cPermElem, Multiplication> SymmGrpElem;
+typedef cGroup<SymmGrpElem, cSymmetricRep> SymmGrp;
 typedef std::vector< cGroupElem<cPermElem, Multiplication> >  SymmGrpGen;
 
 //singleton class used to facilitate creation of groups
@@ -17,7 +18,7 @@ class cGroupFactory
 public://methods
 	static cGroupFactory& GetInstance();
 
-	SymmGrp* GetSymmGrp(SymmGrpGen &generators);
+	SymmGrp* GetSymmGrp(SymmGrpElem &generators);
 	void ReleaseSymmGrp(SymmGrp *group);
 	void CleanUp();
 

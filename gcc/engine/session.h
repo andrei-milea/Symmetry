@@ -16,6 +16,7 @@ public:
 	cSession(unsigned int ses_id);
 	~cSession();
 
+	//returns the estimative time for the next request
 	const std::string RunCommand(cCommand *command);
 	void TerminateCommand();
 	unsigned int GetProgess();
