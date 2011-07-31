@@ -4,8 +4,8 @@
 #include "estimate.h"
 
 
-cGetElemCommand::cGetElemCommand(std::string &params)
-	:cGroupGenCommand(params)
+cGetElemCommand::cGetElemCommand(const std::string &params, std::string* result)
+	:cGroupGenCommand(params, result)
 {
 };
 
@@ -13,13 +13,22 @@ cGetElemCommand::~cGetElemCommand()
 {
 };
 
-std::string cGetElemCommand::Execute()
+void cGetElemCommand::Execute()
 {
-	m_Progress = PROGRESS_START;
-	ParseParams();	
-	m_Progress = PROGRESS_END;
+	if(SYMMETRIC_GROUP == GetGroupType())
+	{
+		SymmGrp symmetric_group;
+		for(unsigned int i = 0; i < m_Generators.size(); i++)
+		{
+			SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[i]);
+			symmetric_group.AddGenerator(generator);
+		}
 
-	return "Ana are mere";
+		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
+//		cSerializer<SymmGrpElem> serializer;
+//		(*m_Result) = serializer.Stringify(group_elements);
+
+	}
 };
 
 unsigned int cGetElemCommand::EstimateRunTime(const cEstimator &estimator)const

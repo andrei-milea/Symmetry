@@ -22,12 +22,13 @@ public:	//guarded methods -- interface
 
 	 bool Empty();
 
+	 std::size_t GetSize();
+
 protected:	//not guarded methods
 	inline void Put_i(cCommand *command);
 	inline cCommand* Remove_i();
 	inline bool Empty_i()const;
-
-
+	std::size_t GetSize_i()const;
 
 private:
 	std::queue<cCommand *> m_Queue; 

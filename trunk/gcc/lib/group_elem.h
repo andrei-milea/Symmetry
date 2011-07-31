@@ -15,8 +15,8 @@ class cGroupElem : public T
 public:
 	typedef cGroupElem<T, BinaryOp> SelfType;
 	typedef T ConcreteElType;
-public:
 
+public:
 	cGroupElem()
 		:T()
 	{};
@@ -29,6 +29,19 @@ public:
 		:T(concrete_obj)
 	{
 	};
+
+	//////////////TODO remove this when constructor inheritance
+	//becomes available in c++ 0x
+	//used to build cPermElem base class
+	///////////////////////////////////////////////////////////
+	cGroupElem(const std::initializer_list<std::size_t> &perm_sq)
+		:ConcreteElType(perm_sq)
+	{};
+	cGroupElem(std::size_t size, const std::initializer_list<std::size_t> &perm_sq)
+		:ConcreteElType(size, perm_sq)
+	{};
+	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////////////////
 
 	//copy constructor and assign operator
 	cGroupElem(const SelfType &group_elem)

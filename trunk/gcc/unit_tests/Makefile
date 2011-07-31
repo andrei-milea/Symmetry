@@ -1,6 +1,6 @@
 all: test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
-LFLAGS = -lboost_thread -lboost_date_time
+LFLAGS = -lboost_thread-mt -lboost_date_time
 GCC = /opt/usr/bin/g++
 
 test_perm: test_permutation.cpp
@@ -25,7 +25,7 @@ test_lattice: test_lattice.cpp
 #test_engine compilation
 ########################
 
-test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o logger.o command_queue.o thread_pool.o
+test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o logger.o command_queue.o thread_pool.o 
 	$(GCC) $(LFLAGS) test_engine.o getsubgrp_command.o getelem_command.o estimate.o session.o logger.o command_queue.o thread_pool.o -o test_engine_main 
 
 
@@ -52,6 +52,7 @@ command_queue.o: ../engine/command_queue.cpp
 
 thread_pool.o: ../engine/thread_pool.cpp
 	$(GCC) $(CFLAGS) ../engine/thread_pool.cpp -o thread_pool.o
+
 
 ########################
 ########################

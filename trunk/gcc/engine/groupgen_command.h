@@ -28,33 +28,28 @@ class cGroupGenCommand : public cCommand
 public:
 	virtual ~cGroupGenCommand()
 	{};
-	virtual std::string Execute()
-	{
-		return "";
-	};
+	virtual void Execute()=0;
 
 	GROUP_TYPE GetGroupType()const
 	{
 		return m_GroupType;
 	};
 
-	std::vector<boost::any>& GetGenerators()
+	const std::vector<boost::any>& GetGenerators()const
 	{
-		if(ParseParams())
-		{
-			return m_Generators;
-		}
-		else
+		return m_Generators;
+	};
+	
+protected:
+	cGroupGenCommand(const std::string &params, std::string* result)
+		:cCommand(params, result),
+		m_GroupType(NONE)
+	{
+		if(!ParseParams())
 		{
 			throw std::runtime_error(CONTEXT_STR + " Failed to parse command params : " + m_Params);
 		}
 	};
-
-protected:
-	cGroupGenCommand(std::string &params)
-		:cCommand(params),
-		m_GroupType(NONE)
-	{};
 
 	virtual bool ParseParams()
 	{
@@ -84,10 +79,7 @@ protected:
 		return result && (iter == m_Params.end());
 	};
 
-	virtual unsigned int EstimateRunTime(const cEstimator &estimator)const
-	{
-		return 1;
-	};
+	virtual unsigned int EstimateRunTime(const cEstimator &estimator)const = 0;
 
 private:
 	class AddGrpGen
@@ -99,10 +91,10 @@ private:
 
         void operator()(char const& i, qi::unused_type, qi::unused_type)const
         {
-			cPermElem perm_el(*m_Gen_vec);
-			cGroupElem< cPermElem, Multiplication> grp_elem(perm_el);
-			m_Generators->push_back(grp_elem);
-			m_Gen_vec->clear();
+				cPermElem perm_el(*m_Gen_vec);
+				SymmGrpElem grp_elem(perm_el);
+				m_Generators->push_back(grp_elem);
+				m_Gen_vec->clear();
         };
 
 	private:
@@ -110,7 +102,7 @@ private:
 		mutable std::vector<boost::any>  *m_Generators;
     };
 
-private:
+protected:
 	GROUP_TYPE m_GroupType;
 	std::vector<boost::any>  m_Generators;
 	

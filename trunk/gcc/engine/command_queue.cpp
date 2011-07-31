@@ -46,6 +46,11 @@ bool cCommandQueue::Empty()
 	return Empty_i();
 };
 
+std::size_t cCommandQueue::GetSize()
+{
+	lock_guard lock(m_Mutex);
+	return GetSize_i();
+};
 
 /*****************************************
 ////////////implementation////////////////
@@ -65,9 +70,13 @@ cCommand* cCommandQueue::Remove_i()
 
 bool cCommandQueue::Empty_i()const
 {
-	return (0 == m_Queue.size());
+	return m_Queue.empty();
 };
 
+std::size_t cCommandQueue::GetSize_i()const
+{
+	return m_Queue.size();
+};
 
 
 

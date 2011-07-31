@@ -3,8 +3,8 @@
 #include "command.h"
 #include "group_factory.h"
 
-cGetSubgrpCommand::cGetSubgrpCommand(std::string &params)
-	:cGroupGenCommand(params)
+cGetSubgrpCommand::cGetSubgrpCommand(const std::string &params, std::string* result)
+	:cGroupGenCommand(params, result)
 {
 };
 
@@ -12,9 +12,8 @@ cGetSubgrpCommand::~cGetSubgrpCommand()
 {
 };
 
-std::string cGetSubgrpCommand::Execute()
+void cGetSubgrpCommand::Execute()
 {
-	m_Progress = PROGRESS_START;
 
 	ParseParams();
 
@@ -25,8 +24,6 @@ std::string cGetSubgrpCommand::Execute()
 //		symmetryc_group->AddGenerator()
 
 
-	m_Progress = PROGRESS_END;
-	return "Ana are mere";
 };
 
 unsigned int cGetSubgrpCommand::EstimateRunTime(const cEstimator &estimator)const
