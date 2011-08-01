@@ -2,6 +2,7 @@
 #include "getelem_command.h"
 #include "group_factory.h"
 #include "estimate.h"
+#include "serializer.h"
 
 
 cGetElemCommand::cGetElemCommand(const std::string &params, std::string* result)
@@ -25,8 +26,8 @@ void cGetElemCommand::Execute()
 		}
 
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
-//		cSerializer<SymmGrpElem> serializer;
-//		(*m_Result) = serializer.Stringify(group_elements);
+		cSerializer<SymmGrpElem> serializer;
+		(*m_Result) = serializer.Stringify(group_elements);
 
 	}
 };

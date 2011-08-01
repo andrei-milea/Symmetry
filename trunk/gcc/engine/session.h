@@ -7,6 +7,9 @@
 
 class cCommand;
 
+#define STATE_FREE 0
+#define STATE_COMMAND_PENDING 1 
+#define STATE_RESULT_PENDING 2
 
 //active object variant design pattern
 class cSession
@@ -17,14 +20,18 @@ public:
 	~cSession();
 
 	//returns the estimative time for the next request
-	const std::string RunCommand(cCommand *command);
+	void RunCommand(cCommand *command);
+	void ScheduleCommand(cCommand *command);
 	void TerminateCommand();
 	unsigned int GetProgess();
+	int GetState()const;
+	std::string *GetResult();
 
 private:
 	static cThreadPool sThreadPool;
 	int m_SessionId;
-	int m_State;
+	volatile int m_State;
+	std::string m_Result;
 };
 
 

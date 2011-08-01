@@ -59,8 +59,8 @@ private:
     boost::asio::streambuf m_RequestBuf;
     boost::asio::streambuf m_ResponseBuf;
 
-	static std::map<unsigned int, cSession> m_Sessions;
-    
+	static std::map<unsigned int, cSession> s_Sessions;
+	static cEstimator s_Estimator;
 };
 
 

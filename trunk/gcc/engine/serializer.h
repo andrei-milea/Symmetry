@@ -28,7 +28,7 @@ public:
 	const std::string Stringify(const CONT<SymmGrpElem, std::allocator<SymmGrpElem> >& elements)const
 	{
 		std::string result;
-		for(unsigned int index = 0; index <= elements.size(); index++)
+		for(unsigned int index = 0; index < elements.size(); index++)
 		{
 			result += Stringify(elements[index]);
 		}

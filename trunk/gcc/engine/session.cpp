@@ -12,23 +12,34 @@ cSession::cSession()
 
 cSession::cSession(unsigned int ses_id)
 	:m_SessionId(ses_id),
-	m_State(0)
+	m_State(STATE_FREE)
 {};
 
 cSession::~cSession()
 {};
 
-const std::string cSession::RunCommand(cCommand *command)
-{
-	std::string estimation_str;
-	cEstimator estimator;
-	command->EstimateRunTime(estimator);
 
+std::string* cSession::GetResult()
+{
+	return &m_Result;
+};
+
+int cSession::GetState()const
+{
+	return m_State;
+};
+
+void cSession::ScheduleCommand(cCommand *command)
+{
 	if(!cSession::sThreadPool.isStarted())
 		cSession::sThreadPool.StartPool();
 	cSession::sThreadPool.AddToCommandQueue(command);
+	m_State = STATE_COMMAND_PENDING;
+};
 
-	return estimation_str;
+void cSession::RunCommand(cCommand *command)
+{
+	command->Execute();
 };
 
 
