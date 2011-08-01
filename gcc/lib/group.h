@@ -133,6 +133,8 @@ public:
 	};
 };
 
+typedef cGroup<SymmGrpElem, cSymmetricRep> SymmGrp;
+typedef std::vector< cGroupElem<cPermElem, Multiplication> >  SymmGrpGenerators;
 
 //************concrete groups table**************//
 typedef cGroup< cGroupElem< cPermElem, Multiplication >, cSymmetricRep > S3;
