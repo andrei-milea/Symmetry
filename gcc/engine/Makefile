@@ -1,6 +1,6 @@
 all: engine_test
 CFLAGS = -std=c++0x -c -g -Wall -I /usr/include/boost 
-LFLAGS = -lboost_thread -lboost_date_time
+LFLAGS = -lboost_thread-mt -lboost_date_time
 GCC = /opt/usr/bin/g++
 
 engine_test: engine_test.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o

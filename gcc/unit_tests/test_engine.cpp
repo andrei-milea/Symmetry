@@ -91,7 +91,7 @@ BOOST_AUTO_TEST_CASE(test_serializer)
 	generators.push_back(elem3);
 	std::string generators_str = symm_grp_serializer.Stringify(generators);
 
-	BOOST_ASSERT(generators_str == generators_str1);
+	BOOST_CHECK(generators_str == generators_str1);
 }
 
 BOOST_AUTO_TEST_SUITE_END()////////////////////////////////////////////////////

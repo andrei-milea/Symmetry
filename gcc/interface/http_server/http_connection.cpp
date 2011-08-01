@@ -37,7 +37,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				//add new session
 				unsigned int ses_id = cHttpConnection::GetRandUniqueId();
 				cSession session(ses_id);
-				m_Sessions.push_back(session);
+				s_Sessions.push_back(session);
 
 				//send response
                 cResponse response(m_ResponseBuf);
@@ -52,16 +52,43 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 			{
                 cResponse response(m_ResponseBuf);
 				unsigned int ses_id = _request.GetSessionId()
-				if(m_Sessions.find(ses_id) != m_Sessions::end())
+				if(s_Sessions.find(ses_id) != s_Sessions::end())
 				{
-					const std::string res = m_Sessions[ses_id].RunCommand(_request.GetCommand());
-					response.BuildResponse(OK, cPageBuilder::GetInstance().GetPage(res, ses_id));
+					if(s_Sessions[ses_id].GetState() == STATE_FREE)
+					{
+						cCommand *command = new cCommand(_request.GetCommand(), s_Sessions[ses_id].GetResult());
+						int runtime_estimation = command.EstimateRunTime(s_Estimator);
+
+						if( runtime_estimation <= 360/*seconds*/)
+						{
+							s_Sessions[ses_id].RunCommand(command);
+							response.BuildResponse(OK, cPageBuilder::GetInstance().GetPage(Result, ses_id));
+						}
+						else
+						{
+							s_Sessions[ses_id].ScheduleCommand(command);
+							response.BuildResponse(OK, cPageBuilder::GetInstance().GetLoadingPage(runtime_estimation, ses_id));
+						}
+					}
+					else if(s_Sessions[ses_id].GetState() == STATE_RESULT_PENDING)
+					{
+						response.BuildResponse(OK, cPageBuilder::GetInstance().GetPage(Result, ses_id));
+					}
+					else if(s_Sessions[ses_id].GetState() == STATE_RESULT_PENDING)
+					{
+
+						response.BuildResponse(OK, cPageBuilder::GetInstance().GetReLoadingPage(runtime_estimation, ses_id));
+					}
+
+					boost::asio::async_write(m_Socket, m_ResponseBuf,
+						boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
+						boost::asio::placeholders::error));
 				}
 				else
 				{
 					//add new session
 					cSession session(ses_id);
-					m_Sessions.push_back(session);
+					s_Sessions.push_back(session);
 
 					const std::string index_page  = cPageBuilder::GetInstance().GetIndexPage(
 						ses_id);
