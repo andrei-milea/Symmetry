@@ -1,4 +1,3 @@
-
 #include "group_factory.h"
 
 
@@ -16,7 +15,7 @@ static cGroupFactory& cGroupFactory::GetInstance()
 };
 
 
-SymmGrp* cGroupFactory::GetSymmGrp(SymmGrpGen &generators)
+SymmGrp* cGroupFactory::GetSymmGrp(SymmGrpGenerators &generators)
 {
 	boost::mutex::scoped_lock lock(cGroupFactory::s_Mutex);
 	std::vector< std::pair<SymmGrp*, bool> *>::iterator it;
