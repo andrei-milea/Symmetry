@@ -155,6 +155,7 @@ private:
 	BinaryOp m_BinOp;
 };
 
+typedef cGroupElem< cPermElem, Multiplication> SymmGrpElem;
 
 #endif
 
