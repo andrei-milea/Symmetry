@@ -7,10 +7,6 @@
 
 #include "../lib/group.h"
 
-typedef cGroupElem< cPermElem, Multiplication> SymmGrpElem;
-typedef cGroup<SymmGrpElem, cSymmetricRep> SymmGrp;
-typedef std::vector< cGroupElem<cPermElem, Multiplication> >  SymmGrpGenerators;
-
 //singleton class used to facilitate creation of groups
 //contains a pool of groups for optimization
 class cGroupFactory
