@@ -7,6 +7,9 @@
 #define ID_POS
 #define ID_SIZE
 
+//macro for inserting HTML directly in C++
+#define HTML(...) #__VA_ARGS__
+
 class cPageBuilder
 {
 
