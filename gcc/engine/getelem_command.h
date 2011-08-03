@@ -8,7 +8,7 @@ class cEstimator;
 class cGetElemCommand : public cGroupGenCommand 
 {
 public:
-	cGetElemCommand(const std::string &params, std::string* result);
+	cGetElemCommand(const std::string &params, cResult* result);
 	virtual ~cGetElemCommand();
 
 	void Execute();

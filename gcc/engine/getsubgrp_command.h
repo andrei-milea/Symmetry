@@ -8,7 +8,7 @@ class cEstimator;
 class cGetSubgrpCommand : public cGroupGenCommand
 {
 public:
-	cGetSubgrpCommand(const std::string &params, std::string *result);
+	cGetSubgrpCommand(const std::string &params, cResult *result);
 	virtual ~cGetSubgrpCommand();
 
 	void Execute();

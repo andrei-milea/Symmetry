@@ -8,19 +8,6 @@ int main()
 {
 	try
 	{
-//		typedef cGroupElem< cPermElem, Multiplication> SymmetricGrpGen;
-//		std::string command_txt("SYMMETRIC_GROUP {1,2,3} {1,3,2}");
-//		cGetElemCommand command(command_txt);
-//		std::vector<boost::any> generators = command.GetGenerators();
-//		if(SYMMETRIC_GROUP == command.GetGroupType())
-//		{
-//			for(unsigned int i = 0; i < generators.size(); i++)
-//			{
-//				SymmetricGrpGen generator = boost::any_cast<SymmetricGrpGen>(generators[i]);
-//				std::cout<<generator;
-//			}
-//		}
-//		std::cout<<"great successs\n";
 		cSerializer<SymmGrpElem> symm_grp_serializer;
 
 		//basic test with s3

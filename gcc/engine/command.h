@@ -3,10 +3,7 @@
 
 #include <string>
 #include "estimate.h"
-
-#define PROGRESS_START 1 
-#define PROGRESS_END 1000
-
+#include "result.h"
 
 class cCommand
 {
@@ -19,7 +16,7 @@ public:
 	virtual unsigned int EstimateRunTime(const cEstimator &estimator)const=0;
 
 protected://methods
-	cCommand(const std::string& params, std::string* result)
+	cCommand(const std::string& params, cResult* result)
 	: m_Result(result)
 	{
 		m_Params = params;
@@ -27,9 +24,12 @@ protected://methods
 	virtual bool ParseParams()=0;
 
 protected://members
-	std::string *m_Result;
+	cResult *m_Result;
 	std::string m_Params;
 };
+
+
+
 
 
 #endif
