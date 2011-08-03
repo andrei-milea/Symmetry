@@ -111,8 +111,9 @@ public:
 				elements.push_back(*it);
 				for(std::size_t index = 1; index <= prev_order; index++)
 				{
-					assert(find(elements.begin(), elements.end(), elements[index] *
-								(*it)) == elements.end());
+					if(find(elements.begin(), elements.end(), elements[index] *
+								(*it)) != elements.end())
+						continue;
 					elements.push_back(elements[index] * (*it));
 				}
 				std::size_t rep_pos = prev_order + 1;	//cosset rep position
@@ -126,8 +127,9 @@ public:
 							elements.push_back(element);
 							for(std::size_t index = 1; index <= prev_order; index++)
 							{
-								assert(find(elements.begin(), elements.end(), elements[index] *
-											element) == elements.end());
+								if(find(elements.begin(), elements.end(), elements[index] *
+											element) != elements.end())
+									continue;
 								elements.push_back(elements[index] * element);
 							}
 						}

@@ -4,6 +4,7 @@
 #include <string>
 #include "command_queue.h"
 #include "thread_pool.h"
+#include "result.h"
 
 class cCommand;
 
@@ -25,13 +26,14 @@ public:
 	void TerminateCommand();
 	unsigned int GetProgess();
 	int GetState()const;
-	std::string *GetResult();
+	void SetState(int state);
+	const cResult &GetResult()const;
 
 private:
 	static cThreadPool sThreadPool;
 	int m_SessionId;
 	volatile int m_State;
-	std::string m_Result;
+	cResult m_Result;
 };
 
 

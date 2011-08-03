@@ -41,7 +41,7 @@ public:
 	};
 	
 protected:
-	cGroupGenCommand(const std::string &params, std::string* result)
+	cGroupGenCommand(const std::string &params, cResult* result)
 		:cCommand(params, result),
 		m_GroupType(NONE)
 	{

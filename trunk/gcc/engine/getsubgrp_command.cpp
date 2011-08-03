@@ -3,7 +3,7 @@
 #include "command.h"
 #include "group_factory.h"
 
-cGetSubgrpCommand::cGetSubgrpCommand(const std::string &params, std::string* result)
+cGetSubgrpCommand::cGetSubgrpCommand(const std::string &params, cResult* result)
 	:cGroupGenCommand(params, result)
 {
 };

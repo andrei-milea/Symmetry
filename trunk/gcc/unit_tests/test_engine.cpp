@@ -31,7 +31,7 @@ BOOST_FIXTURE_TEST_SUITE(test_session, cSessionFix)/////////////////////////////
 
 BOOST_AUTO_TEST_CASE(ExecuteGetElemTest)
 {
-	std::string result;
+	cResult result;
 	std::string command_txt("SYMMETRIC_GROUP {1,2,3} {1,3,2} {3,2,1}");
 	cGetElemCommand command(command_txt, &result);
 	//m_Session.RunCommand(&command);
@@ -54,7 +54,7 @@ BOOST_AUTO_TEST_CASE(test_thread_pool_basic)
 
 BOOST_AUTO_TEST_CASE(test_command_queue)
 {
-	std::string result;
+	cResult result;
 	cCommandQueue commad_queue;
 	BOOST_ASSERT(commad_queue.Empty());
 	for(unsigned int i = 1; i<= 100; i++)
@@ -101,27 +101,18 @@ BOOST_AUTO_TEST_SUITE(test_command)////////////////////////////////////////////
 
 BOOST_AUTO_TEST_CASE(test_command_getelem)
 {
-	std::string result;
+	cSession session;
+	cResult result(&session);
 	cGetElemCommand command( "SYMMETRIC_GROUP {1,2,3} {1,3,2} {3,2,1}", &result);
-//	cPermElem s1({1,2,3});
-//	cPermElem s2({1,3,2});
-//	cPermElem s3({3,2,1});
-//
-//	cGroupElem< cPermElem, Multiplication> elem1(s1);
-//	cGroupElem< cPermElem, Multiplication> elem2(s2);
-//	cGroupElem< cPermElem, Multiplication> elem3(s3);
-//	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
-//	generators1.push_back(elem1);
-//	generators1.push_back(elem2);
-//	generators1.push_back(elem3);
-//	S3 group_s3(generators1);
-//	std::vector< cGroupElem<cPermElem, Multiplication> > elements = group_s3.GetElementsNaive();
-//	TODO
+	//basic test with s3
+	SymmGrpElem elem2({2,1,3});
+	SymmGrpElem elem3({2,3,1});
+	command.Execute();
 }
 
 BOOST_AUTO_TEST_CASE(test_command_getsubgroup)
 {
-	std::string result;
+	cResult result;
 	cGetSubgrpCommand command("SYMMETRIC_GROUP {1,2,3} {1,3,2} {3,2,1}", &result);
 	//TODO
 }
@@ -137,7 +128,7 @@ BOOST_AUTO_TEST_CASE(test_command_parsing)
 	generators.push_back(elem3);
 
 	std::string command_txt("SYMMETRIC_GROUP {1,2,3} {1,3,2} {3,2,1}");
-	std::string result;
+	cResult result;
 	cGetElemCommand command(command_txt, &result);
 	std::vector<boost::any> parsed_generators = command.GetGenerators();
 

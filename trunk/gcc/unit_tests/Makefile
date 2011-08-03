@@ -25,8 +25,8 @@ test_lattice: test_lattice.cpp
 #test_engine compilation
 ########################
 
-test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o logger.o command_queue.o thread_pool.o 
-	$(GCC) $(LFLAGS) test_engine.o getsubgrp_command.o getelem_command.o estimate.o session.o logger.o command_queue.o thread_pool.o -o test_engine_main 
+test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o logger.o command_queue.o thread_pool.o result.o
+	$(GCC) $(LFLAGS) test_engine.o getsubgrp_command.o getelem_command.o estimate.o session.o logger.o command_queue.o thread_pool.o result.o -o test_engine_main 
 
 
 test_engine.o: test_engine.cpp
@@ -53,6 +53,8 @@ command_queue.o: ../engine/command_queue.cpp
 thread_pool.o: ../engine/thread_pool.cpp
 	$(GCC) $(CFLAGS) ../engine/thread_pool.cpp -o thread_pool.o
 
+result.o: ../engine/result.cpp
+	$(GCC) $(CFLAGS) ../engine/result.cpp -o result.o
 
 ########################
 ########################
