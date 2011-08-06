@@ -21,9 +21,9 @@ test_group: test_group.cpp
 test_lattice: test_lattice.cpp
 	$(GCC) $(CFLAGS) test_lattice.cpp -o test_lattice
 
-########################
+#########################
 #test_engine compilation
-########################
+#########################
 
 test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o logger.o command_queue.o thread_pool.o result.o
 	$(GCC) $(LFLAGS) test_engine.o getsubgrp_command.o getelem_command.o estimate.o session.o logger.o command_queue.o thread_pool.o result.o -o test_engine_main 
