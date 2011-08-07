@@ -205,11 +205,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 13) / 26)
+let s:l = 39 - ((23 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
+39
 normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/getsubgrp_command.h
@@ -314,12 +314,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 11 - ((10 * winheight(0) + 13) / 26)
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
-normal! 052l
+1
+normal! 027l
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/groupgen_command.h
 set splitbelow splitright
@@ -423,12 +423,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 44 - ((9 * winheight(0) + 13) / 26)
+let s:l = 120 - ((10 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-44
-normal! 045l
+120
+normal! 027l
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/session.cpp
 set splitbelow splitright
@@ -532,12 +532,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 46 - ((23 * winheight(0) + 12) / 24)
+let s:l = 43 - ((12 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-46
-normal! 01l
+43
+normal! 0
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/command.h
 set splitbelow splitright
@@ -646,7 +646,7 @@ if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 1
-normal! 010l
+normal! 04l
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/result.h
 set splitbelow splitright
@@ -750,12 +750,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 29 - ((23 * winheight(0) + 12) / 24)
+let s:l = 16 - ((9 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-29
-normal! 0
+16
+normal! 021l
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/result.cpp
 set splitbelow splitright
@@ -859,12 +859,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 3 - ((2 * winheight(0) + 12) / 24)
+let s:l = 19 - ((11 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-3
-normal! 010l
+19
+normal! 029l
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/getelem_command.cpp
 set splitbelow splitright
@@ -968,12 +968,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 30 - ((9 * winheight(0) + 12) / 24)
+let s:l = 26 - ((9 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-30
-normal! 061l
+26
+normal! 02l
 lcd /home/projects/absalg_root/absalg/gcc/engine
 tabedit /home/projects/absalg_root/absalg/gcc/engine/thread_pool.h
 set splitbelow splitright
@@ -1077,7 +1077,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 13) / 26)
+let s:l = 1 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1186,7 +1186,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 62 - ((12 * winheight(0) + 13) / 26)
+let s:l = 62 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1295,7 +1295,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 53 - ((25 * winheight(0) + 13) / 26)
+let s:l = 53 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1404,7 +1404,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 176 - ((0 * winheight(0) + 13) / 26)
+let s:l = 176 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1513,7 +1513,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 11 - ((10 * winheight(0) + 13) / 26)
+let s:l = 11 - ((0 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1622,14 +1622,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 6 - ((5 * winheight(0) + 13) / 26)
+let s:l = 26 - ((17 * winheight(0) + 12) / 24)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-6
-normal! 070l
+26
+normal! 06l
 lcd /home/projects/absalg_root/absalg/gcc/engine
-tabnext 4
+tabnext 3
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

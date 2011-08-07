@@ -11,20 +11,19 @@ cResult::cResult(cSession *session, cCommand *command)
 cResult::~cResult()
 {};
 
-void cResult::SetResultStr(const std::string& result)
-{
-	m_Result_str = result;
-	m_Session->SetState(STATE_RESULT_PENDING);
-};
-
 void cResult::SetCommand(cCommand *command)
 {
 	m_Command = command;
 };
 
-const std::string& cResult::GetResultStr()const
+void cResult::SetResult(const boost::any &result)
 {
-	return m_Result_str;
+	m_Result = result;
+};
+
+const boost::any& cResult::GetResult()const
+{
+	return m_Result;
 };
 
 const cCommand* cResult::GetCommand()const

@@ -26,9 +26,7 @@ void cGetElemCommand::Execute()
 		}
 
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
-		cSerializer<SymmGrpElem> serializer;
-		m_Result->SetResultStr(serializer.Stringify(group_elements));
-
+		m_Result->SetResult(group_elements);
 	}
 };
 

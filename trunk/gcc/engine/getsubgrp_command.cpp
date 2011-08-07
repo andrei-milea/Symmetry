@@ -14,16 +14,19 @@ cGetSubgrpCommand::~cGetSubgrpCommand()
 
 void cGetSubgrpCommand::Execute()
 {
+	if(SYMMETRIC_GROUP == GetGroupType())
+	{
+		SymmGrp symmetric_group;
+		for(unsigned int i = 0; i < m_Generators.size(); i++)
+		{
+			SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[i]);
+			symmetric_group.AddGenerator(generator);
+		}
 
-	ParseParams();
-
-//	if(SYMMETRIC_GROUP == m_GroupType)
-//		SymmGrp symmetryc_group = cGroupFactory::GetInstance()->GetSymmGrp();
-//
-//	while(m_Generators::iterator it = m_Generators.begin(); it != m_Generators.end(); it++)
-//		symmetryc_group->AddGenerator()
-
-
+		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
+		cSerializer<SymmGrpElem> serializer;
+		m_Result->SetResult(group_elements);
+	}
 };
 
 unsigned int cGetSubgrpCommand::EstimateRunTime(const cEstimator &estimator)const

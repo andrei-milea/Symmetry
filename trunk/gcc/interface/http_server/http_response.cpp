@@ -1,5 +1,7 @@
 #include "http_response.h"
 
+namespace http_server
+{
 
 std::map<STATUS_CODE, std::string> cResponse::s_StatusCodes = boost::assign::map_list_of
 (OK,"200 OK")
@@ -39,4 +41,7 @@ void cResponse::BuildResponse(STATUS_CODE status_code, const std::string &resour
         //
     }
 };
+
+
+}
 

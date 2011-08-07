@@ -6,7 +6,11 @@
 #include <boost/assign/list_of.hpp>
 #include <boost/asio.hpp>
 
-#define HTTP_VER "HTTP/1.1 "
+namespace http_server
+{
+
+#define HTTP_VER0 "HTTP/1.0 "
+#define HTTP_VER1 "HTTP/1.1 "
 
 enum STATUS_CODE
 {
@@ -33,7 +37,7 @@ public:
     static std::map<STATUS_CODE, std::string> s_StatusCodes;
 };
 
-
+}
 
 
 #endif

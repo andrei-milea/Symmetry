@@ -2,6 +2,7 @@
 #define _RESULT_H
 
 #include <string>
+#include <boost/any.hpp>
 
 class cCommand;
 class cSession;
@@ -12,15 +13,17 @@ public:
 	cResult(cSession *session = NULL, cCommand *command = NULL);
 	~cResult();
 
-	void SetResultStr(const std::string& result);
+	void SetResult(const boost::any &result);
 	void SetCommand(cCommand *command);
-	const std::string& GetResultStr()const;
+
+	const boost::any& GetResult()const;
 	const cCommand *GetCommand()const;
 
 private:
 	cSession 	*m_Session;
 	cCommand 	*m_Command;
-	std::string m_Result_str;
+	boost::any	m_Result;
+	
 };
 
 

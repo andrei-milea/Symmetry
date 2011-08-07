@@ -7,6 +7,9 @@
 
 #include <boost/spirit/include/support_multi_pass.hpp>
 
+namespace http_server
+{
+
 enum REQ_METHOD
 {
     INDETERMINATE_M = 0,
@@ -35,18 +38,29 @@ public:
     std::vector<cHeader*> ParseHeaders();
     void ParseBody();
 
-    REQ_METHOD            GetMethod()const
+    REQ_METHOD				GetMethod()const
     {   return m_Method;    };
-    const std::string&    GetResource()const
+
+    const std::string&		GetResource()const
     {   return m_Resource;  };
-    const std::string&    GetVersion()const
+
+    const std::string&		GetVersion()const
     {   return m_Version;   };
+
+	const std::string&		GetCommand()const
+	{	return m_Command;	}
+
+	const unsigned int		GetSessionId()const
+	{	return m_SessionId;	};
+
 
 private:
     REQ_METHOD                      m_Method;
     std::string                     m_Resource;
     std::string                     m_Version;
     std::string                     m_Headers;
+	std::string						m_Command;
+	unsigned int					m_SessionId;
 
     //stream iterators
 	std::istream					m_Stream;
@@ -55,6 +69,6 @@ private:
 
 };
 
-
+}
 
 #endif

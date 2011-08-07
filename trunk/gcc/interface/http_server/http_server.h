@@ -2,23 +2,33 @@
 #define _HTTP_SERVER_H
 
 #include "http_connection.h"
+#include "connection_manager.h"
 
+
+namespace http_server
+{
 
 class cHttpServer : private boost::noncopyable
 {
 public:
-    cHttpServer(boost::asio::io_service &io_service);
+    cHttpServer(unsigned int port);
     ~cHttpServer()  {};
+
+	void Start();
+	void Stop();
 
 private:
     void StartAccept();
-    void HandleConnection(cHttpConnection::pointer new_connection, const boost::system::error_code& error);
+    void HandleConnection(connection_ptr new_connection, const boost::system::error_code& error);
 
 private:
-    boost::asio::ip::tcp::acceptor m_Acceptor;
+	boost::asio::ip::tcp::acceptor m_Acceptor;
+	boost::asio::io_service m_IOService;
+	cConnectionManager m_ConnectionManager;
 
 };
 
+}
 
 
 #endif

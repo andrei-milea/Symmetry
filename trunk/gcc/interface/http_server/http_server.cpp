@@ -4,29 +4,32 @@
 #include "../../engine/logger.h"
 
 
+namespace http_server
+{
+
 using namespace boost::asio::ip;
 
-cHttpServer::cHttpServer(boost::asio::io_service& io_service)
-    :m_Acceptor(io_service, tcp::endpoint(tcp::v4(), 80))
+cHttpServer::cHttpServer(unsigned int port)
+    :m_Acceptor(m_IOService, tcp::endpoint(tcp::v4(), port))
 {
     StartAccept();
 };
 
 void cHttpServer::StartAccept()
 {
-    cHttpConnection::pointer new_connection = cHttpConnection::Create(m_Acceptor.io_service());
+    connection_ptr new_connection = cHttpConnection::Create(m_Acceptor.io_service(), m_ConnectionManager);
 
     m_Acceptor.async_accept(new_connection->GetSocket(),
     boost::bind(&cHttpServer::HandleConnection, this, new_connection,
 	   boost::asio::placeholders::error));
 };
 
-void cHttpServer::HandleConnection(cHttpConnection::pointer new_connection,
+void cHttpServer::HandleConnection(connection_ptr new_connection,
 		const boost::system::error_code& error)
 {
     if (!error)
     {
-        new_connection->HandleClient();
+		m_ConnectionManager.StartConnection(new_connection);
         StartAccept();
     }
 	else
@@ -34,3 +37,20 @@ void cHttpServer::HandleConnection(cHttpConnection::pointer new_connection,
 		throw std::runtime_error(CONTEXT_STR + error.message());
 	}
 };
+
+void cHttpServer::Start()
+{
+	m_IOService.run();
+};
+
+void cHttpServer::Stop()
+{
+	m_Acceptor.close();
+	m_ConnectionManager.StopAllConnections();
+};
+
+
+
+}
+
+
