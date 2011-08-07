@@ -2,11 +2,20 @@
 #include "http_connection.h"
 #include "http_request.h"
 #include "http_response.h"
-#include "html_js_parts.h"
+#include "connection_manager.h"
+#include "pagebuilder.h"
 #include "../../engine/session.h"
+#include "../../engine/logger.h"
+#include "../../engine/command.h"
 
 #include <iostream>
 #include <boost/bind.hpp>
+
+
+namespace http_server
+{
+
+typedef std::pair<unsigned int, cSession*> ses_pair;
 
 void cHttpConnection::HandleClient()
 {
@@ -29,6 +38,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 			is>>request_str;
 			throw std::runtime_error(CONTEXT_STR + "failed to parse request :" + request_str);
 		}
+		m_HttpVersion = (_request.GetVersion() == HTTP_VER1)? 1 : 0;
         switch(_request.GetMethod())
         {
         case GET_M:
@@ -36,12 +46,11 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
             {
 				//add new session
 				unsigned int ses_id = cHttpConnection::GetRandUniqueId();
-				cSession session(ses_id);
-				s_Sessions.push_back(session);
+				cHttpConnection::s_Sessions.insert(ses_pair(ses_id, new cSession(ses_id)));
 
 				//send response
                 cResponse response(m_ResponseBuf);
-				const std::string index_page = cPageBuilder::GetInstance().GetIndexPage(ses_id);
+				const std::string index_page = cPageBuilder::GetInstance()->GetIndexPage(ses_id);
                 response.BuildResponse(OK, index_page);
 
                 boost::asio::async_write(m_Socket, m_ResponseBuf,
@@ -51,33 +60,32 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 			else
 			{
                 cResponse response(m_ResponseBuf);
-				unsigned int ses_id = _request.GetSessionId()
-				if(s_Sessions.find(ses_id) != s_Sessions::end())
+				unsigned int ses_id = _request.GetSessionId();
+
+				if(cHttpConnection::s_Sessions.find(ses_id) != cHttpConnection::s_Sessions.end())
 				{
-					if(s_Sessions[ses_id].GetState() == STATE_FREE)
+
+					cSession* session = cHttpConnection::s_Sessions[ses_id];
+					if(session->GetState() == STATE_FREE)
 					{
-						cCommand *command = new cCommand(_request.GetCommand(), s_Sessions[ses_id].GetResult());
+						//TODO -- shared_ptr ??? create command
+						cCommand *command = new cCommand(_request.GetCommand(), session->GetResult());
 						int runtime_estimation = command.EstimateRunTime(s_Estimator);
 
 						if( runtime_estimation <= 360/*seconds*/)
 						{
-							s_Sessions[ses_id].RunCommand(command);
-							response.BuildResponse(OK, cPageBuilder::GetInstance().GetPage(Result, ses_id));
+							session->RunCommand(command);
+							response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(session->GetResult(), ses_id));
 						}
 						else
 						{
-							s_Sessions[ses_id].ScheduleCommand(command);
-							response.BuildResponse(OK, cPageBuilder::GetInstance().GetLoadingPage(runtime_estimation, ses_id));
+							session->ScheduleCommand(command);
+							response.BuildResponse(OK, cPageBuilder::GetInstance()->GetLoadingPage(runtime_estimation, ses_id));
 						}
 					}
-					else if(s_Sessions[ses_id].GetState() == STATE_RESULT_PENDING)
+					else if(session->GetState() == STATE_RESULT_PENDING)
 					{
-						response.BuildResponse(OK, cPageBuilder::GetInstance().GetPage(Result, ses_id));
-					}
-					else if(s_Sessions[ses_id].GetState() == STATE_RESULT_PENDING)
-					{
-
-						response.BuildResponse(OK, cPageBuilder::GetInstance().GetReLoadingPage(runtime_estimation, ses_id));
+						response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(session->GetResult(), ses_id));
 					}
 
 					boost::asio::async_write(m_Socket, m_ResponseBuf,
@@ -87,10 +95,9 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				else
 				{
 					//add new session
-					cSession session(ses_id);
-					s_Sessions.push_back(session);
+					cHttpConnection::s_Sessions.insert(ses_pair(ses_id, new cSession(ses_id)));
 
-					const std::string index_page  = cPageBuilder::GetInstance().GetIndexPage(
+					const std::string index_page  = cPageBuilder::GetInstance()->GetIndexPage(
 						ses_id);
                 	response.BuildResponse(OK, index_page);
 				}
@@ -130,4 +137,27 @@ void cHttpConnection::HandleWriteResponse(const boost::system::error_code& error
     {
 		throw std::runtime_error(CONTEXT_STR + error.message());
     }
+	else
+	{
+		if(m_HttpVersion == true)	//persistent connection
+		{
+			HandleClient();
+		}
+		else
+		{
+			m_ConnectionManager.StopConnection(shared_from_this());
+		}
+
+	}
 };
+
+void cHttpConnection::Stop()
+{
+	boost::system::error_code error;
+	m_Socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error);
+	m_Socket.close();
+};
+
+}
+
+

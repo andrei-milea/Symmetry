@@ -1,6 +1,9 @@
 #ifndef _HTTP_HEADER_H
 #define _HTTP_HEADER_H
 
+namespace http_server
+{
+
 enum HEADER_TYPE
 {
     INDETERMINATE_HEADER = 0,
@@ -24,6 +27,8 @@ private:
     HEADER_TYPE m_HeaderType;
 
 };
+
+}
 
 
 #endif

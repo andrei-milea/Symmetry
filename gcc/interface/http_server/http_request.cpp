@@ -8,6 +8,9 @@
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_operator.hpp>
 
+namespace http_server
+{
+
 using boost::spirit::qi::parse;
 using namespace boost::spirit;
 using namespace boost::spirit::qi;
@@ -77,8 +80,11 @@ bool cRequest::ParseRequest()
         m_Method = (REQ_METHOD)method_;
 };
 
+
 void cRequest::ParseBody()
 {
-
+//TODO -- sesssion id, command
 
 };
+
+}

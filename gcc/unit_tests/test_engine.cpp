@@ -108,6 +108,10 @@ BOOST_AUTO_TEST_CASE(test_command_getelem)
 	SymmGrpElem elem2({2,1,3});
 	SymmGrpElem elem3({2,3,1});
 	command.Execute();
+	
+	std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
+	BOOST_ASSERT(6 == elements.size());
+
 }
 
 BOOST_AUTO_TEST_CASE(test_command_getsubgroup)
