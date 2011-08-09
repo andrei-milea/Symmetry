@@ -19,7 +19,7 @@ cResponse::cResponse(boost::asio::streambuf& buffer)
 void cResponse::BuildResponse(STATUS_CODE status_code, const std::string &resource_body)
 {
     //add status line
-    m_ResponseStream << HTTP_VER << cResponse::s_StatusCodes[status_code] << "\r\n";
+    m_ResponseStream << HTTP_VER1 << cResponse::s_StatusCodes[status_code] << "\r\n";
     switch(status_code)
     {
     case OK:

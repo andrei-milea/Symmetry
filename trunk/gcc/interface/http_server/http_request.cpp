@@ -48,7 +48,6 @@ struct method_: symbols<char, short>
                 /************************************************************/
                 /************************************************************/
 
-
 cRequest::cRequest(std::istream &stream)
 :m_Method(INDETERMINATE_M)
 {

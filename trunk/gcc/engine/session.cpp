@@ -21,9 +21,9 @@ cSession::~cSession()
 {};
 
 
-const cResult& cSession::GetResult()const
+cResult *cSession::GetResult()
 {
-	return m_Result;
+	return &m_Result;
 };
 
 int cSession::GetState()const

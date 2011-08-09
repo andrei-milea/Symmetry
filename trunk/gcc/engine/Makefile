@@ -30,5 +30,8 @@ command_queue.o: command_queue.cpp
 thread_pool.o: thread_pool.cpp
 	$(GCC) $(CFLAGS) thread_pool.cpp -o thread_pool.o
 
+result.o: result.cpp
+	$(GCC) $(CFLAGS) result.cpp -o result.o
+
 clean:
 	rm -rf *.o engine_test
