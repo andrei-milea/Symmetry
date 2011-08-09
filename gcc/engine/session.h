@@ -27,7 +27,7 @@ public:
 	unsigned int GetProgess();
 	int GetState()const;
 	void SetState(int state);
-	const cResult &GetResult()const;
+	cResult *GetResult();
 
 private:
 	static cThreadPool sThreadPool;

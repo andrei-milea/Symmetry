@@ -50,6 +50,9 @@ public:
 	const std::string&		GetCommand()const
 	{	return m_Command;	}
 
+	const std::string&		GetParam()const
+	{	return m_Param;	}
+
 	const unsigned int		GetSessionId()const
 	{	return m_SessionId;	};
 
@@ -60,10 +63,10 @@ private:
     std::string                     m_Version;
     std::string                     m_Headers;
 	std::string						m_Command;
+	std::string						m_Param;
 	unsigned int					m_SessionId;
 
     //stream iterators
-	std::istream					m_Stream;
     forward_iterator_type           m_Fwd_begin;
     forward_iterator_type           m_Fwd_end;
 

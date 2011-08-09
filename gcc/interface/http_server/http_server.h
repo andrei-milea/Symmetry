@@ -22,8 +22,8 @@ private:
     void HandleConnection(connection_ptr new_connection, const boost::system::error_code& error);
 
 private:
-	boost::asio::ip::tcp::acceptor m_Acceptor;
 	boost::asio::io_service m_IOService;
+	boost::asio::ip::tcp::acceptor m_Acceptor;
 	cConnectionManager m_ConnectionManager;
 
 };

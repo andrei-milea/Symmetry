@@ -6,7 +6,7 @@
 #include "pagebuilder.h"
 #include "../../engine/session.h"
 #include "../../engine/logger.h"
-#include "../../engine/command.h"
+#include "../../engine/command_creator.h"
 
 #include <iostream>
 #include <boost/bind.hpp>
@@ -14,6 +14,10 @@
 
 namespace http_server
 {
+
+//static members
+std::map<unsigned int, cSession*> cHttpConnection::s_Sessions;
+cEstimator						cHttpConnection::s_Estimator;
 
 typedef std::pair<unsigned int, cSession*> ses_pair;
 
@@ -68,14 +72,13 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 					cSession* session = cHttpConnection::s_Sessions[ses_id];
 					if(session->GetState() == STATE_FREE)
 					{
-						//TODO -- shared_ptr ??? create command
-						cCommand *command = new cCommand(_request.GetCommand(), session->GetResult());
-						int runtime_estimation = command.EstimateRunTime(s_Estimator);
+						cCommand* command = cCommandCreator<cCreator>::GetCommand(_request.GetCommand(), _request.GetParam(), session->GetResult());
+						int runtime_estimation = command->EstimateRunTime(s_Estimator);
 
 						if( runtime_estimation <= 360/*seconds*/)
 						{
 							session->RunCommand(command);
-							response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(session->GetResult(), ses_id));
+							response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(*session->GetResult(), ses_id));
 						}
 						else
 						{
@@ -85,7 +88,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 					}
 					else if(session->GetState() == STATE_RESULT_PENDING)
 					{
-						response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(session->GetResult(), ses_id));
+						response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(*session->GetResult(), ses_id));
 					}
 
 					boost::asio::async_write(m_Socket, m_ResponseBuf,

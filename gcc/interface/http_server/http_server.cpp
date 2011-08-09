@@ -10,14 +10,15 @@ namespace http_server
 using namespace boost::asio::ip;
 
 cHttpServer::cHttpServer(unsigned int port)
-    :m_Acceptor(m_IOService, tcp::endpoint(tcp::v4(), port))
+    :m_IOService(),
+	m_Acceptor(m_IOService, tcp::endpoint(tcp::v4(), port))
 {
     StartAccept();
 };
 
 void cHttpServer::StartAccept()
 {
-    connection_ptr new_connection = cHttpConnection::Create(m_Acceptor.io_service(), m_ConnectionManager);
+    connection_ptr new_connection = cHttpConnection::Create(m_Acceptor.get_io_service(), m_ConnectionManager);
 
     m_Acceptor.async_accept(new_connection->GetSocket(),
     boost::bind(&cHttpServer::HandleConnection, this, new_connection,

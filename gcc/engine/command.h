@@ -5,6 +5,9 @@
 #include "estimate.h"
 #include "result.h"
 
+//COMMAND_TYPE = GET_ELEMENTS | GET_NORMALIZER | GET_CENTER | GET_CENTRALIZER
+
+
 class cCommand
 {
 public:
@@ -27,9 +30,6 @@ protected://members
 	cResult *m_Result;
 	std::string m_Params;
 };
-
-
-
 
 
 #endif
