@@ -1,8 +1,8 @@
 
 #include "http_server.h"
-#include <boost/bind.hpp>
 #include "../../engine/logger.h"
-
+#include <boost/bind.hpp>
+#include <signal.h>
 
 namespace http_server
 {
@@ -11,8 +11,16 @@ using namespace boost::asio::ip;
 
 cHttpServer::cHttpServer(unsigned int port)
     :m_IOService(),
-	m_Acceptor(m_IOService, tcp::endpoint(tcp::v4(), port))
+	m_Acceptor(m_IOService, tcp::endpoint(tcp::v4(), port)),
+	m_Signals(m_IOService)
 {
+	m_Signals.add(SIGINT);
+	m_Signals.add(SIGTERM);
+#if defined(SIGQUIT)
+	m_Signals.add(SIGQUIT);
+#endif // defined(SIGQUIT)
+	m_Signals.async_wait(boost::bind(&cHttpServer::Stop, this));
+
     StartAccept();
 };
 

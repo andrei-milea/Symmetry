@@ -25,6 +25,7 @@ private:
 	boost::asio::io_service m_IOService;
 	boost::asio::ip::tcp::acceptor m_Acceptor;
 	cConnectionManager m_ConnectionManager;
+	boost::asio::signal_set m_Signals;
 
 };
 
