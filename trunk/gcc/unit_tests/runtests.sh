@@ -7,6 +7,7 @@ do
 	${file}
 	if [ $? -ne 0 ]
 	then
+    echo TEST FAILED!   
 		exit $?
 	fi
 done
