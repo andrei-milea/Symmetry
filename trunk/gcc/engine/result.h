@@ -4,6 +4,9 @@
 #include <string>
 #include <boost/any.hpp>
 
+namespace engine
+{
+
 class cCommand;
 class cSession;
 
@@ -26,6 +29,7 @@ private:
 	
 };
 
+}
 
 #endif
 

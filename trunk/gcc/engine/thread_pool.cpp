@@ -5,7 +5,8 @@
 
 #define MAX_THREADS_NUM 100
 
-
+namespace engine
+{
 
 cThreadPool::cThreadPool(unsigned int num_threads)
 	:m_Num_Threads(num_threads),
@@ -76,5 +77,6 @@ void cThreadPool::Run()
 };
 
 
+}
 
 

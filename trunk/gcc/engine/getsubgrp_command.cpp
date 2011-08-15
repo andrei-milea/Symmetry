@@ -3,6 +3,9 @@
 #include "command.h"
 #include "group_factory.h"
 
+namespace engine
+{
+
 cGetSubgrpCommand::cGetSubgrpCommand(const std::string &params, cResult* result)
 	:cGroupGenCommand(params, result)
 {
@@ -33,5 +36,6 @@ unsigned int cGetSubgrpCommand::EstimateRunTime(const cEstimator &estimator)cons
 	return estimator.Estimate(*this);
 };
 
+}
 
 

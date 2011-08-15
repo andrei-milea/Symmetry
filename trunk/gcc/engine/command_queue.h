@@ -3,6 +3,10 @@
 
 #include <queue>
 #include <boost/thread.hpp>
+
+namespace engine
+{
+
 class cCommand;
 
 //thread safe class that implements a commands queue
@@ -37,6 +41,7 @@ private:
 
 };
 
+}
 
 #endif
 

@@ -3,6 +3,9 @@
 
 #include "command_queue.h"
 
+namespace engine
+{
+
 class cThreadPool
 {
 public:
@@ -30,6 +33,7 @@ private:
 	volatile bool m_Started;
 };
 
+}
 
 #endif
 

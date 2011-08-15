@@ -3,6 +3,8 @@
 #include "group_factory.h"
 #include "command.h"
 
+namespace engine
+{
 
 cThreadPool cSession::sThreadPool(20);
 
@@ -50,5 +52,6 @@ void cSession::RunCommand(cCommand *command)
 	command->Execute();
 };
 
+}
 
 

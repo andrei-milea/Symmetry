@@ -3,12 +3,15 @@
 
 #include <string>
 #include "http_header.h"
+#include "../../engine/command_creator.h"
 
 
 #include <boost/spirit/include/support_multi_pass.hpp>
 
 namespace http_server
 {
+
+using namespace engine;
 
 enum REQ_METHOD
 {
@@ -35,8 +38,8 @@ public:
     ~cRequest() {};
 
     bool ParseRequest();
+    bool ParseResource();
     std::vector<cHeader*> ParseHeaders();
-    void ParseBody();
 
     REQ_METHOD				GetMethod()const
     {   return m_Method;    };
@@ -47,8 +50,8 @@ public:
     const std::string&		GetVersion()const
     {   return m_Version;   };
 
-	const std::string&		GetCommand()const
-	{	return m_Command;	}
+	COMMAND_TYPE			GetCommandId()const
+	{	return m_CommandId;	}
 
 	const std::string&		GetParam()const
 	{	return m_Param;	}
@@ -62,7 +65,7 @@ private:
     std::string                     m_Resource;
     std::string                     m_Version;
     std::string                     m_Headers;
-	std::string						m_Command;
+	COMMAND_TYPE					m_CommandId;
 	std::string						m_Param;
 	unsigned int					m_SessionId;
 

@@ -43,7 +43,17 @@ struct method_: symbols<char, short>
     }
 } method;
 
-
+struct command_: symbols<char, short>
+{
+	command_()
+	{
+		add
+			("GET_ELEMENTS", GET_ELEMENTS)
+			("GET_NORMALIZER", GET_NORMALIZER)
+			("GET_CENTER", GET_CENTER)
+			("GET_CENTRALIZER", GET_CENTRALIZER);
+	}
+}command;
                 /************************************************************/
                 /************************************************************/
                 /************************************************************/
@@ -80,10 +90,26 @@ bool cRequest::ParseRequest()
 };
 
 
-void cRequest::ParseBody()
+bool cRequest::ParseResource()
 {
-//TODO -- sesssion id, command
-
+	short command_type;
+	bool result =  parse(m_Resource.begin(), m_Resource.end(),
+			//gramar
+			(
+			 lit("id=") 
+			 >> int_ 
+			 >>lit("command=") > command 
+			 >>lit("param=") 
+			 >(+~boost::spirit::ascii::char_(' '))
+			)
+			///////
+			,
+			m_SessionId,
+			command_type,
+			m_Param
+			);
+	m_CommandId = (COMMAND_TYPE)command_type;
+	return result;
 };
 
 }
