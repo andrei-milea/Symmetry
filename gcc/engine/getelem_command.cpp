@@ -4,6 +4,8 @@
 #include "estimate.h"
 #include "serializer.h"
 
+namespace engine
+{
 
 cGetElemCommand::cGetElemCommand(const std::string &params, cResult* result)
 	:cGroupGenCommand(params, result)
@@ -35,5 +37,6 @@ unsigned int cGetElemCommand::EstimateRunTime(const cEstimator &estimator)const
 	return estimator.Estimate(*this);
 };
 
+}
 
 

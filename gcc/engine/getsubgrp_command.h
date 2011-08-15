@@ -3,6 +3,9 @@
 
 #include "groupgen_command.h"
 
+namespace engine
+{
+
 class cEstimator;
 
 class cGetSubgrpCommand : public cGroupGenCommand
@@ -14,6 +17,8 @@ public:
 	void Execute();
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 };
+
+}
 
 #endif
 

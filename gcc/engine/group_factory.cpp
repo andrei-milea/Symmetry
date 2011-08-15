@@ -1,5 +1,7 @@
 #include "group_factory.h"
 
+namespace engine
+{
 
 cGroupFactory::s_Instance = NULL;
 
@@ -58,5 +60,6 @@ void cGroupFactory::CleanUp()
 	m_SymmGrps.clear();
 };
 
+}
 
 

@@ -6,6 +6,9 @@
 #include "thread_pool.h"
 #include "result.h"
 
+namespace engine
+{
+
 class cCommand;
 
 #define STATE_FREE 0
@@ -36,6 +39,6 @@ private:
 	cResult m_Result;
 };
 
-
+}
 
 #endif

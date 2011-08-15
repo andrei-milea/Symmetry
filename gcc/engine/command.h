@@ -7,6 +7,8 @@
 
 //COMMAND_TYPE = GET_ELEMENTS | GET_NORMALIZER | GET_CENTER | GET_CENTRALIZER
 
+namespace engine
+{
 
 class cCommand
 {
@@ -31,6 +33,7 @@ protected://members
 	std::string m_Params;
 };
 
+}
 
 #endif
 

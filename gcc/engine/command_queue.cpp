@@ -4,7 +4,8 @@
 #include "getelem_command.h"
 #include "getsubgrp_command.h"
 
-
+namespace engine
+{
 
 
 /*****************************************
@@ -78,5 +79,6 @@ std::size_t cCommandQueue::GetSize_i()const
 	return m_Queue.size();
 };
 
+}
 
 

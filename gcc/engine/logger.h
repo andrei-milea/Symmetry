@@ -10,6 +10,10 @@
 #include <boost/date_time/posix_time/posix_time_io.hpp>
 #include <boost/thread.hpp>
 #include <boost/current_function.hpp>
+
+namespace engine
+{
+
 #define CONTEXT_STR std::string(BOOST_CURRENT_FUNCTION + std::string(" :: thread id:: ") + boost::lexical_cast<std::string>(boost::this_thread::get_id()))
 
 #define GLOBAL_LOG_FILE "log.txt"
@@ -49,6 +53,7 @@ private:
 
 };
 
+}
 
 #endif
 

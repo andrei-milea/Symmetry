@@ -1,5 +1,8 @@
 #include "logger.h"
 
+namespace engine
+{
+
 boost::mutex cLogger::s_Mutex;
 
 class cVariantVisitor : public boost::static_visitor<>
@@ -112,4 +115,5 @@ bool cLogger::WriteToDisk(std::string &buff)
 };
 
 
+}
 

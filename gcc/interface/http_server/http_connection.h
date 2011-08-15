@@ -19,9 +19,12 @@ namespace http_server
 
 class cConnectionManager;
 
+using namespace engine;
+
 class cHttpConnection
     : public boost::enable_shared_from_this<cHttpConnection>
 {
+
 
 typedef boost::shared_ptr<cHttpConnection> connection_ptr;
 

@@ -43,3 +43,53 @@ position: absolute;
 width: 90%; height: 85%;
 }
 
+.smain_view
+{
+border:1px solid #aaa;
+margin-top: 30;
+margin-right: 30;
+margin-left: 30;
+position: absolute;
+width: 90%; height: 85%;
+}
+
+
+/*list group elements style*/
+#list-elem ul
+ {
+ list-style: none;
+ padding: 0;
+ margin: 0;
+ }
+
+ #list-elem li
+ {
+ float: left;
+ margin: 0 0.15em;
+ }
+
+ #list-elem li a
+ {
+ height: 2em;
+ line-height: 2em;
+ float: left;
+ width: 9em;
+ display: block;
+ border: 0.1em solid #dcdce9;
+ color: #0d2474;
+ text-decoration: none;
+ text-align: center;
+ }
+
+ /* Hide from IE5-Mac \*/
+ #list-elem li a
+ {
+ float: none
+ }
+ /* End hide */
+
+ #list-elem
+ {
+ width:30em
+ }
+

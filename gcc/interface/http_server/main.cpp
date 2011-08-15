@@ -4,6 +4,7 @@
 #include "../../engine/logger.h"
 
 using namespace http_server;
+using namespace engine;
 
 int main()
 {

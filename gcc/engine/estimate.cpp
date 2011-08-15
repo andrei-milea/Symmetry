@@ -2,6 +2,9 @@
 
 #include "groupgen_command.h"
 
+namespace engine
+{
+
 cEstimator::cEstimator()
 {};
 
@@ -18,4 +21,5 @@ std::size_t cEstimator::Estimate(const cGetSubgrpCommand& getsubgrp_command)cons
 	return 0;
 };
 
+}
 

@@ -12,6 +12,9 @@
 #include <boost/any.hpp>
 #include <exception>
 
+namespace engine
+{
+
 namespace qi = boost::spirit::qi;
 namespace ascii = boost::spirit::ascii;
 namespace phoenix = boost::phoenix;
@@ -138,6 +141,7 @@ struct group_type_: qi::symbols<char, GROUP_TYPE>
 };
 
 
+}
 
 #endif
 

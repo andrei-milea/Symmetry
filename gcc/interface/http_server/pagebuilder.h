@@ -25,32 +25,15 @@ public:
 		return s_Instance;
 	};
 
-   	std::string& GetIndexPage(const unsigned int session_id)
-	{
-		return m_Index_page.replace(ID_POS, ID_SIZE, boost::lexical_cast<std::string>(session_id));
-	};
+   	std::string& GetIndexPage(const unsigned int session_id);
 
 	const std::string GetWebglConstent(const std::string &webglcontent)const
-	{
-		return webglcontent;
-	};
 
 	const std::string GetPage(const cResult &result, const unsigned int ses_id)
-	{
-		//TODO
-		return "";
-	};
 
 	const std::string GetLoadingPage(const unsigned int estimation, const unsigned int ses_id)
-	{
-		//TODO
-		return "";
-	};
 
 	const std::string GetPlainContent(const std::string& planecontent)const
-	{
-		return planecontent;
-	};
 
 protected:
 	cPageBuilder()
@@ -68,7 +51,6 @@ private:
 
 };
 
-cPageBuilder *cPageBuilder::s_Instance = NULL;
 
 }
 

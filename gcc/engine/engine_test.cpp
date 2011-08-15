@@ -3,6 +3,7 @@
 #include "getsubgrp_command.h"
 #include "serializer.h"
 
+using namespace engine;
 
 int main()
 {

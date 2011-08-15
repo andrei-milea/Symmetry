@@ -8,6 +8,7 @@
 #include "boost/test/included/unit_test.hpp"
 
 using namespace boost::unit_test;
+using namespace engine;
 
 typedef cGroupElem< cPermElem, Multiplication> SymmetricGrpGen;
 

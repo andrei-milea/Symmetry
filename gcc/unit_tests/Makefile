@@ -1,7 +1,9 @@
 all: test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
-LFLAGS = -lboost_thread-mt -lboost_date_time
+LFLAGS =-lboost_system -lboost_thread-mt -lboost_date_time
 GCC = /opt/usr/bin/g++
+VPATH = ../interface/http_server:../engine
+
 
 test_perm: test_permutation.cpp
 	$(GCC) $(CFLAGS) test_permutation.cpp -o test_perm
@@ -21,43 +23,61 @@ test_group: test_group.cpp
 test_lattice: test_lattice.cpp
 	$(GCC) $(CFLAGS) test_lattice.cpp -o test_lattice
 
-#########################
-#test_engine compilation
-#########################
+	########################
+	#test_engine compilation
+	########################
 
 test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o logger.o command_queue.o thread_pool.o result.o
-	$(GCC) $(LFLAGS) test_engine.o getsubgrp_command.o getelem_command.o estimate.o session.o logger.o command_queue.o thread_pool.o result.o -o test_engine_main 
+	$(GCC) $^ $(LFLAGS) -o test_engine_main
 
 
 test_engine.o: test_engine.cpp
-	$(GCC) $(CFLAGS) test_engine.cpp -o test_engine.o
+	$(GCC) $(CFLAGS) $<
 
 estimate.o: ../engine/estimate.cpp
-	$(GCC) $(CFLAGS) ../engine/estimate.cpp -o estimate.o 
+	$(GCC) $(CFLAGS) $<
 
 getsubgrp_command.o: ../engine/getsubgrp_command.cpp
-	$(GCC) $(CFLAGS) ../engine/getsubgrp_command.cpp -o getsubgrp_command.o
+	$(GCC) $(CFLAGS) $<
 
 getelem_command.o: ../engine/getelem_command.cpp
-	$(GCC) $(CFLAGS) ../engine/getelem_command.cpp -o getelem_command.o
+	$(GCC) $(CFLAGS) $<
 
 session.o: ../engine/session.cpp
-	$(GCC) $(CFLAGS) ../engine/session.cpp -o session.o
+	$(GCC) $(CFLAGS) $<
 
 logger.o: ../engine/logger.cpp
-	$(GCC) $(CFLAGS) ../engine/logger.cpp -o logger.o
+	$(GCC) $(CFLAGS) $<
 
 command_queue.o: ../engine/command_queue.cpp
-	$(GCC) $(CFLAGS) ../engine/command_queue.cpp -o command_queue.o
+	$(GCC) $(CFLAGS) $<
 
 thread_pool.o: ../engine/thread_pool.cpp
-	$(GCC) $(CFLAGS) ../engine/thread_pool.cpp -o thread_pool.o
+	$(GCC) $(CFLAGS) $<
 
 result.o: ../engine/result.cpp
-	$(GCC) $(CFLAGS) ../engine/result.cpp -o result.o
+	$(GCC) $(CFLAGS) $<
 
-########################
-########################
+	########################
+	########################
+
+
+	########################
+	#test server compilation
+	########################
+
+test_server_main: test_server.o http_request.o
+	$(GCC) $^ $(LFLAGS) -o test_server_main
+
+test_server.o: test_server.cpp
+	$(GCC) $(CFLAGS) $<
+
+http_request.o: http_request.cpp
+	$(GCC) $(CFLAGS) $<
+
+	########################
+	########################
+
 
 
 clean:

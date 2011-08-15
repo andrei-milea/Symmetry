@@ -2,6 +2,8 @@
 #include "result.h"
 #include "session.h"
 
+namespace engine
+{
 
 cResult::cResult(cSession *session, cCommand *command)
 	:m_Session(session),
@@ -32,5 +34,5 @@ const cCommand* cResult::GetCommand()const
 };
 
 
-
+}
 
