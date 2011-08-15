@@ -41,7 +41,7 @@ void test_d8_centralizer_el()
 	D8.AddGenerator(elt2);
 	D8.AddGenerator(elt5);
 	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCentralizerEl(elt3);
-	BOOST_CHECK(std_ex::set_equality(elts, D8.GetElementsDimino()));
+	BOOST_ASSERT(std_ex::set_equality(elts, D8.GetElementsDimino()));
 
 };
 
@@ -60,7 +60,7 @@ void test_s3_center_el()
 	center_el = g1.GetCenterEl();
 	std::vector< cGroupElem<cPermElem, Multiplication> >  center_el1;
 	center_el1.push_back(g1.GetIdentity());
-	BOOST_CHECK(std_ex::set_equality(center_el, center_el1));
+	BOOST_ASSERT(std_ex::set_equality(center_el, center_el1));
 };
 
 void test_d8_center_el()
@@ -74,7 +74,7 @@ void test_d8_center_el()
 	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCenterEl();
 	std::vector< cGroupElem<cPermElem, Multiplication> > elts1 = D8.GetCyclicSubgroup(elt2 * elt2);
 
-	BOOST_CHECK(std_ex::set_equality(elts,elts1));
+	BOOST_ASSERT(std_ex::set_equality(elts,elts1));
 
 };
 
@@ -105,13 +105,13 @@ void test_s3_normalizer_el()
 	cSubgroup<S3> A3(a3_el);
 	normalizer_el = g1.GetNormalizerEl(A3);
 
-	BOOST_CHECK(std_ex::set_equality(normalizer_el, g1.GetElementsDimino()));
+	BOOST_ASSERT(std_ex::set_equality(normalizer_el, g1.GetElementsDimino()));
 
 	std::vector< cGroupElem< cPermElem, Multiplication> > iden_el;
 	iden_el.push_back(g1.GetIdentity());
 	cSubgroup<S3> iden(iden_el);
 	S3 g2(g1.GetNormalizer(iden));
-	BOOST_CHECK(std_ex::set_equality(g1.GetElementsDimino(), g2.GetElementsDimino()));
+	BOOST_ASSERT(std_ex::set_equality(g1.GetElementsDimino(), g2.GetElementsDimino()));
 };
 
 void test_d8_normalizer_el()
@@ -126,7 +126,7 @@ void test_d8_normalizer_el()
 	std::vector< cGroupElem<cPermElem, Multiplication> > elts_subgrp = D8.GetCenterEl();
 
 	//the whole subgroup normalizes the center
-	BOOST_CHECK(std_ex::set_equality(D8.GetNormalizerEl(elts_subgrp), D8.GetElementsDimino()));
+	BOOST_ASSERT(std_ex::set_equality(D8.GetNormalizerEl(elts_subgrp), D8.GetElementsDimino()));
 };
 
 
