@@ -1,27 +1,28 @@
 all: test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main test_server_main
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
+BFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 LFLAGS =-lboost_system -lboost_thread-mt -lboost_date_time
 GCC = /opt/usr/bin/g++
 VPATH = ../interface/http_server:../engine
 
 
 test_perm: test_permutation.cpp
-	$(GCC) $(CFLAGS) test_permutation.cpp -o test_perm
+	$(GCC) $(BFLAGS) test_permutation.cpp -o test_perm
 
 test_group_el: test_group_elem.cpp
-	$(GCC) $(CFLAGS) test_group_elem.cpp -o test_group_el
+	$(GCC) $(BFLAGS) test_group_elem.cpp -o test_group_el
 
 test_symmetric: test_symmetric_rep.cpp
-	$(GCC) $(CFLAGS) test_symmetric_rep.cpp -o test_symmetric
+	$(GCC) $(BFLAGS) test_symmetric_rep.cpp -o test_symmetric
 
 test_std_ex: test_std_ex.cpp
-	$(GCC) $(CFLAGS) test_std_ex.cpp -o test_std_ex
+	$(GCC) $(BFLAGS) test_std_ex.cpp -o test_std_ex
 
 test_group: test_group.cpp
-	$(GCC) $(CFLAGS) test_group.cpp -o test_group
+	$(GCC) $(BFLAGS) test_group.cpp -o test_group
 
 test_lattice: test_lattice.cpp
-	$(GCC) $(CFLAGS) test_lattice.cpp -o test_lattice
+	$(GCC) $(BFLAGS) test_lattice.cpp -o test_lattice
 
 	########################
 	#test_engine compilation
