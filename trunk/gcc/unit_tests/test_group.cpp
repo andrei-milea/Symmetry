@@ -4,8 +4,7 @@
 #include "boost/test/included/unit_test.hpp"
 
 using namespace boost::unit_test;
-
-void test_s3_centralizer_el()
+BOOST_AUTO_TEST_CASE(test_s3_centralizer_el)
 {
 	cPermElem s1(3,{1,2});
 	cPermElem s2(3,{2,3});
@@ -30,7 +29,7 @@ void test_s3_centralizer_el()
 	BOOST_CHECK(std_ex::set_equality(centralizer_el, res));
 };
 
-void test_d8_centralizer_el()
+BOOST_AUTO_TEST_CASE(test_d8_centralizer_el)
 {
 	cGroupElem<cPermElem, Multiplication> elt1({1,2,3,4});
 	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
@@ -45,7 +44,7 @@ void test_d8_centralizer_el()
 
 };
 
-void test_s3_center_el()
+BOOST_AUTO_TEST_CASE(test_s3_center_el)
 {
 	cPermElem s1(3,{1,2});
 	cPermElem s2(3,{2,3});
@@ -63,7 +62,7 @@ void test_s3_center_el()
 	BOOST_ASSERT(std_ex::set_equality(center_el, center_el1));
 };
 
-void test_d8_center_el()
+BOOST_AUTO_TEST_CASE(test_d8_center_el)
 {
 	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
 	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
@@ -78,7 +77,7 @@ void test_d8_center_el()
 
 };
 
-void test_s3_normalizer_el()
+BOOST_AUTO_TEST_CASE(test_s3_normalizer_el)
 {
 
 	cPermElem s1(3,{1,2});
@@ -114,7 +113,7 @@ void test_s3_normalizer_el()
 	BOOST_ASSERT(std_ex::set_equality(g1.GetElementsDimino(), g2.GetElementsDimino()));
 };
 
-void test_d8_normalizer_el()
+BOOST_AUTO_TEST_CASE(test_d8_normalizer_el)
 {
 
 	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
@@ -129,18 +128,4 @@ void test_d8_normalizer_el()
 	BOOST_ASSERT(std_ex::set_equality(D8.GetNormalizerEl(elts_subgrp), D8.GetElementsDimino()));
 };
 
-
-test_suite* init_unit_test_suite( int argc, char* argv[] ) 
-{
-	//tests for S3
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_centralizer_el ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_center_el ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_s3_normalizer_el ) );
-
-	//tests for D8
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_d8_centralizer_el ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_d8_center_el) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_d8_normalizer_el ) );
-	return 0;
-}; 
 
