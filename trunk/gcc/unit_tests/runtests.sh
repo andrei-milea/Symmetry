@@ -8,7 +8,7 @@ do
 	if [ $? -ne 0 ]
 	then
     echo TEST FAILED!   
-		exit $?
+		exit 1
 	fi
 done
 
