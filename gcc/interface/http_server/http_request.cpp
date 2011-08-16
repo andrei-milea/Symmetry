@@ -25,6 +25,8 @@ using namespace boost::spirit::ascii;
 //				>> " " >> VERSION >> "\r" >> HEADER >>
 //				>> "\r\n" ;
 
+#define CRLF "\r\n"
+
 //parsing symbol table
 struct method_: symbols<char, short>
 {
@@ -68,8 +70,9 @@ cRequest::cRequest(std::istream &stream)
 
 bool cRequest::ParseRequest()
 {
+	bool result = false;
     short method_;
-    return parse(m_Fwd_begin, m_Fwd_end,
+    result = parse(m_Fwd_begin, m_Fwd_end,
         /////grammar
        (
         method
@@ -77,7 +80,7 @@ bool cRequest::ParseRequest()
         >>(+~boost::spirit::ascii::char_(' '))
         >>' '
         >>(+~boost::spirit::ascii::char_('\r'))
-        >>lit("\r\n")
+        >>lit(CRLF)
         >>(*(boost::spirit::ascii::char_)))
         //////
         ,
@@ -86,7 +89,8 @@ bool cRequest::ParseRequest()
         m_Version,
         m_Headers
         );
-        m_Method = (REQ_METHOD)method_;
+	m_Method = (REQ_METHOD)method_;
+	return result;
 };
 
 

@@ -9,8 +9,8 @@
 namespace http_server
 {
 
-#define HTTP_VER0 "HTTP/1.0 "
-#define HTTP_VER1 "HTTP/1.1 "
+#define HTTP_VER0 "HTTP/1.0"
+#define HTTP_VER1 "HTTP/1.1"
 
 enum STATUS_CODE
 {

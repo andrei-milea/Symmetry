@@ -9,15 +9,23 @@ using namespace engine;
 int main()
 {
 
-    try
-    {
-        cHttpServer _http_server(80);
-		_http_server.Start();
-    }
-    catch(std::exception& e)
-    {
-		cLogger log(LOG_SEV_ERROR);
-        log<< e.what();
-    }
+	while(true)
+	{
+		cHttpServer _http_server(80);
+		try
+		{
+			_http_server.Start();
+		}
+		catch(std::exception& e)
+		{
+			cLogger log(LOG_SEV_ERROR);
+			log<< e.what();
+			_http_server.Stop();
+			continue;
+		}
+
+		_http_server.Stop();
+		return 0;
+	}
 
 };

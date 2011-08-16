@@ -3,12 +3,20 @@
 #include <string>
 
 #include <boost/lexical_cast.hpp>
+#include <fstream>
+#include <sstream>
+#include <limits>
+
+
+namespace engine
+{
+class cResult;
+}
 
 namespace http_server
 {
 
-#define ID_POS 1
-#define ID_SIZE 1
+#define INDEX_PAGE "../pages/index.html"
 
 //macro for inserting HTML directly in C++
 #define HTML(...) #__VA_ARGS__
@@ -18,36 +26,28 @@ class cPageBuilder
 
 public:
 
-	static cPageBuilder* GetInstance()
-	{
-		if(NULL == s_Instance)
-			return new cPageBuilder;
-		return s_Instance;
-	};
+	static cPageBuilder* GetInstance();
 
-   	std::string& GetIndexPage(const unsigned int session_id);
+   	const std::string& GetIndexPage(const unsigned int session_id);
 
-	const std::string GetWebglConstent(const std::string &webglcontent)const
+	const std::string GetWebglConstent(const std::string &webglcontent)const;
 
-	const std::string GetPage(const cResult &result, const unsigned int ses_id)
+	const std::string GetPage(const engine::cResult &result, const unsigned int ses_id)const;
 
-	const std::string GetLoadingPage(const unsigned int estimation, const unsigned int ses_id)
+	const std::string GetLoadingPage(const unsigned int estimation, const unsigned int ses_id)const;
 
-	const std::string GetPlainContent(const std::string& planecontent)const
+	const std::string GetPlainContent(const std::string& planecontent)const;
 
 protected:
-	cPageBuilder()
-	{}; 
+	cPageBuilder();
 	cPageBuilder(const cPageBuilder &page_bld)
 	{};
 
-	static cPageBuilder *s_Instance;
-
 private:
-	//html or java script strings
-	std::string m_Index_page;
-	std::string m_Webgl_content;
-	std::string m_Hidden_form;
+	static cPageBuilder *s_Instance;
+	std::size_t m_IdPosition;
+	std::size_t m_IdSize;
+	std::string m_IndexFileStr;
 
 };
 
