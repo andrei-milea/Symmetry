@@ -1,12 +1,12 @@
 #include "../lib/group.h"
 
-
+#define BOOST_TEST_MODULE "test_group_el"
 #include "boost/test/included/unit_test.hpp"
 
 using namespace boost::unit_test;
 
 
-void test_trivial()
+BOOST_AUTO_TEST_CASE(test_trivial)
 {
 	//test perm element
 	cPermElem s1(3);
@@ -24,7 +24,7 @@ void test_trivial()
 	BOOST_CHECK(elem5 * elem5 == elem4);
 }
 
-void test_order_power()
+BOOST_AUTO_TEST_CASE(test_order_power)
 {
 	/*****************************************
 	 * tests for S3
@@ -82,7 +82,7 @@ void test_order_power()
 }
 
 
-void test_properties()
+BOOST_AUTO_TEST_CASE(test_properties)
 {
 	/*****************************************
 	 * tests for S3
@@ -136,12 +136,3 @@ void test_properties()
 }
 
 
-
-test_suite* init_unit_test_suite( int argc, char* argv[] ) 
-{
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_trivial ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_order_power ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_properties ) );
-
-    return 0;
-};

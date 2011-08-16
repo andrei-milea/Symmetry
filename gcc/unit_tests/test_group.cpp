@@ -1,9 +1,11 @@
 #include "../lib/group.h"
 #include "../lib/std_ex.h"
 
+#define BOOST_TEST_MODULE "test_group"
 #include "boost/test/included/unit_test.hpp"
 
 using namespace boost::unit_test;
+
 BOOST_AUTO_TEST_CASE(test_s3_centralizer_el)
 {
 	cPermElem s1(3,{1,2});

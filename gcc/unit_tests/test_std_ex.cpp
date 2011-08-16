@@ -1,6 +1,5 @@
 #include "../lib/std_ex.h"
 
-#include "boost/test/included/unit_test.hpp"
 
 #include <vector>
 #include <array>
@@ -8,6 +7,9 @@
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_int.hpp>
 #include <boost/random/variate_generator.hpp>
+
+#define BOOST_TEST_MODULE "test_stdex"
+#include "boost/test/included/unit_test.hpp"
 
 using namespace boost::unit_test;
 
@@ -20,7 +22,7 @@ int get_random()
     return rnd();
 };
 
-void test_set_inclusion()
+BOOST_AUTO_TEST_CASE(test_set_inclusion)
 {
 	int index = 0;
 	std::vector<int> set1(100);
@@ -41,7 +43,7 @@ void test_set_inclusion()
 	BOOST_CHECK(!std_ex::set_inclusion(set2, set1));
 };
 
-void test_set_equality()
+BOOST_AUTO_TEST_CASE(test_set_equality)
 {
 	std::vector<int> set1(999);
 	std::vector<int> set2(999);
@@ -65,7 +67,7 @@ void test_set_equality()
 };
 
 
-void test_set_difference()
+BOOST_AUTO_TEST_CASE(test_set_difference)
 {
 	std::vector<int> set1(999);
 	std::vector<int> set2(999);
@@ -97,7 +99,7 @@ void test_set_difference()
 };
 
 
-void test_set_remove()
+BOOST_AUTO_TEST_CASE(test_set_remove)
 {
 	std::vector<int> set1(9);
 	std::vector<int> set2(9);
@@ -130,14 +132,4 @@ void test_set_remove()
 	
 };
 
-
-test_suite* init_unit_test_suite( int argc, char* argv[] ) 
-{
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_inclusion ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_equality ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_difference ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_set_remove ) );
-
-    return 0;
-};
 

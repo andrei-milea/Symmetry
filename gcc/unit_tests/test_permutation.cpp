@@ -4,15 +4,15 @@
 
 
 
-//include boost test framework
-//#define BOOST_TEST_MODULE PermTest
-#include "boost/test/included/unit_test.hpp"
 #include "boost/random.hpp"
+
+#define BOOST_TEST_MODULE "test_permutation"
+#include "boost/test/included/unit_test.hpp"
 
 using namespace boost::unit_test;
 
 //test perm 3 identity
-void test_perm_unity()
+BOOST_AUTO_TEST_CASE(test_perm_unity)
 {
 	//test default constructor
 	cPermElem perm1(3);
@@ -21,7 +21,7 @@ void test_perm_unity()
 	BOOST_CHECK(perm3 == (perm1 * perm2));
 }
 
-void test_perm_multiplication()
+BOOST_AUTO_TEST_CASE(test_perm_multiplication)
 {
     cPermElem perm1(3);
     cPermElem perm2(3,{1, 3, 2});
@@ -51,7 +51,7 @@ void test_perm_multiplication()
 }
 
 
-void test_perm_trivial()
+BOOST_AUTO_TEST_CASE(test_perm_trivial)
 {
     //test constructors
     std::vector<std::size_t> perm_array(3);
@@ -81,15 +81,4 @@ void test_perm_trivial()
     BOOST_CHECK(perm4.GetIdentity(1) == perm1);
 }
 
-
-
-
-test_suite* init_unit_test_suite( int argc, char* argv[] ) 
-{
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_perm_unity ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_perm_multiplication ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_perm_trivial ) );
-
-    return 0;
-};
 
