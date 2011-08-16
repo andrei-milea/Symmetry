@@ -1,5 +1,4 @@
 
-#include "boost/test/included/unit_test.hpp"
 #include "../lib/std_ex.h"
 
 //allow to test private methods
@@ -7,12 +6,15 @@
 #define protected public
 
 #include "../lib/group.h"
-using namespace boost::unit_test;
 
+#define BOOST_TEST_MODULE "test_symmetric"
+#include "boost/test/included/unit_test.hpp"
+
+using namespace boost::unit_test;
 
 	//BOOST_TEST_MESSAGE( "cyc_grp:" << cyc_grp[0]<<"\n" << cyc_grp[1]<<"\n");
 	
-void test_trivial()
+BOOST_AUTO_TEST_CASE(test_trivial)
 {
 
 	//test constructors
@@ -42,9 +44,8 @@ void test_trivial()
 
 }
 
-void test_private()
+BOOST_AUTO_TEST_CASE(test_private)
 {
-
 	/*****************************************
 	 * tests for S3
 	*****************************************/
@@ -123,7 +124,7 @@ void test_private()
 }
 
 
-void test_elements()
+BOOST_AUTO_TEST_CASE(test_elements)
 {
 
 	/*****************************************
@@ -191,7 +192,7 @@ void test_elements()
 	BOOST_CHECK(std_ex::set_equality(D8.GetElementsDimino(), D8.GetElementsNaive()));
 }
 
-void test_getorbit()
+BOOST_AUTO_TEST_CASE(test_getorbit)
 {
 	/*****************************************
 	 * tests o S3
@@ -226,14 +227,4 @@ void test_getorbit()
 	BOOST_CHECK(std_ex::set_equality(orbit, D8.GetOrbit(2)));
 
 };
-
-
-test_suite* init_unit_test_suite( int argc, char* argv[] ) 
-{
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_trivial ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_private ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_elements ) );
-    framework::master_test_suite().add( BOOST_TEST_CASE( &test_getorbit ) );
-	return 0;
-}; 
 
