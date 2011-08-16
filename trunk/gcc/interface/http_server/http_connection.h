@@ -45,6 +45,10 @@ public:
      void HandleRequest(const boost::system::error_code& error);
      void HandleWriteResponse(const boost::system::error_code& error);
 	 void Stop();
+	 static void ClearSessions()
+	 {
+		 s_Sessions.clear();
+	 };
      
 
 private:
@@ -61,6 +65,9 @@ private:
     	static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rnd(gen, dist);
 
 		unsigned int random_id = rnd();
+
+		if(cHttpConnection::s_Sessions.empty())
+    			return random_id;
 
 		if(cHttpConnection::s_Sessions.find(random_id) != cHttpConnection::s_Sessions.end())
     		return random_id;

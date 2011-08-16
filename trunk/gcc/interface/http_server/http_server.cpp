@@ -43,7 +43,8 @@ void cHttpServer::HandleConnection(connection_ptr new_connection,
     }
 	else
 	{
-		throw std::runtime_error(CONTEXT_STR + error.message());
+		cLogger log(LOG_SEV_ERROR);
+		log<< CONTEXT_STR + error.message();
 	}
 };
 

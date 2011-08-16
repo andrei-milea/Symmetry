@@ -21,6 +21,7 @@ void cConnectionManager::StopAllConnections()
 {
 	std::for_each(m_Connections.begin(), m_Connections.end(), boost::bind(&cHttpConnection::Stop, _1));
 	m_Connections.clear();
+	cHttpConnection::ClearSessions();
 };
 
 
