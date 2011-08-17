@@ -1,5 +1,6 @@
 
 #include "connection_manager.h"
+#include <boost/bind.hpp>
 
 namespace http_server
 {

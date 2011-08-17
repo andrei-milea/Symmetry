@@ -8,6 +8,7 @@ namespace http_server
 {
 
 using namespace boost::asio::ip;
+using namespace engine;
 
 cHttpServer::cHttpServer(unsigned int port)
     :m_IOService(),
@@ -22,6 +23,11 @@ cHttpServer::cHttpServer(unsigned int port)
 	m_Signals.async_wait(boost::bind(&cHttpServer::Stop, this));
 
     StartAccept();
+};
+
+cHttpServer::~cHttpServer()
+{
+	Stop();
 };
 
 void cHttpServer::StartAccept()
