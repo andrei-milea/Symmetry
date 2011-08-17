@@ -1,12 +1,12 @@
 
 //command panel object -- used manipulate the command panel div
 var Command_panel = {
-    state: "hidden",
+    state_main_comm: "hidden",
     state_canvas: "hidden",
     
     toggle_panel: function()
     {
-        if(this.state === "visible")
+        if(this.state_main_comm === "visible")
             this.hide_panel();
         else
             this.show_panel();
@@ -59,7 +59,7 @@ var Command_panel = {
     {
         var togg_button = document.getElementById("toggle_button");
         togg_button.setAttribute("value", "Hide Commands Panel");
-        this.state = "visible";
+        this.state_main_comm = "visible";
         this.add_commands();
     },
     
@@ -67,7 +67,7 @@ var Command_panel = {
     {
         var togg_button = document.getElementById("toggle_button");
         togg_button.setAttribute("value", "Show Commands Panel");
-        this.state = "hidden";
+        this.state_main_comm = "hidden";
         this.remove_commands();
     },
     
@@ -108,7 +108,13 @@ var Command_panel = {
         
         command_panelDiv.removeChild(command_selectTag);
         command_panelDiv.removeChild(command_createTag);
-    }
+    },
+
+	show_tip: function()
+	{
+		//TODO -- div inside div ?
+        var command_panelDiv = document.getElementById("command_panel");
+	}
 };
     
 

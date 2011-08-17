@@ -18,6 +18,10 @@
 namespace http_server
 {
 
+#define STYLE_CSS		"/styles.css"
+#define WEBGL_JS		"/webgl.js"
+#define COMPANEL_JS		"/command_panel.js"
+
 //static members
 std::map<unsigned int, cSession*> cHttpConnection::s_Sessions;
 cEstimator						cHttpConnection::s_Estimator;
@@ -60,9 +64,9 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				const std::string index_page=cPageBuilder::GetInstance()->GetIndexPage(ses_id);
                 response.BuildResponse(OK, index_page);
             }
-			else if(_request.GetResource() == "/styles.css" ||
-				   	_request.GetResource() == "/command_panel.js" ||
-				   	_request.GetResource() == "/webgl.js")
+			else if( STYLE_CSS == _request.GetResource() ||
+				   	COMPANEL_JS == _request.GetResource() ||
+				   	WEBGL_JS == _request.GetResource() )
 			{
                 cResponse response(m_ResponseBuf);
 				const std::string resource = cPageBuilder::GetInstance()->GetPageResource(

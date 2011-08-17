@@ -61,6 +61,8 @@ void cHttpServer::Start()
 
 void cHttpServer::Stop()
 {
+	cLogger log(LOG_SEV_INFO);
+	log<< CONTEXT_STR + "Server is stopping...ignore further errors";
 	m_Acceptor.close();
 	m_ConnectionManager.StopAllConnections();
 };

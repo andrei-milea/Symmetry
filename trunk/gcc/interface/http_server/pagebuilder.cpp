@@ -36,9 +36,8 @@ cPageBuilder::cPageBuilder()
 		throw std::runtime_error(CONTEXT_STR + "failed to open index file");
 	m_IndexFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
 	//set id position
-	m_IdPosition = m_IndexFileStr.find("000000");
+	m_IdPosition = m_IndexFileStr.find("00");
 	assert(m_IdPosition != std::string::npos);
-	m_IdSize = std::numeric_limits<std::size_t>::digits10;
 	File.close();
 
 	//cache css file
@@ -66,7 +65,7 @@ cPageBuilder::cPageBuilder()
 
 const std::string& cPageBuilder::GetIndexPage(const unsigned int session_id)
 {
-	return m_IndexFileStr.replace(m_IdPosition, m_IdSize, boost::lexical_cast<std::string>(session_id));
+	return m_IndexFileStr.replace(m_IdPosition, 2, boost::lexical_cast<std::string>(session_id));
 };
 
 const std::string& cPageBuilder::GetPageResource(const std::string& resource)const

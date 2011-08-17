@@ -38,10 +38,11 @@
 
 <!onload="WebGlContext.initWebGL()" >
 <body id="body_id"  >
-<input type="hidden" name="hidden" value="0000000">
+<input type="hidden" name="hidden" value="00">
 <div class="sbutton" id="command_panel">
-<input type="button" id="toggle_button" style= "margin-top: 5; margin-bottom: 5; " onclick="Command_panel.toggle_panel()" value="Hide Commands Panel">
-<input type="button" id="canvas_button" style= "margin-top: 5; margin-bottom: 5; " onclick="Command_panel.toggle_canvas()" value="Switch to visualization mode">
+<input type="button" id="toggle_button" style= "margin-top: 5; " onclick="Command_panel.toggle_panel()" value="Show Commands Panel">
+<input type="button" id="canvas_button" style= "margin-top: 5; float: right; " onclick="Command_panel.toggle_canvas()" value="Switch to visualization mode">
+</br>
 </div>
 <div id="main_view_id" class ="smain_view"></div>
 </body>
