@@ -14,7 +14,7 @@
 namespace engine
 {
 
-#define CONTEXT_STR std::string(BOOST_CURRENT_FUNCTION + std::string(" :: thread id:: ") + boost::lexical_cast<std::string>(boost::this_thread::get_id()))
+#define CONTEXT_STR std::string(BOOST_CURRENT_FUNCTION + std::string(" :: thread id:: ") + boost::lexical_cast<std::string>(boost::this_thread::get_id()) + " ")
 
 #define GLOBAL_LOG_FILE "log.txt"
 #define BUFFER_MAX_SIZE 1024

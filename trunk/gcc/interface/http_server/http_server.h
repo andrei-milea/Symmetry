@@ -12,7 +12,7 @@ class cHttpServer : private boost::noncopyable
 {
 public:
     cHttpServer(unsigned int port);
-    ~cHttpServer()  {};
+    ~cHttpServer();
 
 	void Start();
 	void Stop();

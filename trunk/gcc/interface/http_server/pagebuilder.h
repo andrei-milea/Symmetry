@@ -16,11 +16,6 @@ class cResult;
 namespace http_server
 {
 
-#define INDEX_PAGE "../pages/index.html"
-
-//macro for inserting HTML directly in C++
-#define HTML(...) #__VA_ARGS__
-
 class cPageBuilder
 {
 
@@ -30,7 +25,9 @@ public:
 
    	const std::string& GetIndexPage(const unsigned int session_id);
 
-	const std::string GetWebglConstent(const std::string &webglcontent)const;
+	const std::string& GetPageResource(const std::string& resource)const;
+
+   	const std::string GetWebglConstent(const std::string &webglcontent)const;
 
 	const std::string GetPage(const engine::cResult &result, const unsigned int ses_id)const;
 
@@ -44,10 +41,18 @@ protected:
 	{};
 
 private:
+	const std::string& GetPageResourceCss()const;
+	const std::string& GetWebGlJsPage()const;
+	const std::string& GetCommandPanelJs()const;
+
+private:
 	static cPageBuilder *s_Instance;
 	std::size_t m_IdPosition;
 	std::size_t m_IdSize;
 	std::string m_IndexFileStr;
+	std::string m_ResourceFileStr;
+	std::string m_WebglJsFileStr;
+	std::string m_ComPanelJsFileStr;
 
 };
 
