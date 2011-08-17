@@ -73,7 +73,7 @@ private:
 		if(cHttpConnection::s_Sessions.empty())
     			return random_id;
 
-		if(cHttpConnection::s_Sessions.find(random_id) != sessions_map::end())
+		if(cHttpConnection::s_Sessions.find(random_id) == cHttpConnection::s_Sessions.end())
     		return random_id;
 		else
 			return GetRandUniqueId();
@@ -86,7 +86,7 @@ private:
 	cConnectionManager						&m_ConnectionManager;
 	bool									m_HttpVersion;
 
-	static  sessions_map					s_Sessions;
+	static sessions_map						s_Sessions;
 	static engine::cEstimator				s_Estimator;
 };
 
