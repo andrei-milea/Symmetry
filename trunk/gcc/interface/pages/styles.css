@@ -53,6 +53,24 @@ position: absolute;
 width: 90%; height: 85%;
 }
 
+/*tooltip style*/
+#tooltip_id
+{
+border-top-left-radius: 12px 6px;
+border-bottom-right-radius: 12px 6px;
+border-top-right-radius: 10px 6px;
+font-size:14px;
+position: fixed;
+top: 10;
+margin-left: 220;
+display:block;
+width: 30em;
+height:3em;
+padding:2% 2% 2% 2%;
+background:#666;
+color:#fff;
+}
+
 
 /*list group elements style*/
 #list-elem ul
