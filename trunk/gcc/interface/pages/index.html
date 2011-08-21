@@ -38,13 +38,58 @@
 
 <!onload="WebGlContext.initWebGL()" >
 <body id="body_id"  >
-<input type="hidden" name="hidden" value="00">
-<div class="sbutton" id="command_panel">
-<input type="button" id="toggle_button" style= "margin-top: 5; " onclick="Command_panel.toggle_panel()" value="Show Commands Panel">
-<input type="button" id="canvas_button" style= "margin-top: 5; float: right; " onclick="Command_panel.toggle_canvas()" value="Switch to visualization mode">
+<input id="session_key_id" type="hidden" name="hidden" value="00">
+<input type="button" id="toggle_button" style= "margin-top: 5; " onclick="Command_panel.toggle_panel()" value="Hide commands panel">
+<input type="button" id="canvas_button" style= "margin-top: 5; float: right; " onclick="Command_panel.toggle_canvas()" value="Switch to visual mode">
+
+<div id="command_panel">
+
+<div class="sbutton" id="general_commands_panel">
+</br>
+<a id="command_select" href="#" onmouseover="cTooltip.show('select')" onmouseout="cTooltip.hide()" onclick="Command_panel.add_groups()">Select Group</a>
+</br>
+<a id="command_create" href="#" onmouseover="cTooltip.show('create')" onmouseout="cTooltip.hide()" onclick="Command_panel.add_create_grp_div()">Create Group</a>
+</br>
+<a href="#" onmouseover="cTooltip.show('tutorials')" onmouseout="cTooltip.hide()">Tutorials</a>
+</br>
+<a href="http://code.google.com/p/absalg/" target="_blank" onmouseover="cTooltip.show('source')" onmouseout="cTooltip.hide()">Source code</a>
+</br>
+<a href="#">About</a>
+</br>     
+</br>     
 </br>
 </div>
+
+<div class="sbutton" id="group_commands_panel" style= "display: none; ">
+</br>
+<a id="prev_commands_panel" href="#" onmouseover="cTooltip.show('prev_panel')" onmouseout="cTooltip.hide()" onclick="Command_panel.goto_general_panel()">Back to previous panel</a> 
+</br>
+<a id="command_get_elements" href="#" onmouseover="cTooltip.show('get_elem')" onmouseout="cTooltip.hide()" onclick="Command_panel.submit_grp_command('GET_ELEMENTS')">Get Group Elements</a> 
+</div>
+
+</div>
+
+
 <div id="main_view_id" class ="smain_view"></div>
+
+<div align="center" id="final">
+</br>
+</br>
+
+<a href="http://boinc.berkeley.edu/" target="_blank">
+<img src="http://boinc.berkeley.edu/logo/www_logo.gif">
+</a>
+&nbsp; 
+&nbsp; 
+&nbsp; 
+&nbsp; 
+<a href="http://www.slackware.com/" target="_blank">
+<img src="http://connie.slackware.com/~msimons/slackware/grfx/shared/phearSW.gif">
+</a>
+</br>
+</br>
+Copyright © Andrei Milea 2011
+</div>
 </body>
 
 </html>
