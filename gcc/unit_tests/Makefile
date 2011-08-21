@@ -83,6 +83,9 @@ http_request.o: http_request.cpp
 
 clean:
 	rm -rf *.o $(TESTS)
+	cd ../engine; make clean
+	cd ../interface/http_server; make clean
+	
 TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main test_server_main
 #test_lattice
 
