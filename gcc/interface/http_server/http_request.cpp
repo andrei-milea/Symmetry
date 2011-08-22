@@ -100,7 +100,7 @@ bool cRequest::ParseResource()
 	bool result =  parse(m_Resource.begin(), m_Resource.end(),
 			//gramar
 			(
-			 lit("id=") 
+			 lit("/id=") 
 			 >> int_ 
 			 >>lit("command=") > command 
 			 >>lit("param=") 
