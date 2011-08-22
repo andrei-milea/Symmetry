@@ -17,7 +17,7 @@ BOOST_AUTO_TEST_CASE(test_start_stop)
 
 BOOST_AUTO_TEST_CASE(test_request)
 {
-	std::string command("GET id=12command=GET_ELEMENTSparam=SYMMETRIC_GROUP{1,2,3}{2,3,1} HTTP/1.1\r\nHEADERS");
+	std::string command("GET /id=12command=GET_ELEMENTSparam=SYMMETRIC_GROUP{1,2,3}{2,3,1} HTTP/1.1\r\nHEADERS");
 	std::stringstream input_stream(command);
 	cRequest request(input_stream);
 	BOOST_CHECK(request.ParseRequest());
