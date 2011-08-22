@@ -170,7 +170,7 @@ var Command_panel = {
 			createGrpDivTag.setAttribute("id", "grp_div_id");
 			createGrpDivTag.setAttribute("onmouseover", "cTooltip.show('generator')");
 			createGrpDivTag.setAttribute("onmouseout", "cTooltip.hide()");
-			createGrpDivTag.innerHTML="</br>&nbsp;&nbsp;&nbsp;<form onSubmit='Command_panel.submit_grp()' method='get'>Enter generator: &nbsp;&nbsp;&nbsp;<input type='text' id='generator_id'>&nbsp;&nbsp;&nbsp;<input type='button' value='Add' onclick='Command_panel.add_generator()'>&nbsp;&nbsp;&nbsp;<select id='grp_sel_id' name='Group Type'> <option>Symmetric Group</option></select></br></br>Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='generators_id' size='5' style='Width:200' ></select>&nbsp;&nbsp;&nbsp;<input type='submit' value='Go'></form></br></br>";
+			createGrpDivTag.innerHTML="</br>&nbsp;&nbsp;&nbsp;<form onSubmit='return Command_panel.submit_grp()' method='get'>Enter generator: &nbsp;&nbsp;&nbsp;<input type='text' id='generator_id'>&nbsp;&nbsp;&nbsp;<input type='button' value='Add' onclick='Command_panel.add_generator()'>&nbsp;&nbsp;&nbsp;<select id='grp_sel_id' name='Group Type'> <option>Symmetric Group</option></select></br></br>Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='generators_id' size='5' style='Width:200' ></select>&nbsp;&nbsp;&nbsp;<input type='submit' value='Go'></form></br></br>";
 			command_panelDiv.appendChild(createGrpDivTag);
 			this.state_create_grp = "visible";
 		}
@@ -229,6 +229,7 @@ var Command_panel = {
 
 		this.add_group_property("Group Type", this.static_vars.group_type);
 		this.add_group_property("Group Generators", this.static_vars.generators);
+		return false;
 	},
 
 	add_group_property: function(property, value)
@@ -278,7 +279,6 @@ var Command_panel = {
 		request += "command=" + command;
 		request += "param=" + group_types_map[this.static_vars.group_type];
 		request	+= this.static_vars.generators;
-		alert(request);
 		xmlhttp.open("GET", request, false);
 		xmlhttp.send();
 		document.getElementById("main_view_id").innerHTML=xmlhttp.responseText;

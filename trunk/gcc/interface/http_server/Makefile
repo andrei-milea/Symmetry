@@ -58,6 +58,8 @@ pagebuilder.o: pagebuilder.cpp pagebuilder.h
 
 clean:
 	rm -rf *o run main.o 
+	cd ../../engine; make clean
+	cd ../../lib; make clean	
 
 SRCS = *.cpp *.h 
 CTAGS=etags -o tags

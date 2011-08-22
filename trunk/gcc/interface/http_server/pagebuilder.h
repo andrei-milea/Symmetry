@@ -47,11 +47,11 @@ private:
 private:
 	static cPageBuilder *s_Instance;
 	std::size_t m_IdPosition;
+	std::size_t m_IdSize;
 	std::string m_IndexFileStr;
 	std::string m_ResourceFileStr;
 	std::string m_WebglJsFileStr;
 	std::string m_ComPanelJsFileStr;
-
 };
 
 

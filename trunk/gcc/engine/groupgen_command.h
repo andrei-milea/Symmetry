@@ -72,9 +72,9 @@ protected:
 					/////////gramar
 					( 
 					 group_type[ref(grp_type) = _1] >>
-					 *(char_('{')
+					 *(char_('(')
 					 >> uint_[push_back(phoenix::ref(Gen_vec), _1)] % ','
-					 >> char_('}') [add_grp_gen])
+					 >> char_(')') [add_grp_gen])
 					)
 					/////////
 				);

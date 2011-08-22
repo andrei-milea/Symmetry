@@ -76,6 +76,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 			else //request is a command
 			{
                 cResponse response(m_ResponseBuf);
+				_request.ParseResource();
 				unsigned int ses_id = _request.GetSessionId();
 
 				if(cHttpConnection::s_Sessions.find(ses_id)!=cHttpConnection::s_Sessions.end())

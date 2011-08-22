@@ -3,8 +3,8 @@ CFLAGS = -std=c++0x -c -g -Wall -I /usr/include/boost
 LFLAGS = -lboost_thread-mt -lboost_date_time
 GCC = /opt/usr/bin/g++
 
-engine_test: engine_test.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o
-	$(GCC) $(LFLAGS) engine_test.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o -o engine_test
+engine_test: engine_test.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o result.o
+	$(GCC) $(LFLAGS) engine_test.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o result.o -o engine_test
 
 engine_test.o: engine_test.cpp
 	$(GCC) $(CFLAGS) engine_test.cpp -o engine_test.o

@@ -1,7 +1,10 @@
 #include "pagebuilder.h"
 #include "../../engine/result.h"
 #include "../../engine/logger.h"
+#include "../../engine/groupgen_command.h"
 #include <cassert>
+#include "../../lib/std_ex.h"
+#include <sstream>
 
 namespace http_server
 {
@@ -39,6 +42,7 @@ cPageBuilder::cPageBuilder()
 	m_IdPosition = m_IndexFileStr.find("00");
 	assert(m_IdPosition != std::string::npos);
 	File.close();
+	m_IdSize = 2;
 
 	//cache css file
 	File.open(CSS_PAGE, std::ios::binary);
@@ -65,7 +69,9 @@ cPageBuilder::cPageBuilder()
 
 const std::string& cPageBuilder::GetIndexPage(const unsigned int session_id)
 {
-	return m_IndexFileStr.replace(m_IdPosition, 2, boost::lexical_cast<std::string>(session_id));
+	int old_size = m_IdSize;
+	m_IdSize = std_ex::numDigits<std::size_t>(session_id);
+	return m_IndexFileStr.replace(m_IdPosition, old_size, boost::lexical_cast<std::string>(session_id));
 };
 
 const std::string& cPageBuilder::GetPageResource(const std::string& resource)const
@@ -103,8 +109,25 @@ const std::string cPageBuilder::GetWebglConstent(const std::string &webglcontent
 
 const std::string cPageBuilder::GetPage(const cResult &result, const unsigned int ses_id)const
 {
-	//TODO
-	return "";
+	std::string result_str;
+	const cGroupGenCommand *command= dynamic_cast<const cGroupGenCommand*>(result.GetCommand());
+	if(command && (SYMMETRIC_GROUP == command->GetGroupType()))
+	{
+		result_str = "<ul id='list-elem'>";
+		std::string perm_str;
+		std::stringstream ss;
+		std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
+		for(std::size_t index = 0; index < elements.size(); index++)
+		{
+			ss.str("");
+			ss<<elements[index];
+			perm_str = ss.str();
+			perm_str.replace(perm_str.find("\n"), 1, "</br>");
+			result_str += "<li>" + perm_str + "</li>";
+		}
+		result_str += "</ul>";
+	}
+	return result_str;
 };
 
 const std::string cPageBuilder::GetLoadingPage(const unsigned int estimation, const unsigned int ses_id)const

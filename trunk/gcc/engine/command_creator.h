@@ -24,11 +24,14 @@ class cCreator
 public:
 	static cCommand *GetCommand(COMMAND_TYPE command, const std::string& param, cResult* result)
 	{
+		cCommand *pcommand;
 		if(GET_ELEMENTS == command)
-			return new cGetElemCommand(param, result);
+			pcommand = new cGetElemCommand(param, result);
 		else if(GET_NORMALIZER == command)
-			return new cGetSubgrpCommand(param, result);
-		return NULL;
+			pcommand = new cGetSubgrpCommand(param, result);
+		result->SetCommand(pcommand);
+
+		return pcommand;
 	};
 };
 
