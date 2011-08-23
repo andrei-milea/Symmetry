@@ -1,5 +1,4 @@
 
-
 /* button style*/
 .sbutton{
 padding: 0px;
@@ -68,6 +67,7 @@ width: 25em;
 padding:2% 2% 2% 2%;
 background:#666;
 color:#fff;
+z-index:-1;
 }
 
 #grp_div_id
