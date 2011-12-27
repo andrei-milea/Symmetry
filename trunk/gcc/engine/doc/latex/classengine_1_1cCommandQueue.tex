@@ -1,0 +1,83 @@
+\hypertarget{classengine_1_1cCommandQueue}{
+\section{engine\-:\-:c\-Command\-Queue \-Class \-Reference}
+\label{classengine_1_1cCommandQueue}\index{engine\-::c\-Command\-Queue@{engine\-::c\-Command\-Queue}}
+}
+
+
+\-Collaboration diagram for engine\-:\-:c\-Command\-Queue\-:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classengine_1_1cCommandQueue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a1d60f01d5e9bd4d17c892257e20b2b89}{
+void {\bfseries \-Put} (\hyperlink{classengine_1_1cCommand}{c\-Command} $\ast$command)}
+\label{classengine_1_1cCommandQueue_a1d60f01d5e9bd4d17c892257e20b2b89}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a7979f6e2a55a331083c879f4265895f5}{
+\hyperlink{classengine_1_1cCommand}{c\-Command} $\ast$ {\bfseries \-Remove} ()}
+\label{classengine_1_1cCommandQueue_a7979f6e2a55a331083c879f4265895f5}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a727d36f68de37caba84869e3f973ccbc}{
+bool {\bfseries \-Empty} ()}
+\label{classengine_1_1cCommandQueue_a727d36f68de37caba84869e3f973ccbc}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_af6b95fb876418671d6285ee368abca25}{
+std\-::size\-\_\-t {\bfseries \-Get\-Size} ()}
+\label{classengine_1_1cCommandQueue_af6b95fb876418671d6285ee368abca25}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Protected \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a3e66c5c4390594c00276229ddf2d3e39}{
+void {\bfseries \-Put\-\_\-i} (\hyperlink{classengine_1_1cCommand}{c\-Command} $\ast$command)}
+\label{classengine_1_1cCommandQueue_a3e66c5c4390594c00276229ddf2d3e39}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_acaee2664e59c4e91aeeac18066df9716}{
+\hyperlink{classengine_1_1cCommand}{c\-Command} $\ast$ {\bfseries \-Remove\-\_\-i} ()}
+\label{classengine_1_1cCommandQueue_acaee2664e59c4e91aeeac18066df9716}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a7c8a6bd8dae5c050634cededcb77ef4d}{
+bool {\bfseries \-Empty\-\_\-i} () const }
+\label{classengine_1_1cCommandQueue_a7c8a6bd8dae5c050634cededcb77ef4d}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a2b729f6d9866c6e9b50e142f7e475b05}{
+std\-::size\-\_\-t {\bfseries \-Get\-Size\-\_\-i} () const }
+\label{classengine_1_1cCommandQueue_a2b729f6d9866c6e9b50e142f7e475b05}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cCommandQueue_acab17ed41f5114d5baaf14a6f8641e96}{
+std\-::queue$<$ \hyperlink{classengine_1_1cCommand}{c\-Command} $\ast$ $>$ {\bfseries m\-\_\-\-Queue}}
+\label{classengine_1_1cCommandQueue_acab17ed41f5114d5baaf14a6f8641e96}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a3382d012fe90188199630bef438d7901}{
+boost\-::mutex {\bfseries m\-\_\-\-Mutex}}
+\label{classengine_1_1cCommandQueue_a3382d012fe90188199630bef438d7901}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a7edc3ed909364aca4956ff6b8d95b912}{
+boost\-::condition\-\_\-variable {\bfseries m\-\_\-\-Not\-Empty\-Cond}}
+\label{classengine_1_1cCommandQueue_a7edc3ed909364aca4956ff6b8d95b912}
+
+\end{DoxyCompactItemize}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+command\-\_\-queue.\-h\item 
+command\-\_\-queue.\-cpp\end{DoxyCompactItemize}
