@@ -1,0 +1,152 @@
+\hypertarget{classcCayleyGrf}{
+\section{c\-Cayley\-Grf$<$ \-G $>$ \-Class \-Template \-Reference}
+\label{classcCayleyGrf}\index{c\-Cayley\-Grf$<$ G $>$@{c\-Cayley\-Grf$<$ G $>$}}
+}
+
+
+\-Collaboration diagram for c\-Cayley\-Grf$<$ \-G $>$\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classcCayleyGrf__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classcCayleyGrf_1_1cColourEdgesVis}{c\-Colour\-Edges\-Vis}
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcCayleyGrf_aa6ec3ba98e73a5c244786d88e05dc380}{
+typedef boost\-::adjacency\-\_\-list\*
+$<$ boost\-::list\-S, boost\-::vec\-S, \*
+boost\-::directed\-S, \-Elem\-Type, \*
+std\-::pair$<$ \-Elem\-Type, bool $>$ $>$ {\bfseries \-Graph}}
+\label{classcCayleyGrf_aa6ec3ba98e73a5c244786d88e05dc380}
+
+\item 
+\hypertarget{classcCayleyGrf_a96e2347884f970817ad4f941ff85f478}{
+typedef \-G\-::\-Element\-Type {\bfseries \-Elem\-Type}}
+\label{classcCayleyGrf_a96e2347884f970817ad4f941ff85f478}
+
+\item 
+\hypertarget{classcCayleyGrf_a1ef27f6e825137691b820322094745b3}{
+typedef boost\-::graph\-\_\-traits\*
+$<$ \-Graph $>$\-::vertex\-\_\-descriptor {\bfseries \-Vertex}}
+\label{classcCayleyGrf_a1ef27f6e825137691b820322094745b3}
+
+\item 
+\hypertarget{classcCayleyGrf_abade7422415758e7d2699ccfa052accb}{
+typedef boost\-::graph\-\_\-traits\*
+$<$ \-Graph $>$\-::edge\-\_\-descriptor {\bfseries \-Edge}}
+\label{classcCayleyGrf_abade7422415758e7d2699ccfa052accb}
+
+\item 
+\hypertarget{classcCayleyGrf_a8a2a9d7e45de509f97daf663b6827496}{
+typedef boost\-::graph\-\_\-traits\*
+$<$ \-Graph $>$\-::vertex\-\_\-iterator {\bfseries \-Vertex\-Iterator}}
+\label{classcCayleyGrf_a8a2a9d7e45de509f97daf663b6827496}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcCayleyGrf_ac94c0ddf2262aab4ce17454fb10e7286}{
+{\bfseries c\-Cayley\-Grf} (std\-::vector$<$ \-Elem\-Type $>$ \&elements, std\-::vector$<$ \-Elem\-Type $>$ \&generators)}
+\label{classcCayleyGrf_ac94c0ddf2262aab4ce17454fb10e7286}
+
+\item 
+\hypertarget{classcCayleyGrf_a6f1bc787dd952aae0b5e5d4d6d39fe35}{
+{\bfseries c\-Cayley\-Grf} (\-G \&group)}
+\label{classcCayleyGrf_a6f1bc787dd952aae0b5e5d4d6d39fe35}
+
+\item 
+\hypertarget{classcCayleyGrf_ae597aa2fce821346c6f3976e70eb6a75}{
+{\bfseries c\-Cayley\-Grf} (const \hyperlink{classcCayleyGrf}{c\-Cayley\-Grf} \&graph)}
+\label{classcCayleyGrf_ae597aa2fce821346c6f3976e70eb6a75}
+
+\item 
+\hypertarget{classcCayleyGrf_a31a02f7a0e7702fe953409f7f82888be}{
+\hyperlink{classcCayleyGrf}{c\-Cayley\-Grf} \& {\bfseries operator=} (const \hyperlink{classcCayleyGrf}{c\-Cayley\-Grf} \&graph)}
+\label{classcCayleyGrf_a31a02f7a0e7702fe953409f7f82888be}
+
+\item 
+\hypertarget{classcCayleyGrf_a4a0ff02aa7bb9d556456b34e9f66f3d9}{
+void {\bfseries \-Build\-Graph} ()}
+\label{classcCayleyGrf_a4a0ff02aa7bb9d556456b34e9f66f3d9}
+
+\item 
+\hypertarget{classcCayleyGrf_a8517436f6101a294fa7f30355efaa196}{
+void {\bfseries \-Build\-Def\-Relations} ()}
+\label{classcCayleyGrf_a8517436f6101a294fa7f30355efaa196}
+
+\item 
+\hypertarget{classcCayleyGrf_a91d254c855766847a3624403cf9144f2}{
+std\-::vector$<$ \-Elem\-Type $>$ \& {\bfseries \-Get\-Elements} () const }
+\label{classcCayleyGrf_a91d254c855766847a3624403cf9144f2}
+
+\item 
+\hypertarget{classcCayleyGrf_aa79022e7605d3630cdbacf069301e1d3}{
+std\-::vector$<$ \-Elem\-Type $>$ \& {\bfseries \-Get\-Generators} () const }
+\label{classcCayleyGrf_aa79022e7605d3630cdbacf069301e1d3}
+
+\item 
+\hypertarget{classcCayleyGrf_ae6e48ed5970d0b1f3a045666b18dfdb3}{
+const std\-::vector$<$ \hyperlink{classcRelation}{c\-Relation} $>$ \& {\bfseries \-Get\-Def\-Relations} () const }
+\label{classcCayleyGrf_ae6e48ed5970d0b1f3a045666b18dfdb3}
+
+\item 
+\hypertarget{classcCayleyGrf_aeb4d8533b65921ca63fdaaf4516f92f6}{
+\-Graph $\ast$ {\bfseries \-Get\-Graph} () const }
+\label{classcCayleyGrf_aeb4d8533b65921ca63fdaaf4516f92f6}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcCayleyGrf_a5aef2537b624f06052dc852890b37048}{
+void {\bfseries \-Add\-\_\-\-Def\-Relation} (const \-Edge \&edge)}
+\label{classcCayleyGrf_a5aef2537b624f06052dc852890b37048}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcCayleyGrf_af4c3fa359332e9097ad511da6df21e01}{
+std\-::vector$<$ \-Elem\-Type $>$ {\bfseries m\-\_\-\-Elements}}
+\label{classcCayleyGrf_af4c3fa359332e9097ad511da6df21e01}
+
+\item 
+\hypertarget{classcCayleyGrf_aa0263f38d2605e8b1c43830af0dd7d9b}{
+std\-::vector$<$ \-Elem\-Type $>$ {\bfseries m\-\_\-\-Generators}}
+\label{classcCayleyGrf_aa0263f38d2605e8b1c43830af0dd7d9b}
+
+\item 
+\hypertarget{classcCayleyGrf_a8ac7f5226ca5868bfb9bbfbd10021981}{
+\-Graph $\ast$ {\bfseries m\-\_\-\-Graph}}
+\label{classcCayleyGrf_a8ac7f5226ca5868bfb9bbfbd10021981}
+
+\item 
+\hypertarget{classcCayleyGrf_a89075c8eb6020ede50c560e0c661f149}{
+std\-::vector$<$ \hyperlink{classcRelation}{c\-Relation} $>$ {\bfseries m\-\_\-\-Def\-Relations}}
+\label{classcCayleyGrf_a89075c8eb6020ede50c560e0c661f149}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcCayleyGrf_a335728ff704ed565af614d4eadbc4609}{
+std\-::ostream \& {\bfseries operator$<$$<$} (std\-::ostream \&out, const \hyperlink{classcCayleyGrf}{c\-Cayley\-Grf} \&graph)}
+\label{classcCayleyGrf_a335728ff704ed565af614d4eadbc4609}
+
+\end{DoxyCompactItemize}
+\subsubsection*{template$<$typename G$>$ class c\-Cayley\-Grf$<$ G $>$}
+
+
+
+\-The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+cayley\-\_\-graph.\-h\end{DoxyCompactItemize}
