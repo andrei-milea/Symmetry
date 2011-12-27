@@ -5,10 +5,13 @@
 #include "intmodn.h"
 #include "permutation.h"
 
-/*****************************************
- * class for group element representation
-*****************************************/
 
+/*!
+  generic class that represents a group element
+  must be instatiated with the concrete element type and
+  the binary operation(used as a policy) that is going
+  to used with the element
+*/
 template <typename T, typename BinaryOp>
 class cGroupElem : public T
 {
@@ -43,7 +46,6 @@ public:
 	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////////////////
 
-	//copy constructor and assign operator
 	cGroupElem(const SelfType &group_elem)
 	{
 		T::operator=(group_elem);
@@ -62,6 +64,11 @@ public:
 	{
 	};
 
+	/*!
+	  returns the identity element corresponding to the given element 
+	  type and the binary operation
+	  Complexity: O(n) multiplications and comparisons, where n is the order
+	*/
 	std::size_t GetOrder()const
     {
 		std::size_t size = 1;
@@ -74,7 +81,13 @@ public:
 		return size;
     };
 
-	std::size_t GetOrder(std::size_t group_order)//const
+	/*!
+	  returns the identity element corresponding to the given element 
+	  type and the binary operation using the given group order
+	  Complexity: O(n) multiplication and d comparisons, where n is the order,
+	  and d is the number of divisors of the order of the group
+	*/
+	std::size_t GetOrder(std::size_t group_order)
 	{
 		for(unsigned int d=1; d<=group_order; d++)
 		{
@@ -89,6 +102,11 @@ public:
 		return 0;
 	};
 
+
+	/*!
+	  returns the inverse of the element according to the 
+	  given binaryu operation
+	*/
 	SelfType GetInverse()const
 	{
 		if(BinaryOp::isAdditive)
@@ -101,17 +119,27 @@ public:
 		}
 	};
 
+	/*!
+	  returns the nth power of the element
+	*/
 	SelfType GetNthPower(std::size_t n)const
 	{
 		return GetNthPower(n,*this);
 	};
 
-/////PROPERTIES//////
+	/*!
+	  return true if the element commutes with the element
+	  given as parameter
+	*/
 	bool CommutesWith(const SelfType &element)const
 	{
 		return( m_BinOp((*this), element) == m_BinOp(element, (*this)) );
 	};
 
+	/*!
+	  returns true if the element is a normalizer for the list of
+	  elements given as parameter
+	*/
 	bool IsNormalizer(const std::vector<SelfType> &elements)const
 	{
 		for(std::size_t index = 0; index < elements.size(); index++)
@@ -126,6 +154,9 @@ public:
 		return true;
 	};
 
+	/*!
+	  returns the identity of the element type according to the binary operation
+	*/
 	SelfType GetIdentity()const
 	{
 		BinaryOp _BinOp;
@@ -138,6 +169,10 @@ public:
 	};
 
 private:
+	/*!
+	  recursive function that actually computes the nth power
+	  Complexity: \f$ O(log_2(n)) \f$
+	*/
 	SelfType GetNthPower(std::size_t n, const SelfType &element)const
 	{
 		if(0 == n)
@@ -155,6 +190,9 @@ private:
 	BinaryOp m_BinOp;
 };
 
+/*!
+  typedef for symmetric group element
+*/
 typedef cGroupElem< cPermElem, Multiplication> SymmGrpElem;
 
 #endif

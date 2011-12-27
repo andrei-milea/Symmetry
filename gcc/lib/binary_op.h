@@ -7,9 +7,12 @@
 
 #ifndef _BINARY_OP_H
 #define _BINARY_OP_H
-// Group operation policies
 
 
+/*!
+  class that represents the addition binary operation
+  used also as a template policy
+*/
 class Addition 
 {
 public:
@@ -26,6 +29,10 @@ public:
 	static const bool isComposition = false;
 };
 
+/*!
+  class that represents the multiplication binary operation
+  used also as a template policy
+*/
 class Multiplication 
 {
 public:
@@ -41,6 +48,11 @@ public:
 	static const bool isComposition = false;
 };
 
+
+/*!
+  class that represents the composition binary operation
+  used also as a template policy
+*/
 class Composition 
 {
 public:

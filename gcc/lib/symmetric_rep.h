@@ -11,17 +11,18 @@
 #include "std_ex.h"
 
 
-//symmertric group internal representation
-//used only from cGroup
+/*!
+  symmetric group internal representation class
+  used only from cGroup
+*/
 template <typename T>
 class cSymmetricRep
 {
 public:
-	typedef typename std::vector<T>::iterator Iter;
-	typedef typename std::vector<T>::const_iterator IterC;
 	typedef cSymmetricRep<T> SelfType;
 
 public:
+
 	//constructors
 	cSymmetricRep()
 	{};
@@ -33,8 +34,7 @@ public:
 
 	cSymmetricRep(std::initializer_list<T> perm_list)
 	{
-		for(typename std::initializer_list<T>::iterator iter = perm_list.begin();
-			   	iter < perm_list.end()-1; iter++)
+		for(auto iter = perm_list.begin(); iter < perm_list.end()-1; iter++)
 		{
 			m_GenSet.push_back(*iter);
 		}
@@ -57,7 +57,7 @@ public:
 	friend std::ostream& operator<<(std::ostream& out,const SelfType &group_rep)
 	{
 		out<<"< \n";
-		for(IterC iter = group_rep.m_GenSet.begin(); iter != group_rep.m_GenSet.end(); iter++)
+		for(auto iter = group_rep.m_GenSet.begin(); iter != group_rep.m_GenSet.end(); iter++)
 		{
 			out<<*iter<<"\n";
 		}
@@ -77,8 +77,7 @@ public:
 		elements.push_back(GetIdentity());
 		for( std::size_t index = 0; index < elements.size(); index++)
 		{
-			for(IterC set_iter = m_GenSet.begin();
-				set_iter != m_GenSet.end(); set_iter++)
+			for(auto set_iter = m_GenSet.begin(); set_iter != m_GenSet.end(); set_iter++)
 			{
 				T element = (*set_iter) * elements[index];
 				if(find(elements.begin(), elements.end(), element) == elements.end())
@@ -103,7 +102,7 @@ public:
 		std::vector<T> elements = GetCyclicSubgroup(*m_GenSet.begin());
 	
 		//inductive step
-		for(IterC it = (m_GenSet.begin() + 1); it != m_GenSet.end(); it++)
+		for(auto it = (m_GenSet.begin() + 1); it != m_GenSet.end(); it++)
 		{
 			if(find(elements.begin(),elements.end(),*it) == elements.end())
 			{
@@ -119,7 +118,7 @@ public:
 				std::size_t rep_pos = prev_order + 1;	//cosset rep position
 				while(true)
 				{
-					for(IterC it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
+					for(auto it1 = m_GenSet.begin(); it1 != m_GenSet.end(); it1++)
 					{
 						T element = elements[rep_pos] * (*it1);
 						if(find(elements.begin(), elements.end(), element) == elements.end())
@@ -151,7 +150,7 @@ public:
 
 		for(std::size_t index = 0; index < orbit.size(); index++)
 		{
-			for(IterC it1 = elements.begin(); it1 != elements.end(); it1++)
+			for(auto it1 = elements.begin(); it1 != elements.end(); it1++)
 			{
 				std::size_t image = it1->GetImage(orbit[index]);
 				if(find(orbit.begin(), orbit.end(), image) == orbit.end())
