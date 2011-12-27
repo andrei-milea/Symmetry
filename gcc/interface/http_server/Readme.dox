@@ -1,0 +1,9 @@
+/**
+
+@mainpage HTTP SERVER
+
+@author ANDREI MILEA
+
+Custom http server used to connect the web GUI to the library.
+
+*/
