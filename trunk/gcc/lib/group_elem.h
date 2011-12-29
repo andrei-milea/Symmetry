@@ -47,16 +47,13 @@ public:
 	////////////////////////////////////////////////////////////
 
 	cGroupElem(const SelfType &group_elem)
+		:T(group_elem)
 	{
-		T::operator=(group_elem);
 	};
 
 	SelfType &operator=(const SelfType &elem)
 	{
-		if(this != &elem)
-		{
-			T::operator=(elem);
-		}
+		T::operator=(elem);
 		return *this;
 	};
 	

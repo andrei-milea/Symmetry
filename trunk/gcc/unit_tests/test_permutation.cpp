@@ -81,4 +81,10 @@ BOOST_AUTO_TEST_CASE(test_perm_trivial)
     BOOST_CHECK(perm4.GetIdentity(1) == perm1);
 }
 
+BOOST_AUTO_TEST_CASE(test_perm_inversions)
+{
+	cPermElem perm1({2, 3, 8, 6, 1});
+	BOOST_CHECK(perm1.GetInversions() == 5);
+}
+
 

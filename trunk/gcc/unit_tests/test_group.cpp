@@ -99,35 +99,11 @@ BOOST_AUTO_TEST_CASE(test_s3_normalizer_el)
 	cGroupElem< cPermElem, Multiplication> elem_a2(a2);
 	std::vector< cGroupElem< cPermElem, Multiplication> > a3_el;
 
-	a3_el.push_back(g1.GetIdentity());
-	a3_el.push_back(elem_a1);
-	a3_el.push_back(elem_a2);
-	S3 a3(a3_el);
-	cSubgroup<S3> A3(a3_el);
-	normalizer_el = g1.GetNormalizerEl(A3);
-
-	BOOST_ASSERT(std_ex::set_equality(normalizer_el, g1.GetElementsDimino()));
-
 	std::vector< cGroupElem< cPermElem, Multiplication> > iden_el;
 	iden_el.push_back(g1.GetIdentity());
 	cSubgroup<S3> iden(iden_el);
 	S3 g2(g1.GetNormalizer(iden));
 	BOOST_ASSERT(std_ex::set_equality(g1.GetElementsDimino(), g2.GetElementsDimino()));
-};
-
-BOOST_AUTO_TEST_CASE(test_d8_normalizer_el)
-{
-
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
-
-	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
-	D8.AddGenerator(elt5);
-	D8.AddGenerator(elt2);
-	std::vector< cGroupElem<cPermElem, Multiplication> > elts_subgrp = D8.GetCenterEl();
-
-	//the whole subgroup normalizes the center
-	BOOST_ASSERT(std_ex::set_equality(D8.GetNormalizerEl(elts_subgrp), D8.GetElementsDimino()));
 };
 
 
