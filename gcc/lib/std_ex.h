@@ -11,7 +11,9 @@ namespace std_ex
 	* set operations 
 	*****************************************/
 	
-//tests if set2 constains set1
+/*!
+  tests if set2 constains set1
+*/
 template <typename SET_REP>
 bool set_inclusion(SET_REP &set1, SET_REP &set2)	//set2 contains set1 ?
 {
@@ -24,7 +26,9 @@ bool set_inclusion(SET_REP &set1, SET_REP &set2)	//set2 contains set1 ?
 	return true;
 };
 
-//test 2 sets for equality
+/*!
+  test 2 sets for equality
+*/
 template <typename SET_REP>
 bool set_equality(const SET_REP &set1, const SET_REP &set2)
 {
@@ -39,8 +43,10 @@ bool set_equality(const SET_REP &set1, const SET_REP &set2)
 	return true;
 };
 
-//set difference 
-//returns the first set without the elements of the second set
+/*!
+  set difference 
+  returns the first set without the elements of the second set
+*/
 template <typename SET_REP>
 SET_REP& set_difference(SET_REP &set1, const SET_REP &set2)
 {
@@ -53,8 +59,10 @@ SET_REP& set_difference(SET_REP &set1, const SET_REP &set2)
 	return set1;
 };
 
-//set intersection 
-//returns a new constructed set with common elements
+/*!
+  set intersection 
+  returns a new constructed set with common elements
+*/
 template <typename SET_REP>
 SET_REP set_intersection(SET_REP &set1, const SET_REP &set2)
 {
@@ -98,7 +106,9 @@ void print_vector(const std::vector<T>& vec)
 };
 
 
-//number of digits in a number
+/*!
+  number of digits in a number
+*/
 template <class T>
 int numDigits(T number)
 {

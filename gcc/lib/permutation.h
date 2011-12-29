@@ -22,18 +22,16 @@ public:
 	  default constructor for empty permutation
 	*/
 	cPermElem()
-		:m_PermArray(nullptr),
-			m_Size(0)
+		:m_PermArray(nullptr)
 	{};
 
 	/*!
 	  constructor for identity permutation
 	*/
 	cPermElem(std::size_t size)
-		:m_PermArray(nullptr),
-		m_Size(size)
+		:m_PermArray(nullptr)
 	{
-		m_PermArray = new std::vector<std::size_t>(m_Size);
+		m_PermArray = new std::vector<std::size_t>(size);
 		for(std::size_t index = 0; index < size; index++)
 		{
 			(*m_PermArray)[index] = index + 1;
@@ -49,15 +47,14 @@ public:
 	cPermElem(std::size_t size, const std::initializer_list<std::size_t> &perm_sq)
 		:m_PermArray(nullptr)
 	{
-		m_Size = size;
-		m_PermArray = new std::vector<std::size_t>(m_Size);
-		for(std::size_t index = 0; index < m_Size; index++)
+		m_PermArray = new std::vector<std::size_t>(size);
+		for(std::size_t index = 0; index < size; index++)
 		{
 			(*m_PermArray)[index] = index + 1;
 		}
 		for(auto iter = perm_sq.begin(); iter != perm_sq.end()-1; iter++)
 		{
-			if(*iter <= m_Size && *iter != 0)
+			if(*iter <= size && *iter != 0)
 			{
 				(*m_PermArray)[(*iter) - 1] = *(iter+1);
 			}
@@ -74,8 +71,7 @@ public:
 	cPermElem(const std::initializer_list<std::size_t> &perm_sq)
 		:m_PermArray(nullptr)
 	{
-		m_Size = perm_sq.size();
-		m_PermArray = new std::vector<std::size_t>(m_Size);
+		m_PermArray = new std::vector<std::size_t>(perm_sq.size());
 
 		std::size_t index = 0;
 		for(auto iter = perm_sq.begin(); iter != perm_sq.end(); iter++)
@@ -93,8 +89,7 @@ public:
 	cPermElem(std::vector<std::size_t> &perm_sq)
 		:m_PermArray(nullptr)
 	{
-		m_Size = perm_sq.size();
-		m_PermArray = new std::vector<std::size_t>(m_Size);
+		m_PermArray = new std::vector<std::size_t>(perm_sq.size());
 
 		std::size_t index = 0;
 		for(auto iter = perm_sq.begin(); iter != perm_sq.end(); iter++)
@@ -111,12 +106,9 @@ public:
 	*/
 	cPermElem(const cPermElem &permutation)
 	{
-		m_Size = permutation.GetSize(); 
-		if(0 != m_Size)
+		if(this != &permutation && 0 != permutation.GetSize())
 		{
-			if(nullptr != m_PermArray)
-				delete m_PermArray;
-			m_PermArray = new std::vector<std::size_t>(m_Size);
+			m_PermArray = new std::vector<std::size_t>(permutation.GetSize());
 			(*m_PermArray) = (*permutation.GetPermutationArray());
 		}
 		else
@@ -126,12 +118,11 @@ public:
 	};
 	cPermElem& operator=(const cPermElem &permutation)
 	{
-		m_Size = permutation.GetSize(); 
-		if(0 != m_Size)
+		if(this != &permutation && 0 != permutation.GetSize())
 		{
 			if(nullptr != m_PermArray)
 				delete m_PermArray;
-			m_PermArray = new std::vector<std::size_t>(m_Size);
+			m_PermArray = new std::vector<std::size_t>(permutation.GetSize());
 			(*m_PermArray) = (*permutation.GetPermutationArray());
 		}
 		else
@@ -143,7 +134,7 @@ public:
 
 	~cPermElem()
 	{
-		if(m_PermArray)
+		if(nullptr != m_PermArray)
 			delete m_PermArray;
 	};
 
@@ -162,9 +153,9 @@ public:
 	*/
 	cPermElem operator*(const cPermElem &perm)const
 	{
-		assert(perm.GetSize() == m_Size);
-		std::vector<std::size_t> temp_perm(m_Size);
-		for(std::size_t index = 0; index < m_Size; index++)
+		assert(perm.GetSize() == m_PermArray->size());
+		std::vector<std::size_t> temp_perm(m_PermArray->size());
+		for(std::size_t index = 0; index < m_PermArray->size(); index++)
 		{
 			temp_perm[index] = (*perm.GetPermutationArray())[(*m_PermArray)[index] - 1];
 		}
@@ -173,9 +164,9 @@ public:
 
 	bool operator==(const cPermElem &perm)const
 	{
-		if(perm.GetSize() != m_Size)
+		if(nullptr == m_PermArray || perm.GetSize() != m_PermArray->size())
 			return false;
-		for(std::size_t index = 0; index < m_Size; index++)
+		for(std::size_t index = 0; index < m_PermArray->size(); index++)
 		{
 			if((*m_PermArray)[index] != (*perm.GetPermutationArray())[index])
 			{
@@ -194,7 +185,7 @@ public:
 	{
 		std::string perm_index;
 		std::string perm_val;
-		for(std::size_t index = 0; index < perm.m_Size; index++)
+		for(std::size_t index = 0; index < perm.GetSize(); index++)
 		{
 			perm_index += boost::lexical_cast<std::string>(index+1) + " ";
 			perm_val += boost::lexical_cast<std::string>((*perm.GetPermutationArray())[index]) + " ";
@@ -217,8 +208,8 @@ public:
 	*/
 	cPermElem GetMultInverse()const
 	{
-		std::vector<std::size_t> perm_array(m_Size);
-		for(std::size_t index = 0; index < m_Size; index++) 
+		std::vector<std::size_t> perm_array(m_PermArray->size());
+		for(std::size_t index = 0; index < m_PermArray->size(); index++) 
 		{
 			 perm_array[(*m_PermArray)[index] - 1] = index + 1;
 		}
@@ -235,12 +226,7 @@ public:
 
 	std::size_t GetSize()const
 	{
-		return m_Size;
-	};
-
-	void SetSize(const std::size_t size)
-	{
-		m_Size = size;
+		return m_PermArray->size();
 	};
 
 	/*!
@@ -250,13 +236,78 @@ public:
 	template <typename BINOP>
 	cPermElem GetIdentity(BINOP binop)const
 	{
-		return cPermElem(m_Size);
+		return cPermElem(m_PermArray->size());
+	};
+
+	/*!
+	  returns the number of inverses: "inverse" if i < j and A[i] > A[j]
+	  modified merge sort => Complexity: O(nlgn)
+	*/
+	std::size_t GetInversions()const
+	{
+		std::size_t inversions = 0;
+		std::vector<std::size_t> temp = *m_PermArray;
+		CountInversions(temp.begin(), temp.end(), inversions);
+		return inversions;
+	};
+
+private:
+	/*!
+	  helper function for GetInversions -- modified merge sort
+   	  Complexity: O(nlgn)
+	*/
+	void CountInversions(std::vector<std::size_t>::iterator begin, std::vector<std::size_t>::iterator end,
+			std::size_t &inversions)const
+	{
+		std::size_t size = end - begin;
+		if(size < 2)
+			return;
+		std::vector<std::size_t>::iterator begin_right = begin + size/2;
+		CountInversions(begin, begin_right, inversions);
+		CountInversions(begin_right, end, inversions);
+		MergeInversions(begin, begin_right, end, inversions);
+	};
+
+	/*!
+	  equivalent to merge procedure from merge sort
+	  Complexity: O(n)
+	*/
+	void MergeInversions(std::vector<std::size_t>::iterator begin, std::vector<std::size_t>::iterator begin_right,
+			std::vector<std::size_t>::iterator end, std::size_t &inversions)const
+	{
+		std::size_t size_left = begin_right - begin;
+		std::vector<std::size_t> leftArray(begin, begin_right);
+		leftArray.push_back(INT_MAX);	//sentinel
+		std::vector<std::size_t> rightArray(begin_right, end);
+		rightArray.push_back(INT_MAX);	//sentinel
+
+		int i = 0, j = 0;
+		bool counted = false;
+		while(begin != end)
+		{
+			if( (false == counted) && (rightArray[j] < leftArray[i]) )
+			{
+				inversions += size_left - i;
+				counted = true;
+			}
+			if(leftArray[i] <= rightArray[j])	
+			{
+				*begin = leftArray[i];
+				i++;
+			}
+			else
+			{
+				*begin = rightArray[j];
+				j++;
+				counted = false;
+			}
+			begin++;
+		}
 	};
 
 
 private:
 	std::vector<std::size_t> *m_PermArray;
-	std::size_t m_Size;
 };
 
 
