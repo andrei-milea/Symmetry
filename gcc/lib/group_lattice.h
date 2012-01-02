@@ -9,6 +9,9 @@
 #include "std_ex.h"
 #include "subgroup.h"
 
+/*!
+  this class is under construction (not working yet)
+*/
 template <typename G>
 class cGrpLattice
 {

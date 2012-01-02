@@ -14,6 +14,7 @@
 /*!
   symmetric group internal representation class
   used only from cGroup
+  TODO -- add elements member + GetElements method (cache)
 */
 template <typename T>
 class cSymmetricRep
@@ -87,6 +88,7 @@ public:
 	  Complexity: O(n^2*m), where n is the number of elements and m is
 	  the number of generators
 	  TODO - by improving the data structure we could improve the find operation
+	  see Butler - "Fundamental Algorithms for permutation groups"
 	*/
 	std::vector<T> GetElementsNaive()const
 	{
@@ -110,6 +112,7 @@ public:
 	/*!
 	  returns the group elements by performing the Dimino algorithm
 	  TODO - Complexity: 
+	  see Butler - "Fundamental Algorithms for permutation groups"
 	*/
 	std::vector<T> GetElementsDimino()const
 	{
