@@ -10,7 +10,11 @@
 #include "subgroup.h"
 #include "std_ex.h"
 
-//group class
+/*!
+  this class represents a group given by a set of generators
+  it uses an internal representation given by the group_rep
+  template parameter and the type element T
+*/
 template < typename T, template <typename> class group_rep = cGenRep >
 class cGroup : public group_rep<T>
 {
@@ -35,12 +39,18 @@ public:
 
     ~cGroup()   {};
 
+	/*!
+	  TODO implement this ?
+	  returns true if the group is soluble
+	*/
 	bool isSoluble()const
 	{
-		//TODO
 		return true;
 	};
 
+	/*!
+	  returns the centralizer subgroup of the group using the given subgroup
+	*/
 	cSubgroup<SelfType> GetCentralizer(const cSubgroup<SelfType> &_subgrp)const
 	{
 		cSubgroup<SelfType> subgroup(GetCentralizerEl(_subgrp));
@@ -48,6 +58,10 @@ public:
 		return subgroup;
 	};
 
+	/*!
+	  returns the center subgroup of the group Z(G), the elements that comute with all the 
+	  elements of the group
+	*/
 	cSubgroup<SelfType> GetCenter()const
 	{
 		cSubgroup<SelfType> subgroup(GetCenterEl());
@@ -55,6 +69,9 @@ public:
 		return subgroup;
 	};
 	
+	/*!
+	  returns the normalizer subgroup, given a subgroup
+	*/
 	cSubgroup<SelfType> GetNormalizer(const cSubgroup<SelfType> &_subgrp)const
 	{
 		cSubgroup<SelfType> subgroup(GetNormalizerEl(_subgrp));
@@ -62,6 +79,9 @@ public:
 		return subgroup;
 	};
 
+	/*!
+	  returns the centralizer subgroup of a given element
+	*/
 	std::vector<ElementType> GetCentralizerEl(ElementType &element)const
 	{
 		typedef typename std::vector<ElementType>::iterator Elem_Iter ;
@@ -75,6 +95,9 @@ public:
 		return centralizer;
 	};
 
+	/*!
+	  returns the centralizer subgroup of the group as a list of elements
+	*/
 	std::vector<ElementType> GetCenterEl()const
 	{
 		GrpVec subgrp_el;
@@ -102,6 +125,10 @@ public:
 		return subgrp_el;	
 	};
 
+	/*!
+	  TODO -- check for bugs
+	  returns the normalizer subgroup of the given subgroup as a list of elements
+	*/
 	std::vector<ElementType> GetNormalizerEl(const cSubgroup<SelfType> &_subgrp)const
 	{
 		GrpVec normalizer_el;

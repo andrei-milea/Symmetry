@@ -21,6 +21,9 @@ test_std_ex: test_std_ex.cpp
 test_group: test_group.cpp
 	$(GCC) $(BFLAGS) test_group.cpp -o test_group
 
+test_cayley_grf: test_cayley_grf.cpp
+	$(GCC) $(BFLAGS) test_cayley_grf.cpp -o test_cayley_grf
+
 test_lattice: test_lattice.cpp
 	$(GCC) $(BFLAGS) test_lattice.cpp -o test_lattice
 
@@ -86,8 +89,8 @@ clean:
 	cd ../engine; make clean
 	cd ../interface/http_server; make clean
 	
-TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main test_server_main
-#test_lattice
+TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main
+#test_lattice 
 
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
 #CTAGS=etags -o tags

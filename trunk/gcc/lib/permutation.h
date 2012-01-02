@@ -226,7 +226,10 @@ public:
 
 	std::size_t GetSize()const
 	{
-		return m_PermArray->size();
+		if(nullptr != m_PermArray)
+			return m_PermArray->size();
+		else
+			return 0;
 	};
 
 	/*!
@@ -242,6 +245,7 @@ public:
 	/*!
 	  returns the number of inverses: "inverse" if i < j and A[i] > A[j]
 	  modified merge sort => Complexity: O(nlgn)
+	  see Cormen chapter 2 - exercises
 	*/
 	std::size_t GetInversions()const
 	{
