@@ -2,7 +2,7 @@ all: test_perm test_group_el test_symmetric test_std_ex test_group test_engine_m
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
 BFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 LFLAGS =-lboost_system -lboost_thread -lboost_date_time
-GCC = /opt/usr/bin/g++
+GCC = g++
 VPATH = ../interface/http_server:../engine
 
 
