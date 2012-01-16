@@ -1,7 +1,7 @@
 all:main	
 VPATH = ../../engine
 CFLAGS =-c -std=c++0x -g -Wall -I /usr/include/boost 
-LFLAGS =-lboost_system -lboost_thread-mt -lboost_date_time
+LFLAGS =-lboost_system -lboost_thread -lboost_date_time
 GCC = g++
 
 main:	main.o http_server.o http_connection.o http_request.o http_response.o connection_manager.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o result.o pagebuilder.o
