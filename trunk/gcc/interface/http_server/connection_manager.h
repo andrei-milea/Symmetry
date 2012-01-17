@@ -6,7 +6,9 @@
 
 namespace http_server
 {
-
+/*!
+  class that maintains a a set of connections
+*/
 class cConnectionManager : private boost::noncopyable
 {
 public:
