@@ -7,15 +7,29 @@
 
 namespace http_server
 {
-
+/*!
+  class that implements a http server using BOOST ASIO
+*/
 class cHttpServer : private boost::noncopyable
 {
 public:
+    /*!
+      initializes members and prepares for accepting connections
+    */ 
     cHttpServer(unsigned int port);
+    /*!
+      stops the server
+    */
     ~cHttpServer();
-
-	void Start();
-	void Stop();
+  
+    /*!
+      starts the server
+    */ 
+    void Start();
+    /*!
+      stops the server
+    */  
+    void Stop();
 
 private:
     void StartAccept();
