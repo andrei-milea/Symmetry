@@ -22,7 +22,7 @@ public:
 
 protected://methods
 	cCommand(const std::string& params, cResult* result)
-	: m_Result(result)
+		: m_Result(result)
 	{
 		m_Params = params;
 	};

@@ -37,7 +37,7 @@ cCommand* cCommandQueue::Remove()
 	{
 		m_NotEmptyCond.wait(lock);
 	}
-	
+
 	return Remove_i();
 };
 

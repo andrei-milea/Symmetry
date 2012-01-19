@@ -26,7 +26,7 @@ private:
 	cSession 	*m_Session;
 	cCommand 	*m_Command;
 	boost::any	m_Result;
-	
+
 };
 
 }

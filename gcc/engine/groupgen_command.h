@@ -21,9 +21,9 @@ namespace phoenix = boost::phoenix;
 
 enum GROUP_TYPE
 {
-	NONE = 0,
-	SYMMETRIC_GROUP,
-	D8
+    NONE = 0,
+    SYMMETRIC_GROUP,
+    D8
 };
 
 class cGroupGenCommand : public cCommand
@@ -42,11 +42,11 @@ public:
 	{
 		return m_Generators;
 	};
-	
+
 protected:
 	cGroupGenCommand(const std::string &params, cResult* result)
 		:cCommand(params, result),
-		m_GroupType(NONE)
+		 m_GroupType(NONE)
 	{
 		if(!ParseParams())
 		{
@@ -57,9 +57,9 @@ protected:
 	virtual bool ParseParams()
 	{
 		using qi::uint_;
-        using qi::_1;
+		using qi::_1;
 		using qi::string;
-        using phoenix::push_back;
+		using phoenix::push_back;
 		using phoenix::ref;
 		using ascii::char_;
 
@@ -68,16 +68,16 @@ protected:
 		AddGrpGen add_grp_gen(&Gen_vec, &m_Generators);
 
 		std::string::iterator iter = m_Params.begin();
-		bool result = qi::parse(iter, m_Params.end(), 
-					/////////gramar
-					( 
-					 group_type[ref(grp_type) = _1] >>
-					 *(char_('(')
-					 >> uint_[push_back(phoenix::ref(Gen_vec), _1)] % ','
-					 >> char_(')') [add_grp_gen])
-					)
-					/////////
-				);
+		bool result = qi::parse(iter, m_Params.end(),
+		                        /////////gramar
+		                        (
+		                            group_type[ref(grp_type) = _1] >>
+		                            *(char_('(')
+		                              >> uint_[push_back(phoenix::ref(Gen_vec), _1)] % ','
+		                              >> char_(')') [add_grp_gen])
+		                        )
+		                        /////////
+		                       );
 		m_GroupType = static_cast<GROUP_TYPE>(grp_type);
 		return result && (iter == m_Params.end());
 	};
@@ -86,37 +86,37 @@ protected:
 
 private:
 	class AddGrpGen
-    {
+	{
 	public:
 		AddGrpGen(std::vector<unsigned int> *gen_vec, std::vector<boost::any> *generators)
 			:m_Gen_vec(gen_vec),
-			m_Generators(generators)	{};
+			 m_Generators(generators)	{};
 
-        void operator()(char const& i, qi::unused_type, qi::unused_type)const
-        {
-				cPermElem perm_el(*m_Gen_vec);
-				SymmGrpElem grp_elem(perm_el);
-				m_Generators->push_back(grp_elem);
-				m_Gen_vec->clear();
-        };
+		void operator()(char const& i, qi::unused_type, qi::unused_type)const
+		{
+			cPermElem perm_el(*m_Gen_vec);
+			SymmGrpElem grp_elem(perm_el);
+			m_Generators->push_back(grp_elem);
+			m_Gen_vec->clear();
+		};
 
 	private:
 		mutable std::vector<unsigned int> *m_Gen_vec;
 		mutable std::vector<boost::any>  *m_Generators;
-    };
+	};
 
 protected:
 	GROUP_TYPE m_GroupType;
 	std::vector<boost::any>  m_Generators;
-	
+
 
 protected:
 
-                /************************************************************/
-                /****************GroupGen command PARSER TOOLS***************/
-                /************************************************************/
+	/************************************************************/
+	/****************GroupGen command PARSER TOOLS***************/
+	/************************************************************/
 
-/***********group gen command GRAMMAR RULES************/
+	/***********group gen command GRAMMAR RULES************/
 //COMMAND_TYPE = GET_ELEMENTS | GET_NORMALIZER | GET_CENTER | GET_CENTRALIZER
 //GENi = { > uint_ >> *("," > int_) }
 //GENERATORS = *GENi
@@ -124,20 +124,20 @@ protected:
 
 
 //group type parsing symbol tables
-struct group_type_: qi::symbols<char, GROUP_TYPE>
-{
-    group_type_()
-    {
-        add
-            ("SYMMETRIC_GROUP", SYMMETRIC_GROUP)
-            ("D8", D8);
+	struct group_type_: qi::symbols<char, GROUP_TYPE>
+	{
+		group_type_()
+		{
+			add
+			("SYMMETRIC_GROUP", SYMMETRIC_GROUP)
+			("D8", D8);
 
-    }
-}group_type;
+		}
+	} group_type;
 
 
-                /************************************************************/
-                /************************************************************/
+	/************************************************************/
+	/************************************************************/
 };
 
 

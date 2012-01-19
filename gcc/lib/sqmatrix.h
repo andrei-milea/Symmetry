@@ -17,8 +17,8 @@ namespace boost_ubl = boost::numeric::ublas;
 //squared matrix element representation
 //T = field element type
 template <typename T,
-std::size_t SIZE,
-class ConcreteRep = boost_ubl::matrix<T> >
+         std::size_t SIZE,
+         class ConcreteRep = boost_ubl::matrix<T> >
 class cSqMatrixElement : public ConcreteRep
 {
 	typedef cSqMatrixElement<T, SIZE, ConcreteRep> SelfType;
@@ -26,14 +26,14 @@ class cSqMatrixElement : public ConcreteRep
 public:
 
 	//constructors
-    cSqMatrixElement()
-    	:ConcreteRep(SIZE,SIZE)
+	cSqMatrixElement()
+		:ConcreteRep(SIZE,SIZE)
 	{};
 	cSqMatrixElement(ConcreteRep& matrix_rep)
 		:ConcreteRep(matrix_rep)
 	{};
 
-    ~cSqMatrixElement()    {};
+	~cSqMatrixElement()    {};
 
 	//copy constructor and assign operator
 	cSqMatrixElement(const cSqMatrixElement& mat)

@@ -8,7 +8,7 @@ namespace engine
 
 class cEstimator;
 
-class cGetElemCommand : public cGroupGenCommand 
+class cGetElemCommand : public cGroupGenCommand
 {
 public:
 	cGetElemCommand(const std::string &params, cResult* result);

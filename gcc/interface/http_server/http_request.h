@@ -30,48 +30,60 @@ enum REQ_METHOD
 
 class cRequest
 {
-    typedef std::istreambuf_iterator<char> base_iterator_type;
-    typedef boost::spirit::multi_pass<base_iterator_type> forward_iterator_type;
+	typedef std::istreambuf_iterator<char> base_iterator_type;
+	typedef boost::spirit::multi_pass<base_iterator_type> forward_iterator_type;
 
 public:
-    cRequest(std::istream &stream);
-    ~cRequest() {};
+	cRequest(std::istream &stream);
+	~cRequest() {};
 
-    bool ParseRequest();
-    bool ParseResource();
-    std::vector<cHeader*> ParseHeaders();
+	bool ParseRequest();
+	bool ParseResource();
+	std::vector<cHeader*> ParseHeaders();
 
-    REQ_METHOD				GetMethod()const
-    {   return m_Method;    };
+	REQ_METHOD				GetMethod()const
+	{
+		return m_Method;
+	};
 
-    const std::string&		GetResource()const
-    {   return m_Resource;  };
+	const std::string&		GetResource()const
+	{
+		return m_Resource;
+	};
 
-    const std::string&		GetVersion()const
-    {   return m_Version;   };
+	const std::string&		GetVersion()const
+	{
+		return m_Version;
+	};
 
 	COMMAND_TYPE			GetCommandId()const
-	{	return m_CommandId;	}
+	{
+		return m_CommandId;
+	}
 
 	const std::string&		GetParam()const
-	{	return m_Param;	}
+	{
+		return m_Param;
+	}
 
 	const unsigned int		GetSessionId()const
-	{	return m_SessionId;	};
+	{
+		return m_SessionId;
+	};
 
 
 private:
-    REQ_METHOD                      m_Method;
-    std::string                     m_Resource;
-    std::string                     m_Version;
-    std::string                     m_Headers;
+	REQ_METHOD                      m_Method;
+	std::string                     m_Resource;
+	std::string                     m_Version;
+	std::string                     m_Headers;
 	COMMAND_TYPE					m_CommandId;
 	std::string						m_Param;
 	unsigned int					m_SessionId;
 
-    //stream iterators
-    forward_iterator_type           m_Fwd_begin;
-    forward_iterator_type           m_Fwd_end;
+	//stream iterators
+	forward_iterator_type           m_Fwd_begin;
+	forward_iterator_type           m_Fwd_end;
 
 };
 

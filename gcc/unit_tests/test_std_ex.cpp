@@ -15,11 +15,11 @@ using namespace boost::unit_test;
 
 boost::mt19937 gen;
 
-int get_random() 
+int get_random()
 {
-    boost::uniform_int<> dist(1, 999);
-    boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rnd(gen, dist);
-    return rnd();
+	boost::uniform_int<> dist(1, 999);
+	boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rnd(gen, dist);
+	return rnd();
 };
 
 BOOST_AUTO_TEST_CASE(test_set_inclusion)
@@ -129,7 +129,7 @@ BOOST_AUTO_TEST_CASE(test_set_remove)
 	std_ex::set_remove(set1, 4);
 
 	BOOST_CHECK(std_ex::set_equality(set1, set2));
-	
+
 };
 
 

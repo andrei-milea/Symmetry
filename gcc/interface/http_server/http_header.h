@@ -15,16 +15,16 @@ enum HEADER_TYPE
 class cHeader
 {
 public:
-    cHeader()
-        :m_HeaderType(INDETERMINATE_HEADER)                 {};
-    cHeader(std::string &header)
-        :m_Header(header),
-        m_HeaderType(INDETERMINATE_HEADER)                  {};
-    ~cHeader()                                              {};
+	cHeader()
+		:m_HeaderType(INDETERMINATE_HEADER)                 {};
+	cHeader(std::string &header)
+		:m_Header(header),
+		 m_HeaderType(INDETERMINATE_HEADER)                  {};
+	~cHeader()                                              {};
 
 private:
-    std::string m_Header;
-    HEADER_TYPE m_HeaderType;
+	std::string m_Header;
+	HEADER_TYPE m_HeaderType;
 
 };
 

@@ -12,16 +12,16 @@
 
 using namespace boost::unit_test;
 
-	//BOOST_TEST_MESSAGE( "cyc_grp:" << cyc_grp[0]<<"\n" << cyc_grp[1]<<"\n");
-	
+//BOOST_TEST_MESSAGE( "cyc_grp:" << cyc_grp[0]<<"\n" << cyc_grp[1]<<"\n");
+
 BOOST_AUTO_TEST_CASE(test_trivial)
 {
 
 	//test constructors
-	
+
 	//build the group
-	cPermElem s1(3,{1,2});
-	cPermElem s2(3,{2,3});
+	cPermElem s1(3, {1,2});
+	cPermElem s2(3, {2,3});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
@@ -49,11 +49,11 @@ BOOST_AUTO_TEST_CASE(test_private)
 	/*****************************************
 	 * tests for S3
 	*****************************************/
-	
+
 /////////test get_cyclic_group//////////
-	
-	cPermElem s1(3,{1,2});
-	cPermElem s2(3,{2,3});
+
+	cPermElem s1(3, {1,2});
+	cPermElem s2(3, {2,3});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
@@ -80,8 +80,8 @@ BOOST_AUTO_TEST_CASE(test_private)
 	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem2));
 
 	//test for elem3
-	cPermElem s3(3,{1,3,2});
-	cPermElem s4(3,{1,2,3});
+	cPermElem s3(3, {1,3,2});
+	cPermElem s4(3, {1,2,3});
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
 	cGroupElem< cPermElem, Multiplication> elem4(s4);
 	cyc_grp.clear();
@@ -106,9 +106,9 @@ BOOST_AUTO_TEST_CASE(test_private)
 
 	//test get cyclic subgroup
 	cGroupElem<cPermElem, Multiplication> elt1(4);
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
-	cGroupElem<cPermElem, Multiplication> elt4({2,3,4,1});
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3( {3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt4( {2,3,4,1});
 
 	std::vector<cGroupElem<cPermElem, Multiplication> > cyc_grp__;
 	cyc_grp__.push_back(elt1);
@@ -132,8 +132,8 @@ BOOST_AUTO_TEST_CASE(test_elements)
 	*****************************************/
 
 	//test get elements naive
-	cPermElem s1(3,{1,2});
-	cPermElem s2(3,{2,3});
+	cPermElem s1(3, {1,2});
+	cPermElem s2(3, {2,3});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
@@ -146,8 +146,8 @@ BOOST_AUTO_TEST_CASE(test_elements)
 	std::vector< cGroupElem<cPermElem, Multiplication> > elementsD = g1.GetElementsDimino();
 	BOOST_ASSERT(std_ex::set_equality(elements, elementsD));
 
-	cPermElem s3(3,{1,2});
-	cPermElem s4(3,{1,2,3});
+	cPermElem s3(3, {1,2});
+	cPermElem s4(3, {1,2,3});
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
 	cGroupElem< cPermElem, Multiplication> elem4(s4);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators1;
@@ -160,7 +160,7 @@ BOOST_AUTO_TEST_CASE(test_elements)
 	BOOST_ASSERT(std_ex::set_equality(elements, elements1));
 	BOOST_ASSERT(std_ex::set_equality(elements, elements1D));
 
-	cPermElem s5(3,{1,2,3});
+	cPermElem s5(3, {1,2,3});
 	cGroupElem< cPermElem, Multiplication> elem5(s5);
 	generators.clear();
 	generators.push_back(elem5);
@@ -169,7 +169,7 @@ BOOST_AUTO_TEST_CASE(test_elements)
 	std::vector< cGroupElem<cPermElem, Multiplication> > elements5_check;
 	elements5_check.push_back(g1.GetIdentity());
 	elements5_check.push_back(elem5);
-	cPermElem s6(3,{1,3,2});
+	cPermElem s6(3, {1,3,2});
 	cGroupElem< cPermElem, Multiplication> elem6(s6);
 	elements5_check.push_back(elem6);
 
@@ -180,8 +180,8 @@ BOOST_AUTO_TEST_CASE(test_elements)
 	 * tests for D8
 	*****************************************/
 
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5( {1,4,3,2});
 	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
 	D8.AddGenerator(elt2);
 
@@ -198,8 +198,8 @@ BOOST_AUTO_TEST_CASE(test_getorbit)
 	 * tests o S3
 	*****************************************/
 
-	cPermElem s3(3,{1,2});
-	cPermElem s4(3,{1,2,3});
+	cPermElem s3(3, {1,2});
+	cPermElem s4(3, {1,2,3});
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
 	cGroupElem< cPermElem, Multiplication> elem4(s4);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators1;
@@ -214,8 +214,8 @@ BOOST_AUTO_TEST_CASE(test_getorbit)
 	 * tests on D8
 	*****************************************/
 
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5( {1,4,3,2});
 	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
 	D8.AddGenerator(elt2);
 	D8.AddGenerator(elt5);

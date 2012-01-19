@@ -64,7 +64,7 @@ cPageBuilder::cPageBuilder()
 		throw std::runtime_error(CONTEXT_STR + "failed to open command_panel js file");
 	m_ComPanelJsFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
 	File.close();
-}; 
+};
 
 
 const std::string& cPageBuilder::GetIndexPage(const unsigned int session_id)
@@ -76,11 +76,11 @@ const std::string& cPageBuilder::GetIndexPage(const unsigned int session_id)
 
 const std::string& cPageBuilder::GetPageResource(const std::string& resource)const
 {
-	if(resource.find("styles") != std::string::npos)	
+	if(resource.find("styles") != std::string::npos)
 		return GetPageResourceCss();
 	else if(resource.find("webgl") != std::string::npos)
 		return GetWebGlJsPage();
-	else 
+	else
 	{
 		assert(resource.find("command_panel") != std::string::npos);
 		return GetCommandPanelJs();

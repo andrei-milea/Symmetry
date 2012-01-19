@@ -10,8 +10,8 @@ using namespace boost::unit_test;
 
 BOOST_AUTO_TEST_CASE(test_cayley_grf)
 {
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5( {1,4,3,2});
 	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
 	D8.AddGenerator(elt2);
 	D8.AddGenerator(elt5);

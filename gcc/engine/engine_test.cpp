@@ -12,9 +12,9 @@ int main()
 		cSerializer<SymmGrpElem> symm_grp_serializer;
 
 		//basic test with s3
-		SymmGrpElem elem1({1,2,3});
-		SymmGrpElem elem2({1,3,2});
-		SymmGrpElem elem3({3,2,1});
+		SymmGrpElem elem1( {1,2,3});
+		SymmGrpElem elem2( {1,3,2});
+		SymmGrpElem elem3( {3,2,1});
 		std::string generators_str1;
 		generators_str1 += symm_grp_serializer.Stringify(elem1);
 		generators_str1 += symm_grp_serializer.Stringify(elem2);

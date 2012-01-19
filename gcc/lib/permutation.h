@@ -1,5 +1,5 @@
 #ifndef PERMUTATION_H_
-#define PERMUTATION_H_ 
+#define PERMUTATION_H_
 
 #include <vector>
 #include <initializer_list>
@@ -64,7 +64,7 @@ public:
 
 
 	/*!
-	  constructor for permutation given as an image  
+	  constructor for permutation given as an image
 	  using initializer_list
 	  ie. {2,3,1} means 1->2 2->3 3->1
 	*/
@@ -82,7 +82,7 @@ public:
 	};
 
 	/*!
-	  constructor for permutation given as an image  
+	  constructor for permutation given as an image
 	  using a vector
 	  ie. vector a = {2,3,1} is the permutation 1->2 2->3 3->1
 	*/
@@ -98,7 +98,7 @@ public:
 			index++;
 		}
 	};
-	
+
 
 
 	/*!
@@ -209,9 +209,9 @@ public:
 	cPermElem GetMultInverse()const
 	{
 		std::vector<std::size_t> perm_array(m_PermArray->size());
-		for(std::size_t index = 0; index < m_PermArray->size(); index++) 
+		for(std::size_t index = 0; index < m_PermArray->size(); index++)
 		{
-			 perm_array[(*m_PermArray)[index] - 1] = index + 1;
+			perm_array[(*m_PermArray)[index] - 1] = index + 1;
 		}
 		return cPermElem(perm_array);
 	};
@@ -258,10 +258,10 @@ public:
 private:
 	/*!
 	  helper function for GetInversions -- modified merge sort
-   	  Complexity: O(nlgn)
+	  Complexity: O(nlgn)
 	*/
 	void CountInversions(std::vector<std::size_t>::iterator begin, std::vector<std::size_t>::iterator end,
-			std::size_t &inversions)const
+	                     std::size_t &inversions)const
 	{
 		std::size_t size = end - begin;
 		if(size < 2)
@@ -277,7 +277,7 @@ private:
 	  Complexity: O(n)
 	*/
 	void MergeInversions(std::vector<std::size_t>::iterator begin, std::vector<std::size_t>::iterator begin_right,
-			std::vector<std::size_t>::iterator end, std::size_t &inversions)const
+	                     std::vector<std::size_t>::iterator end, std::size_t &inversions)const
 	{
 		std::size_t size_left = begin_right - begin;
 		std::vector<std::size_t> leftArray(begin, begin_right);
@@ -294,7 +294,7 @@ private:
 				inversions += size_left - i;
 				counted = true;
 			}
-			if(leftArray[i] <= rightArray[j])	
+			if(leftArray[i] <= rightArray[j])
 			{
 				*begin = leftArray[i];
 				i++;

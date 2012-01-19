@@ -6,9 +6,9 @@
 
 
 //Integers modulo n class  -- Zn -- Z/modn
-//represents one group element modulo n 
+//represents one group element modulo n
 template <std::size_t N>
-class cIntModNElem 
+class cIntModNElem
 {
 	typedef cIntModNElem<N> SelfType;
 
@@ -18,9 +18,9 @@ public:
 	cIntModNElem()
 		: m_Val(0)
 	{};
-	explicit cIntModNElem(std::size_t v) 
+	explicit cIntModNElem(std::size_t v)
 		: m_Val(v%N)
-   	{};
+	{};
 
 
 	//copy constructor and assign operator
@@ -34,7 +34,7 @@ public:
 		return *this;
 	};
 
-	~cIntModNElem(){};
+	~cIntModNElem() {};
 
 	//overloaded operators
 	SelfType operator+(const SelfType &a)const
@@ -43,7 +43,7 @@ public:
 	};
 	SelfType operator*(const SelfType &a)const
 	{
-		 return SelftType((a.GetVal() * m_Val) % N);
+		return SelftType((a.GetVal() * m_Val) % N);
 	};
 	friend std::ostream& operator<<(std::ostream &of, const SelfType &intmodn)
 	{

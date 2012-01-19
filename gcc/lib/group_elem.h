@@ -56,30 +56,30 @@ public:
 		T::operator=(elem);
 		return *this;
 	};
-	
+
 	~cGroupElem()
 	{
 	};
 
 	/*!
-	  returns the identity element corresponding to the given element 
+	  returns the identity element corresponding to the given element
 	  type and the binary operation
 	  Complexity: O(n) multiplications and comparisons, where n is the order
 	*/
 	std::size_t GetOrder()const
-    {
+	{
 		std::size_t size = 1;
 		SelfType temp = (*this);
-        while(temp != GetIdentity())
-        {
-            temp = m_BinOp(temp,(*this));
+		while(temp != GetIdentity())
+		{
+			temp = m_BinOp(temp,(*this));
 			size++;
-        }
+		}
 		return size;
-    };
+	};
 
 	/*!
-	  returns the identity element corresponding to the given element 
+	  returns the identity element corresponding to the given element
 	  type and the binary operation using the given group order
 	  Complexity: O(n) multiplication and d comparisons, where n is the order,
 	  and d is the number of divisors of the order of the group
@@ -88,7 +88,7 @@ public:
 	{
 		for(unsigned int d=1; d<=group_order; d++)
 		{
-			if(group_order%d==0) 
+			if(group_order%d==0)
 			{
 				if(GetNthPower(d)==GetIdentity())
 				{
@@ -101,7 +101,7 @@ public:
 
 
 	/*!
-	  returns the inverse of the element according to the 
+	  returns the inverse of the element according to the
 	  given binaryu operation
 	*/
 	SelfType GetInverse()const
@@ -180,7 +180,7 @@ private:
 			return m_BinOp(GetNthPower(n/2, element),GetNthPower(n/2, element));
 		else
 			return m_BinOp(m_BinOp(GetNthPower(n/2, element), GetNthPower(n/2, element)),
-				   element);
+			               element);
 	};
 
 private:

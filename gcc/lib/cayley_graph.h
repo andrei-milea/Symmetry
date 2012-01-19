@@ -24,8 +24,8 @@ class cCayleyGrf
 {
 public:
 	typedef typename G::ElementType ElemType;
-	typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS, 
-    		ElemType, std::pair<ElemType,bool> > Graph;
+	typedef boost::adjacency_list<boost::listS, boost::vecS, boost::directedS,
+	        ElemType, std::pair<ElemType,bool> > Graph;
 	typedef typename boost::graph_traits<Graph>::vertex_descriptor Vertex;
 	typedef typename boost::graph_traits<Graph>::edge_descriptor Edge;
 	typedef typename boost::graph_traits<Graph>::vertex_iterator VertexIterator;
@@ -33,8 +33,8 @@ public:
 public:
 	cCayleyGrf(std::vector<ElemType> &elements, std::vector<ElemType> &generators)
 		:m_Elements(elements),
-		m_Generators(generators),
-		m_Graph(nullptr)
+		 m_Generators(generators),
+		 m_Graph(nullptr)
 	{};
 
 	cCayleyGrf(G &group )
@@ -71,7 +71,7 @@ public:
 	/*!
 	  builds the Cayle graph as and adjacency list: the nodes are the indexes
 	  of the elements, the edges are the indexes of the generators
-	  Complexity: O(n*m), where n is the number of generators and m 
+	  Complexity: O(n*m), where n is the number of generators and m
 	  the number of elements
 	*/
 	void BuildGraph()
@@ -84,18 +84,18 @@ public:
 			for(std::size_t index_el = 0; index_el < m_Elements.size(); index_el++)
 			{
 				ElemType result = m_Elements[index_el].GetBinaryOp()(m_Elements[index_el],
-						m_Generators[index_gen]);
-				
+				                  m_Generators[index_gen]);
+
 				assert(m_Elements.end() != std::find(m_Elements.begin(),
-						  m_Elements.end(), result));
+				                                     m_Elements.end(), result));
 				Vertex source, target;
 				Edge edge;
 
-				target = (*vertices(*m_Graph).first) + 
-				 (std::find(m_Elements.begin(), m_Elements.end(), result) - m_Elements.begin());
+				target = (*vertices(*m_Graph).first) +
+				         (std::find(m_Elements.begin(), m_Elements.end(), result) - m_Elements.begin());
 
-				//set bundle vertices properties	
-				source = (*vertices(*m_Graph).first) + index_el; 
+				//set bundle vertices properties
+				source = (*vertices(*m_Graph).first) + index_el;
 				(*m_Graph)[source] = m_Elements[index_el];
 				(*m_Graph)[target] = result;
 
@@ -107,7 +107,7 @@ public:
 	};
 
 	/*!
- 	  extract the set of defining relations using Cannon's algorithm
+	  extract the set of defining relations using Cannon's algorithm
 	  with one stage see Butler - "Fundamental Algorithms for permutation groups"
 	*/
 	void BuildDefRelations()
@@ -120,7 +120,7 @@ public:
 
 		//while there are uncoloured edges
 		for(auto edges_it = colour_visitor.GetUncolouredEdges().begin();
-				edges_it != colour_visitor.GetUncolouredEdges().end(); edges_it++)
+		        edges_it != colour_visitor.GetUncolouredEdges().end(); edges_it++)
 		{
 			if(false == m_Graph[*edges_it].second) //if edge is not coloured
 			{
@@ -132,10 +132,10 @@ public:
 				while(new_edges_coloured)
 				{
 					for(auto relation_it = m_DefRelations.begin();
-							relation_it != m_DefRelations.end(); relation_it++)
+					        relation_it != m_DefRelations.end(); relation_it++)
 					{
 						for(VertexIterator vertex_it = boost::vertices(*m_Graph).begin();
-								vertex_it != boost::vertices(*m_Graph).end(); vertex_it++)
+						        vertex_it != boost::vertices(*m_Graph).end(); vertex_it++)
 						{
 							//trace relation around vertex
 							//TODO
@@ -154,7 +154,7 @@ public:
 		//print graph
 		out<<"GRAPH:\n";
 		boost::print_graph(*graph.GetGraph());
-		
+
 //		//print edges
 //		out<<"\nEDGES:\n";
 //		boost::print_edges(*graph.GetGraph(), get(boost::vertex_bundle,
@@ -185,7 +185,7 @@ public:
 
 private:
 	/*!
-	  add the defining relation corresponding to the given vertex 
+	  add the defining relation corresponding to the given vertex
 	  to the set of defining relations
 	  TODO -- finish this method
 	*/
@@ -214,7 +214,7 @@ private:
 		void non_tree_edge(E edge, const Grf& graph)
 		{
 			//found edge not in the spaning tree
-			//add it to the list of uncoloured edges 
+			//add it to the list of uncoloured edges
 			m_UncolouredEdges.push_back(edge);
 		};
 
@@ -235,7 +235,7 @@ private:
 private:
 	std::vector<ElemType> m_Elements;
 	std::vector<ElemType> m_Generators;
-	Graph				  *m_Graph;		
+	Graph				  *m_Graph;
 	std::vector<cGroupRelation<ElemType> > m_DefRelations;
 };
 

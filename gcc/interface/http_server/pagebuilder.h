@@ -22,11 +22,11 @@ public:
 
 	static cPageBuilder* GetInstance();
 
-   	const std::string& GetIndexPage(const unsigned int session_id);
+	const std::string& GetIndexPage(const unsigned int session_id);
 
 	const std::string& GetPageResource(const std::string& resource)const;
 
-   	const std::string GetWebglConstent(const std::string &webglcontent)const;
+	const std::string GetWebglConstent(const std::string &webglcontent)const;
 
 	const std::string GetPage(const engine::cResult &result, const unsigned int ses_id)const;
 

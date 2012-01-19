@@ -13,27 +13,27 @@ namespace http_server
 class cHttpServer : private boost::noncopyable
 {
 public:
-    /*!
-      initializes members and prepares for accepting connections
-    */ 
-    cHttpServer(unsigned int port);
-    /*!
-      stops the server
-    */
-    ~cHttpServer();
-  
-    /*!
-      starts the server
-    */ 
-    void Start();
-    /*!
-      stops the server
-    */  
-    void Stop();
+	/*!
+	  initializes members and prepares for accepting connections
+	*/
+	cHttpServer(unsigned int port);
+	/*!
+	  stops the server
+	*/
+	~cHttpServer();
+
+	/*!
+	  starts the server
+	*/
+	void Start();
+	/*!
+	  stops the server
+	*/
+	void Stop();
 
 private:
-    void StartAccept();
-    void HandleConnection(connection_ptr new_connection, const boost::system::error_code& error);
+	void StartAccept();
+	void HandleConnection(connection_ptr new_connection, const boost::system::error_code& error);
 
 private:
 	boost::asio::io_service m_IOService;

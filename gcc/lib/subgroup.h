@@ -13,12 +13,12 @@ public:
 
 	cSubgroup(std::vector<T> gr_vec)
 		:G(gr_vec),
-		m_isNormal(false)
+		 m_isNormal(false)
 	{};
 
 	cSubgroup(G &group)
 		:G(group),
-		m_isNormal(false)
+		 m_isNormal(false)
 	{};
 
 	~cSubgroup()
