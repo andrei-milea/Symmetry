@@ -16,7 +16,7 @@ class cGenRep
 {
 public:
 	typename tr1::unordered_set<T>::iterator IteratorType;
-	
+
 public:
 
 	//constructors
@@ -38,29 +38,29 @@ public:
 	{
 		boost::mt19937 randGen(std::time(0));
 		boost::uniform_int<std::size_t> random_index(0,m_GroupOrder);
-		boost::variate_generator< boost::mt19937&, boost::uniform_int<std::size_t> > 
-    	GetRand(randGen, random_index);
+		boost::variate_generator< boost::mt19937&, boost::uniform_int<std::size_t> >
+		GetRand(randGen, random_index);
 		return m_Set.begin();
 	};
 
 	void PrintGroupTable()const
 	{
-		std::for_each(m_Set.begin(), m_Set.end(), 
-				[&m_Set] (typename tr1::unordered_set<T>::iterator it)
-				{
-					std::cout<< "Table for "<< (*it) << ": \n";	
-					PrintElementTable(it);	
-				});
+		std::for_each(m_Set.begin(), m_Set.end(),
+		              [&m_Set] (typename tr1::unordered_set<T>::iterator it)
+		{
+			std::cout<< "Table for "<< (*it) << ": \n";
+			PrintElementTable(it);
+		});
 	};
 
 	void PrintElementTable(typename tr1::unordered_set<T>::iterator &itt)const
 	{
 		std::cout<<	"Table for element " << itt <<":\n";
 		std::for_each(m_Set.begin(), m_Set.end(),
-			   	[&itt] (typename tr1::unordered_set<T>::iterator it1)
-				{
-					std::cout<< T::BinOpType::BinOp(*(itt),*(it1));
-				});
+		              [&itt] (typename tr1::unordered_set<T>::iterator it1)
+		{
+			std::cout<< T::BinOpType::BinOp(*(itt),*(it1));
+		});
 	};
 
 
@@ -73,7 +73,7 @@ public:
 	{
 		m_Set = set;
 	};
-	
+
 
 private:
 	tr1::unordered_set<T> m_Set;

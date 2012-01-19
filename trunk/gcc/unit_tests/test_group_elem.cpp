@@ -10,14 +10,14 @@ BOOST_AUTO_TEST_CASE(test_trivial)
 {
 	//test perm element
 	cPermElem s1(3);
-	cPermElem s2(3,{2,3});
-	cPermElem s3(3,{1,2});
+	cPermElem s2(3, {2,3});
+	cPermElem s3(3, {1,2});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
 	BOOST_CHECK(elem2 * elem2 == elem1);
 	BOOST_CHECK(elem1 == elem3 * elem3);
-	
+
 	//test copy constructor and assignment operator
 	cGroupElem< cPermElem, Multiplication> elem4(elem1);
 	cGroupElem< cPermElem, Multiplication> elem5 = elem2;
@@ -31,9 +31,9 @@ BOOST_AUTO_TEST_CASE(test_order_power)
 	*****************************************/
 
 	cPermElem s1(3);
-	cPermElem s2(3,{2,3});
-	cPermElem s3(3,{1,2});
-	cPermElem s4(3,{3,2});
+	cPermElem s2(3, {2,3});
+	cPermElem s3(3, {1,2});
+	cPermElem s4(3, {3,2});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
@@ -51,7 +51,7 @@ BOOST_AUTO_TEST_CASE(test_order_power)
 	BOOST_CHECK(elem2.GetOrder() == elem3.GetOrder());
 	BOOST_CHECK(elem1.GetOrder() == 1);
 	BOOST_CHECK(elem2.GetOrder(6)
-		   	== elem2.GetOrder());
+	            == elem2.GetOrder());
 
 
 	//test inverse
@@ -59,14 +59,14 @@ BOOST_AUTO_TEST_CASE(test_order_power)
 	BOOST_CHECK(elem2.GetInverse() == elem4);
 
 	/*****************************************
-	 * tests for D8 
+	 * tests for D8
 	*****************************************/
 
 	cGroupElem<cPermElem, Multiplication> elt1(4);
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
-	cGroupElem<cPermElem, Multiplication> elt4({2,3,4,1});
-	
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3( {3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt4( {2,3,4,1});
+
 	//test getnthpower
 	BOOST_CHECK(elt2.GetNthPower(2) == elt3);
 	BOOST_CHECK(elt2.GetNthPower(3) == elt4);
@@ -90,8 +90,8 @@ BOOST_AUTO_TEST_CASE(test_properties)
 
 	//test commutes with
 	cPermElem s1(3);
-	cPermElem s2(3,{2,3});
-	cPermElem s3(3,{1,2});
+	cPermElem s2(3, {2,3});
+	cPermElem s3(3, {1,2});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
@@ -114,9 +114,9 @@ BOOST_AUTO_TEST_CASE(test_properties)
 	*****************************************/
 
 	cGroupElem<cPermElem, Multiplication> elt1(4);
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
-	cGroupElem<cPermElem, Multiplication> elt4({2,3,4,1});
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3( {3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt4( {2,3,4,1});
 
 	std::vector< cGroupElem<cPermElem, Multiplication> > elem;
 	elem.push_back(elt1);

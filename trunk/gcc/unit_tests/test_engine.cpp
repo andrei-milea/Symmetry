@@ -17,7 +17,7 @@ class cSessionFix
 public:
 	cSessionFix()
 	{
-		
+
 	};
 	~cSessionFix()
 	{
@@ -79,9 +79,9 @@ BOOST_AUTO_TEST_CASE(test_serializer)
 	cSerializer<SymmGrpElem> symm_grp_serializer;
 
 	//basic test with s3
-	SymmGrpElem elem1({1,2,3});
-	SymmGrpElem elem2({1,3,2});
-	SymmGrpElem elem3({3,2,1});
+	SymmGrpElem elem1( {1,2,3});
+	SymmGrpElem elem2( {1,3,2});
+	SymmGrpElem elem3( {3,2,1});
 	std::string generators_str1;
 	generators_str1 += symm_grp_serializer.Stringify(elem1);
 	generators_str1 += symm_grp_serializer.Stringify(elem2);
@@ -106,10 +106,10 @@ BOOST_AUTO_TEST_CASE(test_command_getelem)
 	cResult result(&session);
 	cGetElemCommand command( "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", &result);
 	//basic test with s3
-	SymmGrpElem elem2({2,1,3});
-	SymmGrpElem elem3({2,3,1});
+	SymmGrpElem elem2( {2,1,3});
+	SymmGrpElem elem3( {2,3,1});
 	command.Execute();
-	
+
 	std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
 	BOOST_ASSERT(6 == elements.size());
 
@@ -124,9 +124,9 @@ BOOST_AUTO_TEST_CASE(test_command_getsubgroup)
 
 BOOST_AUTO_TEST_CASE(test_command_parsing)
 {
-	SymmGrpElem elem1({1,2,3});
-	SymmGrpElem elem2({1,3,2});
-	SymmGrpElem elem3({3,2,1});
+	SymmGrpElem elem1( {1,2,3});
+	SymmGrpElem elem2( {1,3,2});
+	SymmGrpElem elem3( {3,2,1});
 	std::vector<SymmGrpElem>  generators;
 	generators.push_back(elem1);
 	generators.push_back(elem2);

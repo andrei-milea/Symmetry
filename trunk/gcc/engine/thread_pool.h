@@ -18,8 +18,10 @@ public:
 	void AddToCommandQueue(cCommand *command);
 
 	bool isStarted()const
-	{	return m_Started;	};
-	
+	{
+		return m_Started;
+	};
+
 private:
 	//function that runs in all the threads
 	//waits until the queue is not empty
@@ -29,7 +31,7 @@ private:
 private:
 	boost::thread_group m_ThreadPool;
 	cCommandQueue m_CommandQueue;
-	volatile unsigned int m_Num_Threads;		
+	volatile unsigned int m_Num_Threads;
 	volatile bool m_Started;
 };
 

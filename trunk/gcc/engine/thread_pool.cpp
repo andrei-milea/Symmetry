@@ -10,7 +10,7 @@ namespace engine
 
 cThreadPool::cThreadPool(unsigned int num_threads)
 	:m_Num_Threads(num_threads),
-	m_Started(false)
+	 m_Started(false)
 {
 	assert(num_threads <= MAX_THREADS_NUM);
 };

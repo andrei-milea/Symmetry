@@ -13,10 +13,10 @@
   class that represents the addition binary operation
   used also as a template policy
 */
-class Addition 
+class Addition
 {
 public:
-	template<typename T>	
+	template<typename T>
 	T operator()(const T &ob1, const T &ob2)const
 	{
 		T result = ob1 + ob2;
@@ -33,10 +33,10 @@ public:
   class that represents the multiplication binary operation
   used also as a template policy
 */
-class Multiplication 
+class Multiplication
 {
 public:
-	template<typename T>	
+	template<typename T>
 	T operator()(const T &ob1, const T &ob2)const
 	{
 		T result = ob1 * ob2;
@@ -53,10 +53,10 @@ public:
   class that represents the composition binary operation
   used also as a template policy
 */
-class Composition 
+class Composition
 {
 public:
-	template<typename T>	
+	template<typename T>
 	T operator()(const T &ob1, const T &ob2)const
 	{
 		T result = ob1 * ob2;

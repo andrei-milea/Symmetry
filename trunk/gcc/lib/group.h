@@ -25,9 +25,9 @@ public:
 	typedef typename std::vector<ElementType> GrpVec;
 
 public:
-    cGroup()
+	cGroup()
 		:group_rep<T>()
-    {};
+	{};
 	cGroup(std::vector<ElementType> &gr_vec)
 		:group_rep<ElementType> (gr_vec)
 	{};
@@ -37,7 +37,7 @@ public:
 		:group_rep<T>(ini_list)
 	{};
 
-    ~cGroup()   {};
+	~cGroup()   {};
 
 	/*!
 	  TODO implement this ?
@@ -59,7 +59,7 @@ public:
 	};
 
 	/*!
-	  returns the center subgroup of the group Z(G), the elements that comute with all the 
+	  returns the center subgroup of the group Z(G), the elements that comute with all the
 	  elements of the group
 	*/
 	cSubgroup<SelfType> GetCenter()const
@@ -68,7 +68,7 @@ public:
 		subgroup.isNormal(true);
 		return subgroup;
 	};
-	
+
 	/*!
 	  returns the normalizer subgroup, given a subgroup
 	*/
@@ -122,7 +122,7 @@ public:
 			}
 			rem_el.erase(rem_el.begin());
 		}
-		return subgrp_el;	
+		return subgrp_el;
 	};
 
 	/*!
@@ -141,7 +141,7 @@ public:
 
 		//remove identity
 		rem_el = GrpVec(rem_el.begin(),
-				std::remove(rem_el.begin(), rem_el.end(), RepType::GetIdentity()));
+		                std::remove(rem_el.begin(), rem_el.end(), RepType::GetIdentity()));
 
 		while(!rem_el.empty())
 		{

@@ -7,10 +7,10 @@
 namespace std_ex
 {
 
-	/*****************************************
-	* set operations 
-	*****************************************/
-	
+/*****************************************
+* set operations
+*****************************************/
+
 /*!
   tests if set2 constains set1
 */
@@ -44,7 +44,7 @@ bool set_equality(const SET_REP &set1, const SET_REP &set2)
 };
 
 /*!
-  set difference 
+  set difference
   returns the first set without the elements of the second set
 */
 template <typename SET_REP>
@@ -60,7 +60,7 @@ SET_REP& set_difference(SET_REP &set1, const SET_REP &set2)
 };
 
 /*!
-  set intersection 
+  set intersection
   returns a new constructed set with common elements
 */
 template <typename SET_REP>
@@ -78,7 +78,7 @@ SET_REP set_intersection(SET_REP &set1, const SET_REP &set2)
 
 
 template <typename T, template <typename ELEM, typename ALLOC = std::allocator<ELEM> >
-   	class CONT>
+class CONT>
 void set_remove(CONT<T> &set1, const T &element)
 {
 	while(true)
@@ -92,7 +92,7 @@ void set_remove(CONT<T> &set1, const T &element)
 };
 
 
-	/***************************************** * print vector elements *****************************************/
+/***************************************** * print vector elements *****************************************/
 template <typename T>
 void print_vector(const std::vector<T>& vec)
 {
@@ -127,11 +127,11 @@ int numDigits(T number)
 //template<>
 //int numDigits(unsigned int x)
 //{
-//	if(x >= 10000) 
+//	if(x >= 10000)
 //	{
 //		if(x >= 10000000)
 //		{
-//			if(x >= 100000000) 
+//			if(x >= 100000000)
 //			{
 //				if(x >= 1000000000)
 //					return 10;

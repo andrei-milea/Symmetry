@@ -5,7 +5,7 @@
 
 #include <sstream>
 
-//uses boost spirit karma to generate output 
+//uses boost spirit karma to generate output
 template <typename T, template <typename, class> class CONT = std::vector>
 class cSerializer;
 

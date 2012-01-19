@@ -63,7 +63,7 @@ public:
 
 		bool need_new_layer = false;
 		//main loop -- iterate through every layer
-		for(std::size_t index = 1; index < m_Non_Triv_Layers; index++)	
+		for(std::size_t index = 1; index < m_Non_Triv_Layers; index++)
 		{
 			//add cyclic subgroups of order p^index
 			if(m_CycSubgrpsGen[index+1].empty())
@@ -72,9 +72,9 @@ public:
 			}
 			else
 			{
-				AddNewLayer();	
+				AddNewLayer();
 				for(typename ElemVec::iterator it = m_CycSubgrpsGen[index+1].begin();
-						it != m_CycSubgrpsGen[index+1].end(); it++)
+				        it != m_CycSubgrpsGen[index+1].end(); it++)
 				{
 					cSubgroup<G> subgrp;
 					subgrp.AddGenerator(*it);
@@ -83,7 +83,7 @@ public:
 			}
 			//for each subgroup in the layer
 			for(SubGrp_Iterator subgrp_iter = GetLayer(index).begin();
-					subgrp_iter != GetLayer(index).end(); subgrp_iter++)
+			        subgrp_iter != GetLayer(index).end(); subgrp_iter++)
 			{
 				//compute generators of possible subgroups
 				//possible_gen = (cyc_gen ^ (N(U) - U) ) - subgrps in the ith layer
@@ -95,17 +95,17 @@ public:
 
 				//std_ex::print_vector(norm_elem);
 
-				ElemVec possible_gen = std_ex::set_intersection(m_CycSubgrpsGen[1], 
-						norm_elem);
+				ElemVec possible_gen = std_ex::set_intersection(m_CycSubgrpsGen[1],
+				                       norm_elem);
 
 				//remove subgroups already in the ith layer
-				if(index+1 < m_Lattice.size())	
+				if(index+1 < m_Lattice.size())
 				{
 					for(SubGrp_Iterator subgrp1_iter = GetLayer(index+1).begin();
-							subgrp1_iter != GetLayer(index+1).end(); subgrp1_iter++) 
+					        subgrp1_iter != GetLayer(index+1).end(); subgrp1_iter++)
 					{
-						std_ex::set_difference(possible_gen, 
-								(*subgrp1_iter).GetGeneratorsSet());
+						std_ex::set_difference(possible_gen,
+						                       (*subgrp1_iter).GetGeneratorsSet());
 					}
 				}
 
@@ -161,9 +161,9 @@ private:
 	void AddSecondLayer()
 	{
 		AddNewLayer();
-		
+
 		for(typename ElemVec::iterator iter = m_CycSubgrpsGen[1].begin();
-				iter != m_CycSubgrpsGen[1].end(); iter++)
+		        iter != m_CycSubgrpsGen[1].end(); iter++)
 		{
 			cSubgroup<G> newsubgroup;
 			newsubgroup.AddGenerator(*iter);
@@ -252,16 +252,16 @@ private:
 	};
 
 	//TODO -- improve naive primality testing
-	bool isPrime(int number) 
+	bool isPrime(int number)
 	{
-	   if(number == 2) return true;
-	   if(number == 1 || (number%2 == 0)) return false;
-	   for(int i=3; i*i<=number; i+=2) 
-	   {
-		  if(number%i == 0)
-			 return false;
-	   }
-	   return true;
+		if(number == 2) return true;
+		if(number == 1 || (number%2 == 0)) return false;
+		for(int i=3; i*i<=number; i+=2)
+		{
+			if(number%i == 0)
+				return false;
+		}
+		return true;
 	}
 
 private:

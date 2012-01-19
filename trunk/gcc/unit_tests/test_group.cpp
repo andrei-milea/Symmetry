@@ -8,11 +8,11 @@ using namespace boost::unit_test;
 
 BOOST_AUTO_TEST_CASE(test_s3_centralizer_el)
 {
-	cPermElem s1(3,{1,2});
-	cPermElem s2(3,{2,3});
-	cPermElem s3(3,{1,2,3});
-	cPermElem s4(3,{1});
-	cPermElem s5(3,{1,3,2});
+	cPermElem s1(3, {1,2});
+	cPermElem s2(3, {2,3});
+	cPermElem s3(3, {1,2,3});
+	cPermElem s4(3, {1});
+	cPermElem s5(3, {1,3,2});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	cGroupElem< cPermElem, Multiplication> elem3(s3);
@@ -24,7 +24,7 @@ BOOST_AUTO_TEST_CASE(test_s3_centralizer_el)
 	generators.push_back(elem2);
 	S3 g1(generators);
 	std::vector< cGroupElem< cPermElem, Multiplication> > centralizer_el;
-   	centralizer_el = g1.GetCentralizerEl(elem3);
+	centralizer_el = g1.GetCentralizerEl(elem3);
 	res.push_back(elem4);
 	res.push_back(elem3);
 	res.push_back(elem5);
@@ -33,10 +33,10 @@ BOOST_AUTO_TEST_CASE(test_s3_centralizer_el)
 
 BOOST_AUTO_TEST_CASE(test_d8_centralizer_el)
 {
-	cGroupElem<cPermElem, Multiplication> elt1({1,2,3,4});
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt3({3,4,1,2});
-	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+	cGroupElem<cPermElem, Multiplication> elt1( {1,2,3,4});
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt3( {3,4,1,2});
+	cGroupElem<cPermElem, Multiplication> elt5( {1,4,3,2});
 
 	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
 	D8.AddGenerator(elt2);
@@ -48,8 +48,8 @@ BOOST_AUTO_TEST_CASE(test_d8_centralizer_el)
 
 BOOST_AUTO_TEST_CASE(test_s3_center_el)
 {
-	cPermElem s1(3,{1,2});
-	cPermElem s2(3,{2,3});
+	cPermElem s1(3, {1,2});
+	cPermElem s2(3, {2,3});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
@@ -66,8 +66,8 @@ BOOST_AUTO_TEST_CASE(test_s3_center_el)
 
 BOOST_AUTO_TEST_CASE(test_d8_center_el)
 {
-	cGroupElem<cPermElem, Multiplication> elt2({4,1,2,3});
-	cGroupElem<cPermElem, Multiplication> elt5({1,4,3,2});
+	cGroupElem<cPermElem, Multiplication> elt2( {4,1,2,3});
+	cGroupElem<cPermElem, Multiplication> elt5( {1,4,3,2});
 
 	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
 	D8.AddGenerator(elt5);
@@ -82,8 +82,8 @@ BOOST_AUTO_TEST_CASE(test_d8_center_el)
 BOOST_AUTO_TEST_CASE(test_s3_normalizer_el)
 {
 
-	cPermElem s1(3,{1,2});
-	cPermElem s2(3,{2,3});
+	cPermElem s1(3, {1,2});
+	cPermElem s2(3, {2,3});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
@@ -93,8 +93,8 @@ BOOST_AUTO_TEST_CASE(test_s3_normalizer_el)
 
 	std::vector< cGroupElem< cPermElem, Multiplication> > normalizer_el;
 
-	cPermElem a1(3,{1,2,3});
-	cPermElem a2(3,{1,3,2});
+	cPermElem a1(3, {1,2,3});
+	cPermElem a2(3, {1,3,2});
 	cGroupElem< cPermElem, Multiplication> elem_a1(a1);
 	cGroupElem< cPermElem, Multiplication> elem_a2(a2);
 	std::vector< cGroupElem< cPermElem, Multiplication> > a3_el;

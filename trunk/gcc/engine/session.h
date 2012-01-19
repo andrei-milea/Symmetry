@@ -12,7 +12,7 @@ namespace engine
 class cCommand;
 
 #define STATE_FREE 0
-#define STATE_COMMAND_PENDING 1 
+#define STATE_COMMAND_PENDING 1
 #define STATE_RESULT_PENDING 2
 
 //active object variant design pattern

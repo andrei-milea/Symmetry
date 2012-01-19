@@ -13,30 +13,30 @@
 
 namespace engine
 {
-	class cSession;
+class cSession;
 }
 
 
 namespace http_server
 {
 
-class cResponse;	
+class cResponse;
 class cRequest;
 class cConnectionManager;
 
 class cHttpConnection
-    : public boost::enable_shared_from_this<cHttpConnection>
+	: public boost::enable_shared_from_this<cHttpConnection>
 {
 
 
-typedef boost::shared_ptr<cHttpConnection> connection_ptr;
-typedef std::map<unsigned int, engine::cSession*> sessions_map;
+	typedef boost::shared_ptr<cHttpConnection> connection_ptr;
+	typedef std::map<unsigned int, engine::cSession*> sessions_map;
 
 public:
 
 	static connection_ptr Create(boost::asio::io_service& io_service, cConnectionManager &conn_manager)
 	{
-	 	return connection_ptr(new cHttpConnection(io_service, conn_manager));
+		return connection_ptr(new cHttpConnection(io_service, conn_manager));
 	};
 
 	boost::asio::ip::tcp::socket& GetSocket()
@@ -53,36 +53,36 @@ public:
 	{
 		s_Sessions.clear();
 	};
-	 
+
 
 private:
-    cHttpConnection(boost::asio::io_service& io_service, cConnectionManager &conn_manager)
-        :m_Socket(io_service),
-		m_ConnectionManager(conn_manager)
-    {
-    };
+	cHttpConnection(boost::asio::io_service& io_service, cConnectionManager &conn_manager)
+		:m_Socket(io_service),
+		 m_ConnectionManager(conn_manager)
+	{
+	};
 
 	static unsigned int GetRandUniqueId()
 	{
 		static boost::mt19937 gen;
-    	static boost::uniform_int<> dist(1, INT_MAX);
-    	static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rnd(gen, dist);
+		static boost::uniform_int<> dist(1, INT_MAX);
+		static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rnd(gen, dist);
 
 		unsigned int random_id = rnd();
 
 		if(cHttpConnection::s_Sessions.empty())
-    			return random_id;
+			return random_id;
 
 		if(cHttpConnection::s_Sessions.find(random_id) == cHttpConnection::s_Sessions.end())
-    		return random_id;
+			return random_id;
 		else
 			return GetRandUniqueId();
 	};
 
 private:
-    boost::asio::ip::tcp::socket			m_Socket;
-    boost::asio::streambuf					m_RequestBuf;
-    boost::asio::streambuf					m_ResponseBuf;
+	boost::asio::ip::tcp::socket			m_Socket;
+	boost::asio::streambuf					m_RequestBuf;
+	boost::asio::streambuf					m_ResponseBuf;
 	cConnectionManager						&m_ConnectionManager;
 	bool									m_HttpVersion;
 

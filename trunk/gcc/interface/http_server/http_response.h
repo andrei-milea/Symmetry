@@ -24,17 +24,17 @@ enum STATUS_CODE
 class cResponse
 {
 public:
-    cResponse(boost::asio::streambuf& buffer);
+	cResponse(boost::asio::streambuf& buffer);
 
-    ~cResponse()    {};
+	~cResponse()    {};
 
-    void BuildResponse(STATUS_CODE status_code, const std::string &resource_body);
+	void BuildResponse(STATUS_CODE status_code, const std::string &resource_body);
 
 private:
-    std::ostream m_ResponseStream;
+	std::ostream m_ResponseStream;
 
 public:
-    static std::map<STATUS_CODE, std::string> s_StatusCodes;
+	static std::map<STATUS_CODE, std::string> s_StatusCodes;
 };
 
 }

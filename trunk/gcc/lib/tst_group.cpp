@@ -11,8 +11,8 @@
 int main()
 {
 
-	cPermElem s1(3,{1,2});
-	cPermElem s2(3,{2,3});
+	cPermElem s1(3, {1,2});
+	cPermElem s2(3, {2,3});
 	cGroupElem< cPermElem, Multiplication> elem1(s1);
 	cGroupElem< cPermElem, Multiplication> elem2(s2);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  generators;
@@ -21,7 +21,7 @@ int main()
 	S3 g1(generators);
 	std::vector< cGroupElem< cPermElem, Multiplication> > elements = g1.GetElementsDimino();
 	std_ex::print_vector(elements);
-	
+
 
 //	cGrpLattice<S3> s3_lattice(g1);
 //	s3_lattice.CyclicExtensionMethod();
@@ -48,6 +48,6 @@ int main()
 //	graph.BuildGraph();
 //	std::cout<<graph;
 
-	return 0;	
+	return 0;
 };
 

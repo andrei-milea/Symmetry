@@ -12,7 +12,7 @@ class cCommand;
 //thread safe class that implements a commands queue
 //used to keep the command until the worker threads from
 //the pool executes them (half sync half async pattern)
-//used design patterns: thread safe interface, monitor object, 
+//used design patterns: thread safe interface, monitor object,
 //half-sync, half-async
 class cCommandQueue
 {
@@ -24,9 +24,9 @@ public:	//guarded methods -- interface
 	void Put(cCommand *command);
 	cCommand* Remove();
 
-	 bool Empty();
+	bool Empty();
 
-	 std::size_t GetSize();
+	std::size_t GetSize();
 
 protected:	//not guarded methods
 	inline void Put_i(cCommand *command);
@@ -35,7 +35,7 @@ protected:	//not guarded methods
 	std::size_t GetSize_i()const;
 
 private:
-	std::queue<cCommand *> m_Queue; 
+	std::queue<cCommand *> m_Queue;
 	boost::mutex m_Mutex;
 	boost::condition_variable m_NotEmptyCond;
 

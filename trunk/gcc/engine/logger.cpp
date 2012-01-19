@@ -68,7 +68,7 @@ const std::string& cLogger::GetSeverity()const
 {
 	return m_Severity;
 };
-	
+
 std::size_t cLogger::GetBufferSize()const
 {
 	return m_BufferSize;

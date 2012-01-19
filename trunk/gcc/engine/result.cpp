@@ -7,7 +7,7 @@ namespace engine
 
 cResult::cResult(cSession *session, cCommand *command)
 	:m_Session(session),
-	m_Command(command)
+	 m_Command(command)
 {};
 
 cResult::~cResult()

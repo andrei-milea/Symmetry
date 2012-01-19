@@ -89,8 +89,7 @@ clean:
 	cd ../engine; make clean
 	cd ../interface/http_server; make clean
 	
-TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main 
-#test_server_main
+TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main
 #test_lattice 
 
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp

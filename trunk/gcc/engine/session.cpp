@@ -10,13 +10,13 @@ cThreadPool cSession::sThreadPool(20);
 
 cSession::cSession()
 	:m_SessionId(0),
-	m_State(0)
+	 m_State(0)
 {};
 
 cSession::cSession(unsigned int ses_id)
 	:m_SessionId(ses_id),
-	m_State(STATE_FREE),
-	m_Result(this)
+	 m_State(STATE_FREE),
+	 m_Result(this)
 {};
 
 cSession::~cSession()

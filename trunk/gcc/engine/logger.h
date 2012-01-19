@@ -31,7 +31,7 @@ typedef boost::variant<int, std::string, std::exception, double> SupportedTypes;
 //buffer size used as an aproximation
 class cLogger
 {
-	public:
+public:
 	cLogger(int severity, std::size_t buffersize = BUFFER_MAX_SIZE);
 	~cLogger();
 
