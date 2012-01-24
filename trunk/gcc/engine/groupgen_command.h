@@ -50,7 +50,7 @@ protected:
 	{
 		if(!ParseParams())
 		{
-			throw std::runtime_error(CONTEXT_STR + " Failed to parse command params : " + m_Params);
+			throw std::runtime_error(CONTEXT_STR + " Failed to parse command parameters : " + m_Params);
 		}
 	};
 
@@ -79,6 +79,10 @@ protected:
 		                        /////////
 		                       );
 		m_GroupType = static_cast<GROUP_TYPE>(grp_type);
+		if(m_Generators.empty())
+		{
+			throw std::runtime_error(CONTEXT_STR + " Invalid (or missing) command parameters");
+		}
 		return result && (iter == m_Params.end());
 	};
 

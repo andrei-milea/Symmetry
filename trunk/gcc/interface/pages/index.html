@@ -40,14 +40,10 @@
 <body id="body_id"  >
 <input id="session_key_id" type="hidden" name="hidden" value="00">
 <input type="button" id="toggle_button" style= "margin-top: 5; " onclick="Command_panel.toggle_panel()" value="Hide commands panel">
-<input type="button" id="canvas_button" style= "margin-top: 5; float: right; " onclick="Command_panel.toggle_canvas()" value="Switch to visual mode">
 
-<div id="command_panel">
+<div id="command_panel" class="scommand_panel">
 
 <div class="sbutton" id="general_commands_panel">
-</br>
-<a id="command_select" href="#" onmouseover="cTooltip.show('select')" onmouseout="cTooltip.hide()" onclick="Command_panel.add_groups()">Select Group</a>
-</br>
 <a id="command_create" href="#" onmouseover="cTooltip.show('create')" onmouseout="cTooltip.hide()" onclick="Command_panel.add_create_grp_div()">Create Group</a>
 </br>
 <a href="#" onmouseover="cTooltip.show('tutorials')" onmouseout="cTooltip.hide()">Tutorials</a>
@@ -71,21 +67,26 @@
 
 
 <div id="main_view_id" class ="smain_view"></div>
+<div id="main_canvas" class ="scanvas"></div>
 
 <div align="center" id="final">
 </br>
 </br>
+</br>
+</br>
 
-<a href="http://boinc.berkeley.edu/" target="_blank">
-<img src="http://boinc.berkeley.edu/logo/www_logo.gif">
-</a>
-&nbsp; 
-&nbsp; 
-&nbsp; 
-&nbsp; 
 <a href="http://www.slackware.com/" target="_blank">
 <img src="http://connie.slackware.com/~msimons/slackware/grfx/shared/phearSW.gif">
 </a>
+
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<a href = "http://www.groupprops.subwiki.org"  style="font-size: 23px; color: #000000;" target="_blank">
+Groupprops, The Group Properties Wiki (beta)
+</a>
+&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+<script id="WolframAlphaScript" src="http://www.wolframalpha.com/input/embed/?type=medium" type="text/javascript"> </script>
+
+</br>
 </br>
 </br>
 Copyright © Andrei Milea 2011

@@ -32,7 +32,7 @@ void cResponse::BuildResponse(STATUS_CODE status_code, const std::string &resour
 	case ACCEPTED:
 
 	case NOT_FOUND:
-		//
+		m_ResponseStream << resource_body.length() << "Error\r\n";
 		break;
 	case NOT_IMPLEMENTED:
 	default:
