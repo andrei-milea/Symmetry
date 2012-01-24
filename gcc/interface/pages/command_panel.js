@@ -93,6 +93,17 @@ var Command_panel = {
 		generatorsTag.appendChild(newgenTag);
 	},
    
+  add_generators: function(group)
+	{ 
+   if(group == "S3")
+   {
+   }
+   else if(group == "D4")
+   {
+   }
+   ....
+  },
+   
   clear_generators: function()
   {
      var generatorsTag = document.getElementById("generators_id");
