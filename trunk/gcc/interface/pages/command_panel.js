@@ -1,4 +1,3 @@
-
 //command panel object -- used manipulate the command panel div
 var Command_panel = {
     state_main_comm: "visible",
@@ -93,6 +92,12 @@ var Command_panel = {
 		newgenTag.innerHTML = generatorTag.value;
 		generatorsTag.appendChild(newgenTag);
 	},
+   
+  clear_generators: function()
+  {
+     var generatorsTag = document.getElementById("generators_id");
+      generatorsTag .options.lenght = 0;
+  },
 
 	static_vars: function()
 	{},
