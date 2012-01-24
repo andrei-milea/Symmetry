@@ -65,7 +65,29 @@ var Command_panel = {
 			createGrpDivTag.setAttribute("id", "grp_div_id");
 			createGrpDivTag.setAttribute("onmouseover", "cTooltip.show('generator')");
 			createGrpDivTag.setAttribute("onmouseout", "cTooltip.hide()");
-			createGrpDivTag.innerHTML="</br>&nbsp;&nbsp;&nbsp;<form onSubmit='return Command_panel.submit_grp()' method='get'>Enter generator: &nbsp;&nbsp;&nbsp;<input type='text' id='generator_id'>&nbsp;&nbsp;&nbsp;<input type='button' value='Add' onclick='Command_panel.add_generator()'>&nbsp;&nbsp;&nbsp;<select id='grp_sel_id' name='Group Type'> <option>Symmetric Group</option></select></br></br>Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select id='generators_id' size='5' style='Width:200' ></select>&nbsp;&nbsp;&nbsp;<input type='submit' value='Go'></form></br></br>";
+			createGrpDivTag.innerHTML="</br>&nbsp;&nbsp;&nbsp;"+
+				"<form onSubmit='return Command_panel.submit_grp()'>"+
+				"Enter generator: &nbsp;&nbsp;&nbsp;"+
+				"<input type='text' id='generator_id'>"+
+				"&nbsp;&nbsp;&nbsp;"+
+				"<input type='button' value='Add' onclick='Command_panel.add_generator()'>"+
+				"&nbsp;&nbsp;&nbsp;"+
+				"<select id='grp_sel_id' name='Group Type'> <option>Symmetric Group</option></select>"+
+				"</br></br>"+
+				"Add generators for predefined groups: &nbsp;&nbsp;&nbsp;"+
+				"<select id='Groups' size='1' onchange='Command_panel.add_generators(this)'>"+
+				"<option value=''></option>"+
+				"<option value='S3'>S3</option>"+
+				"<option value='S4'>S4</option>"+
+				"<option value='D8'>D8</option>"+
+				"</select></br></br>"+
+				"Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+				"<select id='generators_id' size='5' style='Width:200' ></select>"+
+				"&nbsp;&nbsp;&nbsp;"+
+				"<input type='button' value='Clear' onclick='Command_panel.clear_generators()'>"+
+				"</br></br>"+
+				"<input type='submit' value='Go'></form>"+
+				"</br></br>";
 			command_panelDiv.appendChild(createGrpDivTag);
 			this.state_create_grp = "visible";
 		}
@@ -93,22 +115,47 @@ var Command_panel = {
 		generatorsTag.appendChild(newgenTag);
 	},
    
-  add_generators: function(group)
+	add_generators: function(group)
 	{ 
-   if(group == "S3")
-   {
-   }
-   else if(group == "D4")
-   {
-   }
-   ....
-  },
-   
-  clear_generators: function()
-  {
-     var generatorsTag = document.getElementById("generators_id");
-      generatorsTag .options.lenght = 0;
-  },
+		var generatorsTag = document.getElementById("generators_id");
+		generatorsTag .options.length = 0;
+		if(group.value === "S3")
+		{
+			var newgenTag1 = document.createElement("option");
+			var newgenTag2 = document.createElement("option");
+			newgenTag1.innerHTML = "(2,1,3)";
+			generatorsTag.appendChild(newgenTag1);
+			newgenTag2.innerHTML = "(1,3,2)";
+			generatorsTag.appendChild(newgenTag2);
+		}
+		if(group.value === "S4")
+		{
+			var newgenTag1 = document.createElement("option");
+			var newgenTag2 = document.createElement("option");
+			var newgenTag3 = document.createElement("option");
+			newgenTag1.innerHTML = "(2,1,3,4)";
+			generatorsTag.appendChild(newgenTag1);
+			newgenTag2.innerHTML = "(1,3,2,4)";
+			generatorsTag.appendChild(newgenTag2);
+			newgenTag3.innerHTML = "(1,2,4,3)";
+			generatorsTag.appendChild(newgenTag3);
+		}
+		else if(group.value === "D8")
+		{
+			var newgenTag1 = document.createElement("option");
+			var newgenTag2 = document.createElement("option");
+			newgenTag1.innerHTML = "(2,3,4,1)";
+			generatorsTag.appendChild(newgenTag1);
+			newgenTag2.innerHTML = "(1,4,3,2)";
+			generatorsTag.appendChild(newgenTag2);
+		}
+	},
+
+	clear_generators: function()
+	{
+		var generatorsTag = document.getElementById("generators_id");
+		generatorsTag .options.length = 0;
+	},
 
 	static_vars: function()
 	{},

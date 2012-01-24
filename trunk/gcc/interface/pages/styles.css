@@ -53,26 +53,28 @@ width: 80%; height: 10%;
 {
 border:1px solid #aaa;
 overflow: auto;
+background: #FBFDFB;
 margin-top: 30;
 margin-right: auto;
 margin-left: auto;
 position: relative;
 width: 80%; height: 40%;
-border-top-left-radius: 18px 9px;
-border-bottom-right-radius: 18px 9px;
-border-bottom-left-radius: 18px 9px;
-border-top-right-radius: 18px 9px;
+border-top-left-radius: 18px 18px;
+border-bottom-right-radius: 18px 18px;
+border-bottom-left-radius: 18px 18px;
+border-top-right-radius: 18px 18px;
 }
 
 /*tooltip style*/
 #tooltip_id
 {
-border-top-left-radius: 12px 6px;
-border-bottom-right-radius: 12px 6px;
-border-top-right-radius: 10px 6px;
+border-top-left-radius: 18px 18px;
+border-bottom-right-radius: 18px 18px;
+border-bottom-left-radius: 18px 18px;
+border-top-right-radius: 18px 18px;
 font-size:14px;
 position: fixed;
-top: 10;
+top: 40;
 margin-left: 220;
 display:block;
 width: 25em;
@@ -80,6 +82,9 @@ padding:2% 2% 2% 2%;
 background:#666;
 color:#fff;
 z-index:-1;
+-webkit-box-shadow: 0 8px 6px -6px black;
+-moz-box-shadow: 0 8px 6px -6px black;
+box-shadow: 0 8px 6px -6px black;
 }
 
 #grp_div_id
@@ -87,7 +92,15 @@ z-index:-1;
 border:1px solid #aaa;
 text-align: center;
 background: #FBFDFB;
-width: 60%; height: 27%;
+margin-right: auto;
+margin-left: auto;
+width: 60%; height: 35%;
+margin-top: 20;
+position: relative;
+border-top-left-radius: 18px 18px;
+border-bottom-right-radius: 18px 18px;
+border-bottom-left-radius: 18px 18px;
+border-top-right-radius: 18px 18px;
 }
 
 
