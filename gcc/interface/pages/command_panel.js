@@ -2,7 +2,6 @@
 //command panel object -- used manipulate the command panel div
 var Command_panel = {
     state_main_comm: "visible",
-    state_canvas: "hidden",
 	state_groups: "hidden",
 	state_create_grp: "hidden",
     
@@ -57,109 +56,6 @@ var Command_panel = {
 		groupcommand_panelDiv.style.display = "none";
 	},
  
-    
-    toggle_canvas: function()
-    {
-        if(this.state_canvas === "visible")
-            this.show_main_view();
-        else
-            this.show_canvas();
-    },
-    
-    show_canvas: function()
-    {
-        var canvas_button = document.getElementById("canvas_button");
-        canvas_button.setAttribute("value", "Switch to text mode");
-        this.state_canvas = "visible";
-        
-        var main_viewTag = document.getElementById("main_view_id");
-        var html_body = document.getElementById("body_id");
-        html_body.removeChild(main_viewTag);
-        
-        var draw_canvasTag = document.createElement("canvas");
-        draw_canvasTag.setAttribute("id", "draw_canvas_id");
-        draw_canvasTag.setAttribute("class", "scanvas");  
-
-
-        var finalDiv = document.getElementById("final");
-        html_body.insertBefore(draw_canvasTag, finalDiv);
-    },
-    
-    show_main_view: function()
-    {
-        var canvas_button = document.getElementById("canvas_button");
-        canvas_button.setAttribute("value", "Switch to visual mode");
-        this.state_canvas = "hidden";
-        
-        var draw_canvasTag = document.getElementById("draw_canvas_id");
-        var html_body = document.getElementById("body_id");
-        html_body.removeChild(draw_canvasTag);
-        
-        var main_viewTag = document.createElement("div");
-        main_viewTag.setAttribute("id", "main_view_id");
-        main_viewTag.setAttribute("class", "smain_view");  
-
-        var finalDiv = document.getElementById("final");
-        html_body.insertBefore(main_viewTag, finalDiv);   
-        
-    },
-    
-	add_groups: function()
-    {
-		if(this.state_groups === "hidden")
-		{
-			var command_panelDiv = document.getElementById("general_commands_panel");
-			var command_createTag = document.getElementById("command_create");
-
-			var s3Tag = document.createElement("a");
-			var d8Tag = document.createElement("a");
-			var brTag4 = document.createElement("br");
-			brTag4.setAttribute("id", "br4");
-			var brTag5 = document.createElement("br");
-			brTag5.setAttribute("id", "br5");
-
-
-
-			s3Tag.setAttribute("id", "s3");
-			s3Tag.setAttribute("href", "#");
-			s3Tag.setAttribute("onmouseover", "cTooltip.show('s3');");
-			s3Tag.setAttribute("onmouseout", "cTooltip.hide();");
-			s3Tag.innerHTML = "S3";
-			
-			d8Tag.setAttribute("id", "d8");
-			d8Tag.setAttribute("href", "#");
-			d8Tag.setAttribute("onmouseover", "cTooltip.show('d8');");
-			d8Tag.setAttribute("onmouseout", "cTooltip.hide();");
-			d8Tag.innerHTML = "D8";
-			
-			command_panelDiv.insertBefore(s3Tag, command_createTag);
-			command_panelDiv.insertBefore(brTag4, command_createTag);
-			command_panelDiv.insertBefore(d8Tag, command_createTag);
-			command_panelDiv.insertBefore(brTag5, command_createTag);
-			this.state_groups = "visible";
-		}
-		else
-		{
-			this.remove_groups();
-		}
-    },
-
-	remove_groups: function()
-    {
-        var command_panelDiv = document.getElementById("general_commands_panel");
-        var brTag4 = document.getElementById("br4");
-        var brTag5 = document.getElementById("br5");
-        var s3Tag = document.getElementById("s3");
-        var d8Tag = document.getElementById("d8");
-        
-        command_panelDiv.removeChild(brTag4);
-        command_panelDiv.removeChild(brTag5);
-        
-        command_panelDiv.removeChild(s3Tag);
-        command_panelDiv.removeChild(d8Tag);
-		this.state_groups = "hidden";
-    },
-
 	add_create_grp_div: function()
 	{	
 		if(this.state_create_grp === "hidden")

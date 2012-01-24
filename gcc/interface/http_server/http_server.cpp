@@ -22,6 +22,8 @@ cHttpServer::cHttpServer(unsigned int port)
 #endif // defined(SIGQUIT)
 	m_Signals.async_wait(boost::bind(&cHttpServer::Stop, this));
 
+	m_Acceptor.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
+
 	StartAccept();
 };
 
@@ -56,6 +58,8 @@ void cHttpServer::HandleConnection(connection_ptr new_connection,
 
 void cHttpServer::Start()
 {
+	cLogger log(LOG_SEV_INFO);
+	log<< CONTEXT_STR + "SYMMETRY server starting ... ";
 	m_IOService.run();
 };
 

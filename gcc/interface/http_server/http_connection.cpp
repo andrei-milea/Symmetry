@@ -83,15 +83,15 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				{
 					HandleExistingSession(response, _request, ses_id);
 				}
-				else //session lost
+				else //session lost or invalid request
 				{
-					assert(false);
+					//assert(false);
 					//add new session
-					cHttpConnection::s_Sessions.insert(ses_pair(ses_id, new cSession(ses_id)));
+					//cHttpConnection::s_Sessions.insert(ses_pair(ses_id, new cSession(ses_id)));
 
-					const std::string index_page  = cPageBuilder::GetInstance()->GetIndexPage(
-					                                    ses_id);
-					response.BuildResponse(OK, index_page);
+					//const std::string index_page  = cPageBuilder::GetInstance()->GetIndexPage(ses_id);
+					response.BuildResponse(NOT_FOUND, "");
+					//response.BuildResponse(NOT_FOUND, "BAD_REQUEST");
 				}
 			}
 			boost::asio::async_write(m_Socket, m_ResponseBuf,
@@ -117,40 +117,50 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 
 		}
 	}
-	else
+	else if(error == boost::asio::error::eof)
 	{
-		throw std::runtime_error(CONTEXT_STR + error.message());
+
+		m_ConnectionManager.StopConnection(shared_from_this());
 	}
 };
 
 void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest& _request, const unsigned int ses_id)
 {
-	cSession* session = cHttpConnection::s_Sessions[ses_id];
-	if(session->GetState() == STATE_FREE)
+	try
 	{
-		cCommand* command = cCommandCreator<cCreator>::GetCommand(
-		                        _request.GetCommandId(), _request.GetParam(),
-		                        session->GetResult());
-		int runtime_estimation = command->EstimateRunTime(s_Estimator);
+		cSession* session = cHttpConnection::s_Sessions[ses_id];
+		if(session->GetState() == STATE_FREE)
+		{
+			cCommand* command = cCommandCreator<cCreator>::GetCommand(
+									_request.GetCommandId(), _request.GetParam(),
+									session->GetResult());
+			int runtime_estimation = command->EstimateRunTime(s_Estimator);
 
-		if( runtime_estimation <= 360/*seconds*/)
-		{
-			session->RunCommand(command);
-			response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
-			                           *session->GetResult(), ses_id));
+			if( runtime_estimation <= 360/*seconds*/)
+			{
+				session->RunCommand(command);
+				response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
+										   *session->GetResult(), ses_id));
+			}
+			else
+			{
+				session->ScheduleCommand(command);
+				response.BuildResponse(OK,
+									   cPageBuilder::GetInstance()->GetLoadingPage(
+										   runtime_estimation, ses_id));
+			}
 		}
-		else
+		else if(session->GetState() == STATE_RESULT_PENDING)
 		{
-			session->ScheduleCommand(command);
-			response.BuildResponse(OK,
-			                       cPageBuilder::GetInstance()->GetLoadingPage(
-			                           runtime_estimation, ses_id));
+			response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
+									   *session->GetResult(), ses_id));
 		}
 	}
-	else if(session->GetState() == STATE_RESULT_PENDING)
+	catch(std::exception& e)
 	{
-		response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
-		                           *session->GetResult(), ses_id));
+		cLogger log(LOG_SEV_INFO);
+		log<< e.what();
+		response.BuildResponse(OK, e.what());
 	}
 };
 

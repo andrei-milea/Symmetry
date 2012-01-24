@@ -5,6 +5,10 @@ namespace engine
 
 boost::mutex cLogger::s_Mutex;
 
+/*!
+  class implementing the strategy pattern in order 
+  interpret different types of objects as errors
+*/
 class cVariantVisitor : public boost::static_visitor<>
 {
 public:
@@ -43,8 +47,7 @@ private:
 
 
 
-cLogger::cLogger(int severity = LOG_SEV_ERROR, std::size_t buffersize)
-	:m_BufferSize(buffersize)
+cLogger::cLogger(int severity = LOG_SEV_ERROR)
 {
 	//init severirity types
 	if(LOG_SEV_INFO == severity)
@@ -59,35 +62,26 @@ cLogger::cLogger(int severity = LOG_SEV_ERROR, std::size_t buffersize)
 
 
 cLogger::~cLogger()
-{
-	if(m_Buffer.size() >= 0)
-		cLogger::WriteToDisk(m_Buffer);
-};
+{};
 
 const std::string& cLogger::GetSeverity()const
 {
 	return m_Severity;
 };
 
-std::size_t cLogger::GetBufferSize()const
-{
-	return m_BufferSize;
-};
-
-void cLogger::SetBufferSize(std::size_t buffersize)
-{
-	m_BufferSize = buffersize;
-};
-
 cLogger& cLogger::operator<<(SupportedTypes type_variant)
 {
-	if(m_Buffer.size() >= m_BufferSize)
-		cLogger::WriteToDisk(m_Buffer);
-
 	std::string message;
+	std::string final_message;
 	cVariantVisitor variant_visitor(&message);
 	boost::apply_visitor(variant_visitor, type_variant);
-	m_Buffer += m_Severity + " : " + GetCurrentDate() + " -- " + message + "\n";
+	final_message += m_Severity + " : " + GetCurrentDate() + " -- " + message + "\n";
+
+	//write to disk
+	boost::mutex::scoped_lock lock(cLogger::s_Mutex);
+	std::ofstream file(GLOBAL_LOG_FILE, std::ios_base::out | std::ios_base::app);
+	file<<final_message;
+	file.close();
 	return *this;
 };
 
@@ -97,22 +91,6 @@ std::string cLogger::GetCurrentDate()const
 	return boost::posix_time::to_simple_string(now);
 };
 
-bool cLogger::WriteToDisk(std::string &buff)
-{
-	boost::mutex::scoped_lock lock(cLogger::s_Mutex);
-	try
-	{
-		std::ofstream file(GLOBAL_LOG_FILE, std::ios_base::out | std::ios_base::app);
-		file<<buff;
-		file.close();
-	}
-	catch(...)
-	{
-		return false;
-	}
-	buff.clear();
-	return true;
-};
 
 
 }
