@@ -136,8 +136,7 @@ protected:
 		group_type_()
 		{
 			add
-			("SYMMETRIC_GROUP", SYMMETRIC_GROUP)
-			("D8", D8);
+			("SYMMETRIC_GROUP", SYMMETRIC_GROUP);
 
 		}
 	} group_type;
