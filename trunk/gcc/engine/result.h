@@ -10,6 +10,10 @@ namespace engine
 class cCommand;
 class cSession;
 
+/*!
+  used to retrieve the result after a given command is executed
+  helps in the communication between the http_server and the engine
+*/
 class cResult
 {
 public:

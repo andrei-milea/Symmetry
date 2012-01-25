@@ -9,7 +9,10 @@ namespace engine
 class cGetElemCommand;
 class cGetSubgrpCommand;
 
-//estimate time in minutes
+/*!
+ base class for command estimators
+ should be used as a visitor in the command class(Estimate(cEstimator&))
+*/
 class cEstimator
 {
 public:
