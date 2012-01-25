@@ -9,11 +9,13 @@ namespace engine
 
 class cCommand;
 
-//thread safe class that implements a commands queue
-//used to keep the command until the worker threads from
-//the pool executes them (half sync half async pattern)
-//used design patterns: thread safe interface, monitor object,
-//half-sync, half-async
+/*!
+ thread safe class that implements a commands queue
+ used to keep the command until the worker threads from
+ the pool executes them (half sync half async pattern)
+ used design patterns: thread safe interface, monitor object,
+ half-sync, half-async
+*/
 class cCommandQueue
 {
 public:	//guarded methods -- interface

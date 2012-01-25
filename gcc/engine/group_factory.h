@@ -7,8 +7,11 @@
 
 #include "../lib/group.h"
 
-//singleton class used to facilitate creation of groups
-//contains a pool of groups for optimization
+
+/*!
+ singleton class used to facilitate creation of groups
+ contains a pool of groups for optimization
+*/
 class cGroupFactory
 {
 public://methods

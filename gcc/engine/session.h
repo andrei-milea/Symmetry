@@ -11,11 +11,18 @@ namespace engine
 
 class cCommand;
 
+/*!
+
+*/
 #define STATE_FREE 0
 #define STATE_COMMAND_PENDING 1
 #define STATE_RESULT_PENDING 2
 
-//active object variant design pattern
+/*!
+ implements a session for a client connected to the http_server
+ uses a thread pool to run received commands
+ active object variant design pattern
+*/
 class cSession
 {
 public:
@@ -23,13 +30,33 @@ public:
 	cSession(unsigned int ses_id);
 	~cSession();
 
-	//returns the estimative time for the next request
+	/*!
+	  runs a command and returns the result as soon as it finishes
+	*/
 	void RunCommand(cCommand *command);
+
+	/*!
+	  puts a command in the wait queue to be processed by the thread pool
+	*/
 	void ScheduleCommand(cCommand *command);
+
+	/*!
+	  cancels a command received previously
+	*/
 	void TerminateCommand();
+
+	/*!
+	  return a given estimate of the progress
+	*/
 	unsigned int GetProgess();
+
 	int GetState()const;
+
 	void SetState(int state);
+
+	/*!
+	  returns the result of a command
+	*/
 	cResult *GetResult();
 
 private:

@@ -8,6 +8,10 @@ namespace engine
 
 class cEstimator;
 
+/*!
+  command that obtains a subgroup of the group based on the received parameters
+  i.e. GetCenter
+*/
 class cGetSubgrpCommand : public cGroupGenCommand
 {
 public:

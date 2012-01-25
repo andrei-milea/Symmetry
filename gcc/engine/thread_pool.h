@@ -6,6 +6,10 @@
 namespace engine
 {
 
+/*!
+  thread pool class
+  uses a queue to hold the commands received
+*/
 class cThreadPool
 {
 public:
@@ -23,9 +27,12 @@ public:
 	};
 
 private:
-	//function that runs in all the threads
-	//waits until the queue is not empty
-	//and process incoming commands
+	
+	/*!
+	 function that runs in all the threads
+	 waits until the queue is not empty
+	 and process incoming commands
+	*/
 	void Run();
 
 private:

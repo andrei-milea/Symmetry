@@ -5,8 +5,10 @@
 #include "estimate.h"
 #include "result.h"
 
-//COMMAND_TYPE = GET_ELEMENTS | GET_NORMALIZER | GET_CENTER | GET_CENTRALIZER
-
+/*!
+ base class for commands (Command design pattern)
+ COMMAND_TYPE = GET_ELEMENTS | GET_NORMALIZER | GET_CENTER | GET_CENTRALIZER
+*/
 namespace engine
 {
 
@@ -18,6 +20,11 @@ public:
 	};
 
 	virtual void Execute()=0;
+
+	/*!
+	  uses the visitor based on cEstimator to return a rough estimation
+	  of the running time of a given command
+	*/
 	virtual unsigned int EstimateRunTime(const cEstimator &estimator)const=0;
 
 protected://methods
@@ -26,6 +33,10 @@ protected://methods
 	{
 		m_Params = params;
 	};
+
+	/*!
+	  parses the command parameters using BOOST SPIRIT
+	*/
 	virtual bool ParseParams()=0;
 
 protected://members

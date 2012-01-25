@@ -8,6 +8,10 @@ namespace engine
 
 class cEstimator;
 
+/*!
+  implements the Get Group Elements command
+  by default uses the Dimino algorithm
+*/
 class cGetElemCommand : public cGroupGenCommand
 {
 public:

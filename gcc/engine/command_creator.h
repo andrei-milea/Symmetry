@@ -19,6 +19,9 @@ enum COMMAND_TYPE
 };
 
 
+/*!
+  implements the default command creation strategy
+*/
 class cCreator
 {
 public:
@@ -41,6 +44,11 @@ public:
 //
 //};
 
+/*!
+  instantiates a given command (builder pattern)
+  using different creation policies(strategy pattern)
+  by default should be instantiated with cCreator class
+*/
 template <typename CREATOR>
 class cCommandCreator : CREATOR
 {

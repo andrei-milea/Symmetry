@@ -23,9 +23,12 @@ enum GROUP_TYPE
 {
     NONE = 0,
     SYMMETRIC_GROUP,
-    D8
 };
 
+/*!
+  base class for commands based on generation of group elements from a set of generators
+  implements the parsing of generators using BOOST SPIRIT
+*/
 class cGroupGenCommand : public cCommand
 {
 public:
