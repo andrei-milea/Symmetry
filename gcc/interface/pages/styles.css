@@ -51,6 +51,7 @@ width: 80%; height: 10%;
 
 .smain_view
 {
+text-align: center;
 border:1px solid #aaa;
 overflow: auto;
 background: #FBFDFB;

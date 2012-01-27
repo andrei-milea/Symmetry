@@ -53,17 +53,19 @@ public:
 	//copy constructor and assignment op
 	cCayleyGrf(const cCayleyGrf &graph)
 	{
-		m_Elements = graph.GetElements();
-		m_Generators = graph.GetGenerators();
-		m_Graph = new Graph(graph.GetGraph());
+		m_Elements = graph.m_Elements;
+		m_Generators = graph.m_Generators;
+		if(nullptr != graph.m_Graph)
+			m_Graph = new Graph(*graph.GetGraph());
 	};
 	cCayleyGrf &operator=(const cCayleyGrf &graph)
 	{
 		if(this != &graph)
 		{
-			m_Elements = graph.GetElements();
-			m_Generators = graph.GetGenerators();
-			m_Graph = new Graph(graph.GetGraph());
+			m_Elements = graph.m_Elements;
+			m_Generators = graph.m_Generators;
+			if(nullptr != graph.m_Graph)
+				m_Graph = new Graph(*graph.GetGraph());
 			return *this;
 		}
 	};
@@ -152,7 +154,6 @@ public:
 	friend std::ostream& operator<<(std::ostream& out, const cCayleyGrf &graph)
 	{
 		//print graph
-		out<<"GRAPH:\n";
 		boost::print_graph(*graph.GetGraph());
 
 //		//print edges
@@ -178,9 +179,7 @@ public:
 	*/
 	Graph* GetGraph()const
 	{
-		if(nullptr != m_Graph)
-			return m_Graph;
-		else throw;
+		return m_Graph;
 	};
 
 private:

@@ -1,10 +1,10 @@
 all: engine_test
 CFLAGS = -std=c++0x -c -g -Wall -I /usr/include/boost 
-LFLAGS = -lboost_thread-mt -lboost_date_time
+LFLAGS = -lboost_thread -lboost_date_time
 GCC = g++
 
-engine_test: engine_test.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o result.o
-	$(GCC) $(LFLAGS) engine_test.o estimate.o getsubgrp_command.o getelem_command.o session.o logger.o command_queue.o thread_pool.o result.o -o engine_test
+engine_test: engine_test.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o session.o logger.o command_queue.o thread_pool.o result.o
+	$(GCC) $(LFLAGS) engine_test.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o session.o logger.o command_queue.o thread_pool.o result.o -o engine_test
 
 engine_test.o: engine_test.cpp
 	$(GCC) $(CFLAGS) engine_test.cpp -o engine_test.o
@@ -12,11 +12,14 @@ engine_test.o: engine_test.cpp
 estimate.o: estimate.cpp
 	$(GCC) $(CFLAGS) estimate.cpp -o estimate.o 
 
-getsubgrp_command.o: command.h groupgen_command.h getsubgrp_command.cpp
-	$(GCC) $(CFLAGS) getsubgrp_command.cpp -o getsubgrp_command.o
+getcenter_command.o: command.h groupgen_command.h getcenter_command.cpp
+	$(GCC) $(CFLAGS) getcenter_command.cpp -o getcenter_command.o
 
 getelem_command.o: command.h groupgen_command.h getelem_command.cpp
 	$(GCC) $(CFLAGS) getelem_command.cpp -o getelem_command.o
+
+getcgraph_command.o: command.h groupgen_command.h getcgraph_command.cpp
+	$(GCC) $(CFLAGS) getcgraph_command.cpp -o getcgraph_command.o
 
 session.o: session.cpp
 	$(GCC) $(CFLAGS) session.cpp -o session.o

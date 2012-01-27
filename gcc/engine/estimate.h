@@ -7,7 +7,8 @@ namespace engine
 {
 
 class cGetElemCommand;
-class cGetSubgrpCommand;
+class cGetCenterCommand;
+class cGetCGraphCommand;
 
 /*!
  base class for command estimators
@@ -20,7 +21,8 @@ public:
 	virtual ~cEstimator();
 
 	virtual std::size_t Estimate(const cGetElemCommand& getelem_command)const;
-	virtual std::size_t Estimate(const cGetSubgrpCommand& getsubgrp_command)const;
+	virtual std::size_t Estimate(const cGetCenterCommand& getcenter_command)const;
+	virtual std::size_t Estimate(const cGetCGraphCommand& getcgraph_command)const;
 };
 
 }

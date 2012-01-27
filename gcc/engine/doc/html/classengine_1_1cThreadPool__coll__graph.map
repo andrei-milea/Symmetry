@@ -1,9 +1,9 @@
 <map id="G" name="G">
-<area shape="rect" id="node10" href="$classengine_1_1cSession.html" title="{engine::cSession\n|&#45; m_SessionId\l&#45; m_State\l&#45; m_Result\l&#45; sThreadPool\l|+ cSession()\l+ cSession()\l+ ~cSession()\l+ RunCommand()\l+ ScheduleCommand()\l+ TerminateCommand()\l+ GetProgess()\l+ GetState()\l+ SetState()\l+ GetResult()\l}" alt="" coords="5,280,181,533"/>
-<area shape="rect" id="node2" href="$classengine_1_1cCommandQueue.html" title="{engine::cCommandQueue\n|&#45; m_Queue\l&#45; m_Mutex\l&#45; m_NotEmptyCond\l|+ cCommandQueue()\l+ ~cCommandQueue()\l+ Put()\l+ Remove()\l+ Empty()\l+ GetSize()\l# Put_i()\l# Remove_i()\l# Empty_i()\l# GetSize_i()\l}" alt="" coords="307,1201,496,1439"/>
-<area shape="rect" id="node6" href="$classengine_1_1cCommand.html" title="{engine::cCommand\n|# m_Result\l# m_Params\l|+ ~cCommand()\l+ Execute()\l+ EstimateRunTime()\l# cCommand()\l# ParseParams()\l}" alt="" coords="93,843,251,994"/>
-<area shape="rect" id="node8" href="$classengine_1_1cResult.html" title="{engine::cResult\n|&#45; m_Session\l&#45; m_Command\l&#45; m_Result\l|+ cResult()\l+ ~cResult()\l+ SetResult()\l+ SetCommand()\l+ GetResult()\l+ GetCommand()\l}" alt="" coords="5,598,141,778"/>
-<area shape="rect" id="node15" title="STL class." alt="" coords="223,649,309,727"/>
-<area shape="rect" id="node17" title="STL class." alt="" coords="207,368,391,445"/>
-<area shape="rect" id="node19" title="STL class." alt="" coords="287,880,413,957"/>
+<area shape="rect" id="node10" href="$classengine_1_1cSession.html" title="{engine::cSession\n|&#45; m_SessionId\l&#45; m_State\l&#45; m_Result\l&#45; sThreadPool\l|+ cSession()\l+ cSession()\l+ ~cSession()\l+ RunCommand()\l+ ScheduleCommand()\l+ TerminateCommand()\l+ GetProgess()\l+ GetState()\l+ SetState()\l+ GetResult()\l}" alt="" coords="5,280,179,533"/>
+<area shape="rect" id="node2" href="$classengine_1_1cCommandQueue.html" title="{engine::cCommandQueue\n|&#45; m_Queue\l&#45; m_Mutex\l&#45; m_NotEmptyCond\l|+ cCommandQueue()\l+ ~cCommandQueue()\l+ Put()\l+ Remove()\l+ Empty()\l+ GetSize()\l# Put_i()\l# Remove_i()\l# Empty_i()\l# GetSize_i()\l}" alt="" coords="299,1201,481,1439"/>
+<area shape="rect" id="node6" href="$classengine_1_1cCommand.html" title="{engine::cCommand\n|# m_Result\l# m_Params\l|+ ~cCommand()\l+ Execute()\l+ EstimateRunTime()\l# cCommand()\l# ParseParams()\l}" alt="" coords="88,843,241,994"/>
+<area shape="rect" id="node8" href="$classengine_1_1cResult.html" title="{engine::cResult\n|&#45; m_Session\l&#45; m_Command\l&#45; m_Result\l|+ cResult()\l+ ~cResult()\l+ SetResult()\l+ SetCommand()\l+ GetResult()\l+ GetCommand()\l}" alt="" coords="5,598,136,778"/>
+<area shape="rect" id="node15" title="STL class." alt="" coords="219,649,300,727"/>
+<area shape="rect" id="node17" title="STL class." alt="" coords="203,368,377,445"/>
+<area shape="rect" id="node19" title="STL class." alt="" coords="281,880,399,957"/>
 </map>

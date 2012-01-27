@@ -2,7 +2,8 @@
 #define _COMMAND_CREATOR_H
 
 #include "getelem_command.h"
-#include "getsubgrp_command.h"
+#include "getcenter_command.h"
+#include "getcgraph_command.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -13,9 +14,8 @@ enum COMMAND_TYPE
 {
     NULL_COMMAND = 0,
     GET_ELEMENTS,
-    GET_NORMALIZER,
     GET_CENTER,
-    GET_CENTRALIZER
+    GET_CGRAPH
 };
 
 
@@ -30,8 +30,10 @@ public:
 		cCommand *pcommand;
 		if(GET_ELEMENTS == command)
 			pcommand = new cGetElemCommand(param, result);
-		else if(GET_NORMALIZER == command)
-			pcommand = new cGetSubgrpCommand(param, result);
+		else if(GET_CENTER == command)
+			pcommand = new cGetCenterCommand(param, result);
+		else if(GET_CGRAPH == command)
+			pcommand = new cGetCGraphCommand(param, result);
 		result->SetCommand(pcommand);
 
 		return pcommand;

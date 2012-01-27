@@ -3,7 +3,12 @@
 }
 
 
-\-Collaboration diagram for http\-\_\-server\-:\-:c\-Http\-Server\-:\nopagebreak
+{\ttfamily \#include $<$http\-\_\-server.\-h$>$}
+
+
+
+\-Collaboration diagram for http\-\_\-server\-:\-:c\-Http\-Server\-:
+\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -13,14 +18,13 @@
 \subsection*{\-Public \-Member \-Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classhttp__server_1_1cHttpServer_a26d917897dda50502ea1469fb5af9c2e}{{\bfseries c\-Http\-Server} (unsigned int port)}\label{classhttp__server_1_1cHttpServer_a26d917897dda50502ea1469fb5af9c2e}
-
+\hyperlink{classhttp__server_1_1cHttpServer_a26d917897dda50502ea1469fb5af9c2e}{c\-Http\-Server} (unsigned int port)
 \item 
-\hypertarget{classhttp__server_1_1cHttpServer_ad4699b20627615aee961a06eae97fb89}{void {\bfseries \-Start} ()}\label{classhttp__server_1_1cHttpServer_ad4699b20627615aee961a06eae97fb89}
-
+\hyperlink{classhttp__server_1_1cHttpServer_a783dd5b31b19b8a95e6c2ce7c188a7c9}{$\sim$c\-Http\-Server} ()
 \item 
-\hypertarget{classhttp__server_1_1cHttpServer_a2c7bcb8fb8ca1aa5fe26d00c94c11835}{void {\bfseries \-Stop} ()}\label{classhttp__server_1_1cHttpServer_a2c7bcb8fb8ca1aa5fe26d00c94c11835}
-
+void \hyperlink{classhttp__server_1_1cHttpServer_ad4699b20627615aee961a06eae97fb89}{\-Start} ()
+\item 
+void \hyperlink{classhttp__server_1_1cHttpServer_a2c7bcb8fb8ca1aa5fe26d00c94c11835}{\-Stop} ()
 \end{DoxyCompactItemize}
 \subsection*{\-Private \-Member \-Functions}
 \begin{DoxyCompactItemize}
@@ -47,6 +51,67 @@
 
 \end{DoxyCompactItemize}
 
+
+\subsection{\-Detailed \-Description}
+class that implements a http server using \-B\-O\-O\-S\-T \-A\-S\-I\-O 
+
+\subsection{\-Constructor \& \-Destructor \-Documentation}
+\hypertarget{classhttp__server_1_1cHttpServer_a26d917897dda50502ea1469fb5af9c2e}{\index{http\-\_\-server\-::c\-Http\-Server@{http\-\_\-server\-::c\-Http\-Server}!c\-Http\-Server@{c\-Http\-Server}}
+\index{c\-Http\-Server@{c\-Http\-Server}!http_server::cHttpServer@{http\-\_\-server\-::c\-Http\-Server}}
+\subsubsection[{c\-Http\-Server}]{\setlength{\rightskip}{0pt plus 5cm}{\bf http\-\_\-server\-::c\-Http\-Server\-::c\-Http\-Server} (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{port}
+\end{DoxyParamCaption}
+)}}\label{classhttp__server_1_1cHttpServer_a26d917897dda50502ea1469fb5af9c2e}
+initializes members and prepares for accepting connections 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classhttp__server_1_1cHttpServer_a26d917897dda50502ea1469fb5af9c2e_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classhttp__server_1_1cHttpServer_a783dd5b31b19b8a95e6c2ce7c188a7c9}{\index{http\-\_\-server\-::c\-Http\-Server@{http\-\_\-server\-::c\-Http\-Server}!$\sim$c\-Http\-Server@{$\sim$c\-Http\-Server}}
+\index{$\sim$c\-Http\-Server@{$\sim$c\-Http\-Server}!http_server::cHttpServer@{http\-\_\-server\-::c\-Http\-Server}}
+\subsubsection[{$\sim$c\-Http\-Server}]{\setlength{\rightskip}{0pt plus 5cm}{\bf http\-\_\-server\-::c\-Http\-Server\-::$\sim$c\-Http\-Server} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhttp__server_1_1cHttpServer_a783dd5b31b19b8a95e6c2ce7c188a7c9}
+stops the server 
+
+\-Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classhttp__server_1_1cHttpServer_a783dd5b31b19b8a95e6c2ce7c188a7c9_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+\subsection{\-Member \-Function \-Documentation}
+\hypertarget{classhttp__server_1_1cHttpServer_ad4699b20627615aee961a06eae97fb89}{\index{http\-\_\-server\-::c\-Http\-Server@{http\-\_\-server\-::c\-Http\-Server}!\-Start@{\-Start}}
+\index{\-Start@{\-Start}!http_server::cHttpServer@{http\-\_\-server\-::c\-Http\-Server}}
+\subsubsection[{\-Start}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf http\-\_\-server\-::c\-Http\-Server\-::\-Start} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhttp__server_1_1cHttpServer_ad4699b20627615aee961a06eae97fb89}
+starts the server \hypertarget{classhttp__server_1_1cHttpServer_a2c7bcb8fb8ca1aa5fe26d00c94c11835}{\index{http\-\_\-server\-::c\-Http\-Server@{http\-\_\-server\-::c\-Http\-Server}!\-Stop@{\-Stop}}
+\index{\-Stop@{\-Stop}!http_server::cHttpServer@{http\-\_\-server\-::c\-Http\-Server}}
+\subsubsection[{\-Stop}]{\setlength{\rightskip}{0pt plus 5cm}void {\bf http\-\_\-server\-::c\-Http\-Server\-::\-Stop} (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classhttp__server_1_1cHttpServer_a2c7bcb8fb8ca1aa5fe26d00c94c11835}
+stops the server 
 
 \-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
 \item 

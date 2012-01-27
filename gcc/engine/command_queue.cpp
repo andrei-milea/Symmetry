@@ -2,7 +2,7 @@
 
 #include "command_queue.h"
 #include "getelem_command.h"
-#include "getsubgrp_command.h"
+#include "getcenter_command.h"
 
 namespace engine
 {

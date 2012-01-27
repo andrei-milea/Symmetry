@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['cbinarytree',['cBinaryTree',['../classcBinaryTree.html',1,'cBinaryTree&lt; INFO, TreeRep &gt;'],['../classcBinaryTreeRep.html#ad2cac2b5d3648b1f11669d579e790ba3',1,'cBinaryTreeRep::cBinaryTree()']]],
-  ['cbinarytreeiterator',['cBinaryTreeIterator',['../classcBinaryTreeIterator.html',1,'']]],
-  ['cbinarytreenode',['cBinaryTreeNode',['../classcBinaryTreeNode.html',1,'']]],
-  ['cbinarytreerep',['cBinaryTreeRep',['../classcBinaryTreeRep.html',1,'']]],
   ['ccayleygrf',['cCayleyGrf',['../classcCayleyGrf.html',1,'']]],
   ['ccolouredgesvis',['cColourEdgesVis',['../classcCayleyGrf_1_1cColourEdgesVis.html',1,'cCayleyGrf']]],
   ['cgenrep',['cGenRep',['../classcGenRep.html',1,'']]],
@@ -22,6 +18,5 @@ var searchData=
   ['cslprep',['cSLPRep',['../classcSLPRep.html',1,'']]],
   ['csqmatrixelement',['cSqMatrixElement',['../classcSqMatrixElement.html',1,'']]],
   ['csubgroup',['cSubgroup',['../classcSubgroup.html',1,'']]],
-  ['csymmetricrep',['cSymmetricRep',['../classcSymmetricRep.html',1,'cSymmetricRep&lt; T &gt;'],['../classcSymmetricRep.html#a64f4c25b8f5aebbd78f49f3485aed88f',1,'cSymmetricRep::cSymmetricRep(std::vector&lt; T &gt; &amp;generators_set)'],['../classcSymmetricRep.html#a47ba133fe6f1ba2b8d3da5ae6cb001d9',1,'cSymmetricRep::cSymmetricRep(std::initializer_list&lt; T &gt; perm_list)']]],
-  ['cthreadedbinarytree',['cThreadedBinaryTree',['../classcThreadedBinaryTree.html',1,'']]]
+  ['csymmetricrep',['cSymmetricRep',['../classcSymmetricRep.html',1,'cSymmetricRep&lt; T &gt;'],['../classcSymmetricRep.html#a64f4c25b8f5aebbd78f49f3485aed88f',1,'cSymmetricRep::cSymmetricRep(std::vector&lt; T &gt; &amp;generators_set)'],['../classcSymmetricRep.html#a47ba133fe6f1ba2b8d3da5ae6cb001d9',1,'cSymmetricRep::cSymmetricRep(std::initializer_list&lt; T &gt; perm_list)']]]
 ];

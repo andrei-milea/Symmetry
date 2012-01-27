@@ -158,7 +158,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00063"></a>00063 
 <a name="l00064"></a>00064         <span class="keywordtype">bool</span> need_new_layer = <span class="keyword">false</span>;
 <a name="l00065"></a>00065         <span class="comment">//main loop -- iterate through every layer</span>
-<a name="l00066"></a>00066         <span class="keywordflow">for</span>(std::size_t index = 1; index &lt; m_Non_Triv_Layers; index++)  
+<a name="l00066"></a>00066         <span class="keywordflow">for</span>(std::size_t index = 1; index &lt; m_Non_Triv_Layers; index++)
 <a name="l00067"></a>00067         {
 <a name="l00068"></a>00068             <span class="comment">//add cyclic subgroups of order p^index</span>
 <a name="l00069"></a>00069             <span class="keywordflow">if</span>(m_CycSubgrpsGen[index+1].empty())
@@ -167,7 +167,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00072"></a>00072             }
 <a name="l00073"></a>00073             <span class="keywordflow">else</span>
 <a name="l00074"></a>00074             {
-<a name="l00075"></a>00075                 AddNewLayer();  
+<a name="l00075"></a>00075                 AddNewLayer();
 <a name="l00076"></a>00076                 <span class="keywordflow">for</span>(<span class="keyword">typename</span> ElemVec::iterator it = m_CycSubgrpsGen[index+1].begin();
 <a name="l00077"></a>00077                         it != m_CycSubgrpsGen[index+1].end(); it++)
 <a name="l00078"></a>00078                 {
@@ -190,17 +190,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00095"></a>00095 
 <a name="l00096"></a>00096                 <span class="comment">//std_ex::print_vector(norm_elem);</span>
 <a name="l00097"></a>00097 
-<a name="l00098"></a>00098                 ElemVec possible_gen = std_ex::set_intersection(m_CycSubgrpsGen[1], 
-<a name="l00099"></a>00099                         norm_elem);
+<a name="l00098"></a>00098                 ElemVec possible_gen = std_ex::set_intersection(m_CycSubgrpsGen[1],
+<a name="l00099"></a>00099                                        norm_elem);
 <a name="l00100"></a>00100 
 <a name="l00101"></a>00101                 <span class="comment">//remove subgroups already in the ith layer</span>
-<a name="l00102"></a>00102                 <span class="keywordflow">if</span>(index+1 &lt; m_Lattice.size())  
+<a name="l00102"></a>00102                 <span class="keywordflow">if</span>(index+1 &lt; m_Lattice.size())
 <a name="l00103"></a>00103                 {
 <a name="l00104"></a>00104                     <span class="keywordflow">for</span>(SubGrp_Iterator subgrp1_iter = GetLayer(index+1).begin();
-<a name="l00105"></a>00105                             subgrp1_iter != GetLayer(index+1).end(); subgrp1_iter++) 
+<a name="l00105"></a>00105                             subgrp1_iter != GetLayer(index+1).end(); subgrp1_iter++)
 <a name="l00106"></a>00106                     {
-<a name="l00107"></a>00107                         std_ex::set_difference(possible_gen, 
-<a name="l00108"></a>00108                                 (*subgrp1_iter).GetGeneratorsSet());
+<a name="l00107"></a>00107                         std_ex::set_difference(possible_gen,
+<a name="l00108"></a>00108                                                (*subgrp1_iter).GetGeneratorsSet());
 <a name="l00109"></a>00109                     }
 <a name="l00110"></a>00110                 }
 <a name="l00111"></a>00111 
@@ -256,7 +256,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00161"></a>00161     <span class="keywordtype">void</span> AddSecondLayer()
 <a name="l00162"></a>00162     {
 <a name="l00163"></a>00163         AddNewLayer();
-<a name="l00164"></a>00164         
+<a name="l00164"></a>00164 
 <a name="l00165"></a>00165         <span class="keywordflow">for</span>(<span class="keyword">typename</span> ElemVec::iterator iter = m_CycSubgrpsGen[1].begin();
 <a name="l00166"></a>00166                 iter != m_CycSubgrpsGen[1].end(); iter++)
 <a name="l00167"></a>00167         {
@@ -347,16 +347,16 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00252"></a>00252     };
 <a name="l00253"></a>00253 
 <a name="l00254"></a>00254     <span class="comment">//TODO -- improve naive primality testing</span>
-<a name="l00255"></a>00255     <span class="keywordtype">bool</span> isPrime(<span class="keywordtype">int</span> number) 
+<a name="l00255"></a>00255     <span class="keywordtype">bool</span> isPrime(<span class="keywordtype">int</span> number)
 <a name="l00256"></a>00256     {
-<a name="l00257"></a>00257        <span class="keywordflow">if</span>(number == 2) <span class="keywordflow">return</span> <span class="keyword">true</span>;
-<a name="l00258"></a>00258        <span class="keywordflow">if</span>(number == 1 || (number%2 == 0)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00259"></a>00259        <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=3; i*i&lt;=number; i+=2) 
-<a name="l00260"></a>00260        {
-<a name="l00261"></a>00261           <span class="keywordflow">if</span>(number%i == 0)
-<a name="l00262"></a>00262              <span class="keywordflow">return</span> <span class="keyword">false</span>;
-<a name="l00263"></a>00263        }
-<a name="l00264"></a>00264        <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00257"></a>00257         <span class="keywordflow">if</span>(number == 2) <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<a name="l00258"></a>00258         <span class="keywordflow">if</span>(number == 1 || (number%2 == 0)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00259"></a>00259         <span class="keywordflow">for</span>(<span class="keywordtype">int</span> i=3; i*i&lt;=number; i+=2)
+<a name="l00260"></a>00260         {
+<a name="l00261"></a>00261             <span class="keywordflow">if</span>(number%i == 0)
+<a name="l00262"></a>00262                 <span class="keywordflow">return</span> <span class="keyword">false</span>;
+<a name="l00263"></a>00263         }
+<a name="l00264"></a>00264         <span class="keywordflow">return</span> <span class="keyword">true</span>;
 <a name="l00265"></a>00265     }
 <a name="l00266"></a>00266 
 <a name="l00267"></a>00267 <span class="keyword">private</span>:
@@ -388,7 +388,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>group_lattice.h</b>      </li>
 
-    <li class="footer">Generated on Tue Jan 3 2012 02:16:56 for SYMMETRY by
+    <li class="footer">Generated on Thu Jan 26 2012 07:50:14 for SYMMETRY by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

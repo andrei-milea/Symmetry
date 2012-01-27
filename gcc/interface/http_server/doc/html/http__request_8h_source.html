@@ -140,42 +140,54 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00042"></a>00042     std::vector&lt;cHeader*&gt; ParseHeaders();
 <a name="l00043"></a>00043 
 <a name="l00044"></a>00044     REQ_METHOD              GetMethod()<span class="keyword">const</span>
-<a name="l00045"></a>00045 <span class="keyword">    </span>{   <span class="keywordflow">return</span> m_Method;    };
-<a name="l00046"></a>00046 
-<a name="l00047"></a>00047     <span class="keyword">const</span> std::string&amp;      GetResource()<span class="keyword">const</span>
-<a name="l00048"></a>00048 <span class="keyword">    </span>{   <span class="keywordflow">return</span> m_Resource;  };
-<a name="l00049"></a>00049 
-<a name="l00050"></a>00050     <span class="keyword">const</span> std::string&amp;      GetVersion()<span class="keyword">const</span>
-<a name="l00051"></a>00051 <span class="keyword">    </span>{   <span class="keywordflow">return</span> m_Version;   };
-<a name="l00052"></a>00052 
-<a name="l00053"></a>00053     COMMAND_TYPE            GetCommandId()<span class="keyword">const</span>
-<a name="l00054"></a>00054 <span class="keyword">    </span>{   <span class="keywordflow">return</span> m_CommandId; }
-<a name="l00055"></a>00055 
-<a name="l00056"></a>00056     <span class="keyword">const</span> std::string&amp;      GetParam()<span class="keyword">const</span>
-<a name="l00057"></a>00057 <span class="keyword">    </span>{   <span class="keywordflow">return</span> m_Param; }
+<a name="l00045"></a>00045 <span class="keyword">    </span>{
+<a name="l00046"></a>00046         <span class="keywordflow">return</span> m_Method;
+<a name="l00047"></a>00047     };
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049     <span class="keyword">const</span> std::string&amp;      GetResource()<span class="keyword">const</span>
+<a name="l00050"></a>00050 <span class="keyword">    </span>{
+<a name="l00051"></a>00051         <span class="keywordflow">return</span> m_Resource;
+<a name="l00052"></a>00052     };
+<a name="l00053"></a>00053 
+<a name="l00054"></a>00054     <span class="keyword">const</span> std::string&amp;      GetVersion()<span class="keyword">const</span>
+<a name="l00055"></a>00055 <span class="keyword">    </span>{
+<a name="l00056"></a>00056         <span class="keywordflow">return</span> m_Version;
+<a name="l00057"></a>00057     };
 <a name="l00058"></a>00058 
-<a name="l00059"></a>00059     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>      GetSessionId()<span class="keyword">const</span>
-<a name="l00060"></a>00060 <span class="keyword">    </span>{   <span class="keywordflow">return</span> m_SessionId; };
-<a name="l00061"></a>00061 
-<a name="l00062"></a>00062 
-<a name="l00063"></a>00063 <span class="keyword">private</span>:
-<a name="l00064"></a>00064     REQ_METHOD                      m_Method;
-<a name="l00065"></a>00065     std::string                     m_Resource;
-<a name="l00066"></a>00066     std::string                     m_Version;
-<a name="l00067"></a>00067     std::string                     m_Headers;
-<a name="l00068"></a>00068     COMMAND_TYPE                    m_CommandId;
-<a name="l00069"></a>00069     std::string                     m_Param;
-<a name="l00070"></a>00070     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>                    m_SessionId;
-<a name="l00071"></a>00071 
-<a name="l00072"></a>00072     <span class="comment">//stream iterators</span>
-<a name="l00073"></a>00073     forward_iterator_type           m_Fwd_begin;
-<a name="l00074"></a>00074     forward_iterator_type           m_Fwd_end;
-<a name="l00075"></a>00075 
-<a name="l00076"></a>00076 };
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078 }
-<a name="l00079"></a>00079 
-<a name="l00080"></a>00080 <span class="preprocessor">#endif</span>
+<a name="l00059"></a>00059     COMMAND_TYPE            GetCommandId()<span class="keyword">const</span>
+<a name="l00060"></a>00060 <span class="keyword">    </span>{
+<a name="l00061"></a>00061         <span class="keywordflow">return</span> m_CommandId;
+<a name="l00062"></a>00062     }
+<a name="l00063"></a>00063 
+<a name="l00064"></a>00064     <span class="keyword">const</span> std::string&amp;      GetParam()<span class="keyword">const</span>
+<a name="l00065"></a>00065 <span class="keyword">    </span>{
+<a name="l00066"></a>00066         <span class="keywordflow">return</span> m_Param;
+<a name="l00067"></a>00067     }
+<a name="l00068"></a>00068 
+<a name="l00069"></a>00069     <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>      GetSessionId()<span class="keyword">const</span>
+<a name="l00070"></a>00070 <span class="keyword">    </span>{
+<a name="l00071"></a>00071         <span class="keywordflow">return</span> m_SessionId;
+<a name="l00072"></a>00072     };
+<a name="l00073"></a>00073 
+<a name="l00074"></a>00074 
+<a name="l00075"></a>00075 <span class="keyword">private</span>:
+<a name="l00076"></a>00076     REQ_METHOD                      m_Method;
+<a name="l00077"></a>00077     std::string                     m_Resource;
+<a name="l00078"></a>00078     std::string                     m_Version;
+<a name="l00079"></a>00079     std::string                     m_Headers;
+<a name="l00080"></a>00080     COMMAND_TYPE                    m_CommandId;
+<a name="l00081"></a>00081     std::string                     m_Param;
+<a name="l00082"></a>00082     <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>                    m_SessionId;
+<a name="l00083"></a>00083 
+<a name="l00084"></a>00084     <span class="comment">//stream iterators</span>
+<a name="l00085"></a>00085     forward_iterator_type           m_Fwd_begin;
+<a name="l00086"></a>00086     forward_iterator_type           m_Fwd_end;
+<a name="l00087"></a>00087 
+<a name="l00088"></a>00088 };
+<a name="l00089"></a>00089 
+<a name="l00090"></a>00090 }
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -183,7 +195,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -196,7 +208,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>http_request.h</b>      </li>
 
-    <li class="footer">Generated on Tue Jan 3 2012 02:17:25 for SYMMETRY by
+    <li class="footer">Generated on Thu Jan 26 2012 07:51:53 for SYMMETRY by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

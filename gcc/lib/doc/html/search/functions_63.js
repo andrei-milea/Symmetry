@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['cbinarytree',['cBinaryTree',['../classcBinaryTreeRep.html#ad2cac2b5d3648b1f11669d579e790ba3',1,'cBinaryTreeRep']]],
   ['commuteswith',['CommutesWith',['../classcGroupElem.html#ab0e3d62bb8a37b59a371188f320bdbca',1,'cGroupElem']]],
   ['contains',['Contains',['../classcSymmetricRep.html#a60f095284b40e494a34fda76e1fc7ecd',1,'cSymmetricRep']]],
   ['countinversions',['CountInversions',['../classcPermElem.html#abefedad75d8175a886b30a6d36a0eb98',1,'cPermElem']]],

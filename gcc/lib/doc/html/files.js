@@ -1,7 +1,6 @@
 var files =
 [
     [ "binary_op.h", null, null ],
-    [ "binary_tree.h", null, null ],
     [ "cayley_graph.h", null, null ],
     [ "factorial.h", null, null ],
     [ "gen_rep.h", null, null ],
@@ -17,6 +16,5 @@ var files =
     [ "std_ex.h", null, null ],
     [ "subgroup.h", null, null ],
     [ "symmetric_rep.h", null, null ],
-    [ "theorems.h", null, null ],
-    [ "tree.h", null, null ]
+    [ "theorems.h", null, null ]
 ];

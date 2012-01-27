@@ -51,9 +51,8 @@ struct command_: symbols<char, short>
 	{
 		add
 		("GET_ELEMENTS", GET_ELEMENTS)
-		("GET_NORMALIZER", GET_NORMALIZER)
 		("GET_CENTER", GET_CENTER)
-		("GET_CENTRALIZER", GET_CENTRALIZER);
+		("GET_CGRAPH", GET_CGRAPH);
 	}
 } command;
 /************************************************************/
