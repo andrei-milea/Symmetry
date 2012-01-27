@@ -264,6 +264,8 @@ var cTooltip=function(){
 	tooltip_map.tutorials = "Visit our tutorial videos on our Youtube page.";
 	tooltip_map.source = "Visit the project repository on Google Code.";
 	tooltip_map.get_elem = "Compute group elements using Dimono algorithm(permutation groups)."
+	tooltip_map.get_center = "Compute the Center subgroup(elements that commute with all the elements of the group)."
+	tooltip_map.get_cgraph = "Compute the Cayley graph of the group(colored directed graph)"
 	tooltip_map.prev_panel = "Go back to the previous panel (cancel ongoing action)."
 
 return{	

@@ -105,32 +105,31 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00007"></a>00007 
 <a name="l00008"></a>00008 <span class="keyword">namespace </span>http_server
 <a name="l00009"></a>00009 {
-<a name="l00010"></a>00010 
-<a name="l00011"></a><a class="code" href="classhttp__server_1_1cHttpServer.html">00011</a> <span class="keyword">class </span><a class="code" href="classhttp__server_1_1cHttpServer.html">cHttpServer</a> : <span class="keyword">private</span> boost::noncopyable
-<a name="l00012"></a>00012 {
-<a name="l00013"></a>00013 <span class="keyword">public</span>:
-<a name="l00014"></a>00014     <a class="code" href="classhttp__server_1_1cHttpServer.html">cHttpServer</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> port);
-<a name="l00015"></a>00015     ~<a class="code" href="classhttp__server_1_1cHttpServer.html">cHttpServer</a>();
-<a name="l00016"></a>00016 
-<a name="l00017"></a>00017     <span class="keywordtype">void</span> Start();
-<a name="l00018"></a>00018     <span class="keywordtype">void</span> Stop();
-<a name="l00019"></a>00019 
-<a name="l00020"></a>00020 <span class="keyword">private</span>:
-<a name="l00021"></a>00021     <span class="keywordtype">void</span> StartAccept();
-<a name="l00022"></a>00022     <span class="keywordtype">void</span> HandleConnection(connection_ptr new_connection, <span class="keyword">const</span> boost::system::error_code&amp; error);
-<a name="l00023"></a>00023 
-<a name="l00024"></a>00024 <span class="keyword">private</span>:
-<a name="l00025"></a>00025     boost::asio::io_service m_IOService;
-<a name="l00026"></a>00026     boost::asio::ip::tcp::acceptor m_Acceptor;
-<a name="l00027"></a>00027     <a class="code" href="classhttp__server_1_1cConnectionManager.html">cConnectionManager</a> m_ConnectionManager;
-<a name="l00028"></a>00028     boost::asio::signal_set m_Signals;
-<a name="l00029"></a>00029 
-<a name="l00030"></a>00030 };
-<a name="l00031"></a>00031 
-<a name="l00032"></a>00032 }
+<a name="l00013"></a><a class="code" href="classhttp__server_1_1cHttpServer.html">00013</a> <span class="keyword">class </span><a class="code" href="classhttp__server_1_1cHttpServer.html">cHttpServer</a> : <span class="keyword">private</span> boost::noncopyable
+<a name="l00014"></a>00014 {
+<a name="l00015"></a>00015 <span class="keyword">public</span>:
+<a name="l00019"></a>00019     <a class="code" href="classhttp__server_1_1cHttpServer.html#a26d917897dda50502ea1469fb5af9c2e">cHttpServer</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> port);
+<a name="l00023"></a>00023     <a class="code" href="classhttp__server_1_1cHttpServer.html#a783dd5b31b19b8a95e6c2ce7c188a7c9">~cHttpServer</a>();
+<a name="l00024"></a>00024 
+<a name="l00028"></a>00028     <span class="keywordtype">void</span> <a class="code" href="classhttp__server_1_1cHttpServer.html#ad4699b20627615aee961a06eae97fb89">Start</a>();
+<a name="l00032"></a>00032     <span class="keywordtype">void</span> <a class="code" href="classhttp__server_1_1cHttpServer.html#a2c7bcb8fb8ca1aa5fe26d00c94c11835">Stop</a>();
 <a name="l00033"></a>00033 
-<a name="l00034"></a>00034 
-<a name="l00035"></a>00035 <span class="preprocessor">#endif</span>
+<a name="l00034"></a>00034 <span class="keyword">private</span>:
+<a name="l00035"></a>00035     <span class="keywordtype">void</span> StartAccept();
+<a name="l00036"></a>00036     <span class="keywordtype">void</span> HandleConnection(connection_ptr new_connection, <span class="keyword">const</span> boost::system::error_code&amp; error);
+<a name="l00037"></a>00037 
+<a name="l00038"></a>00038 <span class="keyword">private</span>:
+<a name="l00039"></a>00039     boost::asio::io_service m_IOService;
+<a name="l00040"></a>00040     boost::asio::ip::tcp::acceptor m_Acceptor;
+<a name="l00041"></a>00041     <a class="code" href="classhttp__server_1_1cConnectionManager.html">cConnectionManager</a> m_ConnectionManager;
+<a name="l00042"></a>00042     boost::asio::signal_set m_Signals;
+<a name="l00043"></a>00043 
+<a name="l00044"></a>00044 };
+<a name="l00045"></a>00045 
+<a name="l00046"></a>00046 }
+<a name="l00047"></a>00047 
+<a name="l00048"></a>00048 
+<a name="l00049"></a>00049 <span class="preprocessor">#endif</span>
 </pre></div></div><!-- contents -->
 </div>
 <!-- window showing the filter options -->
@@ -138,7 +137,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
      onmouseover="return searchBox.OnSearchSelectShow()"
      onmouseout="return searchBox.OnSearchSelectHide()"
      onkeydown="return searchBox.OnSearchSelectKey(event)">
-<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a></div>
+<a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(0)"><span class="SelectionMark">&#160;</span>All</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(1)"><span class="SelectionMark">&#160;</span>Classes</a><a class="SelectItem" href="javascript:void(0)" onclick="searchBox.OnSelectItem(2)"><span class="SelectionMark">&#160;</span>Functions</a></div>
 
 <!-- iframe showing the search results (closed by default) -->
 <div id="MSearchResultsWindow">
@@ -151,7 +150,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul>
       <li class="navelem"><b>http_server.h</b>      </li>
 
-    <li class="footer">Generated on Tue Jan 3 2012 02:17:25 for SYMMETRY by
+    <li class="footer">Generated on Thu Jan 26 2012 07:51:53 for SYMMETRY by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.6.1 </li>
    </ul>

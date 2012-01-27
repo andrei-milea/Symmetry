@@ -6,6 +6,7 @@
 #include <boost/thread.hpp>
 
 #include "../lib/group.h"
+#include "../lib/cayley_graph.h"
 
 
 /*!

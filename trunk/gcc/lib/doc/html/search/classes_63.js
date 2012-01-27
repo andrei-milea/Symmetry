@@ -1,9 +1,5 @@
 var searchData=
 [
-  ['cbinarytree',['cBinaryTree',['../classcBinaryTree.html',1,'']]],
-  ['cbinarytreeiterator',['cBinaryTreeIterator',['../classcBinaryTreeIterator.html',1,'']]],
-  ['cbinarytreenode',['cBinaryTreeNode',['../classcBinaryTreeNode.html',1,'']]],
-  ['cbinarytreerep',['cBinaryTreeRep',['../classcBinaryTreeRep.html',1,'']]],
   ['ccayleygrf',['cCayleyGrf',['../classcCayleyGrf.html',1,'']]],
   ['ccolouredgesvis',['cColourEdgesVis',['../classcCayleyGrf_1_1cColourEdgesVis.html',1,'cCayleyGrf']]],
   ['cgenrep',['cGenRep',['../classcGenRep.html',1,'']]],
@@ -19,6 +15,5 @@ var searchData=
   ['cslprep',['cSLPRep',['../classcSLPRep.html',1,'']]],
   ['csqmatrixelement',['cSqMatrixElement',['../classcSqMatrixElement.html',1,'']]],
   ['csubgroup',['cSubgroup',['../classcSubgroup.html',1,'']]],
-  ['csymmetricrep',['cSymmetricRep',['../classcSymmetricRep.html',1,'']]],
-  ['cthreadedbinarytree',['cThreadedBinaryTree',['../classcThreadedBinaryTree.html',1,'']]]
+  ['csymmetricrep',['cSymmetricRep',['../classcSymmetricRep.html',1,'']]]
 ];

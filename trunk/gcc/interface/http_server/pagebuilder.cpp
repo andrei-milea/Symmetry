@@ -2,6 +2,7 @@
 #include "../../engine/result.h"
 #include "../../engine/logger.h"
 #include "../../engine/groupgen_command.h"
+#include "../../engine/getcgraph_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -110,12 +111,30 @@ const std::string cPageBuilder::GetWebglConstent(const std::string &webglcontent
 const std::string cPageBuilder::GetPage(const cResult &result, const unsigned int ses_id)const
 {
 	std::string result_str;
-	const cGroupGenCommand *command= dynamic_cast<const cGroupGenCommand*>(result.GetCommand());
-	if(command && (SYMMETRIC_GROUP == command->GetGroupType()))
+	std::stringstream ss;
+
+	const cGetCGraphCommand *command_cgraph = dynamic_cast<const cGetCGraphCommand*>(result.GetCommand());
+	const cGroupGenCommand *command = dynamic_cast<const cGroupGenCommand*>(result.GetCommand());
+	if(command_cgraph && (SYMMETRIC_GROUP == command_cgraph->GetGroupType()))
+	{
+		result_str = "</br>Cayley Graph representation as adjacency list:</br>";
+		std::stringstream redirectstream;
+		std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
+		std::string str;
+		std::cout<<boost::any_cast<cCayleyGrf<SymmGrp> >(result.GetResult());
+		while(std::getline(redirectstream, str))
+		{
+			ss<<str<<"</br>";
+		}
+		//put back the old stream buffer
+		std::cout.rdbuf(oldbuf);
+
+		result_str += ss.str();
+	}
+	else if(command && (SYMMETRIC_GROUP == command->GetGroupType()))
 	{
 		result_str = "<ul id='list-elem'>";
 		std::string perm_str;
-		std::stringstream ss;
 		std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
 		for(std::size_t index = 0; index < elements.size(); index++)
 		{

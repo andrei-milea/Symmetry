@@ -1,0 +1,63 @@
+\hypertarget{namespaceengine}{\section{engine \-Namespace \-Reference}
+\label{namespaceengine}\index{engine@{engine}}
+}
+\subsection*{\-Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \hyperlink{classengine_1_1cCommand}{c\-Command}
+\item 
+class \hyperlink{classengine_1_1cCreator}{c\-Creator}
+\item 
+class \hyperlink{classengine_1_1cCommandCreator}{c\-Command\-Creator}
+\item 
+class \hyperlink{classengine_1_1cCommandQueue}{c\-Command\-Queue}
+\item 
+class \hyperlink{classengine_1_1cEstimator}{c\-Estimator}
+\item 
+class \hyperlink{classengine_1_1cGetCenterCommand}{c\-Get\-Center\-Command}
+\item 
+class \hyperlink{classengine_1_1cGetCGraphCommand}{c\-Get\-C\-Graph\-Command}
+\item 
+class \hyperlink{classengine_1_1cGetElemCommand}{c\-Get\-Elem\-Command}
+\item 
+class \hyperlink{classengine_1_1cGroupGenCommand}{c\-Group\-Gen\-Command}
+\item 
+class \hyperlink{classengine_1_1cVariantVisitor}{c\-Variant\-Visitor}
+\item 
+class \hyperlink{classengine_1_1cLogger}{c\-Logger}
+\item 
+class \hyperlink{classengine_1_1cResult}{c\-Result}
+\item 
+class \hyperlink{classengine_1_1cSession}{c\-Session}
+\item 
+class \hyperlink{classengine_1_1cThreadPool}{c\-Thread\-Pool}
+\end{DoxyCompactItemize}
+\subsection*{\-Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{namespaceengine_af1b349928e8ef52af7a7b83676140e9d}{typedef boost\-::unique\-\_\-lock\*
+$<$ boost\-::mutex $>$ {\bfseries lock\-\_\-guard}}\label{namespaceengine_af1b349928e8ef52af7a7b83676140e9d}
+
+\item 
+\hypertarget{namespaceengine_a942a6c5eb4358a465a03cbf32bd4546e}{typedef boost\-::variant$<$ int, \*
+std\-::string, std\-::exception, \*
+double $>$ {\bfseries \-Supported\-Types}}\label{namespaceengine_a942a6c5eb4358a465a03cbf32bd4546e}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Enumerations}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries \-C\-O\-M\-M\-A\-N\-D\-\_\-\-T\-Y\-P\-E} \{ {\bfseries \-N\-U\-L\-L\-\_\-\-C\-O\-M\-M\-A\-N\-D} =  0, 
+{\bfseries \-G\-E\-T\-\_\-\-E\-L\-E\-M\-E\-N\-T\-S}, 
+{\bfseries \-G\-E\-T\-\_\-\-C\-E\-N\-T\-E\-R}, 
+{\bfseries \-G\-E\-T\-\_\-\-C\-G\-R\-A\-P\-H}
+ \}
+\item 
+enum {\bfseries \-G\-R\-O\-U\-P\-\_\-\-T\-Y\-P\-E} \{ {\bfseries \-N\-O\-N\-E} =  0, 
+{\bfseries \-S\-Y\-M\-M\-E\-T\-R\-I\-C\-\_\-\-G\-R\-O\-U\-P}
+ \}
+\end{DoxyCompactItemize}
+
+
+\subsection{\-Detailed \-Description}
+base class for commands (\-Command design pattern) \-C\-O\-M\-M\-A\-N\-D\-\_\-\-T\-Y\-P\-E = \-G\-E\-T\-\_\-\-E\-L\-E\-M\-E\-N\-T\-S $|$ \-G\-E\-T\-\_\-\-C\-E\-N\-T\-E\-R $|$ \-G\-E\-T\-\_\-\-C\-G\-R\-A\-P\-H 
