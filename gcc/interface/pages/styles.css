@@ -39,14 +39,17 @@ position: relative;
 }
 
 /*canvas style*/
-.scanvas
+.scanvasdiv
 {
-border:1px solid #aaa;
 margin-top: 20;
 margin-right: auto;
 margin-left: auto;
 position: relative;
-width: 80%; height: 10%;
+width: 500px; height: 500px;
+}
+.scanvas
+{
+width: 100%; height: 100%;
 }
 
 .smain_view

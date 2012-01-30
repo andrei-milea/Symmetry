@@ -3,10 +3,10 @@
 
 <!-- external files -->
 <!--
-<script src="CanvasMatrix.js" type="text/javascript"></script>
 <script src="polygon.js" type="text/javascript"></script>
 -->
 <link rel="stylesheet" type="text/css" href="styles.css" />
+<script src="glMatrix.js" type="text/javascript"></script>
 <script src="command_panel.js" type="text/javascript"></script>
 <script src="webgl.js" type="text/javascript"></script>
 
@@ -15,29 +15,34 @@
 <!-- shaders -->
 <script id="shader-fs" type="x-shader/x-fragment"> 
     #ifdef GL_ES
-    precision highp float;
+    precision mediump float;
     #endif
+
+	varying vec4 vColor;
 
     void main(void) 
     {
-        gl_FragColor = vec4(1.0, 1.0, 1.0, 1.0);
+        gl_FragColor = vColor;
     }
 </script> 
 <script id="shader-vs" type="x-shader/x-vertex"> 
   attribute vec3 aVertexPosition;
+  attribute vec4 aVertexColor;
+
+  varying vec4 vColor;
  
   uniform mat4 uMVMatrix;
   uniform mat4 uPMatrix;
  
   void main(void) {
     gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+	vColor = aVertexColor;
   }
 </script> 
 
 </head>
 
-<!onload="WebGlContext.initWebGL()" >
-<body id="body_id"  >
+<body id="body_id" onload="WebGlContext.initWebGL()">
 <input id="session_key_id" type="hidden" name="hidden" value="00">
 <input type="button" id="toggle_button" style= "margin-top: 5; " onclick="Command_panel.toggle_panel()" value="Hide commands panel">
 
@@ -71,7 +76,9 @@
 
 
 <div id="main_view_id" class ="smain_view"></div>
-<div id="main_canvas" class ="scanvas"></div>
+<div id="canvas_id" class="scanvasdiv">
+<canvas id="main_canvas" class="scanvas" width='500' height='500'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>
+</div>
 
 <div align="center" id="final">
 </br>
