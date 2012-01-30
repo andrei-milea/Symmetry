@@ -46,6 +46,7 @@ private:
 	std::string m_WebglJsFileStr;
 	std::string m_ComPanelJsFileStr;
 	std::string m_GlMatrixFileStr;
+	std::string m_WebglUtilsFileStr;
 };
 
 
