@@ -7,9 +7,36 @@ var gl,
     vertexPositionBuffer,
 	vertexColorBuffer,
     modelViewMatrix = mat4.create(),
-    projectionMatrix = mat4.create();
+    projectionMatrix = mat4.create(),
+	rotation = 0,
+	mvMatrixStack = [],
+	animLastTime = 0;
 
-//private functions
+
+////////////////////////////////////////////////////////////////
+///////////////////////private functions////////////////////////
+////////////////////////////////////////////////////////////////
+
+function mvPushMatrix() 
+{
+	var copy = mat4.create();
+	mat4.set(modelViewMatrix, copy);
+	mvMatrixStack.push(copy);
+}
+
+function mvPopMatrix() 
+{
+	if (mvMatrixStack.length == 0) 
+	{
+		throw "Invalid popMatrix!";
+	}
+	modelViewMatrix = mvMatrixStack.pop();
+}
+
+function degToRad(degrees)
+{
+	return degrees * Math.PI / 180;
+}
 
 function getShader(id) 
 {
@@ -133,9 +160,16 @@ function drawScene()
 	gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
 	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, vertexColorBuffer.colorSize, gl.FLOAT, false, 0, 0);
 
+	//handle rotation
+	mvPushMatrix();
+	mat4.rotate(modelViewMatrix, degToRad(rotation), [0, 0, 1]);
+
 
 	setMatrixUniforms();
 	gl.drawArrays(gl.LINE_LOOP, 0, vertexPositionBuffer.vertexNum);
+
+	//restore the model view matrix
+	mvPopMatrix();
 }
 
 function drawLogo()
@@ -156,7 +190,27 @@ function drawLogo()
 	drawScene();
 }
 
-//public functions
+function animate()
+{
+	var timeNow = new Date().getTime();
+	if (animLastTime != 0)
+	{
+		var elapsed = timeNow - animLastTime;
+		rotation += (90 * elapsed) / 1000.0;
+	}
+	animLastTime = timeNow;
+}
+
+function tick() 
+{
+	requestAnimFrame(tick);
+	drawLogo();
+	animate();
+}
+
+////////////////////////////////////////////////////////////////
+///////////////////////public functions/////////////////////////
+////////////////////////////////////////////////////////////////
 return  {
     initWebGL: function()   {
         var canvas = document.getElementById("main_canvas");
@@ -171,7 +225,7 @@ return  {
             }
             initShaders();
             clearScene();
-            drawLogo();
+		    tick();	
          }
          catch(e)
          {
