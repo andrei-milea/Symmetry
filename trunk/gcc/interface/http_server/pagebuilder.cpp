@@ -18,6 +18,7 @@ cPageBuilder *cPageBuilder::s_Instance = NULL;
 #define CSS_PAGE	"../pages/styles.css"
 #define COMPANEL_JS	"../pages/command_panel.js"
 #define WEBGL_JS	"../pages/webgl.js"
+#define MATRIX_JS	"../pages/glMatrix.js"
 
 //macro for inserting HTML directly in C++
 #define HTML(...) #__VA_ARGS__
@@ -65,6 +66,14 @@ cPageBuilder::cPageBuilder()
 		throw std::runtime_error(CONTEXT_STR + "failed to open command_panel js file");
 	m_ComPanelJsFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
 	File.close();
+
+	//cache CanvasMatrix.js
+	File.open(MATRIX_JS, std::ios::binary);
+	if(!File.is_open())
+		throw std::runtime_error(CONTEXT_STR + "failed to open glMatrix js file");
+	m_GlMatrixFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
+	File.close();
+
 };
 
 
@@ -78,34 +87,16 @@ const std::string& cPageBuilder::GetIndexPage(const unsigned int session_id)
 const std::string& cPageBuilder::GetPageResource(const std::string& resource)const
 {
 	if(resource.find("styles") != std::string::npos)
-		return GetPageResourceCss();
+		return m_ResourceFileStr;
 	else if(resource.find("webgl") != std::string::npos)
-		return GetWebGlJsPage();
+		return m_WebglJsFileStr;
+	else if(resource.find("Matrix") != std::string::npos)
+		return m_GlMatrixFileStr;
 	else
 	{
 		assert(resource.find("command_panel") != std::string::npos);
-		return GetCommandPanelJs();
+		return m_ComPanelJsFileStr;
 	}
-};
-
-const std::string& cPageBuilder::GetPageResourceCss()const
-{
-	return m_ResourceFileStr;
-};
-
-const std::string& cPageBuilder::GetWebGlJsPage()const
-{
-	return m_WebglJsFileStr;
-};
-
-const std::string& cPageBuilder::GetCommandPanelJs()const
-{
-	return m_ComPanelJsFileStr;
-};
-
-const std::string cPageBuilder::GetWebglConstent(const std::string &webglcontent)const
-{
-	return "";
 };
 
 const std::string cPageBuilder::GetPage(const cResult &result, const unsigned int ses_id)const

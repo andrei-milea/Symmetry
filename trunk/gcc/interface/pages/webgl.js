@@ -5,19 +5,11 @@ var WebGlContext = function()
 var gl,
     shaderProgram,
     vertexPositionBuffer,
-    modelViewMatrix,
-    projectionMatrix;
+	vertexColorBuffer,
+    modelViewMatrix = mat4.create(),
+    projectionMatrix = mat4.create();
 
 //private functions
-
-function initBuffers(shape)
-{
-    vertexPositionBuffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
-    gl.bufferData(gl.ARRAY_BUFFER, shape.getVerticesAsFloat32(), gl.STATIC_DRAW);
-    vertexPositionBuffer.vertexSize = shape.getVertexSize();
-    vertexPositionBuffer.vertexNum = shape.getVerticesNum();
-}
 
 function getShader(id) 
 {
@@ -83,6 +75,10 @@ function initShaders()
  
     shaderProgram.vertexPositionAttribute = gl.getAttribLocation(shaderProgram, "aVertexPosition");
     gl.enableVertexAttribArray(shaderProgram.vertexPositionAttribute);
+
+	shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+    gl.enableVertexAttribArray(shaderProgram.vertexColorAttribute);
+	
  
     shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
     shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
@@ -90,27 +86,85 @@ function initShaders()
 
 function clearScene()
 {
-        gl.clearColor(0, 0, 0, 1);
+        gl.clearColor(1, 1, 1, 1);
         gl.clearDepth(1.0);
         gl.enable(gl.DEPTH_TEST);
         gl.depthFunc(gl.LEQUAL);
 }
 
+function setMatrixUniforms()
+{
+	gl.uniformMatrix4fv(shaderProgram.pMatrixUniform, false, projectionMatrix);
+	gl.uniformMatrix4fv(shaderProgram.mvMatrixUniform, false, modelViewMatrix);
+}
+
+function initBuffers(shape)
+{
+	//position buffer
+    vertexPositionBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(shape.vertices), gl.STATIC_DRAW);
+    vertexPositionBuffer.vertexSize = shape.vertexSize;
+    vertexPositionBuffer.vertexNum = shape.vertexNum;
+
+	//color buffer
+	vertexColorBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(shape.colors), gl.STATIC_DRAW);
+    vertexColorBuffer.colorSize = shape.colorSize;
+    vertexColorBuffer.colorNum = shape.colorNum;
+
+}
+
+function drawScene()
+{
+	gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+	gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, projectionMatrix);
+	mat4.identity(modelViewMatrix);
+	mat4.translate(modelViewMatrix, [-1.5, 0.0, -7.0]);
+
+	//prepare position buffer for drawing
+	gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
+	gl.vertexAttribPointer(shaderProgram.vertexPositionAttribute, vertexPositionBuffer.vertexSize, gl.FLOAT, false, 0, 0);
+
+	//prepare color buffer for drawing
+	gl.bindBuffer(gl.ARRAY_BUFFER, vertexColorBuffer);
+	gl.vertexAttribPointer(shaderProgram.vertexColorAttribute, vertexColorBuffer.colorSize, gl.FLOAT, false, 0, 0);
+
+
+	setMatrixUniforms();
+	gl.drawArrays(gl.LINE_LOOP, 0, vertexPositionBuffer.vertexNum);
+}
+
 function drawLogo()
 {
-    var logo = Polygon;
-    logo.load(3,3, [0.0,  1.0,  0.0, -1.0, -1.0,  0.0, 1.0, -1.0,  0.0]);
-    initBuffers(logo);
+	var shape = new Object;
+	shape.vertices = [0.0,  1.0,  0.0,
+					-1.0, -1.0,  0.0,
+					 1.0, -1.0,  0.0];
+	shape.vertexSize = 3;
+	shape.vertexNum = 3;
+
+	shape.colors = [0.0, 0.0, 0.0, 1.0,
+					0.0, 0.0, 0.0, 1.0,
+					0.0, 0.0, 0.0, 1.0];
+	shape.colorSize = 4;
+	shape.colorNum = 3;
+    initBuffers(shape);
+	drawScene();
 }
 
 //public functions
 return  {
     initWebGL: function()   {
-        var canvas = document.getElementById("3d_canvas");
+        var canvas = document.getElementById("main_canvas");
         try 
         {
             gl = canvas.getContext("experimental-webgl");
-            gl.viewport(0, 0, canvas.width, canvas.height);
+            gl.viewportWidth = canvas.width;
+			gl.viewportHeight = canvas.height;
             if (!gl) 
             {
                 alert("Could not initialise WebGL, please update your browser!");
