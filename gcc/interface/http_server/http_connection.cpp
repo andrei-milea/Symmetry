@@ -22,6 +22,7 @@ namespace http_server
 #define WEBGL_JS		"/webgl.js"
 #define COMPANEL_JS		"/command_panel.js"
 #define CANVMAT_JS		"/glMatrix.js"
+#define WEBGLUTILS_JS	"/wegl-utils.js"
 
 //static members
 std::map<unsigned int, cSession*> cHttpConnection::s_Sessions;
@@ -68,7 +69,8 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 			else if( STYLE_CSS == _request.GetResource() ||
 			         COMPANEL_JS == _request.GetResource() ||
 			         WEBGL_JS == _request.GetResource() ||
-					 CANVMAT_JS == _request.GetResource())
+					 CANVMAT_JS == _request.GetResource() ||
+					 WEBGLUTILS_JS == _request.GetResource())
 			{
 				cResponse response(m_ResponseBuf);
 				const std::string resource = cPageBuilder::GetInstance()->GetPageResource(
