@@ -150,7 +150,7 @@ function drawScene()
 
 	mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, projectionMatrix);
 	mat4.identity(modelViewMatrix);
-	mat4.translate(modelViewMatrix, [-1.5, 0.0, -7.0]);
+	mat4.translate(modelViewMatrix, [0.0, 0.0, -7.0]);
 
 	//prepare position buffer for drawing
 	gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
@@ -216,16 +216,19 @@ return  {
         var canvas = document.getElementById("main_canvas");
         try 
         {
-            gl = canvas.getContext("experimental-webgl");
-            gl.viewportWidth = canvas.width;
-			gl.viewportHeight = canvas.height;
-            if (!gl) 
-            {
-                alert("Could not initialise WebGL, please update your browser!");
-            }
-            initShaders();
-            clearScene();
-		    tick();	
+			gl = WebGLUtils.setupWebGL(canvas);
+			if(null != gl)
+			{
+				gl.viewportWidth = canvas.width;
+				gl.viewportHeight = canvas.height;
+				if (!gl) 
+				{
+					alert("Could not initialise WebGL, please update your browser!");
+				}
+				initShaders();
+				clearScene();
+				tick();	
+			}
          }
          catch(e)
          {

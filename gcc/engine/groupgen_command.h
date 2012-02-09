@@ -23,6 +23,8 @@ enum GROUP_TYPE
 {
     NONE = 0,
     SYMMETRIC_GROUP,
+	CYCLIC_GROUP,
+	DIHEDRAL_GROUP
 };
 
 /*!
@@ -136,7 +138,9 @@ protected:
 		group_type_()
 		{
 			add
-			("SYMMETRIC_GROUP", SYMMETRIC_GROUP);
+			("SYMMETRIC_GROUP", SYMMETRIC_GROUP)
+			("CYCLIC_GROUP", CYCLIC_GROUP)
+			("DIHEDRAL_GROUP", DIHEDRAL_GROUP);
 
 		}
 	} group_type;

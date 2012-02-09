@@ -65,15 +65,22 @@ var Command_panel = {
 			createGrpDivTag.setAttribute("id", "grp_div_id");
 			createGrpDivTag.setAttribute("onmouseover", "cTooltip.show('generator')");
 			createGrpDivTag.setAttribute("onmouseout", "cTooltip.hide()");
-			createGrpDivTag.innerHTML="</br>&nbsp;&nbsp;&nbsp;"+
+			createGrpDivTag.innerHTML="&nbsp;&nbsp;&nbsp;"+
 				"<form onSubmit='return Command_panel.submit_grp()'>"+
+				"Select a permutation group type first: &nbsp;&nbsp;&nbsp;"+
+				"<select id='grp_sel_id' name='Group Type' onchange='Command_panel.changeGrpType(this)'>"+
+			   	"<option>Symmetric Group</option>"+
+			   	"<option>Cyclic Group</option>"+
+			   	"<option>Dihedral Group</option>"+
+				"</select>"+
+				"</br><hr /></br>"+
+				"<div id='generators_div_id'>"+
 				"Enter generator: &nbsp;&nbsp;&nbsp;"+
 				"<input type='text' id='generator_id'>"+
 				"&nbsp;&nbsp;&nbsp;"+
 				"<input type='button' value='Add' onclick='Command_panel.add_generator()'>"+
 				"&nbsp;&nbsp;&nbsp;"+
-				"<select id='grp_sel_id' name='Group Type'> <option>Symmetric Group</option></select>"+
-				"</br></br>"+
+				"<------OR------>&nbsp;"+
 				"Add generators for predefined groups: &nbsp;&nbsp;&nbsp;"+
 				"<select id='Groups' size='1' onchange='Command_panel.add_generators(this)'>"+
 				"<option value=''></option>"+
@@ -81,11 +88,12 @@ var Command_panel = {
 				"<option value='S4'>S4</option>"+
 				"<option value='D8'>D8</option>"+
 				"</select></br></br>"+
+				"</div>"+
 				"Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
 				"<select id='generators_id' size='5' style='Width:200' ></select>"+
 				"&nbsp;&nbsp;&nbsp;"+
 				"<input type='button' value='Clear' onclick='Command_panel.clear_generators()'>"+
-				"</br></br>"+
+				"</br></br>After adding the generators hit &nbsp;&nbsp;&nbsp;"+
 				"<input type='submit' value='Go'></form>"+
 				"</br></br>";
 			command_panelDiv.appendChild(createGrpDivTag);
@@ -98,21 +106,100 @@ var Command_panel = {
 
 	},
 
+	changeGrpType: function(type)
+	{
+		var generators_div = document.getElementById("generators_div_id");
+		if(type.value == "Symmetric Group")
+		{
+			generators_div.innerHTML=
+				"Enter generator: &nbsp;&nbsp;&nbsp;"+
+				"<input type='text' id='generator_id'>"+
+				"&nbsp;&nbsp;&nbsp;"+
+				"<input type='button' value='Add' onclick='Command_panel.add_generator()'>"+
+				"&nbsp;&nbsp;&nbsp;"+
+				"<------OR------>&nbsp;"+
+				"Add generators for predefined groups: &nbsp;&nbsp;&nbsp;"+
+				"<select id='Groups' size='1' onchange='Command_panel.add_generators(this)'>"+
+				"<option value=''></option>"+
+				"<option value='S3'>S3</option>"+
+				"<option value='S4'>S4</option>"+
+				"<option value='D8'>D8</option>"+
+				"</select></br></br>";
+		}
+		else if(type.value == "Cyclic Group")
+		{
+			generators_div.innerHTML=
+				"Enter group order: &nbsp;&nbsp;&nbsp;"+
+				"<input type='text' id='group_size_id'>&nbsp;&nbsp;&nbsp;"+
+				"<input type='button' value='Set generator' onclick='Command_panel.add_generator()'></br></br>";
+		}
+		else//Dihedral Group 
+		{
+			generators_div.innerHTML=
+				"Enter number of sides for the regular polygon: &nbsp;&nbsp;&nbsp;"+
+				"<input type='text' id='group_size_id'>&nbsp;&nbsp;&nbsp;"+
+				"<input type='button' value='Set generator' onclick='Command_panel.add_generator()'></br></br>";
+		}
+	},
+
 	remove_create_grp_div: function()
-   {
+	{
 		var command_panelDiv = document.getElementById("general_commands_panel");
 		grp_divTag = document.getElementById("grp_div_id");
 		command_panelDiv.removeChild(grp_divTag);
 		this.state_create_grp = "hidden";
-   },
+	},
 
 	add_generator: function()
 	{
 		var generatorTag = document.getElementById("generator_id");
+		var grp_typeTag = document.getElementById("grp_sel_id");
+		var sizeTag = document.getElementById("group_size_id");
+		var newgenTag1 = document.createElement("option");
+		var newgenTag2 = document.createElement("option");
 		var generatorsTag = document.getElementById("generators_id");
-		var newgenTag = document.createElement("option");
-		newgenTag.innerHTML = generatorTag.value;
-		generatorsTag.appendChild(newgenTag);
+		
+		if(grp_typeTag.value == "Symmetric Group")
+		{
+			newgenTag1.innerHTML = generatorTag.value;
+			generatorsTag.appendChild(newgenTag1);
+		}
+		else if(grp_typeTag.value == "Cyclic Group")
+		{
+			var size = parseInt(sizeTag.value);
+			var perm = new Array();
+			for(var i = 0; i < size-1; i++)
+			{
+				perm[i] = i+2;
+			}
+			perm[size-1] = 1;
+			newgenTag1.innerHTML = "("+perm.toString()+")";
+			this.clear_generators();
+			generatorsTag.appendChild(newgenTag1);
+		}
+		else if(grp_typeTag.value == "Dihedral Group")
+		{
+			var size = parseInt(sizeTag.value);
+			var perm1 = new Array();
+			for(var i = 0; i < size-1; i++)
+			{
+				perm1[i] = i+2;
+			}
+			perm1[size-1] = 1;
+
+			var perm2 = new Array();
+			for(var i = 0; i < size; i++)
+			{
+				perm2[i] = i+1;
+			}
+			perm2.reverse();
+
+			newgenTag1.innerHTML = "("+perm1.toString()+")";
+			newgenTag2.innerHTML = "("+perm2.toString()+")";
+			this.clear_generators();
+			generatorsTag.appendChild(newgenTag1);
+			generatorsTag.appendChild(newgenTag2);
+		}
 	},
    
 	add_generators: function(group)
@@ -220,6 +307,8 @@ var Command_panel = {
 
 		var group_types_map = new Object();
 		group_types_map["Symmetric Group"] = "SYMMETRIC_GROUP";
+		group_types_map["Cyclic Group"] = "CYCLIC_GROUP";
+		group_types_map["Dihedral Group"] = "DIHEDRAL_GROUP";
 
 		var request = new String();
 		var xmlhttp;
@@ -241,6 +330,10 @@ var Command_panel = {
 		xmlhttp.open("GET", request, false);
 		xmlhttp.send();
 		document.getElementById("main_view_id").innerHTML=xmlhttp.responseText;
+		//if( ("Cyclic Group" == this.static_vars.group_type) && (command == "GET_ELEMENTS") )
+		//	WebGlContext.DrawRegPolygon((this.static_vars.generators.length - 1)/2);
+		//if(command == "GET_CGRAPH")
+		//	WebGlContext.DrawGraph();
 	}
 	
 };

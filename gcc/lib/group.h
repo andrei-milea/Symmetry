@@ -51,9 +51,9 @@ public:
 	/*!
 	  returns the centralizer subgroup of the group using the given subgroup
 	*/
-	cSubgroup<SelfType> GetCentralizer(const cSubgroup<SelfType> &_subgrp)const
+	cSubgroup<SelfType> GetCentralizer(const cSubgroup<SelfType> &_subgrp, GrpVec &grp_el)const
 	{
-		cSubgroup<SelfType> subgroup(GetCentralizerEl(_subgrp));
+		cSubgroup<SelfType> subgroup(GetCentralizerEl(_subgrp, grp_el));
 		subgroup.isNormal(true);
 		return subgroup;
 	};
@@ -62,9 +62,9 @@ public:
 	  returns the center subgroup of the group Z(G), the elements that comute with all the
 	  elements of the group
 	*/
-	cSubgroup<SelfType> GetCenter()const
+	cSubgroup<SelfType> GetCenter(GrpVec &grp_el)const
 	{
-		cSubgroup<SelfType> subgroup(GetCenterEl());
+		cSubgroup<SelfType> subgroup(GetCenterEl(grp_el));
 		subgroup.isNormal(true);
 		return subgroup;
 	};
@@ -82,10 +82,9 @@ public:
 	/*!
 	  returns the centralizer subgroup of a given element
 	*/
-	std::vector<ElementType> GetCentralizerEl(ElementType &element)const
+	std::vector<ElementType> GetCentralizerEl(ElementType &element, GrpVec &grp_el)const
 	{
 		typedef typename std::vector<ElementType>::iterator Elem_Iter ;
-		GrpVec grp_el = this->GetElementsDimino();
 		GrpVec centralizer;
 		for(Elem_Iter iter = grp_el.begin(); iter != grp_el.end(); iter++)
 		{
@@ -97,14 +96,14 @@ public:
 
 	/*!
 	  returns the centralizer subgroup of the group as a list of elements
+	  TODO -- check for bugs (duplicate elements)
 	*/
-	std::vector<ElementType> GetCenterEl()const
+	std::vector<ElementType> GetCenterEl(GrpVec &grp_el)const
 	{
 		GrpVec subgrp_el;
-		subgrp_el.push_back(RepType::GetIdentity());
-		GrpVec grp_el = this->GetElementsDimino();
+		subgrp_el.push_back(grp_el[0]);
 		GrpVec rem_el = grp_el;
-		std::remove(rem_el.begin(), rem_el.end(), RepType::GetIdentity());
+		std::remove(rem_el.begin(), rem_el.end(), grp_el[0]);
 		while(!rem_el.empty())
 		{
 			bool commutes = true;

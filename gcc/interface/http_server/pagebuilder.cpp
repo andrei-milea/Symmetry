@@ -115,36 +115,45 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 
 	const cGetCGraphCommand *command_cgraph = dynamic_cast<const cGetCGraphCommand*>(result.GetCommand());
 	const cGroupGenCommand *command = dynamic_cast<const cGroupGenCommand*>(result.GetCommand());
-	if(command_cgraph && (SYMMETRIC_GROUP == command_cgraph->GetGroupType()))
+	GROUP_TYPE group_type = command->GetGroupType();
+	if(SYMMETRIC_GROUP == group_type || CYCLIC_GROUP == group_type || DIHEDRAL_GROUP == group_type)
 	{
-		result_str = "</br>Cayley Graph representation as adjacency list:</br>";
-		std::stringstream redirectstream;
-		std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
-		std::string str;
-		std::cout<<boost::any_cast<cCayleyGrf<SymmGrp> >(result.GetResult());
-		while(std::getline(redirectstream, str))
+		if(command_cgraph)
 		{
-			ss<<str<<"</br>";
-		}
-		//put back the old stream buffer
-		std::cout.rdbuf(oldbuf);
+			result_str = "</br>Cayley Graph representation as adjacency list:</br>";
+			std::stringstream redirectstream;
+			std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
+			std::string str;
+			std::cout<<boost::any_cast<cCayleyGrf<SymmGrp> >(result.GetResult());
+			while(std::getline(redirectstream, str))
+			{
+				ss<<str<<"</br>";
+			}
+			//put back the old stream buffer
+			std::cout.rdbuf(oldbuf);
 
-		result_str += ss.str();
-	}
-	else if(command && (SYMMETRIC_GROUP == command->GetGroupType()))
-	{
-		result_str = "<ul id='list-elem'>";
-		std::string perm_str;
-		std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
-		for(std::size_t index = 0; index < elements.size(); index++)
-		{
-			ss.str("");
-			ss<<elements[index];
-			perm_str = ss.str();
-			perm_str.replace(perm_str.find("\n"), 1, "</br>");
-			result_str += "<li>" + perm_str + "</li>";
+			result_str += ss.str();
 		}
-		result_str += "</ul>";
+		else if(command && ((SYMMETRIC_GROUP == command->GetGroupType()) || (CYCLIC_GROUP == command->GetGroupType()) || 
+					(DIHEDRAL_GROUP == command->GetGroupType()) ))
+		{
+			result_str = "<ul id='list-elem'>";
+			std::string perm_str;
+			std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
+			for(std::size_t index = 0; index < elements.size(); index++)
+			{
+				ss.str("");
+				ss<<elements[index];
+				perm_str = ss.str();
+				perm_str.replace(perm_str.find("\n"), 1, "</br>");
+				result_str += "<li>" + perm_str + "</li>";
+			}
+			result_str += "</ul>";
+		}
+	}
+	else
+	{
+		throw std::runtime_error(CONTEXT_STR + "invalid group type");
 	}
 	return result_str;
 };

@@ -49,7 +49,8 @@ width: 500px; height: 500px;
 }
 .scanvas
 {
-width: 100%; height: 100%;
+border:1px solid #aaa;
+width: 90%; height: 90%;
 }
 
 .smain_view
@@ -98,8 +99,8 @@ text-align: center;
 background: #FBFDFB;
 margin-right: auto;
 margin-left: auto;
-width: 60%; height: 35%;
-margin-top: 20;
+width: 80%; height: 35%;
+margin-top: 10;
 position: relative;
 border-top-left-radius: 18px 18px;
 border-bottom-right-radius: 18px 18px;

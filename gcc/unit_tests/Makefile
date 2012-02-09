@@ -31,7 +31,7 @@ test_lattice: test_lattice.cpp
 	#test_engine compilation
 	########################
 
-test_engine_main: test_engine.o estimate.o getelem_command.o getsubgrp_command.o session.o logger.o command_queue.o thread_pool.o result.o
+test_engine_main: test_engine.o estimate.o getelem_command.o session.o logger.o command_queue.o thread_pool.o result.o
 	$(GCC) $^ $(LFLAGS) -o test_engine_main
 
 
@@ -39,9 +39,6 @@ test_engine.o: test_engine.cpp
 	$(GCC) $(CFLAGS) $<
 
 estimate.o: ../engine/estimate.cpp
-	$(GCC) $(CFLAGS) $<
-
-getsubgrp_command.o: ../engine/getsubgrp_command.cpp
 	$(GCC) $(CFLAGS) $<
 
 getelem_command.o: ../engine/getelem_command.cpp
