@@ -16,7 +16,8 @@ cGetCGraphCommand::~cGetCGraphCommand()
 
 void cGetCGraphCommand::Execute()
 {
-	if(SYMMETRIC_GROUP == GetGroupType())
+	GROUP_TYPE type = GetGroupType();
+	if(SYMMETRIC_GROUP == type || CYCLIC_GROUP == type || DIHEDRAL_GROUP == type)
 	{
 		SymmGrp symmetric_group;
 		for(unsigned int i = 0; i < m_Generators.size(); i++)

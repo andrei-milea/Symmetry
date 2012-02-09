@@ -194,6 +194,22 @@ public:
 	};
 
 	/*!
+	  rotate the elements of the array to the left
+	  represents a rotation of the regular polygon with n(size) sides
+	  !!!used to compute the cyclic and dihedral group
+	*/
+	void rotateLeft()
+	{
+		std::size_t first_value = m_PermArray->at(0);
+		std::size_t index = 0;
+		for(index = 0; index < m_PermArray->size()-1; index++)
+		{
+			m_PermArray->at(index) = m_PermArray->at(index+1);
+		}
+		m_PermArray->at(index) = first_value;
+	}
+
+	/*!
 	  get the image of an element under the action
 	  of the permution
 	*/

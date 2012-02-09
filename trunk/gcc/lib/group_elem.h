@@ -28,6 +28,11 @@ public:
 	{
 	};
 
+	cGroupElem(std::size_t size)
+		:T(size)
+	{
+	};
+
 	cGroupElem(const T &concrete_obj)
 		:T(concrete_obj)
 	{

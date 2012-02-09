@@ -64,20 +64,20 @@ BOOST_AUTO_TEST_CASE(test_private)
 
 	//test for identity
 	cyc_grp.push_back(g1.GetIdentity());
-	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(g1.GetIdentity()));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroupEl(g1.GetIdentity()));
 
 	//test for elem1
 	cyc_grp.clear();
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem1);
 
-	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem1));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroupEl(elem1));
 
 	//test for elem2
 	cyc_grp.clear();
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem2);
-	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem2));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroupEl(elem2));
 
 	//test for elem3
 	cPermElem s3(3, {1,3,2});
@@ -88,14 +88,14 @@ BOOST_AUTO_TEST_CASE(test_private)
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem3);
 	cyc_grp.push_back(elem4);
-	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem3));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroupEl(elem3));
 
 	//test for elem4
 	cyc_grp.clear();
 	cyc_grp.push_back(g1.GetIdentity());
 	cyc_grp.push_back(elem4);
 	cyc_grp.push_back(elem3);
-	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroup(elem4));
+	BOOST_CHECK(cyc_grp == g1.GetCyclicSubgroupEl(elem4));
 
 ///////////////////////////////////////
 
@@ -118,7 +118,7 @@ BOOST_AUTO_TEST_CASE(test_private)
 
 	cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep >  cyc_grp_;
 	cyc_grp_.AddGenerator(elt1);
-	BOOST_CHECK(std_ex::set_equality(cyc_grp_.GetCyclicSubgroup(elt2), cyc_grp__));
+	BOOST_CHECK(std_ex::set_equality(cyc_grp_.GetCyclicSubgroupEl(elt2), cyc_grp__));
 
 ///////////////////////////////////////
 }

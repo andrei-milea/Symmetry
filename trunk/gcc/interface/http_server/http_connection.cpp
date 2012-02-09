@@ -22,7 +22,7 @@ namespace http_server
 #define WEBGL_JS		"/webgl.js"
 #define COMPANEL_JS		"/command_panel.js"
 #define CANVMAT_JS		"/glMatrix.js"
-#define WEBGLUTILS_JS	"/wegl-utils.js"
+#define WEBGLUTILS_JS	"/webgl-utils.js"
 
 //static members
 std::map<unsigned int, cSession*> cHttpConnection::s_Sessions;

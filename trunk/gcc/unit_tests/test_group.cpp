@@ -24,7 +24,8 @@ BOOST_AUTO_TEST_CASE(test_s3_centralizer_el)
 	generators.push_back(elem2);
 	S3 g1(generators);
 	std::vector< cGroupElem< cPermElem, Multiplication> > centralizer_el;
-	centralizer_el = g1.GetCentralizerEl(elem3);
+	std::vector< cGroupElem< cPermElem, Multiplication> > group_elements = g1.GetElementsDimino();
+	centralizer_el = g1.GetCentralizerEl(elem3, group_elements);
 	res.push_back(elem4);
 	res.push_back(elem3);
 	res.push_back(elem5);
@@ -41,7 +42,8 @@ BOOST_AUTO_TEST_CASE(test_d8_centralizer_el)
 	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
 	D8.AddGenerator(elt2);
 	D8.AddGenerator(elt5);
-	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCentralizerEl(elt3);
+	std::vector< cGroupElem<cPermElem, Multiplication> > group_elements = D8.GetElementsDimino();
+	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCentralizerEl(elt3, group_elements);
 	BOOST_ASSERT(std_ex::set_equality(elts, D8.GetElementsDimino()));
 
 };
@@ -58,7 +60,8 @@ BOOST_AUTO_TEST_CASE(test_s3_center_el)
 	S3 g1(generators);
 
 	std::vector< cGroupElem< cPermElem, Multiplication> > center_el;
-	center_el = g1.GetCenterEl();
+	std::vector< cGroupElem< cPermElem, Multiplication> > group_elements = g1.GetElementsDimino();
+	center_el = g1.GetCenterEl(group_elements);
 	std::vector< cGroupElem<cPermElem, Multiplication> >  center_el1;
 	center_el1.push_back(g1.GetIdentity());
 	BOOST_ASSERT(std_ex::set_equality(center_el, center_el1));
@@ -72,8 +75,9 @@ BOOST_AUTO_TEST_CASE(test_d8_center_el)
 	cGroup< cGroupElem<cPermElem, Multiplication>, cSymmetricRep> D8;
 	D8.AddGenerator(elt5);
 	D8.AddGenerator(elt2);
-	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCenterEl();
-	std::vector< cGroupElem<cPermElem, Multiplication> > elts1 = D8.GetCyclicSubgroup(elt2 * elt2);
+	std::vector< cGroupElem<cPermElem, Multiplication> > group_elements = D8.GetElementsDimino();
+	std::vector< cGroupElem<cPermElem, Multiplication> > elts = D8.GetCenterEl(group_elements);
+	std::vector< cGroupElem<cPermElem, Multiplication> > elts1 = D8.GetCyclicSubgroupEl(elt2 * elt2);
 
 	BOOST_ASSERT(std_ex::set_equality(elts,elts1));
 

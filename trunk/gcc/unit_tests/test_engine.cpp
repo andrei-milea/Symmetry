@@ -1,7 +1,6 @@
 
 #include "../engine/session.h"
 #include "../engine/getelem_command.h"
-#include "../engine/getsubgrp_command.h"
 #include "../engine/serializer.h"
 
 #define BOOST_TEST_MODULE "test_engine"
@@ -118,7 +117,7 @@ BOOST_AUTO_TEST_CASE(test_command_getelem)
 BOOST_AUTO_TEST_CASE(test_command_getsubgroup)
 {
 	cResult result;
-	cGetSubgrpCommand command("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", &result);
+	//cGetSubgrpCommand command("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", &result);
 	//TODO
 }
 
