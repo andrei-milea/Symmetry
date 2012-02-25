@@ -275,6 +275,33 @@ var Command_panel = {
 
 		this.add_group_property("Group Type", this.static_vars.group_type);
 		this.add_group_property("Group Generators", this.static_vars.generators);
+
+		if(this.static_vars.group_type == "Dihedral Group")
+		{
+			var size = (generatorsTag.options[0].text.length - 1) / 2;
+			if(size < 3 || size > 9)
+				return;
+			var canvasDiv = document.getElementById("canvas_id");
+			var main_canvas = document.getElementById("main_canvas");
+
+			var rotateTag = document.createElement("input");
+			rotateTag.setAttribute("type","button");
+			rotateTag.setAttribute("value","Rotate");
+			rotateTag.setAttribute("onclick","WebGlContext.RotatePolygon()"); 
+			rotateTag.setAttribute("id","ct1"); 
+
+			var reflectTag = document.createElement("input");
+			reflectTag.setAttribute("type","button");
+			reflectTag.setAttribute("value","Reflect");
+			reflectTag.setAttribute("onclick","WebGlContext.ReflectPolygon()"); 
+			reflectTag.setAttribute("id","ct2"); 
+
+			canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+			canvasDiv.insertBefore(rotateTag, main_canvas);
+			canvasDiv.insertBefore(reflectTag, main_canvas);
+			WebGlContext.AddPolygonToScene((generatorsTag.options[0].text.length - 1) / 2);
+		}
+
 		return false;
 	},
 
@@ -330,8 +357,6 @@ var Command_panel = {
 		xmlhttp.open("GET", request, false);
 		xmlhttp.send();
 		document.getElementById("main_view_id").innerHTML=xmlhttp.responseText;
-		//if( ("Cyclic Group" == this.static_vars.group_type) && (command == "GET_ELEMENTS") )
-		//	WebGlContext.DrawRegPolygon((this.static_vars.generators.length - 1)/2);
 		//if(command == "GET_CGRAPH")
 		//	WebGlContext.DrawGraph();
 	}
