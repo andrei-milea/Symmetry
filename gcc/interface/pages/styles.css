@@ -41,16 +41,20 @@ position: relative;
 /*canvas style*/
 .scanvasdiv
 {
+text-align: center;
+border:1px solid #aaa;
 margin-top: 20;
 margin-right: auto;
 margin-left: auto;
 position: relative;
-width: 500px; height: 500px;
+width: 600px; height: 600px;
 }
 .scanvas
 {
-border:1px solid #aaa;
-width: 90%; height: 90%;
+margin-top: auto;
+margin-left: auto;
+margin-right: auto;
+width: 512px; height: 512px%;
 }
 
 .smain_view
