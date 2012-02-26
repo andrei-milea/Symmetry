@@ -22,7 +22,7 @@ cCommandQueue::~cCommandQueue()
 {
 };
 
-void cCommandQueue::Put(cCommand *command)
+void cCommandQueue::Put(boost::shared_ptr<cCommand>& command)
 {
 	lock_guard lock(m_Mutex);
 	Put_i(command);
@@ -30,7 +30,7 @@ void cCommandQueue::Put(cCommand *command)
 };
 
 
-cCommand* cCommandQueue::Remove()
+boost::shared_ptr<cCommand> cCommandQueue::Remove()
 {
 	lock_guard lock(m_Mutex);
 	while(Empty_i())
@@ -57,14 +57,14 @@ std::size_t cCommandQueue::GetSize()
 ////////////implementation////////////////
 *****************************************/
 
-void cCommandQueue::Put_i(cCommand *command)
+void cCommandQueue::Put_i(boost::shared_ptr<cCommand>& command)
 {
 	m_Queue.push(command);
 };
 
-cCommand* cCommandQueue::Remove_i()
+boost::shared_ptr<cCommand> cCommandQueue::Remove_i()
 {
-	cCommand* command = m_Queue.front();
+	boost::shared_ptr<cCommand> command = m_Queue.front();
 	m_Queue.pop();
 	return command;
 };

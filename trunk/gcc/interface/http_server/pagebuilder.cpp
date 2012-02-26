@@ -113,8 +113,8 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 	std::string result_str;
 	std::stringstream ss;
 
-	const cGetCGraphCommand *command_cgraph = dynamic_cast<const cGetCGraphCommand*>(result.GetCommand());
-	const cGroupGenCommand *command = dynamic_cast<const cGroupGenCommand*>(result.GetCommand());
+	boost::shared_ptr<cGetCGraphCommand> command_cgraph = boost::dynamic_pointer_cast<cGetCGraphCommand>(result.GetCommand());
+	boost::shared_ptr<cGroupGenCommand> command = boost::dynamic_pointer_cast<cGroupGenCommand>(result.GetCommand());
 	GROUP_TYPE group_type = command->GetGroupType();
 	if(SYMMETRIC_GROUP == group_type || CYCLIC_GROUP == group_type || DIHEDRAL_GROUP == group_type)
 	{

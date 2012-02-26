@@ -264,20 +264,26 @@ public:
 	};
 
 	/*!
-	  returns the dihedral subgroup $D_2n$ elements by rotating the identity
-	  permutation of the given size and inverting the rotations
+	  returns the dihedral subgroup $D_2n$ = $C_n + R_n$, where $R_n$
+	  is generated rotating by a fundamental reflection
 	  Complexity $O(2n)$, where n is the size of the symmetry n-gon
 	*/
 	std::vector<T> GetDihedralSubgroupEl(const std::size_t size)
 	{
 		std::vector<T> dihedral_group = GetCyclicSubgroupEl(size);
-		T elem(size);
-		elem = elem.GetMultInverse();
-		dihedral_group.push_back(elem);
+
+		std::vector<std::size_t> ref_array(size);
+		ref_array[0] = 1;
+		for(std::size_t i = 1; i < size; i++)
+		{
+			ref_array[i] = size - i + 1;
+		}
+		T ref_elem(ref_array);
+		dihedral_group.push_back(ref_elem);
 		for(std::size_t index = 1; index < size; index++)
 		{
-			elem.rotateLeft();
-			dihedral_group.push_back(elem);
+			ref_elem.rotateLeft();
+			dihedral_group.push_back(ref_elem);
 		}
 		return dihedral_group;
 	};

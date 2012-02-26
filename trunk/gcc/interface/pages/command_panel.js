@@ -188,11 +188,11 @@ var Command_panel = {
 			perm1[size-1] = 1;
 
 			var perm2 = new Array();
-			for(var i = 0; i < size; i++)
+			perm2[0] = 1;
+			for(var i = 1; i < size; i++)
 			{
-				perm2[i] = i+1;
+				perm2[i] = size - i + 1;
 			}
-			perm2.reverse();
 
 			newgenTag1.innerHTML = "("+perm1.toString()+")";
 			newgenTag2.innerHTML = "("+perm2.toString()+")";

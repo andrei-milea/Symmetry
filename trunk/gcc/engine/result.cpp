@@ -5,15 +5,16 @@
 namespace engine
 {
 
-cResult::cResult(cSession *session, cCommand *command)
-	:m_Session(session),
-	 m_Command(command)
+cResult::cResult(cSession *session)
+	:m_Session(session)
 {};
 
 cResult::~cResult()
-{};
+{
+};
 
-void cResult::SetCommand(cCommand *command)
+
+void cResult::SetCommand(boost::shared_ptr<cCommand>& command)
 {
 	m_Command = command;
 };
@@ -28,7 +29,7 @@ const boost::any& cResult::GetResult()const
 	return m_Result;
 };
 
-const cCommand* cResult::GetCommand()const
+const boost::shared_ptr<cCommand>& cResult::GetCommand()const
 {
 	return m_Command;
 };

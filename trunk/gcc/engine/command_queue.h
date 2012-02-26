@@ -3,11 +3,11 @@
 
 #include <queue>
 #include <boost/thread.hpp>
+#include "command.h"
 
 namespace engine
 {
 
-class cCommand;
 
 /*!
  thread safe class that implements a commands queue
@@ -23,21 +23,21 @@ public:	//guarded methods -- interface
 	~cCommandQueue();
 
 	//synchronized methods
-	void Put(cCommand *command);
-	cCommand* Remove();
+	void Put(boost::shared_ptr<cCommand>& command);
+	boost::shared_ptr<cCommand> Remove();
 
 	bool Empty();
 
 	std::size_t GetSize();
 
 protected:	//not guarded methods
-	inline void Put_i(cCommand *command);
-	inline cCommand* Remove_i();
+	inline void Put_i(boost::shared_ptr<cCommand>& command);
+	inline boost::shared_ptr<cCommand> Remove_i();
 	inline bool Empty_i()const;
 	std::size_t GetSize_i()const;
 
 private:
-	std::queue<cCommand *> m_Queue;
+	std::queue<boost::shared_ptr<cCommand> > m_Queue;
 	boost::mutex m_Mutex;
 	boost::condition_variable m_NotEmptyCond;
 

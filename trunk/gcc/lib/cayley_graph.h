@@ -160,12 +160,12 @@ public:
 //		out<<"\nEDGES:\n";
 //		boost::print_edges(*graph.GetGraph(), get(boost::vertex_bundle,
 //					*graph.GetGraph()));
-//
-//		//print vertices
-//		out<<"\nVERTICES:\n";
-//		boost::print_vertices((*graph.GetGraph()), get(boost::vertex_bundle,
-//					*graph.GetGraph()));
-//
+
+		//print vertices
+		out<<"\nVERTICES:\n";
+		boost::print_vertices((*graph.GetGraph()), get(boost::vertex_bundle,
+					*graph.GetGraph()));
+
 		return out;
 	};
 

@@ -34,7 +34,7 @@ public:
 			pcommand = new cGetCenterCommand(param, result);
 		else if(GET_CGRAPH == command)
 			pcommand = new cGetCGraphCommand(param, result);
-		result->SetCommand(pcommand);
+		//result->SetCommand(pcommand);
 
 		return pcommand;
 	};

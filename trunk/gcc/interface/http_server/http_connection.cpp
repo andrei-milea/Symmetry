@@ -135,9 +135,9 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 		cSession* session = cHttpConnection::s_Sessions[ses_id];
 		if(session->GetState() == STATE_FREE)
 		{
-			cCommand* command = cCommandCreator<cCreator>::GetCommand(
+			boost::shared_ptr<cCommand> command (cCommandCreator<cCreator>::GetCommand(
 									_request.GetCommandId(), _request.GetParam(),
-									session->GetResult());
+									session->GetResult()));
 			int runtime_estimation = command->EstimateRunTime(s_Estimator);
 
 			if( runtime_estimation <= 360/*seconds*/)
