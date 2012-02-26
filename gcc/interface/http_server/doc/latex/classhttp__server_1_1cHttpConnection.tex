@@ -1,0 +1,99 @@
+\hypertarget{classhttp__server_1_1cHttpConnection}{\section{http\-\_\-server\-:\-:c\-Http\-Connection \-Class \-Reference}
+\label{classhttp__server_1_1cHttpConnection}\index{http\-\_\-server\-::c\-Http\-Connection@{http\-\_\-server\-::c\-Http\-Connection}}
+}
+
+
+\-Collaboration diagram for http\-\_\-server\-:\-:c\-Http\-Connection\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classhttp__server_1_1cHttpConnection__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{\-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_ad9175494a963a2e2f7fafb31c24c4783}{boost\-::asio\-::ip\-::tcp\-::socket \& {\bfseries \-Get\-Socket} ()}\label{classhttp__server_1_1cHttpConnection_ad9175494a963a2e2f7fafb31c24c4783}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a0559eb591a884a16d90f2e061a5530f6}{void {\bfseries \-Handle\-Client} ()}\label{classhttp__server_1_1cHttpConnection_a0559eb591a884a16d90f2e061a5530f6}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_aad4d12163015ab391b40bb15b9a5ecb0}{void {\bfseries \-Handle\-Request} (const boost\-::system\-::error\-\_\-code \&error)}\label{classhttp__server_1_1cHttpConnection_aad4d12163015ab391b40bb15b9a5ecb0}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_aa9343fd8557891c23c8fd73b5641fedd}{void {\bfseries \-Handle\-Existing\-Session} (\hyperlink{classhttp__server_1_1cResponse}{c\-Response} \&response, const \hyperlink{classhttp__server_1_1cRequest}{c\-Request} \&\-\_\-request, const unsigned int ses\-\_\-id)}\label{classhttp__server_1_1cHttpConnection_aa9343fd8557891c23c8fd73b5641fedd}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a128cc40027898c87335516147b767b87}{void {\bfseries \-Handle\-Write\-Response} (const boost\-::system\-::error\-\_\-code \&error)}\label{classhttp__server_1_1cHttpConnection_a128cc40027898c87335516147b767b87}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_aac06a1408cb3b2e20e08817858e45443}{void {\bfseries \-Stop} ()}\label{classhttp__server_1_1cHttpConnection_aac06a1408cb3b2e20e08817858e45443}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Public \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a03b465f45c06bcc42c3a4e771ab00395}{static connection\-\_\-ptr {\bfseries \-Create} (boost\-::asio\-::io\-\_\-service \&io\-\_\-service, \hyperlink{classhttp__server_1_1cConnectionManager}{c\-Connection\-Manager} \&conn\-\_\-manager)}\label{classhttp__server_1_1cHttpConnection_a03b465f45c06bcc42c3a4e771ab00395}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a233c74cfb8a64cfb93be34e2fca92741}{static void {\bfseries \-Clear\-Sessions} ()}\label{classhttp__server_1_1cHttpConnection_a233c74cfb8a64cfb93be34e2fca92741}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a0a5b09ba857189a7f7179096fdb15c09}{typedef boost\-::shared\-\_\-ptr\*
+$<$ \hyperlink{classhttp__server_1_1cHttpConnection}{c\-Http\-Connection} $>$ {\bfseries connection\-\_\-ptr}}\label{classhttp__server_1_1cHttpConnection_a0a5b09ba857189a7f7179096fdb15c09}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_aef12353a1c35536062088868a1c47d16}{typedef std\-::map$<$ unsigned int, \*
+engine\-::c\-Session $\ast$ $>$ {\bfseries sessions\-\_\-map}}\label{classhttp__server_1_1cHttpConnection_aef12353a1c35536062088868a1c47d16}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a8b0305459f933592f64fab2e3289dd54}{{\bfseries c\-Http\-Connection} (boost\-::asio\-::io\-\_\-service \&io\-\_\-service, \hyperlink{classhttp__server_1_1cConnectionManager}{c\-Connection\-Manager} \&conn\-\_\-manager)}\label{classhttp__server_1_1cHttpConnection_a8b0305459f933592f64fab2e3289dd54}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Private \-Member \-Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_ae4193c0d2fcd91ee80849f0982b4fe14}{static unsigned int {\bfseries \-Get\-Rand\-Unique\-Id} ()}\label{classhttp__server_1_1cHttpConnection_ae4193c0d2fcd91ee80849f0982b4fe14}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_acf6b64550b0e0f8287d7b55a5613ef0f}{boost\-::asio\-::ip\-::tcp\-::socket {\bfseries m\-\_\-\-Socket}}\label{classhttp__server_1_1cHttpConnection_acf6b64550b0e0f8287d7b55a5613ef0f}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a0504245e3903f238ff13145a832d4582}{boost\-::asio\-::streambuf {\bfseries m\-\_\-\-Request\-Buf}}\label{classhttp__server_1_1cHttpConnection_a0504245e3903f238ff13145a832d4582}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a6f99bd0fa66b31461010ef0948fa428f}{boost\-::asio\-::streambuf {\bfseries m\-\_\-\-Response\-Buf}}\label{classhttp__server_1_1cHttpConnection_a6f99bd0fa66b31461010ef0948fa428f}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_adea2cf9ab3ff28fd70c9a910ef9bfda3}{\hyperlink{classhttp__server_1_1cConnectionManager}{c\-Connection\-Manager} \& {\bfseries m\-\_\-\-Connection\-Manager}}\label{classhttp__server_1_1cHttpConnection_adea2cf9ab3ff28fd70c9a910ef9bfda3}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a785dff3fa5be6e114762738aae4d031e}{bool {\bfseries m\-\_\-\-Http\-Version}}\label{classhttp__server_1_1cHttpConnection_a785dff3fa5be6e114762738aae4d031e}
+
+\end{DoxyCompactItemize}
+\subsection*{\-Static \-Private \-Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_a1d3d86ae704fe225d6420d6d6fd7340e}{static sessions\-\_\-map {\bfseries s\-\_\-\-Sessions}}\label{classhttp__server_1_1cHttpConnection_a1d3d86ae704fe225d6420d6d6fd7340e}
+
+\item 
+\hypertarget{classhttp__server_1_1cHttpConnection_ae1b6b9bb43bb406ce4c9e9f027348263}{static engine\-::c\-Estimator {\bfseries s\-\_\-\-Estimator}}\label{classhttp__server_1_1cHttpConnection_ae1b6b9bb43bb406ce4c9e9f027348263}
+
+\end{DoxyCompactItemize}
+
+
+\-The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+http\-\_\-connection.\-h\item 
+http\-\_\-connection.\-cpp\end{DoxyCompactItemize}
