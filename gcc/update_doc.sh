@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #remove existent doc
-svn rm lib/doc
-svn rm engine/doc
-svn rm interface/http_server/doc
+svn rm lib/doc --force
+svn rm engine/doc --force
+svn rm interface/http_server/doc --force
 
 svn commit -m "removed doc"
 
@@ -17,9 +17,9 @@ doxygen Doxyfile
 cd ../..
 
 #add updated doc
-svn add lib/doc
-svn add engine/doc
-svn add interface/http_server/doc
+svn add lib/doc --force
+svn add engine/doc --force
+svn add interface/http_server/doc --force
 
 #commit changes
 svn commit -m "added doc"
