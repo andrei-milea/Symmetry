@@ -33,12 +33,12 @@ public:
 	/*!
 	  runs a command and returns the result as soon as it finishes
 	*/
-	void RunCommand(cCommand *command);
+	void RunCommand(boost::shared_ptr<cCommand>& command);
 
 	/*!
 	  puts a command in the wait queue to be processed by the thread pool
 	*/
-	void ScheduleCommand(cCommand *command);
+	void ScheduleCommand(boost::shared_ptr<cCommand>& command);
 
 	/*!
 	  cancels a command received previously

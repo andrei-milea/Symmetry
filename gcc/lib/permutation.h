@@ -190,7 +190,7 @@ public:
 			perm_index += boost::lexical_cast<std::string>(index+1) + " ";
 			perm_val += boost::lexical_cast<std::string>((*perm.GetPermutationArray())[index]) + " ";
 		}
-		return of<<perm_index<<"\n"<<perm_val<<"\n";
+		return of<<perm_index<<"\n"<<perm_val<<"\n"<<"\n";
 	};
 
 	/*!

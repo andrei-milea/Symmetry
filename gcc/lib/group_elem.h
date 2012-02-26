@@ -1,9 +1,9 @@
 #ifndef _GROUP_ELEM
 #define _GROUP_ELEM
 
-#include "sqmatrix.h"
 #include "intmodn.h"
 #include "permutation.h"
+#include "binary_op.h"
 
 
 /*!

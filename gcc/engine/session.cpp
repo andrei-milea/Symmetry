@@ -38,7 +38,7 @@ void cSession::SetState(int state)
 	m_State = state;
 };
 
-void cSession::ScheduleCommand(cCommand *command)
+void cSession::ScheduleCommand(boost::shared_ptr<cCommand>& command)
 {
 	if(!cSession::sThreadPool.isStarted())
 		cSession::sThreadPool.StartPool();
@@ -47,8 +47,9 @@ void cSession::ScheduleCommand(cCommand *command)
 	m_State = STATE_COMMAND_PENDING;
 };
 
-void cSession::RunCommand(cCommand *command)
+void cSession::RunCommand(boost::shared_ptr<cCommand>& command)
 {
+	m_Result.SetCommand(command);
 	command->Execute();
 };
 

@@ -96,14 +96,14 @@ public:
 
 	/*!
 	  returns the centralizer subgroup of the group as a list of elements
-	  TODO -- check for bugs (duplicate elements)
 	*/
 	std::vector<ElementType> GetCenterEl(GrpVec &grp_el)const
 	{
 		GrpVec subgrp_el;
 		subgrp_el.push_back(grp_el[0]);
 		GrpVec rem_el = grp_el;
-		std::remove(rem_el.begin(), rem_el.end(), grp_el[0]);
+		//std::remove(rem_el.begin(), rem_el.end(), grp_el[0]);
+		rem_el.erase(rem_el.begin());
 		while(!rem_el.empty())
 		{
 			bool commutes = true;

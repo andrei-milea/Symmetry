@@ -44,7 +44,7 @@ void cThreadPool::StopPool()
 	m_Started = false;
 };
 
-void cThreadPool::AddToCommandQueue(cCommand *command)
+void cThreadPool::AddToCommandQueue(boost::shared_ptr<cCommand>& command)
 {
 	m_CommandQueue.Put(command);
 };
@@ -56,7 +56,7 @@ void cThreadPool::Run()
 	{
 		while(true)
 		{
-			boost::scoped_ptr<cCommand> pCommand(m_CommandQueue.Remove());
+			boost::shared_ptr<cCommand> pCommand(m_CommandQueue.Remove());
 			try
 			{
 				pCommand->Execute();

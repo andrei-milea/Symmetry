@@ -3,7 +3,7 @@
 
 #include <string>
 #include "estimate.h"
-#include "result.h"
+
 
 /*!
  base class for commands (Command design pattern)
@@ -11,6 +11,8 @@
 */
 namespace engine
 {
+
+class cResult;
 
 class cCommand
 {
@@ -33,6 +35,7 @@ protected://methods
 	{
 		m_Params = params;
 	};
+
 
 	/*!
 	  parses the command parameters using BOOST SPIRIT

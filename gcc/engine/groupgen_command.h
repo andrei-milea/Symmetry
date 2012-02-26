@@ -4,6 +4,7 @@
 #include "command.h"
 #include "group_factory.h"
 #include "logger.h"
+#include "result.h"
 
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix_core.hpp>

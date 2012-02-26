@@ -3,12 +3,15 @@
 
 #include <string>
 #include <boost/any.hpp>
+#include <boost/shared_ptr.hpp>
+
+//#include "command.h"
 
 namespace engine
 {
 
-class cCommand;
 class cSession;
+class cCommand;
 
 /*!
   used to retrieve the result after a given command is executed
@@ -17,18 +20,18 @@ class cSession;
 class cResult
 {
 public:
-	cResult(cSession *session = NULL, cCommand *command = NULL);
+	cResult(cSession *session = nullptr);
 	~cResult();
 
 	void SetResult(const boost::any &result);
-	void SetCommand(cCommand *command);
+	void SetCommand(boost::shared_ptr<cCommand>& command);
 
 	const boost::any& GetResult()const;
-	const cCommand *GetCommand()const;
+	const boost::shared_ptr<cCommand>& GetCommand()const;
 
 private:
 	cSession 	*m_Session;
-	cCommand 	*m_Command;
+	boost::shared_ptr<cCommand> m_Command;
 	boost::any	m_Result;
 
 };

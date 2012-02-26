@@ -17,6 +17,12 @@ public:
 	{
 	};
 
+	cVariantVisitor(const cVariantVisitor& var_vis)
+		:boost::static_visitor<>(var_vis)
+	{
+		m_pStr = new std::string(*var_vis.m_pStr);
+	};
+
 	~cVariantVisitor()
 	{};
 
