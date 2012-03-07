@@ -1,10 +1,12 @@
-all: test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main test_server_main
+all: test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_engine_main test_server_main
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
 BFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 LFLAGS =-lboost_system -lboost_thread -lboost_date_time
 GCC = g++
 VPATH = ../interface/http_server:../engine
 
+test_tree: test_tree.cpp
+	$(GCC) $(BFLAGS) test_tree.cpp -o test_tree
 
 test_perm: test_permutation.cpp
 	$(GCC) $(BFLAGS) test_permutation.cpp -o test_perm
@@ -86,7 +88,7 @@ clean:
 	cd ../engine; make clean
 	cd ../interface/http_server; make clean
 	
-TESTS = test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main
+TESTS = test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main
 #test_lattice 
 
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
