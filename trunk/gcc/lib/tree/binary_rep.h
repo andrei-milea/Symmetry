@@ -21,103 +21,160 @@ private:
 
 public:
 	typedef btree_node<T> node_type;
-	typedef btree_iterator<T, node_type > iterator;
+	typedef btree_iterator<T, node_type> iterator;
+	typedef btree_preorder_iterator<T, node_type > preorder_iterator;
+	typedef btree_inorder_iterator<T, node_type > inorder_iterator;
+	typedef btree_postorder_iterator<T, node_type > postorder_iterator;
 
+
+protected:	//can't construct cBinaryRep object directly -- only through cBinaryTree
 	cBinaryRep()
+		:m_Root(nullptr)
 	{};
+
 	~cBinaryRep()
 	{};
 
-	/*!
-	  copy constructor -- copies the whole tree
-	*/
 	cBinaryRep(const cBinaryRep &bin_rep)
-	{
-		//TODO			
-	};
+	{};
 	
-	/*!
-	  assignment operator -- copies the whole tree
-	*/
 	cBinaryRep& operator=(const cBinaryRep &bin_rep)
-	{
-		//TODO	
-	};
+	{};
 
+public:
 	/*!
 	  checks for equality -- !compares the data in every node of the tree for equality
 	*/
 	bool operator==(const cBinaryRep& bin_rep)
 	{
-		//TODO
+		std::stack<node_type*> this_stack;
+		std::stack<node_type*> other_stack;
+
+		node_type *current_this_node = this.m_Root;
+		node_type *current_other_node = bin_rep.m_Root;
+		while(true)
+		{
+			if( (nullptr != current_this_node) || (nullptr != current_other_node) )
+			{
+				if( (nullptr == current_other_node) || (nullptr == current_this_node) )
+					return false;
+				this_stack.push(current_this_node);
+				other_stack.push(current_other_node);
+				current_this_node = current_this_node->left;
+				current_other_node = current_other_node->left;
+				continue;
+			}
+			if(!this_stack.empty() || !other_stack.empty())
+			{
+				if(other_stack.empty() || this_stack.empty())
+					return false;
+				current_this_node = this_stack.top();
+				this_stack.pop();
+				current_other_node = other_stack.top();
+				other_stack.pop();
+				if(current_this_node->data != current_other_node->data);
+					return false;
+				current_this_node = current_this_node->right;
+				current_other_node = current_other_node->right;
+			}
+			else
+			{
+					return true;
+			}
+		}
 	};
 
 	/*!
 	  returns an iterator to the beginning of the tree for inorder traversal
 	*/
-	iterator begin_inorder()
+	inorder_iterator begin_inorder()
 	{
-		return iterator(&m_Root, INORDER);
+		inorder_iterator inorder_it(m_Root);
+		inorder_it++;
+		return inorder_it;
 	};
 
 	/*!
 	  returns an iterator to the beginning of the tree for preorder traversal
 	*/
-	iterator begin_preorder()
+	preorder_iterator begin_preorder()
 	{
-		return iterator(&m_Root, PREORDER);
+		preorder_iterator preorder_it(m_Root);
+		preorder_it++;
+		return preorder_it;
 	};
 
 	/*!
 	  returns an iterator to the beginning of the tree for postorder traversal
 	*/
-	iterator begin_postorder()
+	postorder_iterator begin_postorder()
 	{
-		return iterator(&m_Root, POSTORDER);
+		postorder_iterator postorder_it(m_Root);
+		postorder_it++;
+		return postorder_it;
 	};
 
 	/*!
 	  returns an empty iterator signifying the end of the tree
 	  ! used in constructs like for(iterator it = tree.begin(); it != tree.end(); it++)
 	*/
-	iterator end()
+	preorder_iterator end()
 	{
-		return iterator();
+		return preorder_iterator();
 	};
 
 	/*!
 	  inserts data as a left child of the node indicated by the iterator
 	*/
-	iterator& insertLeft(iterator &iter, T &data)
+	iterator insertLeftChild(iterator iter, const T& data)
 	{
-		assert(nullptr == iter.m_Current);
-		iter.m_Current->left = new node_type(data);
-		iter.m_Current = iter.m_Current->left;
-		return iter;
+		if(nullptr == iter.m_Current->left)
+		{
+			iter.m_Current->left = new node_type(data);
+			return inorder_iterator(iter.m_Current->left);
+		}
+		else
+		{
+			node_type *node = iter.m_Current->left;
+			iter.m_Current->left = new node_type(data);
+			iter.m_Current->left->left = node;
+			return inorder_iterator(iter.m_Current->left);
+		}
 	};
 
 	/*!
 	  inserts data as a right child of the node indicated by the iterator
 	*/
-	iterator& insertRight(iterator &iter, T &data)
+	iterator insertRightChild(iterator iter, const T& data)
 	{
-		assert(nullptr == iter.m_Current);
-		iter.m_Current->right = new node_type(data);
-		iter.m_Current = iter.m_Current->right;
+		if(nullptr == iter.m_Current->right)
+		{
+			iter.m_Current->right = new node_type(data);
+			return inorder_iterator(iter.m_Current->right);
+		}
+		else
+		{
+			node_type *node = iter.m_Current->right;
+			iter.m_Current->right = new node_type(data);
+			iter.m_Current->right->right = node;
+			return inorder_iterator(iter.m_Current->right);
+		}
+	};
+
+	iterator insertRoot(const T& data)
+	{
+		assert(nullptr == m_Root);
+		m_Root = new node_type(data);
+		inorder_iterator iter(m_Root);
 		return iter;
 	};
 
-	iterator& insert(tree_traversal)
-	{
-		//TODO
-	}
-
 	/*!
 	  traverse the binary tree in the given tree_traversal order 
-	  a std::unary_function<T, void> must be also given as a parameter
-	  it calls the unary_function for the data in every node of the tree
+	  takes a function object as a parameter, which must implement operator(T)
 	*/
-	void traverse(tree_traversal traversal, std::unary_function<T, void> visit)
+	template <typename FUNC>
+	void traverse(tree_traversal traversal, FUNC& visit)
 	{
 		if(nullptr == m_Root)
 			throw std::out_of_range("cBinaryRep.traverse -- invalid root node");
@@ -135,8 +192,9 @@ public:
 				}
 				if(!stack.empty())
 				{
-					current_node = stack.pop_back();
-					visit(current_node->info);
+					current_node = stack.top();
+					stack.pop();
+					visit(current_node->data);
 					current_node = current_node->right;
 				}
 				else
@@ -145,25 +203,61 @@ public:
 		}
 		else if(PREORDER == traversal)
 		{
-			stack.push_back(current_node);
+			stack.push(current_node);
 			while(!stack.empty())
 			{
-				current_node = stack.pop_back();
+				current_node = stack.top();
+				stack.pop();
 				if(nullptr != current_node->right)
-					stack.push_back(current_node->right);
+					stack.push(current_node->right);
 				if(nullptr != current_node->left)
-					stack.push_back(current_node->left);
-				visit(current_node->info);
+					stack.push(current_node->left);
+				visit(current_node->data);
 			}
 		}
 		else
 		{
 			assert(POSTORDER == traversal);
+			while(true)
+			{
+				if(nullptr != current_node)
+				{
+					if(nullptr != current_node->right)
+					{
+						stack.push(current_node->right);
+					}
+					stack.push(current_node);
+					current_node = current_node->left;
+					continue;
+				}
+
+				if(!stack.empty())
+				{
+					current_node = stack.top();
+					stack.pop();
+					if( (nullptr != current_node->right) && !stack.empty() && (stack.top() == current_node->right) )
+					{
+						stack.pop();
+						stack.push(current_node);
+						current_node = current_node->right;
+					}
+					else
+					{
+						visit(current_node->data);
+						current_node = nullptr;
+					}
+				}
+				else
+				{
+					return;
+				}
+
+			}
 		}
 	};
 
 private:
-	node_type m_Root;
+	node_type *m_Root;
 };
 
 };//namespace tree

@@ -2,7 +2,7 @@
 #define _BINARY_TREE_H
 
 #include "binary_rep.h"
-//#include "threaded_rep.h"
+#include "threaded_rep.h"
 
 namespace tree
 {
