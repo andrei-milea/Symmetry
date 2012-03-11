@@ -67,7 +67,7 @@ badd +1 ~/workspace/absalg/gcc/unit_tests/Makefile
 badd +1 ~/workspace/absalg/gcc/unit_tests/test_tree.cpp
 badd +2 ~/workspace/absalg/gcc/unit_tests/test_group.cpp
 badd +1 ~/workspace/absalg/gcc/lib/group.h
-badd +0 tree_common.h
+badd +1 tree_common.h
 args binary_tree.h
 edit binary_tree.h
 set splitbelow splitright
@@ -178,11 +178,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 11 - ((10 * winheight(0) + 25) / 51)
+let s:l = 5 - ((4 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
+5
 normal! 0
 tabedit binary_rep.h
 set splitbelow splitright
@@ -293,12 +293,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 110 - ((37 * winheight(0) + 25) / 51)
+let s:l = 37 - ((25 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-110
-normal! 022l
+37
+normal! 0
 tabedit tree_common.h
 set splitbelow splitright
 set nosplitbelow
@@ -408,12 +408,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 11 - ((10 * winheight(0) + 25) / 51)
+let s:l = 49 - ((24 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-11
-normal! 031l
+49
+normal! 07l
 tabedit binary_tree_iter.h
 set splitbelow splitright
 set nosplitbelow
@@ -523,12 +523,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 2 - ((1 * winheight(0) + 25) / 51)
+let s:l = 310 - ((44 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-2
-normal! 0
+310
+normal! 09l
 tabedit threaded_rep.h
 set splitbelow splitright
 set nosplitbelow
@@ -638,12 +638,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 1 - ((0 * winheight(0) + 25) / 51)
+let s:l = 45 - ((33 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-1
-normal! 0
+45
+normal! 013l
 tabedit ~/workspace/absalg/gcc/unit_tests/test_tree.cpp
 set splitbelow splitright
 set nosplitbelow
@@ -699,7 +699,7 @@ setlocal formatoptions=tcq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=0
-setlocal imsearch=2
+setlocal imsearch=0
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=
@@ -753,12 +753,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 15 - ((14 * winheight(0) + 25) / 51)
+let s:l = 78 - ((38 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-15
-normal! 022l
+78
+normal! 0
 lcd ~/workspace/absalg/gcc/lib/tree
 tabedit ~/workspace/absalg/gcc/unit_tests/Makefile
 set splitbelow splitright
@@ -869,7 +869,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 9 - ((8 * winheight(0) + 26) / 52)
+let s:l = 9 - ((0 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1108,7 +1108,7 @@ normal! zt
 1
 normal! 0
 lcd ~/workspace/absalg/gcc/lib/tree
-tabnext 2
+tabnext 4
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif
