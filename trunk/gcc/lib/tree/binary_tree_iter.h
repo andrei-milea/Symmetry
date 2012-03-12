@@ -214,10 +214,12 @@ class btree_iterator<T, btree_threaded_node<T> >: public boost::iterator_facade<
 protected:
 	typedef btree_threaded_node<T> N;
 	btree_iterator()
-		:m_Current(nullptr)
+		:m_Current(nullptr),
+		m_Root(nullptr)
 	{};
-	explicit btree_iterator(N* node)
-		:m_Current(node)
+	explicit btree_iterator(N* node, N* root)
+		:m_Current(node),
+		m_Root(root)
 	{};
 
     friend class boost::iterator_core_access;
@@ -225,7 +227,7 @@ protected:
 
 	bool equal(const btree_iterator<T, N>& other)const
 	{
-		return m_Current == other.m_Current;
+		return (m_Current == other.m_Current) && (m_Root == other.m_Root);
 	};
 
     T& dereference()const
@@ -239,40 +241,12 @@ protected:
 
 protected:
 	N *m_Current;
-};
-
-/*!
-  traverses the tree in preorder(root, left, right)
-  using a stack
-*/
-template <typename T>
-class btree_preorder_iterator<T, btree_threaded_node<T> >: public btree_iterator<T, btree_threaded_node<T> > 
-{
-	typedef btree_threaded_node<T> N;
-public:
-	btree_preorder_iterator()
-		:btree_iterator<T, N>()
-	{};
-
-	explicit btree_preorder_iterator(N* node)
-		:btree_iterator<T, N>(node)
-	{};
-
-	void increment()
-	{
-		if(nullptr == this->m_Current)
-			return;
-	};
-	void decrement()
-	{
-		if(nullptr == this->m_Current)
-			return;
-	};
+	N *m_Root;
 };
 
 /*!
   traverses the tree in inorder(symmetric order -- left, root, right)
-  using a stack
+  without using an auxiliary stack
 */
 template <typename T>
 class btree_inorder_iterator<T, btree_threaded_node<T> > : public btree_iterator<T, btree_threaded_node<T> > 
@@ -282,8 +256,8 @@ public:
 	btree_inorder_iterator()
 		:btree_iterator<T, N>()
 	{};
-	explicit btree_inorder_iterator(N* node)
-		:btree_iterator<T, N>(node)
+	explicit btree_inorder_iterator(N* node, N* root)
+		:btree_iterator<T, N>(node, root)
 	{};
 
 	void increment()
@@ -306,37 +280,15 @@ public:
 
 	void decrement()
 	{
-		if(nullptr == this->m_Current)
+		if(nullptr == this->m_Current || this->m_Current == this->m_Root)
 			return;
+	
+		while(this->m_Current->lTag != false)
+		{
+			this->m_Current = this->m_Current->left;
+		}
+		this->m_Current = this->m_Current->left;
 	};
-};
-
-/*!
-  traverses the tree in postorder(left, right, root)
-  using a stack
-*/
-template <typename T>
-class btree_postorder_iterator<T, btree_threaded_node<T> > : public btree_iterator<T, btree_threaded_node<T> > 
-{
-	typedef btree_threaded_node<T> N;
-public:
-	btree_postorder_iterator()
-		:btree_iterator<T, N>()
-	{};
-	explicit btree_postorder_iterator(N* node)
-		:btree_iterator<T, N>(node)
-	{};
-
-	void increment()
-	{
-		if(nullptr == this->m_Current)
-			return;
-	}
-	void decrement()
-	{
-		if(nullptr == this->m_Current)
-			return;
-	}
 };
 
 };//namespace tree

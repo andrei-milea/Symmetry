@@ -8,9 +8,15 @@ using namespace boost::unit_test;
 using namespace std;
 using namespace tree;
 
-template <class TREE>
-void test_binary_tree(TREE& binary_tree)
+BOOST_AUTO_TEST_CASE(test_binary_tree_iterators_traversal)
 {
+
+	///////////////////////////////////////////////////////
+	/////////////////tests on binary rep///////////////////
+	///////////////////////////////////////////////////////
+
+	cBinaryTree<string, cBinaryRep> binary_tree;
+
 	vector<string> letters = {"A", "B", "C", "D", "E", "F", "G", "H", "J"};
 	auto iter = binary_tree.insertRoot(letters[0]);
 	auto left_iter = binary_tree.insertLeftChild(iter, letters[1]);
@@ -76,14 +82,34 @@ void test_binary_tree(TREE& binary_tree)
 	BOOST_ASSERT("DBGEHJFCA" == postorder_letters);
 
 
-}
+	///////////////////////////////////////////////////////
+	/////////////////tests on threaded rep/////////////////
+	///////////////////////////////////////////////////////
 
-BOOST_AUTO_TEST_CASE(test_binary_tree_iterators_traversal)
-{
-	cBinaryTree<string, cBinaryRep> binary_tree;
 	cBinaryTree<string, cThreadedRep> th_binary_tree;
-	test_binary_tree(binary_tree);
-	test_binary_tree(th_binary_tree);
+
+	auto iter_th = th_binary_tree.insertRoot(letters[0]);
+	auto left_iter_th = th_binary_tree.insertLeftChild(iter_th, letters[1]);
+	th_binary_tree.insertLeftChild(left_iter_th, letters[3]);
+	auto right_iter_th = th_binary_tree.insertRightChild(iter_th, letters[2]);
+	th_binary_tree.insertRightChild(th_binary_tree.insertLeftChild(right_iter_th, letters[4]), letters[6]);
+	right_iter_th = th_binary_tree.insertRightChild(right_iter_th, letters[5]);
+	th_binary_tree.insertLeftChild(right_iter_th, letters[7]);
+	th_binary_tree.insertRightChild(right_iter_th, letters[8]);
+
+	////////////inorder tests
+	string inorder_letters1;
+	for(auto it = th_binary_tree.begin_inorder(); it != th_binary_tree.end(); it++)
+	{
+		inorder_letters1 += *it;
+	}
+	BOOST_ASSERT("DBAEGCHFJ" == inorder_letters1);
+
+	inorder_letters1 = "";
+	cAddStr add_str_in1(inorder_letters1);
+	th_binary_tree.traverse(add_str_in1);
+	BOOST_ASSERT("DBAEGCHFJ" == inorder_letters1);
+
 };
 
 

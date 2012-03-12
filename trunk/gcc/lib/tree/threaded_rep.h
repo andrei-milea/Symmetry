@@ -4,15 +4,17 @@
 namespace tree
 {
 
+/*!
+  threaded binary tree representation
+  !only inorder iterators and traversal
+*/
 template <typename T>
 class cThreadedRep
 {
 public:
 	typedef btree_threaded_node<T> node_type;
 	typedef btree_iterator<T, node_type> iterator;
-	typedef btree_preorder_iterator<T, node_type > preorder_iterator;
 	typedef btree_inorder_iterator<T, node_type > inorder_iterator;
-	typedef btree_postorder_iterator<T, node_type > postorder_iterator;
 
 protected:	//can't construct cBinaryRep object directly -- only through cBinaryTree
 	cThreadedRep()
@@ -42,38 +44,19 @@ public:
 	*/
 	inorder_iterator begin_inorder()
 	{
-		inorder_iterator inorder_it(m_Root);
+		node_type *node = m_Root;
+		inorder_iterator inorder_it(node, m_Root);
 		inorder_it++;
 		return inorder_it;
-	};
-
-	/*!
-	  returns an iterator to the beginning of the tree for preorder traversal
-	*/
-	preorder_iterator begin_preorder()
-	{
-		preorder_iterator preorder_it(m_Root);
-		preorder_it++;
-		return preorder_it;
-	};
-
-	/*!
-	  returns an iterator to the beginning of the tree for postorder traversal
-	*/
-	postorder_iterator begin_postorder()
-	{
-		postorder_iterator postorder_it(m_Root);
-		postorder_it++;
-		return postorder_it;
 	};
 
 	/*!
 	  returns an empty iterator signifying the end of the tree
 	  ! used in constructs like for(iterator it = tree.begin(); it != tree.end(); it++)
 	*/
-	preorder_iterator end()
+	inorder_iterator end()
 	{
-		return preorder_iterator();
+		return inorder_iterator(m_Root, m_Root);
 	};
 
 	/*!
@@ -90,11 +73,11 @@ public:
 		iter.m_Current->lTag = false;
 		if(false == node->lTag)
 		{
-			inorder_iterator _iter(node);
+			inorder_iterator _iter(node, m_Root);
 			_iter--;
 			_iter.m_Current->right = node;
 		}
-		return inorder_iterator(iter.m_Current->left);
+		return inorder_iterator(node, m_Root);
 	};
 
 	/*!
@@ -111,11 +94,11 @@ public:
 		iter.m_Current->rTag = false;
 		if(false == node->rTag)
 		{
-			inorder_iterator _iter(node);
+			inorder_iterator _iter(node, m_Root);
 			_iter++;
 			_iter.m_Current->left = node;
 		}
-		return inorder_iterator(iter.m_Current->left);
+		return inorder_iterator(node, m_Root);
 	};
 
 	iterator insertRoot(const T& data)
@@ -125,9 +108,12 @@ public:
 		m_Root->right = m_Root;
 		m_Root->left = new node_type(data);
 		m_Root->left->left = m_Root;
+		m_Root->left->right = m_Root;
+		m_Root->left->rTag = true;
+		m_Root->left->lTag = true;
 		m_Root->rTag = false;
 		m_Root->lTag = false;
-		inorder_iterator iter(m_Root->left);
+		inorder_iterator iter(m_Root->left, m_Root);
 		return iter;
 	};
 
@@ -136,22 +122,31 @@ public:
 	  takes a function object as a parameter, which must implement operator(T)
 	*/
 	template <typename FUNC>
-	void traverse(tree_traversal traversal, FUNC& visit)
+	void traverse(FUNC& visit)
 	{
 		if(nullptr == m_Root)
-			throw std::out_of_range("cBinaryRep.traverse -- invalid root node");
-		//node_type *current_node = m_Root;
-		std::stack<node_type*> stack;
-		if(INORDER == traversal)
+			throw std::out_of_range("cThreadedRep.traverse -- invalid root node");
+		node_type *current_node = m_Root;
+		do
 		{
+			if(true == current_node->rTag)
+			{
+				current_node = current_node->right;
+				if(m_Root != current_node)
+					visit(current_node->data);
+				else
+					return;
+				continue;
+			}
+			else
+			{
+				current_node = current_node->right;
+			}
+			while(false == current_node->lTag)
+				current_node = current_node->left;
+			visit(current_node->data);
 		}
-		else if(PREORDER == traversal)
-		{
-		}
-		else
-		{
-			assert(POSTORDER == traversal);
-		}
+		while(m_Root != current_node);
 	};
 
 private:
