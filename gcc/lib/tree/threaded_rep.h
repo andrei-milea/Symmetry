@@ -36,7 +36,19 @@ public:
 	*/
 	bool operator==(const cThreadedRep& bin_rep)
 	{
-		return true;
+		inorder_iterator it = begin_inorder();
+		inorder_iterator it_other = bin_rep.begin_inorder();
+		while(it != end())
+		{
+			if(it != it_other)
+				return false;
+			it++;
+			it_other++;
+		}
+		if(it_other == bin_rep.end())
+			return true;
+		else
+			return false;
 	};
 
 	/*!
