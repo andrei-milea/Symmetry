@@ -36,10 +36,14 @@ protected:	//can't construct cBinaryRep object directly -- only through cBinaryT
 	{};
 
 	cBinaryRep(const cBinaryRep &bin_rep)
-	{};
+	{
+		//TODO
+	};
 	
 	cBinaryRep& operator=(const cBinaryRep &bin_rep)
-	{};
+	{
+		//TODO
+	};
 
 public:
 	/*!
