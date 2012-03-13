@@ -25,10 +25,14 @@ protected:	//can't construct cBinaryRep object directly -- only through cBinaryT
 	{};
 
 	cThreadedRep(const cThreadedRep &bin_rep)
-	{};
+	{
+		//TODO
+	};
 	
 	cThreadedRep& operator=(const cThreadedRep &bin_rep)
-	{};
+	{
+		//TODO
+	};
 
 public:
 	/*!

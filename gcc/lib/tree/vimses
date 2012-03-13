@@ -178,7 +178,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 5 - ((4 * winheight(0) + 25) / 51)
+let s:l = 5 - ((0 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -293,12 +293,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 37 - ((25 * winheight(0) + 25) / 51)
+let s:l = 45 - ((44 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-37
-normal! 0
+45
+normal! 07l
 tabedit tree_common.h
 set splitbelow splitright
 set nosplitbelow
@@ -408,11 +408,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 49 - ((24 * winheight(0) + 25) / 51)
+let s:l = 48 - ((0 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-49
+48
 normal! 07l
 tabedit binary_tree_iter.h
 set splitbelow splitright
@@ -523,12 +523,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 310 - ((44 * winheight(0) + 25) / 51)
+let s:l = 19 - ((18 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-310
-normal! 09l
+19
+normal! 0
 tabedit threaded_rep.h
 set splitbelow splitright
 set nosplitbelow
@@ -584,7 +584,7 @@ setlocal formatoptions=tcq
 setlocal formatlistpat=^\\s*\\d\\+[\\]:.)}\\t\ ]\\s*
 setlocal grepprg=
 setlocal iminsert=0
-setlocal imsearch=2
+setlocal imsearch=0
 setlocal include=
 setlocal includeexpr=
 setlocal indentexpr=
@@ -638,12 +638,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 45 - ((33 * winheight(0) + 25) / 51)
+let s:l = 34 - ((33 * winheight(0) + 25) / 51)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-45
-normal! 013l
+34
+normal! 07l
 tabedit ~/workspace/absalg/gcc/unit_tests/test_tree.cpp
 set splitbelow splitright
 set nosplitbelow
@@ -753,11 +753,11 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 78 - ((38 * winheight(0) + 25) / 51)
+let s:l = 107 - ((39 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-78
+107
 normal! 0
 lcd ~/workspace/absalg/gcc/lib/tree
 tabedit ~/workspace/absalg/gcc/unit_tests/Makefile
@@ -869,7 +869,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 9 - ((0 * winheight(0) + 25) / 51)
+let s:l = 9 - ((0 * winheight(0) + 26) / 52)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1108,7 +1108,7 @@ normal! zt
 1
 normal! 0
 lcd ~/workspace/absalg/gcc/lib/tree
-tabnext 4
+tabnext 5
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif
