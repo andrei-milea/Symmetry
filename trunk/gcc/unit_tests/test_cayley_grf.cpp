@@ -19,7 +19,13 @@ BOOST_AUTO_TEST_CASE(test_cayley_grf)
 	cCayleyGrf<cGroup<cGroupElem<cPermElem, Multiplication>, cSymmetricRep> > graph(D8);
 	graph.BuildGraph();
 	BOOST_ASSERT(nullptr != graph.GetGraph());
-	//std::cout<<graph;
+	std::cout<<graph;
+	graph.BuildDefRelations();
+	auto def_relations = graph.GetDefRelations();
+	for(auto rel_iter = def_relations.begin(); rel_iter != def_relations.end(); rel_iter++)
+	{
+		std::cout<<*rel_iter;
+	}	
 }
 
 
