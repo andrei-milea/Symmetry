@@ -3,8 +3,12 @@
 
 #include <vector>
 #include <utility>
+#include <iostream>
 
-template <typename T>
+/*!
+ group relation -> word corresponding to the identity element
+ also corresponds a loop in the Cayley graph
+*/
 class cGroupRelation
 {
 public:
@@ -13,9 +17,13 @@ public:
 	~cGroupRelation()
 	{};
 
-	void AddElement(T &element, int power)
+	/*!
+	  the element corresponds to the index of a generator of the group
+	  in the generators set used to obtain the Cayley graph
+	*/
+	void AddElement(std::size_t element, int power)
 	{
-		m_Elements.push_back(std::pair<T, int>(element, power));
+		m_Elements.push_back(std::pair<std::size_t, int>(element, power));
 	};
 
 	void Simplify()
@@ -30,8 +38,29 @@ public:
 		}
 	};
 
+	std::vector<std::pair<std::size_t,int> >::iterator begin()
+	{
+		return m_Elements.begin();
+	};
+
+	std::vector<std::pair<std::size_t,int> >::iterator end()
+	{
+		return m_Elements.end();
+	};
+
+	friend std::ostream& operator<<(std::ostream& out, const cGroupRelation& relation)
+	{
+		out<<"GROUP RELATION:\n";
+		for(auto elem_iter = relation.m_Elements.begin(); elem_iter != relation.m_Elements.end(); elem_iter++)
+		{
+			out<<"element: "<<elem_iter->first<<"; power: "<<elem_iter->second<<"\n";
+		}
+		return out;
+	};
+
+
 private:
-	std::vector<std::pair<T,int> > m_Elements;
+	std::vector<std::pair<std::size_t,int> > m_Elements;
 };
 
 #endif
