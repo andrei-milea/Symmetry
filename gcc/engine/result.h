@@ -20,7 +20,7 @@ class cCommand;
 class cResult
 {
 public:
-	cResult(cSession *session = nullptr);
+	cResult();
 	~cResult();
 
 	void SetResult(const boost::any &result);
@@ -30,7 +30,6 @@ public:
 	const boost::shared_ptr<cCommand>& GetCommand()const;
 
 private:
-	cSession 	*m_Session;
 	boost::shared_ptr<cCommand> m_Command;
 	boost::any	m_Result;
 

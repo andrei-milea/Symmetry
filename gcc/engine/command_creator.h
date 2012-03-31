@@ -25,7 +25,7 @@ enum COMMAND_TYPE
 class cCreator
 {
 public:
-	static cCommand *GetCommand(COMMAND_TYPE command, const std::string& param, cResult* result)
+	static cCommand *GetCommand(COMMAND_TYPE command, const std::string& param, cResult& result)
 	{
 		cCommand *pcommand;
 		if(GET_ELEMENTS == command)
@@ -55,7 +55,7 @@ template <typename CREATOR>
 class cCommandCreator : CREATOR
 {
 public:
-	static cCommand* GetCommand(COMMAND_TYPE command, const std::string &param, cResult *result)
+	static cCommand* GetCommand(COMMAND_TYPE command, const std::string &param, cResult &result)
 	{
 		return CREATOR::GetCommand(command, param, result);
 	};

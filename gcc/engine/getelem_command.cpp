@@ -7,7 +7,7 @@
 namespace engine
 {
 
-cGetElemCommand::cGetElemCommand(const std::string &params, cResult* result)
+cGetElemCommand::cGetElemCommand(const std::string &params, cResult& result)
 	:cGroupGenCommand(params, result)
 {
 };
@@ -29,21 +29,21 @@ void cGetElemCommand::Execute()
 		}
 
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
-		m_Result->SetResult(group_elements);
+		m_Result.SetResult(group_elements);
 	}
 	else if(CYCLIC_GROUP == type)
 	{
 		SymmGrp symmetric_group;
 		SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[0]);
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetCyclicSubgroupEl(generator.GetSize());
-		m_Result->SetResult(group_elements);
+		m_Result.SetResult(group_elements);
 	}
 	else if(DIHEDRAL_GROUP == type)
 	{
 		SymmGrp symmetric_group;
 		SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[0]);
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetDihedralSubgroupEl(generator.GetSize());
-		m_Result->SetResult(group_elements);
+		m_Result.SetResult(group_elements);
 	}
 };
 

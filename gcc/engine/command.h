@@ -30,7 +30,7 @@ public:
 	virtual unsigned int EstimateRunTime(const cEstimator &estimator)const=0;
 
 protected://methods
-	cCommand(const std::string& params, cResult* result)
+	cCommand(const std::string& params, cResult& result)
 		: m_Result(result)
 	{
 		m_Params = params;
@@ -43,7 +43,7 @@ protected://methods
 	virtual bool ParseParams()=0;
 
 protected://members
-	cResult *m_Result;
+	cResult &m_Result;
 	std::string m_Params;
 };
 

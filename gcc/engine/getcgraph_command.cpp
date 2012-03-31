@@ -5,7 +5,7 @@
 namespace engine
 {
 
-cGetCGraphCommand::cGetCGraphCommand(const std::string &params, cResult* result)
+cGetCGraphCommand::cGetCGraphCommand(const std::string &params, cResult& result)
 	:cGroupGenCommand(params, result)
 {
 };
@@ -29,7 +29,7 @@ void cGetCGraphCommand::Execute()
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
 		cCayleyGrf<SymmGrp> graph(symmetric_group);
 		graph.BuildGraph();
-		m_Result->SetResult(graph);
+		m_Result.SetResult(graph);
 	}
 };
 
