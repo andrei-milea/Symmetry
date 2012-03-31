@@ -14,7 +14,7 @@ class cEstimator;
 class cGetCenterCommand : public cGroupGenCommand
 {
 public:
-	cGetCenterCommand(const std::string &params, cResult *result);
+	cGetCenterCommand(const std::string &params, cResult &result);
 	virtual ~cGetCenterCommand();
 
 	void Execute();

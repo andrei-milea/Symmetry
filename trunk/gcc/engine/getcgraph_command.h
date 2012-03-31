@@ -14,7 +14,7 @@ class cEstimator;
 class cGetCGraphCommand : public cGroupGenCommand
 {
 public:
-	cGetCGraphCommand(const std::string &params, cResult *result);
+	cGetCGraphCommand(const std::string &params, cResult &result);
 	virtual ~cGetCGraphCommand();
 
 	void Execute();

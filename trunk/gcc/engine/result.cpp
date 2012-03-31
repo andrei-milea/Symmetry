@@ -5,8 +5,7 @@
 namespace engine
 {
 
-cResult::cResult(cSession *session)
-	:m_Session(session)
+cResult::cResult()
 {};
 
 cResult::~cResult()

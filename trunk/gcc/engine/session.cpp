@@ -15,8 +15,7 @@ cSession::cSession()
 
 cSession::cSession(unsigned int ses_id)
 	:m_SessionId(ses_id),
-	 m_State(STATE_FREE),
-	 m_Result(this)
+	 m_State(STATE_FREE)
 {};
 
 cSession::~cSession()

@@ -6,7 +6,7 @@
 namespace engine
 {
 
-cGetCenterCommand::cGetCenterCommand(const std::string &params, cResult* result)
+cGetCenterCommand::cGetCenterCommand(const std::string &params, cResult& result)
 	:cGroupGenCommand(params, result)
 {
 };
@@ -28,7 +28,7 @@ void cGetCenterCommand::Execute()
 		}
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
 		std::vector<SymmGrpElem> center_elements = symmetric_group.GetCenterEl(group_elements);
-		m_Result->SetResult(center_elements);
+		m_Result.SetResult(center_elements);
 	}
 	else if(CYCLIC_GROUP == type)
 	{
@@ -36,7 +36,7 @@ void cGetCenterCommand::Execute()
 		SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[0]);
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetCyclicSubgroupEl(generator.GetSize());
 		std::vector<SymmGrpElem> center_elements = symmetric_group.GetCenterEl(group_elements);
-		m_Result->SetResult(center_elements);
+		m_Result.SetResult(center_elements);
 	}
 	else if(DIHEDRAL_GROUP == type)
 	{
@@ -44,7 +44,7 @@ void cGetCenterCommand::Execute()
 		SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[0]);
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetDihedralSubgroupEl(generator.GetSize());
 		std::vector<SymmGrpElem> center_elements = symmetric_group.GetCenterEl(group_elements);
-		m_Result->SetResult(center_elements);
+		m_Result.SetResult(center_elements);
 	}
 };
 
