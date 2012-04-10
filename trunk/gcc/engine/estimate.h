@@ -9,6 +9,7 @@ namespace engine
 class cGetElemCommand;
 class cGetCenterCommand;
 class cGetCGraphCommand;
+class cGetRelCommand;
 
 /*!
  base class for command estimators
@@ -23,6 +24,7 @@ public:
 	virtual std::size_t Estimate(const cGetElemCommand& getelem_command)const;
 	virtual std::size_t Estimate(const cGetCenterCommand& getcenter_command)const;
 	virtual std::size_t Estimate(const cGetCGraphCommand& getcgraph_command)const;
+	virtual std::size_t Estimate(const cGetRelCommand& getrel_command)const;
 };
 
 }

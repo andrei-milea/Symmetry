@@ -1,10 +1,10 @@
 all:main	
 VPATH = ../../engine
 CFLAGS =-c -std=c++0x -g -Wall -I /usr/include/boost 
-LFLAGS =-lboost_system -lboost_thread -lboost_date_time
+LFLAGS =-lboost_system -lboost_thread -lboost_date_time -lboost_filesystem
 GCC = g++
 
-main:	main.o http_server.o http_connection.o http_request.o http_response.o connection_manager.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o session.o logger.o command_queue.o thread_pool.o result.o pagebuilder.o
+main:	main.o http_server.o http_connection.o http_request.o http_response.o connection_manager.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o getrel_command.o session.o logger.o command_queue.o thread_pool.o result.o pagebuilder.o
 	$(GCC) $^ $(LFLAGS) -o run 
 
 
@@ -36,6 +36,9 @@ getelem_command.o: getelem_command.cpp command.h groupgen_command.h
 	$(GCC) $(CFLAGS) $<
 
 getcgraph_command.o: getcgraph_command.cpp command.h groupgen_command.h 
+	$(GCC) $(CFLAGS) $<
+
+getrel_command.o: getrel_command.cpp command.h groupgen_command.h 
 	$(GCC) $(CFLAGS) $<
 
 session.o: session.cpp session.h

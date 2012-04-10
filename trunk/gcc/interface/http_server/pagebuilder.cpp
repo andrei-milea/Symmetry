@@ -3,18 +3,29 @@
 #include "../../engine/logger.h"
 #include "../../engine/groupgen_command.h"
 #include "../../engine/getcgraph_command.h"
+#include "../../engine/getrel_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
+#include <iostream>
+
+#define BOOST_FILESYSTEM_NO_DEPRECATED
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/path.hpp>
+
+
 
 namespace http_server
 {
 
+namespace fs = boost::filesystem;
+
 using namespace engine;
 
 cPageBuilder *cPageBuilder::s_Instance = NULL;
+std::string cPageBuilder::ResError = "Resource not available";
 
-#define INDEX_PAGE	"../pages/index.html"
+#define INDEX_PAGE	"/index.html"
 #define CSS_PAGE	"../pages/styles.css"
 #define COMPANEL_JS	"../pages/command_panel.js"
 #define WEBGL_JS	"../pages/webgl.js"
@@ -34,78 +45,54 @@ cPageBuilder* cPageBuilder::GetInstance()
 };
 
 cPageBuilder::cPageBuilder()
+	:m_IdPosition(0),
+	m_IdSize(2)
 {
-	//cache index html file
-	std::ifstream File;
-	File.open(INDEX_PAGE, std::ios::binary);
-	if(!File.is_open())
-		throw std::runtime_error(CONTEXT_STR + "failed to open index file");
-	m_IndexFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
-	//set id position
-	m_IdPosition = m_IndexFileStr.find("00");
-	assert(m_IdPosition != std::string::npos);
-	File.close();
-	m_IdSize = 2;
+	fs::path dir_path("../pages");
+	if(!fs::exists(dir_path))
+		throw std::runtime_error(CONTEXT_STR + "invalid resources directory");
+		
+	fs::directory_iterator end_iter;
 
-	//cache css file
-	File.open(CSS_PAGE, std::ios::binary);
-	if(!File.is_open())
-		throw std::runtime_error(CONTEXT_STR + "failed to open resource css file");
-	m_ResourceFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
-	File.close();
-
-	//cache webgl js file
-	File.open(WEBGL_JS, std::ios::binary);
-	if(!File.is_open())
-		throw std::runtime_error(CONTEXT_STR + "failed to open webgl js file");
-	m_WebglJsFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
-	File.close();
-
-	//cache command_panel js file
-	File.open(COMPANEL_JS, std::ios::binary);
-	if(!File.is_open())
-		throw std::runtime_error(CONTEXT_STR + "failed to open command_panel js file");
-	m_ComPanelJsFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
-	File.close();
-
-	//cache glMatrix.js
-	File.open(MATRIX_JS, std::ios::binary);
-	if(!File.is_open())
-		throw std::runtime_error(CONTEXT_STR + "failed to open glMatrix js file");
-	m_GlMatrixFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
-	File.close();
-
-	//cache webgl-utils.js
-	File.open(WEGLUTILS, std::ios::binary);
-	if(!File.is_open())
-		throw std::runtime_error(CONTEXT_STR + "failed to open webgl-utils js file");
-	m_WebglUtilsFileStr.assign((std::istreambuf_iterator<char>(File)), (std::istreambuf_iterator<char>()));
-	File.close();
+	cLogger log(LOG_SEV_INFO);
+	for(fs::directory_iterator dir_iter(dir_path); dir_iter != end_iter; ++dir_iter)
+	{
+		if(fs::is_regular_file(dir_iter->status()))
+		{
+			std::ifstream File;
+			File.open(dir_iter->path().string(), std::ios::binary);
+			std::string file_path = "/" + dir_iter->path().filename().string();
+			m_Resources[file_path].assign(std::istreambuf_iterator<char>(File),
+				   	std::istreambuf_iterator<char>());
+			if(INDEX_PAGE == file_path)
+			{
+				m_IdPosition = m_Resources[file_path].find("00");
+				assert(m_IdPosition != std::string::npos);
+			}
+		}
+	}
 };
 
 
 const std::string& cPageBuilder::GetIndexPage(const unsigned int session_id)
 {
-	int old_size = m_IdSize;
+	std::size_t old_size = m_IdSize;
 	m_IdSize = std_ex::numDigits<std::size_t>(session_id);
-	return m_IndexFileStr.replace(m_IdPosition, old_size, boost::lexical_cast<std::string>(session_id));
+	auto map_iter = m_Resources.find(INDEX_PAGE);
+	if(map_iter != m_Resources.end())
+		return map_iter->second.replace(m_IdPosition, old_size, boost::lexical_cast<std::string>(session_id));
+	else
+		return cPageBuilder::ResError;
 };
 
 const std::string& cPageBuilder::GetPageResource(const std::string& resource)const
 {
-	if(resource.find("styles") != std::string::npos)
-		return m_ResourceFileStr;
-	else if(resource.find("webgl.js") != std::string::npos)
-		return m_WebglJsFileStr;
-	else if(resource.find("Matrix") != std::string::npos)
-		return m_GlMatrixFileStr;
-	else if(resource.find("webgl-utils") != std::string::npos)
-		return m_WebglUtilsFileStr;
+	static std::string error = "Resource not found";
+	auto map_iter = m_Resources.find(resource);
+	if(map_iter != m_Resources.end())
+		return map_iter->second;
 	else
-	{
-		assert(resource.find("command_panel") != std::string::npos);
-		return m_ComPanelJsFileStr;
-	}
+		return cPageBuilder::ResError;
 };
 
 const std::string cPageBuilder::GetPage(const cResult &result, const unsigned int ses_id)const
@@ -115,6 +102,7 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 
 	boost::shared_ptr<cGetCGraphCommand> command_cgraph = boost::dynamic_pointer_cast<cGetCGraphCommand>(result.GetCommand());
 	boost::shared_ptr<cGroupGenCommand> command = boost::dynamic_pointer_cast<cGroupGenCommand>(result.GetCommand());
+	boost::shared_ptr<cGetRelCommand> command_rel = boost::dynamic_pointer_cast<cGetRelCommand>(result.GetCommand());
 	GROUP_TYPE group_type = command->GetGroupType();
 	if(SYMMETRIC_GROUP == group_type || CYCLIC_GROUP == group_type || DIHEDRAL_GROUP == group_type)
 	{
@@ -134,8 +122,22 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 
 			result_str += ss.str();
 		}
-		else if(command && ((SYMMETRIC_GROUP == command->GetGroupType()) || (CYCLIC_GROUP == command->GetGroupType()) || 
-					(DIHEDRAL_GROUP == command->GetGroupType()) ))
+		else if(command_rel)
+		{
+			result_str = "</br>Defining Relations:</br></br>";
+			std::string str;
+			std::vector<cGroupRelation> relations = boost::any_cast<std::vector<cGroupRelation> >(result.GetResult());
+
+			ss.str("");
+			int index = 1;
+			for(auto rel_iter = relations.begin(); rel_iter != relations.end(); rel_iter++)
+			{
+				ss<<index<<". "<<*rel_iter<<"</br>";
+				index++;
+			}	
+			result_str += ss.str();
+		}
+		else if(command)
 		{
 			result_str = "<ul id='list-elem'>";
 			std::string perm_str;

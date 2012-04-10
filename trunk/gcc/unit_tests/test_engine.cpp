@@ -33,7 +33,7 @@ BOOST_AUTO_TEST_CASE(ExecuteGetElemTest)
 {
 	cResult result;
 	std::string command_txt("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)");
-	cGetElemCommand command(command_txt, &result);
+	cGetElemCommand command(command_txt, result);
 	//m_Session.RunCommand(&command);
 };
 
@@ -59,7 +59,7 @@ BOOST_AUTO_TEST_CASE(test_command_queue)
 	BOOST_ASSERT(commad_queue.Empty());
 	for(unsigned int i = 1; i<= 100; i++)
 	{
-		cGetElemCommand *getelem_command = new cGetElemCommand("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", &result);
+		boost::shared_ptr<cCommand> getelem_command (new cGetElemCommand("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", result));
 		commad_queue.Put(getelem_command);
 		BOOST_ASSERT(commad_queue.GetSize() == i);
 	}
@@ -101,9 +101,8 @@ BOOST_AUTO_TEST_SUITE(test_command)////////////////////////////////////////////
 
 BOOST_AUTO_TEST_CASE(test_command_getelem)
 {
-	cSession session;
-	cResult result(&session);
-	cGetElemCommand command( "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", &result);
+	cResult result;
+	cGetElemCommand command( "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", result);
 	//basic test with s3
 	SymmGrpElem elem2( {2,1,3});
 	SymmGrpElem elem3( {2,3,1});
@@ -117,7 +116,7 @@ BOOST_AUTO_TEST_CASE(test_command_getelem)
 BOOST_AUTO_TEST_CASE(test_command_getsubgroup)
 {
 	cResult result;
-	//cGetSubgrpCommand command("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", &result);
+	//cGetSubgrpCommand command("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", result);
 	//TODO
 }
 
@@ -133,7 +132,7 @@ BOOST_AUTO_TEST_CASE(test_command_parsing)
 
 	std::string command_txt("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)");
 	cResult result;
-	cGetElemCommand command(command_txt, &result);
+	cGetElemCommand command(command_txt, result);
 	std::vector<boost::any> parsed_generators = command.GetGenerators();
 
 	BOOST_ASSERT(SYMMETRIC_GROUP == command.GetGroupType());

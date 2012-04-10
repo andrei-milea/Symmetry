@@ -52,7 +52,8 @@ struct command_: symbols<char, short>
 		add
 		("GET_ELEMENTS", GET_ELEMENTS)
 		("GET_CENTER", GET_CENTER)
-		("GET_CGRAPH", GET_CGRAPH);
+		("GET_CGRAPH", GET_CGRAPH)
+		("GET_RELATIONS", GET_RELATIONS);
 	}
 } command;
 /************************************************************/

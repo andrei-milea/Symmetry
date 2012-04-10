@@ -47,7 +47,7 @@ margin-top: 20;
 margin-right: auto;
 margin-left: auto;
 position: relative;
-width: 600px; height: 600px;
+width: 800px; height: 800px;
 }
 .scanvas
 {
@@ -117,7 +117,7 @@ border-top-right-radius: 18px 18px;
 #list-elem ul
  {
  	display: block;
-	height: 3em;
+	height: 2.5em;
 	margin: 3px 3px;
 	padding: 3px 7px;
 	background: #b8b8b8;
@@ -129,7 +129,7 @@ border-top-right-radius: 18px 18px;
  #list-elem li
  {
  	display: block;
-	height: 3em;
+	height: 2.5em;
 	margin: 3px 3px;
 	padding: 3px 7px;
 	background: #b8b8b8;
@@ -141,11 +141,47 @@ border-top-right-radius: 18px 18px;
  #list-elem li a
  {
 	display: block;
-	height: 3em;
+	height: 2.5em;
 	margin: 3px 3px;
 	padding: 3px 7px;
 	background: #b8b8b8;
 	float: left;
+	vertical-align: middle;
+	border: 1px Solid black;
+ }
+
+#list_elem_perm ul
+ {
+ 	display: block;
+	height: 2.5em;
+	width: auto;
+	margin: 3px 3px;
+	padding: 3px 7px;
+	background: #ffffff;
+	vertical-align: middle;
+	border: 1px Solid black;
+ }
+
+ #list_elem_perm li
+ {
+ 	display: block;
+	height: 2.5em;
+	width: auto;
+	margin: 3px 3px;
+	padding: 3px 7px;
+	background: #ffffff;
+	vertical-align: middle;
+	border: 1px Solid black;
+ }
+
+ #list_elem_perm li a
+ {
+	display: block;
+	height: 2.5em;
+	width: auto;
+	margin: 3px 3px;
+	padding: 3px 7px;
+	background: #ffffff;
 	vertical-align: middle;
 	border: 1px Solid black;
  }

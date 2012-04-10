@@ -31,6 +31,7 @@ var gl,
     projectionMatrix = mat4.create(),
 	rotation = 0,
 	reflection = 0,
+	pending_move = 0,
 	mvMatrixStack = [],
 	objects = [],
 	animLastTime = 0,
@@ -267,8 +268,8 @@ function DrawPolygon(polygon)
 
 	//handle rotation
 	mvPushMatrix();
-	mat4.rotate(modelViewMatrix, degToRad(polygon.angle), [0, 0, 1]);
 	mat4.rotate(modelViewMatrix, degToRad(polygon.refangle), [1, 0, 0]);
+	mat4.rotate(modelViewMatrix, degToRad(polygon.angle), [0, 0, 1]);
 
 	//prepare texture buffer for drawing
 	gl.bindBuffer(gl.ARRAY_BUFFER, blackTextureBuffer);
@@ -328,8 +329,8 @@ function DrawPolygonText(polygon)
 
 		//handle rotation
 		mvPushMatrix();
-		mat4.rotate(modelViewMatrix, degToRad(polygon.angle), [0, 0, 1]);
 		mat4.rotate(modelViewMatrix, degToRad(polygon.refangle), [1, 0, 0]);
+		mat4.rotate(modelViewMatrix, degToRad(polygon.angle), [0, 0, 1]);
 
 
 		setMatrixUniforms();
@@ -354,28 +355,41 @@ function Polygon(startingDistance, rotationSpeed)
 
 Polygon.prototype.Draw = function()
 {
-	mvPushMatrix();
+//	mvPushMatrix();
 
 	//move to the object's position
-	mat4.rotate(modelViewMatrix, degToRad(this.angle), [0.0, 1.0, 0.0]);
-	mat4.translate(modelViewMatrix, [this.dist, 0.0, 0.0]);
+//	mat4.rotate(modelViewMatrix, degToRad(this.angle), [0.0, 1.0, 0.0]);
+//	mat4.translate(modelViewMatrix, [this.dist, 0.0, 0.0]);
 
 	//rotate back so that the object is facing the viewer
-	mat4.rotate(modelViewMatrix, degToRad(-this.angle), [0.0, 1.0, 0.0]);
+//	mat4.rotate(modelViewMatrix, degToRad(-this.angle), [0.0, 1.0, 0.0]);
 
 	DrawPolygon(this);
 	DrawPolygonText(this);
 
-	mvPopMatrix();
+//	mvPopMatrix();
 };
 
 
 Polygon.prototype.animate = function(elapsedTime)
 {
-	if(this.angle > rotation)
+	pending_move = 0;
+	if((this.angle > rotation) && (this.angle - rotation > 1))
+	{
 		this.angle -= this.rotationSpeed * elapsedTime / 1000.0;
+		pending_move = 1
+	}
+	else if((this.angle < rotation) && ( rotation - this.angle > 1))
+	{
+		this.angle += this.rotationSpeed * elapsedTime / 1000.0;
+		pending_move = 1
+	}
+
 	if(this.refangle < reflection)
+	{
 		this.refangle += this.rotationSpeed * elapsedTime / 1000.0;
+		pending_move = 1;
+	}
 };
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
@@ -511,11 +525,22 @@ return  {
 	},
 
 	RotatePolygon: function()	{
-		rotation += -360/vertexPositionBuffer.vertexNum;
+		if(0 == pending_move)
+		{
+			if(0 == reflection%360)
+				rotation += -360/vertexPositionBuffer.vertexNum;
+			else
+				rotation -= -360/vertexPositionBuffer.vertexNum;
+		}
 	},
 	
 	ReflectPolygon: function()	{
-		reflection += 180;
+		if(0 == pending_move)
+			reflection += 180;
+	},
+
+	isPendingMove: function()	{
+		return pending_move;
 	}
 
 

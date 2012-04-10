@@ -5,6 +5,7 @@
 #include <boost/lexical_cast.hpp>
 #include <fstream>
 #include <sstream>
+#include <map>
 
 
 namespace engine
@@ -21,6 +22,8 @@ class cPageBuilder
 public:
 
 	static cPageBuilder* GetInstance();
+
+	static std::string ResError;
 
 	const std::string& GetIndexPage(const unsigned int session_id);
 
@@ -41,12 +44,7 @@ private:
 	static cPageBuilder *s_Instance;
 	std::size_t m_IdPosition;
 	std::size_t m_IdSize;
-	std::string m_IndexFileStr;
-	std::string m_ResourceFileStr;
-	std::string m_WebglJsFileStr;
-	std::string m_ComPanelJsFileStr;
-	std::string m_GlMatrixFileStr;
-	std::string m_WebglUtilsFileStr;
+	std::map<std::string, std::string> m_Resources;
 };
 
 
