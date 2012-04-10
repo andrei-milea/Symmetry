@@ -26,6 +26,11 @@ std::size_t cEstimator::Estimate(const cGetCGraphCommand& getcgraph_command)cons
 	return 0;
 };
 
+std::size_t cEstimator::Estimate(const cGetRelCommand& getrel_command)const
+{
+	return 0;
+};
+
 
 
 }

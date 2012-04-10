@@ -4,6 +4,7 @@
 #include "getelem_command.h"
 #include "getcenter_command.h"
 #include "getcgraph_command.h"
+#include "getrel_command.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -15,7 +16,8 @@ enum COMMAND_TYPE
     NULL_COMMAND = 0,
     GET_ELEMENTS,
     GET_CENTER,
-    GET_CGRAPH
+    GET_CGRAPH,
+	GET_RELATIONS
 };
 
 
@@ -34,7 +36,8 @@ public:
 			pcommand = new cGetCenterCommand(param, result);
 		else if(GET_CGRAPH == command)
 			pcommand = new cGetCGraphCommand(param, result);
-		//result->SetCommand(pcommand);
+		else if(GET_RELATIONS)
+			pcommand = new cGetRelCommand(param, result);
 
 		return pcommand;
 	};

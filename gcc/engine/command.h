@@ -7,7 +7,7 @@
 
 /*!
  base class for commands (Command design pattern)
- COMMAND_TYPE = GET_ELEMENTS | GET_CENTER | GET_CGRAPH
+ COMMAND_TYPE = GET_ELEMENTS | GET_CENTER | GET_CGRAPH | GET_RELATIONS
 */
 namespace engine
 {

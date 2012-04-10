@@ -67,8 +67,11 @@ var Command_panel = {
 			createGrpDivTag.setAttribute("onmouseout", "cTooltip.hide()");
 			createGrpDivTag.innerHTML="&nbsp;&nbsp;&nbsp;"+
 				"<form onSubmit='return Command_panel.submit_grp()'>"+
-				"Select a permutation group type first: &nbsp;&nbsp;&nbsp;"+
-				"<select id='grp_sel_id' name='Group Type' onchange='Command_panel.changeGrpType(this)'>"+
+				"<select id='grptype_sel_id' name='Group Type' onchange=''>"+
+			   	"<option>Small Permutation Groups</option>"+
+				"</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
+				"Select a small permutation group type: &nbsp;&nbsp;&nbsp;"+
+				"<select id='grp_sel_id' name='Group' onchange='Command_panel.changeGrpType(this)'>"+
 			   	"<option>Symmetric Group</option>"+
 			   	"<option>Cyclic Group</option>"+
 			   	"<option>Dihedral Group</option>"+
@@ -275,33 +278,6 @@ var Command_panel = {
 
 		this.add_group_property("Group Type", this.static_vars.group_type);
 		this.add_group_property("Group Generators", this.static_vars.generators);
-
-		if(this.static_vars.group_type == "Dihedral Group")
-		{
-			var size = (generatorsTag.options[0].text.length - 1) / 2;
-			if(size < 3 || size > 9)
-				return;
-			var canvasDiv = document.getElementById("canvas_id");
-			var main_canvas = document.getElementById("main_canvas");
-
-			var rotateTag = document.createElement("input");
-			rotateTag.setAttribute("type","button");
-			rotateTag.setAttribute("value","Rotate");
-			rotateTag.setAttribute("onclick","WebGlContext.RotatePolygon()"); 
-			rotateTag.setAttribute("id","ct1"); 
-
-			var reflectTag = document.createElement("input");
-			reflectTag.setAttribute("type","button");
-			reflectTag.setAttribute("value","Reflect");
-			reflectTag.setAttribute("onclick","WebGlContext.ReflectPolygon()"); 
-			reflectTag.setAttribute("id","ct2"); 
-
-			canvasDiv.insertBefore(document.createElement("br"), main_canvas);
-			canvasDiv.insertBefore(rotateTag, main_canvas);
-			canvasDiv.insertBefore(reflectTag, main_canvas);
-			WebGlContext.AddPolygonToScene((generatorsTag.options[0].text.length - 1) / 2);
-		}
-
 		return false;
 	},
 
@@ -320,18 +296,8 @@ var Command_panel = {
 		property_tableTag.appendChild(rowTag);
 	},
 
-	goto_general_panel: function()
-	{
-		this.show_general_commands_panel();
-		this.hide_group_commands_panel();
-		var group_propertyDiv = document.getElementById("group_property_div_id");
-		var command_panelDiv = document.getElementById("command_panel");
-		command_panelDiv.removeChild(group_propertyDiv);
-	},
-
 	submit_grp_command: function(command)
 	{
-
 		var group_types_map = new Object();
 		group_types_map["Symmetric Group"] = "SYMMETRIC_GROUP";
 		group_types_map["Cyclic Group"] = "CYCLIC_GROUP";
@@ -357,10 +323,109 @@ var Command_panel = {
 		xmlhttp.open("GET", request, false);
 		xmlhttp.send();
 		document.getElementById("main_view_id").innerHTML=xmlhttp.responseText;
-		//if(command == "GET_CGRAPH")
-		//	WebGlContext.DrawGraph();
+		if(command == "GET_ELEMENTS")
+		{
+			if(this.static_vars.group_type == "Dihedral Group")
+			{
+				var generatorsTag = document.getElementById("generators_id");
+				var size = (generatorsTag.options[0].text.length - 1) / 2;
+				if(size < 3 || size > 9)
+					return;
+				var canvasDiv = document.getElementById("canvas_id");
+				var main_canvas = document.getElementById("main_canvas");
+
+				var rotateTag = document.createElement("input");
+				rotateTag.setAttribute("type","button");
+				rotateTag.setAttribute("value","Rotate");
+				rotateTag.setAttribute("onclick","Command_panel.rotate_polygon()"); 
+				rotateTag.setAttribute("id","ct1"); 
+
+				var reflectTag = document.createElement("input");
+				reflectTag.setAttribute("type","button");
+				reflectTag.setAttribute("value","Reflect");
+				reflectTag.setAttribute("onclick","Command_panel.reflect_polygon()"); 
+				reflectTag.setAttribute("id","ct2"); 
+
+				var permuTag = document.createElement("ul");
+				permuTag.setAttribute("id","list_elem_perm"); 
+				permuTag.setAttribute("align","center"); 
+				//create permutation
+				var permutation = "";
+				for(i = 1; i <= size; i++)
+				{
+					permutation += i.toString() + " ";
+				}
+				permutation += "<br>" + permutation;
+
+				permuTag.innerHTML = "<li>" + permutation + "</li>";
+				permuTag.style.width = (size * 20).toString() + "px";
+
+				canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+				canvasDiv.insertBefore(rotateTag, main_canvas);
+				canvasDiv.insertBefore(reflectTag, main_canvas);
+				canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+				canvasDiv.insertBefore(permuTag, main_canvas);
+				canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+				canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+				canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+				canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+				WebGlContext.AddPolygonToScene((generatorsTag.options[0].text.length - 1) / 2);
+			}
+		}
+		window.onbeforeunload = function() { return "Your previous results will be lost !"; };
+	},
+
+	rotate_polygon: function()
+	{
+		if(WebGlContext.isPendingMove())
+			return;
+		var permuTag = document.getElementById("list_elem_perm");
+		var permutation = permuTag.innerHTML.slice(4, permuTag.innerHTML.length - 5);
+		var pos = permutation.indexOf("<br>") + 5;
+		permutation = permutation.substr(0, pos - 1) + permutation.charAt(permutation.length-2) +  " " + 
+			permutation.substr(pos-1,permutation.length - 2 - pos) + " ";
+		permuTag.innerHTML = "<li>" + permutation + "</li>";
+
+		WebGlContext.RotatePolygon();
+	},
+
+	reflect_polygon: function()
+	{
+		if(WebGlContext.isPendingMove())
+			return;
+		var permuTag = document.getElementById("list_elem_perm");
+		var permutation = permuTag.innerHTML.slice(4, permuTag.innerHTML.length - 5);
+		var pos = permutation.indexOf("<br>") + 5;
+		var size = Math.floor((permutation.length - pos + 1) / 2);
+
+		var index_begin = pos + 1;
+		var index_end = permutation.length - 2;
+		var left_side = "";
+		var right_side = "";
+		while(index_begin < index_end)
+		{
+			left_side = permutation.charAt(index_begin) + " " + left_side;
+			right_side += permutation.charAt(index_end) + " ";
+			index_begin += 2;
+			index_end -= 2;
+		}
+
+		if(size % 2 == 1)
+		{
+			permutation = permutation.substr(0, pos);
+			permutation += " " + right_side + left_side;
+		}
+		else
+		{
+			var middle = permutation.charAt(index_begin);
+			permutation = permutation.substr(0, pos);
+			permutation += " " + right_side + middle + " " + left_side;
+		}
+
+		permuTag.innerHTML = "<li>" + permutation + "</li>";
+
+		WebGlContext.ReflectPolygon();
 	}
-	
 };
 
 
@@ -378,13 +443,14 @@ var cTooltip=function(){
 	tooltip_map.create = "Create a custom group by specifying type and generators.";
 	tooltip_map.s3 = "Symmetric group of order 3.";
 	tooltip_map.d8 = "Dihedral group of order 8.";
-	tooltip_map.generator = "Generators are of the form:</br> 1.For permutation group -- </br> 2.For matrix groups -- </br> 3.For polynomial groups -- .";
+	tooltip_map.generator = "Generators are of the form (x1,x2,x3,...) which represents the permutation 1->x1, 2->x2, 3->x3, ...";
 	tooltip_map.tutorials = "Visit our tutorial videos on our Youtube page.";
 	tooltip_map.source = "Visit the project repository on Google Code.";
-	tooltip_map.get_elem = "Compute group elements using Dimono algorithm(permutation groups)."
-	tooltip_map.get_center = "Compute the Center subgroup(elements that commute with all the elements of the group)."
-	tooltip_map.get_cgraph = "Compute the Cayley graph of the group(colored directed graph)"
-	tooltip_map.prev_panel = "Go back to the previous panel (cancel ongoing action)."
+	tooltip_map.get_elem = "Compute group elements using Dimono algorithm(permutation groups).";
+	tooltip_map.get_center = "Compute the Center subgroup(elements that commute with all the elements of the group).";
+	tooltip_map.get_cgraph = "Compute the Cayley graph of the group(colored directed graph).";
+	tooltip_map.prev_panel = "Go back to the previous panel (cancel ongoing action).";
+	tooltip_map.get_rel = "Compute the defining relations of the group.";
 
 return{	
 	show: function(callee)
