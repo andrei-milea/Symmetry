@@ -1,5 +1,4 @@
 #include "pagebuilder.h"
-#include "../../engine/result.h"
 #include "../../engine/logger.h"
 #include "../../engine/groupgen_command.h"
 #include "../../engine/getcgraph_command.h"
@@ -74,7 +73,7 @@ cPageBuilder::cPageBuilder()
 };
 
 
-const std::string& cPageBuilder::GetIndexPage(const unsigned int session_id)
+const std::string& cPageBuilder::GetIndexPage(const std::size_t session_id)
 {
 	std::size_t old_size = m_IdSize;
 	m_IdSize = std_ex::numDigits<std::size_t>(session_id);
@@ -95,14 +94,15 @@ const std::string& cPageBuilder::GetPageResource(const std::string& resource)con
 		return cPageBuilder::ResError;
 };
 
-const std::string cPageBuilder::GetPage(const cResult &result, const unsigned int ses_id)const
+const std::string cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, const std::size_t ses_id)const
 {
 	std::string result_str;
 	std::stringstream ss;
 
-	boost::shared_ptr<cGetCGraphCommand> command_cgraph = boost::dynamic_pointer_cast<cGetCGraphCommand>(result.GetCommand());
-	boost::shared_ptr<cGroupGenCommand> command = boost::dynamic_pointer_cast<cGroupGenCommand>(result.GetCommand());
-	boost::shared_ptr<cGetRelCommand> command_rel = boost::dynamic_pointer_cast<cGetRelCommand>(result.GetCommand());
+	//TODO --  change this
+	boost::shared_ptr<cGetCGraphCommand> command_cgraph = boost::dynamic_pointer_cast<cGetCGraphCommand>(pCommand);
+	boost::shared_ptr<cGroupGenCommand> command = boost::dynamic_pointer_cast<cGroupGenCommand>(pCommand);
+	boost::shared_ptr<cGetRelCommand> command_rel = boost::dynamic_pointer_cast<cGetRelCommand>(pCommand);
 	GROUP_TYPE group_type = command->GetGroupType();
 	if(SYMMETRIC_GROUP == group_type || CYCLIC_GROUP == group_type || DIHEDRAL_GROUP == group_type)
 	{
@@ -112,7 +112,7 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 			std::stringstream redirectstream;
 			std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
 			std::string str;
-			std::cout<<boost::any_cast<cCayleyGrf<SymmGrp> >(result.GetResult());
+			std::cout<<command_cgraph->GetResult();
 			while(std::getline(redirectstream, str))
 			{
 				ss<<str<<"</br>";
@@ -126,10 +126,10 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 		{
 			result_str = "</br>Defining Relations:</br></br>";
 			std::string str;
-			std::vector<cGroupRelation> relations = boost::any_cast<std::vector<cGroupRelation> >(result.GetResult());
+			const std::vector<cGroupRelation> &relations = command_rel->GetResult();
 
 			ss.str("");
-			int index = 1;
+			std::size_t index = 1;
 			for(auto rel_iter = relations.begin(); rel_iter != relations.end(); rel_iter++)
 			{
 				ss<<index<<". "<<*rel_iter<<"</br>";
@@ -141,7 +141,7 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 		{
 			result_str = "<ul id='list-elem'>";
 			std::string perm_str;
-			std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
+			const std::vector<SymmGrpElem> &elements = command->GetResult();
 			for(std::size_t index = 0; index < elements.size(); index++)
 			{
 				ss.str("");
@@ -160,7 +160,7 @@ const std::string cPageBuilder::GetPage(const cResult &result, const unsigned in
 	return result_str;
 };
 
-const std::string cPageBuilder::GetLoadingPage(const unsigned int estimation, const unsigned int ses_id)const
+const std::string cPageBuilder::GetLoadingPage(const std::size_t estimation, const std::size_t ses_id)const
 {
 	//TODO
 	return "";

@@ -1,4 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node2" href="$classtree_1_1btree__iterator_3_01T_00_01btree__threaded__node_3_01T_01_4_01_4.html" title="{tree::btree_iterator\&lt; T, btree_threaded_node\&lt; T \&gt; \&gt;\n|# m_Current\l# m_Root\l|# btree_iterator()\l# btree_iterator()\l# equal()\l# dereference()\l# increment()\l# decrement()\l}" alt="" coords="31,376,395,541"/>
-<area shape="rect" id="node4" href="$structtree_1_1btree__threaded__node.html" title="{tree::btree_threaded_node\&lt; T \&gt;\n|+ data\l+ left\l+ right\l+ rTag\l+ lTag\l|+ btree_threaded_node()\l+ btree_threaded_node()\l}" alt="" coords="98,147,328,298"/>
-</map>

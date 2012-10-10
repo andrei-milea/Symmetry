@@ -1,5 +1,6 @@
 #ifndef _PAGEBULDER_H
 #define _PAGEBULDER_H
+
 #include <string>
 
 #include <boost/lexical_cast.hpp>
@@ -7,15 +8,17 @@
 #include <sstream>
 #include <map>
 
-
 namespace engine
 {
-class cResult;
-}
+	class cCommand;
+};
 
 namespace http_server
 {
 
+/*!
+  builds the html pages and the html content server to the browser
+*/
 class cPageBuilder
 {
 
@@ -25,13 +28,13 @@ public:
 
 	static std::string ResError;
 
-	const std::string& GetIndexPage(const unsigned int session_id);
+	const std::string& GetIndexPage(const std::size_t session_id);
 
 	const std::string& GetPageResource(const std::string& resource)const;
 
-	const std::string GetPage(const engine::cResult &result, const unsigned int ses_id)const;
+	const std::string GetPage(boost::shared_ptr<engine::cCommand> pCommand, const std::size_t ses_id)const;
 
-	const std::string GetLoadingPage(const unsigned int estimation, const unsigned int ses_id)const;
+	const std::string GetLoadingPage(const std::size_t estimation, const std::size_t ses_id)const;
 
 	const std::string GetPlainContent(const std::string& planecontent)const;
 

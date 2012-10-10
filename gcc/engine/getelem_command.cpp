@@ -7,8 +7,8 @@
 namespace engine
 {
 
-cGetElemCommand::cGetElemCommand(const std::string &params, cResult& result)
-	:cGroupGenCommand(params, result)
+cGetElemCommand::cGetElemCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators)
+	:cGroupGenCommand(group_type, generators)
 {
 };
 
@@ -18,8 +18,7 @@ cGetElemCommand::~cGetElemCommand()
 
 void cGetElemCommand::Execute()
 {
-	GROUP_TYPE type = GetGroupType();
-	if( SYMMETRIC_GROUP == type  )
+	if( SYMMETRIC_GROUP == m_GrpType )
 	{
 		SymmGrp symmetric_group;
 		for(unsigned int i = 0; i < m_Generators.size(); i++)
@@ -28,22 +27,19 @@ void cGetElemCommand::Execute()
 			symmetric_group.AddGenerator(generator);
 		}
 
-		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
-		m_Result.SetResult(group_elements);
+		 m_Result = symmetric_group.GetElementsDimino();
 	}
-	else if(CYCLIC_GROUP == type)
+	else if(CYCLIC_GROUP == m_GrpType)
 	{
 		SymmGrp symmetric_group;
 		SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[0]);
-		std::vector<SymmGrpElem> group_elements = symmetric_group.GetCyclicSubgroupEl(generator.GetSize());
-		m_Result.SetResult(group_elements);
+		m_Result = symmetric_group.GetCyclicSubgroupEl(generator.GetSize());
 	}
-	else if(DIHEDRAL_GROUP == type)
+	else if(DIHEDRAL_GROUP == m_GrpType)
 	{
 		SymmGrp symmetric_group;
 		SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[0]);
-		std::vector<SymmGrpElem> group_elements = symmetric_group.GetDihedralSubgroupEl(generator.GetSize());
-		m_Result.SetResult(group_elements);
+		m_Result = symmetric_group.GetDihedralSubgroupEl(generator.GetSize());
 	}
 };
 

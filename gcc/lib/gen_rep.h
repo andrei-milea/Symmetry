@@ -43,25 +43,25 @@ public:
 		return m_Set.begin();
 	};
 
-	void PrintGroupTable()const
-	{
-		std::for_each(m_Set.begin(), m_Set.end(),
-		              [&m_Set] (typename tr1::unordered_set<T>::iterator it)
-		{
-			std::cout<< "Table for "<< (*it) << ": \n";
-			PrintElementTable(it);
-		});
-	};
+//	void PrintGroupTable()const
+//	{
+//		std::for_each(m_Set.begin(), m_Set.end(),
+//		              [&m_Set] (typename tr1::unordered_set<T>::iterator it)
+//		{
+//			std::cout<< "Table for "<< (*it) << ": \n";
+//			PrintElementTable(it);
+//		});
+//	};
 
-	void PrintElementTable(typename tr1::unordered_set<T>::iterator &itt)const
-	{
-		std::cout<<	"Table for element " << itt <<":\n";
-		std::for_each(m_Set.begin(), m_Set.end(),
-		              [&itt] (typename tr1::unordered_set<T>::iterator it1)
-		{
-			std::cout<< T::BinOpType::BinOp(*(itt),*(it1));
-		});
-	};
+//	void PrintElementTable(typename tr1::unordered_set<T>::iterator &itt)const
+//	{
+//		std::cout<<	"Table for element " << itt <<":\n";
+//		std::for_each(m_Set.begin(), m_Set.end(),
+//		              [&itt] (typename tr1::unordered_set<T>::iterator it1)
+//		{
+//			std::cout<< T::BinOpType::BinOp(*(itt),*(it1));
+//		});
+//	};
 
 
 	//getter, setter

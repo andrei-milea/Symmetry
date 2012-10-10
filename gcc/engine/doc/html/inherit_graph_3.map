@@ -1,7 +1,0 @@
-<map id="G" name="G">
-<area shape="rect" id="node1" href="$classengine_1_1cCommand.html" title="engine::cCommand" alt="" coords="5,56,152,83"/>
-<area shape="rect" id="node3" href="$classengine_1_1cGroupGenCommand.html" title="engine::cGroupGenCommand" alt="" coords="201,56,413,83"/>
-<area shape="rect" id="node5" href="$classengine_1_1cGetCenterCommand.html" title="engine::cGetCenterCommand" alt="" coords="464,5,677,32"/>
-<area shape="rect" id="node7" href="$classengine_1_1cGetCGraphCommand.html" title="engine::cGetCGraphCommand" alt="" coords="461,56,680,83"/>
-<area shape="rect" id="node9" href="$classengine_1_1cGetElemCommand.html" title="engine::cGetElemCommand" alt="" coords="469,107,672,133"/>
-</map>
