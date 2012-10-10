@@ -1,0 +1,6 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{cGroup\< T, group_rep \>\n||+ cGroup()\l+ cGroup()\l+ cGroup()\l+ ~cGroup()\l+ isSoluble()\l+ GetCentralizer()\l+ GetCenter()\l+ GetNormalizer()\l+ GetCentralizerEl()\l+ GetCenterEl()\l+ GetNormalizerEl()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+}

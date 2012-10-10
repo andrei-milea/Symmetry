@@ -1,0 +1,36 @@
+\hypertarget{classengine_1_1cCommand}{\section{engine\-:\-:c\-Command Class Reference}
+\label{classengine_1_1cCommand}\index{engine\-::c\-Command@{engine\-::c\-Command}}
+}
+
+
+Inheritance diagram for engine\-:\-:c\-Command\-:
+
+
+Collaboration diagram for engine\-:\-:c\-Command\-:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cCommand_a4c84c161b94f6ae36aec3661f951b54f}{virtual void {\bfseries Execute} ()=0}\label{classengine_1_1cCommand_a4c84c161b94f6ae36aec3661f951b54f}
+
+\item 
+virtual unsigned int \hyperlink{classengine_1_1cCommand_a8b5b45ad34530c454722a44e41ce9e78}{Estimate\-Run\-Time} (const \hyperlink{classengine_1_1cEstimator}{c\-Estimator} \&estimator) const =0
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classengine_1_1cCommand_a8b5b45ad34530c454722a44e41ce9e78}{\index{engine\-::c\-Command@{engine\-::c\-Command}!Estimate\-Run\-Time@{Estimate\-Run\-Time}}
+\index{Estimate\-Run\-Time@{Estimate\-Run\-Time}!engine::cCommand@{engine\-::c\-Command}}
+\subsubsection[{Estimate\-Run\-Time}]{\setlength{\rightskip}{0pt plus 5cm}virtual unsigned int engine\-::c\-Command\-::\-Estimate\-Run\-Time (
+\begin{DoxyParamCaption}
+\item[{const {\bf c\-Estimator} \&}]{estimator}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [pure virtual]}}}\label{classengine_1_1cCommand_a8b5b45ad34530c454722a44e41ce9e78}
+uses the visitor based on \hyperlink{classengine_1_1cEstimator}{c\-Estimator} to return a rough estimation of the running time of a given command 
+
+Implemented in \hyperlink{classengine_1_1cGetElemCommand_ad84c73fe5b4db65679f28c427d201434}{engine\-::c\-Get\-Elem\-Command}, \hyperlink{classengine_1_1cGetCenterCommand_ab00fa221228c2550e8f664c6d887e1e0}{engine\-::c\-Get\-Center\-Command}, \hyperlink{classengine_1_1cGetCGraphCommand_a0a3d07c4f82227b7f0ffbcf01f7fcec2}{engine\-::c\-Get\-C\-Graph\-Command}, and \hyperlink{classengine_1_1cGetRelCommand_ad6aa9cb526ae1b73237edaad02d081ec}{engine\-::c\-Get\-Rel\-Command}.
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+command.\-h\end{DoxyCompactItemize}
