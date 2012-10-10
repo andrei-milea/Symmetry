@@ -1,0 +1,19 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{engine::cGetCGraphCommand\n|- m_Result\l|+ cGetCGraphCommand()\l+ ~cGetCGraphCommand()\l+ Execute()\l+ EstimateRunTime()\l+ GetResult()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal"];
+  Node2 [label="{engine::cGroupGenCommand\n|# m_GrpType\l|+ cGroupGenCommand()\l+ ~cGroupGenCommand()\l+ GetGroupType()\l+ GetResult()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classengine_1_1cGroupGenCommand.html"];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal"];
+  Node3 [label="{engine::cCommand\n||+ ~cCommand()\l+ Execute()\l+ EstimateRunTime()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classengine_1_1cCommand.html"];
+  Node4 -> Node2 [color="grey25",fontsize="10",style="solid",label=" m_Generators" ,arrowhead="odiamond"];
+  Node4 [label="{std::vector\< boost\l::any \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node5 -> Node4 [dir="back",color="orange",fontsize="10",style="solid",label=" \< boost::any \>" ];
+  Node5 [label="{std::vector\< T \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node6 -> Node5 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node6 [label="{T\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node7 -> Node2 [color="grey25",fontsize="10",style="solid",label=" m_Result" ,arrowhead="odiamond"];
+  Node7 [label="{std::vector\< SymmGrpElem \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node5 -> Node7 [dir="back",color="orange",fontsize="10",style="solid",label=" \< SymmGrpElem \>" ];
+}

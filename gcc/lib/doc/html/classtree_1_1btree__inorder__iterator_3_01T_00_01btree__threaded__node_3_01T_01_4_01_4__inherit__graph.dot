@@ -1,0 +1,8 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{tree::btree_inorder\l_iterator\< T, btree\l_threaded_node\< T \> \>\n||+ btree_inorder_iterator()\l+ btree_inorder_iterator()\l+ increment()\l+ decrement()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node2 [label="{tree::btree_iterator\l\< T, btree_threaded_node\l\< T \> \>\n|# m_Current\l# m_Root\l|# btree_iterator()\l# btree_iterator()\l# equal()\l# dereference()\l# increment()\l# decrement()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classtree_1_1btree__iterator_3_01T_00_01btree__threaded__node_3_01T_01_4_01_4.html"];
+}
