@@ -4,7 +4,6 @@
 #include <string>
 #include "command_queue.h"
 #include "thread_pool.h"
-#include "result.h"
 
 namespace engine
 {
@@ -27,7 +26,7 @@ class cSession
 {
 public:
 	cSession();
-	cSession(unsigned int ses_id);
+	cSession(std::size_t ses_id);
 	~cSession();
 
 	/*!
@@ -45,25 +44,18 @@ public:
 	*/
 	void TerminateCommand();
 
-	/*!
-	  return a given estimate of the progress
-	*/
-	unsigned int GetProgess();
+	boost::shared_ptr<cCommand> GetPendingCommand()
+	{	return m_PendingCommand;	};
 
 	int GetState()const;
 
 	void SetState(int state);
 
-	/*!
-	  returns the result of a command
-	*/
-	cResult *GetResult();
-
 private:
 	static cThreadPool sThreadPool;
-	int m_SessionId;
+	std::size_t m_SessionId;
 	volatile int m_State;
-	cResult m_Result;
+	boost::shared_ptr<cCommand> m_PendingCommand;
 };
 
 }

@@ -5,8 +5,8 @@
 namespace engine
 {
 
-cGetRelCommand::cGetRelCommand(const std::string &params, cResult& result)
-	:cGroupGenCommand(params, result)
+cGetRelCommand::cGetRelCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators)
+	:cGroupGenCommand(group_type, generators)
 {
 };
 
@@ -16,11 +16,10 @@ cGetRelCommand::~cGetRelCommand()
 
 void cGetRelCommand::Execute()
 {
-	GROUP_TYPE type = GetGroupType();
-	if(SYMMETRIC_GROUP == type || CYCLIC_GROUP == type || DIHEDRAL_GROUP == type)
+	if(SYMMETRIC_GROUP == m_GrpType || CYCLIC_GROUP == m_GrpType || DIHEDRAL_GROUP == m_GrpType)
 	{
 		SymmGrp symmetric_group;
-		for(unsigned int i = 0; i < m_Generators.size(); i++)
+		for(std::size_t i = 0; i < m_Generators.size(); i++)
 		{
 			SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[i]);
 			symmetric_group.AddGenerator(generator);
@@ -30,10 +29,9 @@ void cGetRelCommand::Execute()
 		cCayleyGrf<SymmGrp> graph(symmetric_group);
 		graph.BuildGraph();
 		graph.BuildDefRelations();
-		auto def_relations = graph.GetDefRelations();
-		for(auto it = def_relations.begin(); it != def_relations.end(); it++)
+		m_Result = graph.GetDefRelations();
+		for(auto it = m_Result.begin(); it != m_Result.end(); it++)
 			it->Simplify();
-		m_Result.SetResult(def_relations);
 	}
 };
 

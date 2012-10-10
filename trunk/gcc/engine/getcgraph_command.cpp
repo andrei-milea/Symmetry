@@ -5,8 +5,8 @@
 namespace engine
 {
 
-cGetCGraphCommand::cGetCGraphCommand(const std::string &params, cResult& result)
-	:cGroupGenCommand(params, result)
+cGetCGraphCommand::cGetCGraphCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators)
+	:cGroupGenCommand(group_type, generators)
 {
 };
 
@@ -16,20 +16,18 @@ cGetCGraphCommand::~cGetCGraphCommand()
 
 void cGetCGraphCommand::Execute()
 {
-	GROUP_TYPE type = GetGroupType();
-	if(SYMMETRIC_GROUP == type || CYCLIC_GROUP == type || DIHEDRAL_GROUP == type)
+	if(SYMMETRIC_GROUP == m_GrpType || CYCLIC_GROUP == m_GrpType || DIHEDRAL_GROUP == m_GrpType)
 	{
 		SymmGrp symmetric_group;
-		for(unsigned int i = 0; i < m_Generators.size(); i++)
+		for(std::size_t i = 0; i < m_Generators.size(); i++)
 		{
 			SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[i]);
 			symmetric_group.AddGenerator(generator);
 		}
 
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetElementsDimino();
-		cCayleyGrf<SymmGrp> graph(symmetric_group);
-		graph.BuildGraph();
-		m_Result.SetResult(graph);
+		m_Result.initGraph(group_elements, symmetric_group.GetGeneratorsSet());
+		m_Result.BuildGraph();
 	}
 };
 

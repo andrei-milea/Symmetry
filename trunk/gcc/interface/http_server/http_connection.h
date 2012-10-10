@@ -30,7 +30,7 @@ class cHttpConnection
 
 
 	typedef boost::shared_ptr<cHttpConnection> connection_ptr;
-	typedef std::map<unsigned int, engine::cSession*> sessions_map;
+	typedef std::map<std::size_t, engine::cSession*> sessions_map;
 
 public:
 
@@ -46,7 +46,7 @@ public:
 
 	void HandleClient();
 	void HandleRequest(const boost::system::error_code& error);
-	void HandleExistingSession(cResponse& response, const cRequest& _request, const unsigned int ses_id);
+	void HandleExistingSession(cResponse& response, const cRequest& _request, const std::size_t ses_id);
 	void HandleWriteResponse(const boost::system::error_code& error);
 	void Stop();
 	static void ClearSessions()
@@ -62,13 +62,13 @@ private:
 	{
 	};
 
-	static unsigned int GetRandUniqueId()
+	static std::size_t GetRandUniqueId()
 	{
 		static boost::mt19937 gen;
 		static boost::uniform_int<> dist(1, INT_MAX);
 		static boost::variate_generator<boost::mt19937&, boost::uniform_int<> > rnd(gen, dist);
 
-		unsigned int random_id = rnd();
+		std::size_t random_id = rnd();
 
 		if(cHttpConnection::s_Sessions.empty())
 			return random_id;

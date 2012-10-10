@@ -14,7 +14,7 @@ class cEstimator;
 class cGetCenterCommand : public cGroupGenCommand
 {
 public:
-	cGetCenterCommand(const std::string &params, cResult &result);
+	cGetCenterCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators);
 	virtual ~cGetCenterCommand();
 
 	void Execute();

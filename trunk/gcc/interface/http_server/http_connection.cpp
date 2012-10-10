@@ -19,10 +19,10 @@ namespace http_server
 {
 
 //static members
-std::map<unsigned int, cSession*> cHttpConnection::s_Sessions;
+std::map<std::size_t, cSession*> cHttpConnection::s_Sessions;
 cEstimator						cHttpConnection::s_Estimator;
 
-typedef std::pair<unsigned int, cSession*> ses_pair;
+typedef std::pair<std::size_t, cSession*> ses_pair;
 
 void cHttpConnection::HandleClient()
 {
@@ -118,23 +118,22 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 	}
 };
 
-void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest& _request, const unsigned int ses_id)
+void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest& _request, const std::size_t ses_id)
 {
 	try
 	{
 		cSession* session = cHttpConnection::s_Sessions[ses_id];
 		if(session->GetState() == STATE_FREE)
 		{
-			boost::shared_ptr<cCommand> command (cCommandCreator<cCreator>::GetCommand(
-									_request.GetCommandId(), _request.GetParam(),
-									*session->GetResult()));
+			boost::shared_ptr<cCommand> command(cCommandCreator::GetCommand(
+									_request.GetCommandId(), _request.GetParam()));
+			
 			int runtime_estimation = command->EstimateRunTime(s_Estimator);
 
 			if( runtime_estimation <= 360/*seconds*/)
 			{
 				session->RunCommand(command);
-				response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
-										   *session->GetResult(), ses_id));
+				response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(command, ses_id));
 			}
 			else
 			{
@@ -147,7 +146,7 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 		else if(session->GetState() == STATE_RESULT_PENDING)
 		{
 			response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
-									   *session->GetResult(), ses_id));
+									   session->GetPendingCommand(), ses_id));
 		}
 	}
 	catch(std::exception& e)

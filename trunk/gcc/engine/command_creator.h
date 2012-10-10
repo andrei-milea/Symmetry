@@ -20,48 +20,36 @@ enum COMMAND_TYPE
 	GET_RELATIONS
 };
 
-
 /*!
-  implements the default command creation strategy
+  implements the command creation using a variant of Factory method
 */
-class cCreator
+class cCommandCreator
 {
 public:
-	static cCommand *GetCommand(COMMAND_TYPE command, const std::string& param, cResult& result)
+	static cCommand *GetCommand(COMMAND_TYPE command, const std::string& param)
 	{
 		cCommand *pcommand;
-		if(GET_ELEMENTS == command)
-			pcommand = new cGetElemCommand(param, result);
-		else if(GET_CENTER == command)
-			pcommand = new cGetCenterCommand(param, result);
-		else if(GET_CGRAPH == command)
-			pcommand = new cGetCGraphCommand(param, result);
-		else if(GET_RELATIONS)
-			pcommand = new cGetRelCommand(param, result);
+		if(cCommandCreator::isGroupCommand(command))
+		{
+			cParamGrpGenParser GenParamParser(param);
+			GenParamParser.ParseParams();
+			if(GET_ELEMENTS == command)
+				pcommand = new cGetElemCommand(GenParamParser.GetGroupType(), GenParamParser.GetGenerators());
+			else if(GET_CENTER == command)
+				pcommand = new cGetCenterCommand(GenParamParser.GetGroupType(), GenParamParser.GetGenerators());
+			else if(GET_CGRAPH == command)
+				pcommand = new cGetCGraphCommand(GenParamParser.GetGroupType(), GenParamParser.GetGenerators());
+			else if(GET_RELATIONS)
+				pcommand = new cGetRelCommand(GenParamParser.GetGroupType(), GenParamParser.GetGenerators());
+		}
 
 		return pcommand;
 	};
-};
-
-//TODO
-//class cPoolCreator
-//{
-//
-//};
-
-/*!
-  instantiates a given command (builder pattern)
-  using different creation policies(strategy pattern)
-  by default should be instantiated with cCreator class
-*/
-template <typename CREATOR>
-class cCommandCreator : CREATOR
-{
-public:
-	static cCommand* GetCommand(COMMAND_TYPE command, const std::string &param, cResult &result)
+private:
+	static bool isGroupCommand(COMMAND_TYPE command)
 	{
-		return CREATOR::GetCommand(command, param, result);
-	};
+		return (command>4) ? false : true;
+	}
 };
 
 }

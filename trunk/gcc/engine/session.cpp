@@ -13,19 +13,13 @@ cSession::cSession()
 	 m_State(0)
 {};
 
-cSession::cSession(unsigned int ses_id)
+cSession::cSession(std::size_t ses_id)
 	:m_SessionId(ses_id),
 	 m_State(STATE_FREE)
 {};
 
 cSession::~cSession()
 {};
-
-
-cResult *cSession::GetResult()
-{
-	return &m_Result;
-};
 
 int cSession::GetState()const
 {
@@ -41,14 +35,13 @@ void cSession::ScheduleCommand(boost::shared_ptr<cCommand>& command)
 {
 	if(!cSession::sThreadPool.isStarted())
 		cSession::sThreadPool.StartPool();
-	m_Result.SetCommand(command);
-	cSession::sThreadPool.AddToCommandQueue(command);
+	m_PendingCommand = command;
+	cSession::sThreadPool.AddToCommandQueue(m_PendingCommand);
 	m_State = STATE_COMMAND_PENDING;
 };
 
 void cSession::RunCommand(boost::shared_ptr<cCommand>& command)
 {
-	m_Result.SetCommand(command);
 	command->Execute();
 };
 

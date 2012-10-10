@@ -15,7 +15,7 @@ class cEstimator;
 class cGetElemCommand : public cGroupGenCommand
 {
 public:
-	cGetElemCommand(const std::string &params, cResult& result);
+	cGetElemCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators);
 	virtual ~cGetElemCommand();
 
 	void Execute();

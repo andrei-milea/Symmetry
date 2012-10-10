@@ -34,13 +34,17 @@ public:
 	typedef typename boost::graph_traits<Graph>::in_edge_iterator inEdge;
 
 public:
+	cCayleyGrf()
+		:m_Graph(nullptr)
+	{};
+
 	cCayleyGrf(std::vector<ElemType> &elements, std::vector<ElemType> &generators)
 		:m_Elements(elements),
 		 m_Generators(generators),
 		 m_Graph(nullptr)
 	{};
 
-	cCayleyGrf(G &group )
+	cCayleyGrf(G &group)
 		:m_Graph(nullptr)
 	{
 		m_Elements = group.GetElementsDimino();
@@ -51,6 +55,12 @@ public:
 	{
 		if(nullptr != m_Graph)
 			delete m_Graph;
+	};
+
+	void initGraph(const std::vector<ElemType> &elements, const std::vector<ElemType> &generators)
+	{
+		m_Elements = elements;
+		m_Generators = generators;
 	};
 
 	//copy constructor and assignment op
@@ -181,7 +191,7 @@ private:
 	  add the defining relation corresponding to the given vertex
 	  to the set of defining relations
 	*/
-	void Add_DefRelation(const Edge &edge, std::vector<unsigned int> &spanning_tree)
+	void Add_DefRelation(const Edge &edge, std::vector<std::size_t> &spanning_tree)
 	{
 		cGroupRelation new_relation;
 		std::size_t src_index = boost::source(edge, *m_Graph);
