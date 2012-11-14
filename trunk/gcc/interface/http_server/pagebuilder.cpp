@@ -139,7 +139,7 @@ const std::string cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, co
 		}
 		else if(command)
 		{
-			result_str = "<ul id='list-elem'>";
+			result_str = "</br>Group Elements: </br></br><ul id='list-elem'>";
 			std::string perm_str;
 			const std::vector<SymmGrpElem> &elements = command->GetResult();
 			for(std::size_t index = 0; index < elements.size(); index++)
