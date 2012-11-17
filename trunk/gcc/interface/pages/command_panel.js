@@ -1,29 +1,25 @@
 var MainMenu = function () {
 	var current_panel = null;
 
-	function hide_all() {
-		var main_view = document.getElementById("main_view_id");
-		var canvas = document.getElementById("canvas_id");
-		main_view.style.display = "none";
-		canvas.style.display = "none";
-		current_panel.hide();
+	function reloadPage() {
+		document.location.reload();
 	}
 
 	function add_grp_div() {
 
 		if((current_panel !== null) && (current_panel !== GrpPanel)) {
-			hide_all();
+			reloadPage();
 		}
 		GrpPanel.show();
 		current_panel = GrpPanel;
 	}
 
 	function add_linalg_div() {
-		hide_all();
+		reloadPage();
 	}
 
 	function add_calculus_div() {
-		hide_all();
+		reloadPage();
 	}
 
 	//public methods
@@ -295,6 +291,12 @@ var GrpPanel = function () {
 			var main_view = document.getElementById("main_view_id");
 			main_view.innerHTML=xmlhttp.responseText;
 			main_view.style.display = "block";
+			var canvasDiv = document.getElementById("canvas_id");
+			if(canvasDiv.style.display === "block") {
+				canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
+				WebGlContext.initWebGL();
+				canvasDiv.style.display = "none";
+			}
 			if(command === "GET_ELEMENTS") {
 				if(static_vars.group_type === "Dihedral Group")	{
 					var generatorsTag = document.getElementById("generators_id");
@@ -303,9 +305,8 @@ var GrpPanel = function () {
 					{
 						return;
 					}
-					var canvasDiv = document.getElementById("canvas_id");
-					var main_canvas = document.getElementById("main_canvas");
 					canvasDiv.style.display = "block";
+					var main_canvas = document.getElementById("main_canvas");
 
 					var rotateTag = document.createElement("input");
 					rotateTag.setAttribute("type","button");
@@ -341,15 +342,19 @@ var GrpPanel = function () {
 					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
-					WebGlContext.AddPolygonToScene((generatorsTag.options[0].text.length - 1) / 2);
+					DihedralRep.startScene((generatorsTag.options[0].text.length - 1) / 2);
 				}
 			}
 			window.onbeforeunload = function() { return "Your previous results will be lost !"; };
 		}
+		else
+		{
+			window.alert("Please setup a group first!");
+		}
 	}
 
 	function rotate_polygon() {
-		if(WebGlContext.isPendingMove())
+		if(DihedralRep.isPendingMove())
 		{
 			return;
 		}
@@ -360,11 +365,11 @@ var GrpPanel = function () {
 			permutation.substr(pos-1,permutation.length - 2 - pos) + " ";
 		permuTag.innerHTML = "<li>" + permutation + "</li>";
 
-		WebGlContext.RotatePolygon();
+		DihedralRep.RotatePolygon();
 	}
 
 	function reflect_polygon() {
-		if(WebGlContext.isPendingMove())
+		if(DihedralRep.isPendingMove())
 			return;
 		var permuTag = document.getElementById("list_elem_perm");
 		var permutation = permuTag.innerHTML.slice(4, permuTag.innerHTML.length - 5);
@@ -394,7 +399,7 @@ var GrpPanel = function () {
 
 		permuTag.innerHTML = "<li>" + permutation + "</li>";
 
-		WebGlContext.ReflectPolygon();
+		DihedralRep.ReflectPolygon();
 	}
 
 	//public methods
