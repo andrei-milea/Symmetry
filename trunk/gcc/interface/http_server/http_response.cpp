@@ -16,7 +16,7 @@ cResponse::cResponse(boost::asio::streambuf& buffer)
 
 };
 
-void cResponse::BuildResponse(STATUS_CODE status_code, const std::string &resource_body)
+void cResponse::BuildResponse(STATUS_CODE status_code, const std::string &resource_body, const std::string resource_type)
 {
 	//add status line
 	m_ResponseStream << HTTP_VER1 << cResponse::s_StatusCodes[status_code] << "\r\n";
@@ -24,6 +24,8 @@ void cResponse::BuildResponse(STATUS_CODE status_code, const std::string &resour
 	{
 	case OK:
 		//add header
+		m_ResponseStream << "Content-Type:";
+		m_ResponseStream << resource_type << "\r\n";
 		m_ResponseStream << (resource_body.empty() ? "" : "Content-Length:");
 		m_ResponseStream << resource_body.length() << "\r\n";
 		//add body

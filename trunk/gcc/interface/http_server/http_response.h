@@ -28,7 +28,7 @@ public:
 
 	~cResponse()    {};
 
-	void BuildResponse(STATUS_CODE status_code, const std::string &resource_body);
+	void BuildResponse(STATUS_CODE status_code, const std::string &resource_body, const std::string resource_type);
 
 private:
 	std::ostream m_ResponseStream;

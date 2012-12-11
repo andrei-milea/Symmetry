@@ -1,7 +1,6 @@
 
 #include "../engine/session.h"
-#include "../engine/getelem_command.h"
-#include "../engine/serializer.h"
+#include "../engine/command_creator.h"
 
 #define BOOST_TEST_MODULE "test_engine"
 #include "boost/test/included/unit_test.hpp"
@@ -31,10 +30,11 @@ BOOST_FIXTURE_TEST_SUITE(test_session, cSessionFix)/////////////////////////////
 
 BOOST_AUTO_TEST_CASE(ExecuteGetElemTest)
 {
-	cResult result;
 	std::string command_txt("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)");
-	cGetElemCommand command(command_txt, result);
-	//m_Session.RunCommand(&command);
+
+	boost::shared_ptr<cCommand> command(cCommandCreator::GetCommand(
+									GET_ELEMENTS, command_txt));
+	command->Execute();
 };
 
 BOOST_AUTO_TEST_SUITE_END()////////////////////////////////////////////////////
@@ -54,13 +54,13 @@ BOOST_AUTO_TEST_CASE(test_thread_pool_basic)
 
 BOOST_AUTO_TEST_CASE(test_command_queue)
 {
-	cResult result;
 	cCommandQueue commad_queue;
 	BOOST_ASSERT(commad_queue.Empty());
 	for(unsigned int i = 1; i<= 100; i++)
 	{
-		boost::shared_ptr<cCommand> getelem_command (new cGetElemCommand("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", result));
-		commad_queue.Put(getelem_command);
+		boost::shared_ptr<cCommand> command(cCommandCreator::GetCommand(
+									GET_ELEMENTS, "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)"));
+		commad_queue.Put(command);
 		BOOST_ASSERT(commad_queue.GetSize() == i);
 	}
 	BOOST_ASSERT(!commad_queue.Empty());
@@ -73,27 +73,6 @@ BOOST_AUTO_TEST_CASE(test_command_queue)
 	BOOST_ASSERT(commad_queue.Empty());
 }
 
-BOOST_AUTO_TEST_CASE(test_serializer)
-{
-	cSerializer<SymmGrpElem> symm_grp_serializer;
-
-	//basic test with s3
-	SymmGrpElem elem1( {1,2,3});
-	SymmGrpElem elem2( {1,3,2});
-	SymmGrpElem elem3( {3,2,1});
-	std::string generators_str1;
-	generators_str1 += symm_grp_serializer.Stringify(elem1);
-	generators_str1 += symm_grp_serializer.Stringify(elem2);
-	generators_str1 += symm_grp_serializer.Stringify(elem3);
-	std::vector< SymmGrpElem >  generators;
-	generators.push_back(elem1);
-	generators.push_back(elem2);
-	generators.push_back(elem3);
-	std::string generators_str = symm_grp_serializer.Stringify(generators);
-
-	BOOST_CHECK(generators_str == generators_str1);
-}
-
 BOOST_AUTO_TEST_SUITE_END()////////////////////////////////////////////////////
 
 
@@ -101,22 +80,19 @@ BOOST_AUTO_TEST_SUITE(test_command)////////////////////////////////////////////
 
 BOOST_AUTO_TEST_CASE(test_command_getelem)
 {
-	cResult result;
-	cGetElemCommand command( "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", result);
-	//basic test with s3
-	SymmGrpElem elem2( {2,1,3});
-	SymmGrpElem elem3( {2,3,1});
-	command.Execute();
+	boost::shared_ptr<cGroupGenCommand> command(reinterpret_cast<cGroupGenCommand*>(cCommandCreator::GetCommand(
+									GET_ELEMENTS, "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)")));
+	command->Execute();
 
-	std::vector<SymmGrpElem> elements = boost::any_cast<std::vector<SymmGrpElem> >(result.GetResult());
+	std::vector<SymmGrpElem> elements = command->GetResult();
 	BOOST_ASSERT(6 == elements.size());
 
 }
 
-BOOST_AUTO_TEST_CASE(test_command_getsubgroup)
+BOOST_AUTO_TEST_CASE(test_command_center)
 {
-	cResult result;
-	//cGetSubgrpCommand command("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)", result);
+	boost::shared_ptr<cCommand> command(cCommandCreator::GetCommand(
+									GET_CENTER, "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)"));
 	//TODO
 }
 
@@ -130,12 +106,11 @@ BOOST_AUTO_TEST_CASE(test_command_parsing)
 	generators.push_back(elem2);
 	generators.push_back(elem3);
 
-	std::string command_txt("SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)");
-	cResult result;
-	cGetElemCommand command(command_txt, result);
-	std::vector<boost::any> parsed_generators = command.GetGenerators();
+	boost::shared_ptr<cGroupGenCommand> command(reinterpret_cast<cGroupGenCommand*>(cCommandCreator::GetCommand(
+									GET_ELEMENTS, "SYMMETRIC_GROUP(1,2,3)(1,3,2)(3,2,1)")));
+	std::vector<boost::any> parsed_generators = command->GetGenerators();
 
-	BOOST_ASSERT(SYMMETRIC_GROUP == command.GetGroupType());
+	BOOST_ASSERT(SYMMETRIC_GROUP == command->GetGroupType());
 	for(unsigned int i = 0; i < parsed_generators.size(); i++)
 	{
 		SymmetricGrpGen generator = boost::any_cast<SymmetricGrpGen>(parsed_generators[i]);

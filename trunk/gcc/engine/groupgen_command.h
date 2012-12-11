@@ -22,11 +22,14 @@ public:
 	{
 	};
 
-	virtual GROUP_TYPE GetGroupType()
+	const GROUP_TYPE GetGroupType()const
 	{	return m_GrpType;	}
 
 	const std::vector<SymmGrpElem> &GetResult()const
 	{	return m_Result;	};
+
+	const std::vector<boost::any>& GetGenerators()const
+	{	return m_Generators;	};
 
 protected:
 	GROUP_TYPE m_GrpType;

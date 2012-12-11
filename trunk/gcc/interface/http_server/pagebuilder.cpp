@@ -94,9 +94,9 @@ const std::string& cPageBuilder::GetPageResource(const std::string& resource)con
 		return cPageBuilder::ResError;
 };
 
-const std::string cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, const std::size_t ses_id)const
+const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, const std::size_t ses_id)const
 {
-	std::string result_str;
+	m_ResultStr.clear();
 	std::stringstream ss;
 
 	//TODO --  change this
@@ -108,7 +108,7 @@ const std::string cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, co
 	{
 		if(command_cgraph)
 		{
-			result_str = "</br>Cayley Graph representation as adjacency list:</br>";
+			m_ResultStr = "</br>Cayley Graph representation as adjacency list:</br>";
 			std::stringstream redirectstream;
 			std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
 			std::string str;
@@ -120,11 +120,11 @@ const std::string cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, co
 			//put back the old stream buffer
 			std::cout.rdbuf(oldbuf);
 
-			result_str += ss.str();
+			m_ResultStr += ss.str();
 		}
 		else if(command_rel)
 		{
-			result_str = "</br>Defining Relations:</br></br>";
+			m_ResultStr = "</br>Defining Relations:</br></br>";
 			std::string str;
 			const std::vector<cGroupRelation> &relations = command_rel->GetResult();
 
@@ -135,11 +135,11 @@ const std::string cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, co
 				ss<<index<<". "<<*rel_iter<<"</br>";
 				index++;
 			}	
-			result_str += ss.str();
+			m_ResultStr += ss.str();
 		}
 		else if(command)
 		{
-			result_str = "</br>Group Elements: </br></br><ul id='list-elem'>";
+			m_ResultStr = "</br>Group Elements: </br></br><ul id='list-elem'>";
 			std::string perm_str;
 			const std::vector<SymmGrpElem> &elements = command->GetResult();
 			for(std::size_t index = 0; index < elements.size(); index++)
@@ -148,16 +148,16 @@ const std::string cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, co
 				ss<<elements[index];
 				perm_str = ss.str();
 				perm_str.replace(perm_str.find("\n"), 1, "</br>");
-				result_str += "<li>" + perm_str + "</li>";
+				m_ResultStr += "<li>" + perm_str + "</li>";
 			}
-			result_str += "</ul>";
+			m_ResultStr += "</ul>";
 		}
 	}
 	else
 	{
 		throw std::runtime_error(CONTEXT_STR + "invalid group type");
 	}
-	return result_str;
+	return m_ResultStr;
 };
 
 const std::string cPageBuilder::GetLoadingPage(const std::size_t estimation, const std::size_t ses_id)const
@@ -166,7 +166,7 @@ const std::string cPageBuilder::GetLoadingPage(const std::size_t estimation, con
 	return "";
 };
 
-const std::string cPageBuilder::GetPlainContent(const std::string& planecontent)const
+const std::string& cPageBuilder::GetPlainContent(const std::string& planecontent)const
 {
 	return planecontent;
 };

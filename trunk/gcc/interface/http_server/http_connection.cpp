@@ -58,14 +58,14 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				//build response
 				cResponse response(m_ResponseBuf);
 				const std::string index_page=cPageBuilder::GetInstance()->GetIndexPage(ses_id);
-				response.BuildResponse(OK, index_page);
+				response.BuildResponse(OK, index_page, "text/html");
 			}
 			else if(cPageBuilder::ResError != cPageBuilder::GetInstance()->GetPageResource(_request.GetResource()))
 			{
 				cResponse response(m_ResponseBuf);
 				const std::string resource = cPageBuilder::GetInstance()->GetPageResource(
 				                                 _request.GetResource());
-				response.BuildResponse(OK, resource);
+				response.BuildResponse(OK, resource, "text/javascript");
 			}
 			else //request is a command
 			{
@@ -84,7 +84,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 					//cHttpConnection::s_Sessions.insert(ses_pair(ses_id, new cSession(ses_id)));
 
 					//const std::string index_page  = cPageBuilder::GetInstance()->GetIndexPage(ses_id);
-					response.BuildResponse(NOT_FOUND, "");
+					response.BuildResponse(NOT_FOUND, "", "text/plain");
 					//response.BuildResponse(NOT_FOUND, "BAD_REQUEST");
 				}
 			}
@@ -133,27 +133,27 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 			if( runtime_estimation <= 360/*seconds*/)
 			{
 				session->RunCommand(command);
-				response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(command, ses_id));
+				response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(command, ses_id), "text/plain");
 			}
 			else
 			{
 				session->ScheduleCommand(command);
 				response.BuildResponse(OK,
 									   cPageBuilder::GetInstance()->GetLoadingPage(
-										   runtime_estimation, ses_id));
+										   runtime_estimation, ses_id), "text/plain");
 			}
 		}
 		else if(session->GetState() == STATE_RESULT_PENDING)
 		{
 			response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
-									   session->GetPendingCommand(), ses_id));
+									   session->GetPendingCommand(), ses_id), "text/plain");
 		}
 	}
 	catch(std::exception& e)
 	{
 		cLogger log(LOG_SEV_INFO);
 		log<< e.what();
-		response.BuildResponse(OK, e.what());
+		response.BuildResponse(OK, e.what(), "text/plain");
 	}
 };
 
