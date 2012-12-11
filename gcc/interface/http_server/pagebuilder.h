@@ -17,7 +17,7 @@ namespace http_server
 {
 
 /*!
-  builds the html pages and the html content server to the browser
+  builds the html pages and the html content server to the browser -- singleton
 */
 class cPageBuilder
 {
@@ -32,11 +32,11 @@ public:
 
 	const std::string& GetPageResource(const std::string& resource)const;
 
-	const std::string GetPage(boost::shared_ptr<engine::cCommand> pCommand, const std::size_t ses_id)const;
+	const std::string& GetPage(boost::shared_ptr<engine::cCommand> pCommand, const std::size_t ses_id)const;
 
 	const std::string GetLoadingPage(const std::size_t estimation, const std::size_t ses_id)const;
 
-	const std::string GetPlainContent(const std::string& planecontent)const;
+	const std::string& GetPlainContent(const std::string& planecontent)const;
 
 protected:
 	cPageBuilder();
@@ -48,6 +48,7 @@ private:
 	std::size_t m_IdPosition;
 	std::size_t m_IdSize;
 	std::map<std::string, std::string> m_Resources;
+	mutable std::string m_ResultStr;
 };
 
 

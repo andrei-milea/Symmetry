@@ -1,7 +1,7 @@
-all: test_tree test_perm test_group_el test_symmetric test_std_ex test_cayley_grf test_group test_engine_main test_server_main
+all: test_tree test_perm test_group_el test_symmetric test_std_ex test_cayley_grf test_group test_engine_main test_server_main test_results_db
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
 BFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
-LFLAGS =-lboost_system -lboost_thread -lboost_date_time
+LFLAGS =-lboost_system -pthread -lboost_thread-mt -lboost_date_time -lboost_iostreams -lboost_filesystem -lboost_random
 GCC = g++
 VPATH = ../interface/http_server:../engine
 
@@ -33,9 +33,8 @@ test_lattice: test_lattice.cpp
 	#test_engine compilation
 	########################
 
-test_engine_main: test_engine.o estimate.o getelem_command.o session.o logger.o command_queue.o thread_pool.o result.o
+test_engine_main: test_engine.o estimate.o getelem_command.o getcenter_command.o getcgraph_command.o getrel_command.o session.o logger.o command_queue.o thread_pool.o
 	$(GCC) $^ $(LFLAGS) -o test_engine_main
-
 
 test_engine.o: test_engine.cpp
 	$(GCC) $(CFLAGS) $<
@@ -44,6 +43,15 @@ estimate.o: ../engine/estimate.cpp
 	$(GCC) $(CFLAGS) $<
 
 getelem_command.o: ../engine/getelem_command.cpp
+	$(GCC) $(CFLAGS) $<
+
+getcenter_command.o: ../engine/getcenter_command.cpp
+	$(GCC) $(CFLAGS) $<
+
+getcgraph_command.o: ../engine/getcgraph_command.cpp
+	$(GCC) $(CFLAGS) $<
+
+getrel_command.o: ../engine/getrel_command.cpp
 	$(GCC) $(CFLAGS) $<
 
 session.o: ../engine/session.cpp
@@ -56,9 +64,6 @@ command_queue.o: ../engine/command_queue.cpp
 	$(GCC) $(CFLAGS) $<
 
 thread_pool.o: ../engine/thread_pool.cpp
-	$(GCC) $(CFLAGS) $<
-
-result.o: ../engine/result.cpp
 	$(GCC) $(CFLAGS) $<
 
 	########################
@@ -82,13 +87,32 @@ http_request.o: http_request.cpp
 	########################
 
 
+	########################
+	#test internal database
+	########################
+
+test_results_db: test_db.o results_bucket.o results_db.o
+	$(GCC) $^ $(LFLAGS) -o test_results_db
+
+test_db.o: test_db.cpp
+	$(GCC) $(CFLAGS) $<
+
+results_bucket.o: ../engine/results_bucket.cpp
+	$(GCC) $(CFLAGS) $<
+
+results_db.o: ../engine/results_db.cpp
+	$(GCC) $(CFLAGS) $<
+
+	########################
+	########################
+
 
 clean:
 	rm -rf *.o $(TESTS)
 	cd ../engine; make clean
 	cd ../interface/http_server; make clean
 	
-TESTS = test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main
+TESTS = test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main test_results_db
 #test_lattice 
 
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp

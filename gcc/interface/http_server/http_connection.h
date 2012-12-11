@@ -11,6 +11,7 @@
 #include <limits.h>
 #include "../../engine/estimate.h"
 
+//forward declaration
 namespace engine
 {
 class cSession;
