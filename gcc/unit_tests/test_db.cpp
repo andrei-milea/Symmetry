@@ -46,20 +46,20 @@ struct gfixture
 
 BOOST_AUTO_TEST_CASE(test_lrumap)
 {
-	cLruHashMap<int, int> inthash(1000);
-	for(int i = 0; i < 1000; i += 5)
+	cLruHashMap<int, int> inthash(500);
+	for(int i = 0; i < 1000; i++)
 	{
 		int val = 2*i;
 		inthash.insert(i, val);
 	}
 	
-	for(int i = 0; i < 1000; i += 5)
+	for(int i = 501; i < 1000; i++)
 	{
 		const int val = inthash.get(i);
 		BOOST_CHECK(val == 2 * i);
 	}
 
-	BOOST_CHECK(inthash.find(9999) == inthash.end());
+	BOOST_CHECK(inthash.find(1) == inthash.end());
 	BOOST_CHECK(inthash.find(995) != inthash.end());
 }
 
@@ -163,14 +163,13 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 		BOOST_CHECK(new_results_bucket != nullptr);
 		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 4);
 		BOOST_CHECK(new_results_bucket->GetIndexBitsSz() == 4);
-		BOOST_CHECK(results_bucket.GetResult(idx + 1, param1, result) ^ new_results_bucket->GetResult(idx + 1, param1, result));
 	}
 } 
 
 string generate_random_text()
 {
 	boost::random::random_device rnd_dev;
-	boost::random::uniform_int_distribution<> uniform_dist_size(0, 200);
+	boost::random::uniform_int_distribution<> uniform_dist_size(10, 200);
 	string chars("ZXCVBNMASDFGHJKLQWERTYUIOP:qwertyuiopasdfghjklzxcvbnm,.!@#$%^&*()1234567890-= ");
 	string text;
 	std::size_t size = uniform_dist_size(rnd_dev);
@@ -187,7 +186,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_db, gfixture)
 {
 	cResultsDB* results_db = cResultsDB::GetInstance();
 
-	for(size_t idx = 10; idx < (10 * MAX_ENTRIES); idx++)
+	for(size_t idx = 10; idx < (20 * MAX_ENTRIES); idx++)
 	{
 		string param = generate_random_text();
 		string result = generate_random_text();
@@ -195,7 +194,10 @@ BOOST_FIXTURE_TEST_CASE(test_results_db, gfixture)
 		results_db->SaveResult(GET_ELEMENTS, param, result);
 		bool ok = results_db->GetResult(GET_ELEMENTS, param, getresult);
 		BOOST_CHECK(ok);
+		if(getresult != result)
+			ok = false;
 		BOOST_CHECK(getresult == result);
+		BOOST_CHECK(ok);
 	}
 	results_db->SaveDB();
 }

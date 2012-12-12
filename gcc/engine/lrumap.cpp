@@ -35,7 +35,7 @@ MAPPED& cLruHashMap::get(KEY key)const
 {
 	std::list<std::pair<KEY, MAPPED> >::iterator item_iter = m_HashTable[key];
 	//move item to the front of the list
-	m_ItemsList.slice(m_ItemsList.begin(), m_ItemsList, item_iter);
+	m_ItemsList.splice(m_ItemsList.begin(), m_ItemsList, item_iter);
 
 	return (*item_iter);
 };

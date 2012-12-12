@@ -1,9 +1,10 @@
 
 #include "results_bucket.h"
 
-#include <sstream>
 #include <boost/scoped_ptr.hpp>
+#include <boost/filesystem.hpp>
 #include <cstdio>
+#include <sstream>
 
 namespace resultsDB
 {
@@ -70,24 +71,22 @@ std::unique_ptr<cResultsBucket> cResultsBucket::SaveResult(const std::size_t has
 	if( (m_Entries + 1 >= MAX_ENTRIES) || (m_End + params.size() + result.size() + 1 > FILE_SZ) )
 	{
 		newbucket = Split();
-		if(true == GetIndexBit(hash))
-		{
-			newbucket->SaveResult(hash, params, result);
-			return newbucket;
-		}
 	}
-	//add entry
-	bucket_header_entry new_entry = {hash, m_End, params.size() + result.size()};
-	bucket_header_entry sentinel_entry = {0, 0, 0};
-	memcpy(&m_HeaderEntry[m_Entries], &new_entry, sizeof(bucket_header_entry));
-	m_Entries++;
-	memcpy(&m_HeaderEntry[m_Entries], &sentinel_entry, sizeof(bucket_header_entry));
+	else
+	{
+		//add entry
+		bucket_header_entry new_entry = {hash, m_End, params.size() + result.size()};
+		bucket_header_entry sentinel_entry = {0, 0, 0};
+		memcpy(&m_HeaderEntry[m_Entries], &new_entry, sizeof(bucket_header_entry));
+		m_Entries++;
+		memcpy(&m_HeaderEntry[m_Entries], &sentinel_entry, sizeof(bucket_header_entry));
 
-	//add entry data
-	memcpy(m_MappedFile.data() + m_End, params.data(), result.size());
-	m_End += params.size() + 1;
-	memcpy(m_MappedFile.data() + m_End, result.data(), result.size());
-	m_End += result.size() + 1;
+		//add entry data
+		memcpy(m_MappedFile.data() + m_End, params.data(), params.size());
+		m_End += params.size() + 1;
+		memcpy(m_MappedFile.data() + m_End, result.data(), result.size());
+		m_End += result.size() + 1;
+	}
 	return newbucket;
 };
 
@@ -95,10 +94,9 @@ std::unique_ptr<cResultsBucket> cResultsBucket::SaveResult(const std::size_t has
 std::unique_ptr<cResultsBucket> cResultsBucket::Split()
 {
 	std::stringstream converter;
-	converter<<GetFirstBits(m_HeaderEntry[0].hash);
 	m_IndexBitsSz++;
-	std::string bucket_name1 = std::string("1") + converter.str();
-	std::unique_ptr<cResultsBucket> newbucket(new cResultsBucket(bucket_name1, m_IndexBitsSz, true));
+	converter<<GetFirstBits((1 << (m_IndexBitsSz -1)) | m_HeaderEntry[0].hash);
+	std::unique_ptr<cResultsBucket> newbucket(new cResultsBucket(converter.str(), m_IndexBitsSz, true));
 	std::string temp_file("temp_file");
 
 	//use this block to delete old_bucket in a natural way(by going out of scope)
@@ -118,8 +116,8 @@ std::unique_ptr<cResultsBucket> cResultsBucket::Split()
 		(*this) = old_bucket;
 	}
 	temp_file = DB_PATH + temp_file;
-	if(0 != remove(temp_file.c_str()))
-		throw;
+	boost::filesystem::path temp_path(temp_file);
+	boost::filesystem::remove(temp_path);
 
 	return newbucket;
 };
