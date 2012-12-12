@@ -2,8 +2,10 @@
 #include "results_db.h"
 
 #include <boost/functional/hash.hpp>
+#include <cmath>
 
-#define MAX_CACHE_SZ	10
+#define MAX_CACHE_SZ				5	
+#define MIN_DIRECTORY_SZ			256
 
 namespace resultsDB
 {
@@ -11,8 +13,8 @@ namespace resultsDB
 cResultsDB* cResultsDB::s_Instance = nullptr;
 
 cResultsDB::cResultsDB()
-	:m_DirectorySz(2),
-	m_IndexBitsSz(1),
+	:m_DirectorySz(MIN_DIRECTORY_SZ),
+	m_IndexBitsSz(8),
 	m_LruHashMap(MAX_CACHE_SZ)
 {
 	std::ifstream idx_file;
@@ -32,12 +34,19 @@ cResultsDB::cResultsDB()
 
 	if(m_Directory.empty())
 	{
-		std::string bucket0 = "0";
-		std::string bucket1 = "1";
-		std::unique_ptr<cResultsBucket> results_bucket0(new cResultsBucket(bucket0, m_IndexBitsSz, true));
-		m_LruHashMap.insert(bucket0, results_bucket0);
-		std::unique_ptr<cResultsBucket> results_bucket1(new cResultsBucket(bucket1, m_IndexBitsSz, true));
-		m_LruHashMap.insert(bucket1, results_bucket1);
+		m_Directory.resize(MIN_DIRECTORY_SZ);
+		for(std::size_t idx = 0; idx < MIN_DIRECTORY_SZ; idx++)
+		{
+			std::stringstream converter;
+			converter<<GetFirstBits(idx);
+			std::unique_ptr<cResultsBucket> results_bucket(new cResultsBucket(converter.str(), m_IndexBitsSz, true));
+			m_Directory.at(GetFirstBits(idx)) = converter.str();
+		}
+	}
+	else
+	{
+		assert( 0 == (m_Directory.size() & (m_Directory.size() - 1)) );
+		m_IndexBitsSz = std::log2(m_Directory.size());
 	}
 };
 
@@ -63,7 +72,8 @@ cResultsDB* cResultsDB::GetInstance()
 
 bool cResultsDB::GetResult(engine::COMMAND_TYPE command, const std::string &params, std::string &result)
 {
-	std::size_t index = GetFirstBits(Hash(command, params));
+	std::size_t hash = Hash(command, params);
+	std::size_t index = GetFirstBits(hash);
 	std::string bucket_filename = m_Directory.at(index);
 	auto bucket_iter = m_LruHashMap.find(bucket_filename);
 	if(bucket_iter == m_LruHashMap.end())
@@ -71,9 +81,9 @@ bool cResultsDB::GetResult(engine::COMMAND_TYPE command, const std::string &para
 		//load the bucket from the disk
 		std::unique_ptr<cResultsBucket> results_bucket (new cResultsBucket(bucket_filename, m_IndexBitsSz));
 		m_LruHashMap.insert(bucket_filename, results_bucket);
-		return results_bucket->GetResult(command, params, result);
+		return results_bucket->GetResult(hash, params, result);
 	} 
-	return (*bucket_iter).second->second->GetResult(command, params, result);
+	return (*bucket_iter).second->second->GetResult(hash, params, result);
 };
 
 void cResultsDB::SaveResult(engine::COMMAND_TYPE command, const std::string &params, const std::string& result)
@@ -89,8 +99,8 @@ void cResultsDB::SaveResult(engine::COMMAND_TYPE command, const std::string &par
 	{
 		//load the bucket from the disk
 		std::unique_ptr<cResultsBucket> results_bucket(new cResultsBucket(bucket_filename, m_IndexBitsSz));
-		m_LruHashMap.insert(bucket_filename, results_bucket);
 		newbucket = std::unique_ptr<cResultsBucket>(results_bucket->SaveResult(hash, params, result));
+		m_LruHashMap.insert(bucket_filename, results_bucket);
 	}
 	else
 	{
@@ -98,44 +108,29 @@ void cResultsDB::SaveResult(engine::COMMAND_TYPE command, const std::string &par
 	}
 	if(newbucket != nullptr)
 	{
-		m_LruHashMap.insert(newbucket->GetFileName(), newbucket);
-		if(newbucket->GetIndexBitsSz() == m_IndexBitsSz)
+		if(newbucket->GetIndexBitsSz() <= m_IndexBitsSz)
 		{
-			m_Directory[(index | (1 << m_IndexBitsSz))] = newbucket->GetFileName();
+			assert(m_IndexBitsSz > 0);
+			m_Directory.at(index | (1 << (m_IndexBitsSz - 1))) = newbucket->GetFileName();
 		}
 		else if(newbucket->GetIndexBitsSz() > m_IndexBitsSz)
 		{
 			//need to double the size of the hash table	
 			m_IndexBitsSz++;
+			assert(m_IndexBitsSz < 64);
 			std::size_t old_size = m_Directory.size();
 			m_Directory.resize(2* old_size);
-			m_Directory[(index | (1 << m_IndexBitsSz))] = newbucket->GetFileName();
+			assert(m_IndexBitsSz > 0);
 			//link the new entries in the directory to the existing buckets
-			std::size_t old_idx = 0;
 			for(std::size_t idx = old_size; idx < m_Directory.size(); idx++)
 			{
-				if(idx != (index | (1 << m_IndexBitsSz)))
-				{
-					if(old_idx != index )	
-					{
-						m_Directory[idx] = m_Directory[old_idx];
-						old_idx++;
-
-					}
-					else
-					{
-						old_idx++;
-						m_Directory[idx] = m_Directory[old_idx];
-						old_idx++;
-					}
-				}
+				m_Directory[idx] = m_Directory[idx - old_size];
 			}
+			//overwrite the new entry
+			m_Directory.at(index | (1 << (m_IndexBitsSz - 1))) = newbucket->GetFileName();
 		}
-		else
-		{
-			//we never decrease the size(delete items) so this should never happen
-			assert(false);
-		}
+		m_LruHashMap.insert(newbucket->GetFileName(), newbucket);
+		SaveResult(command, params, result);
 	}
 };
 

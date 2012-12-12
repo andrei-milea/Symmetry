@@ -10,7 +10,7 @@ namespace resultsDB
 
 #define DBIDX_FILENAME			"db.idx"
 #define DB_PATH 				"resultsdb/"
-#define FILE_SZ			 		1024
+#define FILE_SZ			 		(1024*10)	
 #define MAX_ENTRIES				20
 
 /*!
@@ -62,7 +62,7 @@ private:	//too large to copy
 	std::size_t GetFirstBits(const std::size_t hash)const
 	{
 		assert(m_IndexBitsSz > 0);
-		return hash % (1 << m_IndexBitsSz);
+		return hash & ((1 << m_IndexBitsSz) -1);
 	};
 
 private:

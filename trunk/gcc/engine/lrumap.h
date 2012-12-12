@@ -42,11 +42,12 @@ public:
 		m_ItemsList.push_front(std::make_pair(key, std::move(item)));
 		m_HashTable[key] = m_ItemsList.begin();
 		m_Entries++;
-		if(m_Entries + 1 > m_Size)
+		if(m_Entries > m_Size)
 		{
 			//remove the oldest entry
-			m_ItemsList.pop_back();
 			m_HashTable.erase(m_ItemsList.back().first);
+			m_ItemsList.pop_back();
+			m_Entries--;
 		}
 	};
 

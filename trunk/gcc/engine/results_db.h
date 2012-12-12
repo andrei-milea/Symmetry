@@ -35,15 +35,15 @@ private:
 	{
 		boost::hash<std::string> str_hash;
 		std::size_t index = str_hash(params);
-		index = index >> 7;
-		index = index << 7;
+		index = index >> 5;
+		index = index << 5;
 		return index | command;
 	};
 
 	std::size_t GetFirstBits(const std::size_t hash)const
 	{
 		assert(m_IndexBitsSz > 0);
-		return hash % (1 << m_IndexBitsSz);
+		return hash & ((1 << m_IndexBitsSz) - 1);
 	};
 
 private:
