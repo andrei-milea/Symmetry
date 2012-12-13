@@ -67,7 +67,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 {
 	//basic test
 	{
-		cResultsBucket results_bucket("test", 3, true);
+		cResultsBucket results_bucket(0, 3, true);
 		string param1 = "param1";
 		string param2 = "param2";
 		string param3 = "param3";
@@ -96,12 +96,12 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 		BOOST_CHECK(result == result3);
 
 		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 3);
-		BOOST_CHECK(results_bucket.GetFileName() == "test");
+		BOOST_CHECK(results_bucket.GetCode() == 0);
 	}
 
 	//test persistance
 	{
-		cResultsBucket results_bucket("test", 3);
+		cResultsBucket results_bucket(0, 3);
 		string param1 = "param1";
 		string param2 = "param2";
 		string param3 = "param3";
@@ -123,7 +123,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 		BOOST_CHECK(result == result3);
 
 		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 3);
-		BOOST_CHECK(results_bucket.GetFileName() == "test");
+		BOOST_CHECK(results_bucket.GetCode() == 0);
 	
 		//check invalid param
 		string invalid_param = "dsadaldnsaaA";
@@ -134,7 +134,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 
 	//test split
 	{
-		cResultsBucket results_bucket("test", 3);
+		cResultsBucket results_bucket(0, 3);
 		string param1;
 		string result1;
 		string result;
@@ -154,7 +154,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 			BOOST_CHECK(ok);
 			BOOST_CHECK(result == result1);
 			BOOST_CHECK(results_bucket.GetIndexBitsSz() == 3);
-			BOOST_CHECK(results_bucket.GetFileName() == "test");
+			BOOST_CHECK(results_bucket.GetCode() == 0);
 		}
 
 		param1 = "paramf";
@@ -186,7 +186,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_db, gfixture)
 {
 	cResultsDB* results_db = cResultsDB::GetInstance();
 
-	for(size_t idx = 10; idx < (20 * MAX_ENTRIES); idx++)
+	for(size_t idx = 10; idx < (15 * MAX_ENTRIES); idx++)
 	{
 		string param = generate_random_text();
 		string result = generate_random_text();
