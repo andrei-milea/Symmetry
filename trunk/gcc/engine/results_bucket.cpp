@@ -9,15 +9,17 @@
 namespace resultsDB
 {
 
-cResultsBucket::cResultsBucket(std::string filename, unsigned short indexbits, bool newfile)
-	:m_FileName(filename),
+cResultsBucket::cResultsBucket(std::size_t code, unsigned short indexbits, bool newfile)
+	:m_Code(code),
 	m_IndexBitsSz(indexbits),
 	m_End(0),
 	m_HeaderEntry(nullptr),
 	m_Entries(0)
 {
 	boost::iostreams::mapped_file_params params;
-	params.path = DB_PATH + m_FileName;
+	std::stringstream converter;
+	converter<<m_Code;
+	params.path = DB_PATH + converter.str();
 	params.length = FILE_SZ;
 	params.mode = std::ios_base::in | std::ios_base::out;
 	if(newfile)
@@ -93,16 +95,14 @@ std::unique_ptr<cResultsBucket> cResultsBucket::SaveResult(const std::size_t has
 
 std::unique_ptr<cResultsBucket> cResultsBucket::Split()
 {
-	std::stringstream converter;
 	m_IndexBitsSz++;
-	converter<<GetFirstBits((1 << (m_IndexBitsSz -1)) | m_HeaderEntry[0].hash);
-	std::unique_ptr<cResultsBucket> newbucket(new cResultsBucket(converter.str(), m_IndexBitsSz, true));
-	std::string temp_file("temp_file");
+	std::size_t code = GetFirstBits((1 << (m_IndexBitsSz -1)) | m_HeaderEntry[0].hash);
+	std::unique_ptr<cResultsBucket> newbucket(new cResultsBucket(code, m_IndexBitsSz, true));
 
 	//use this block to delete old_bucket in a natural way(by going out of scope)
 	//before deleting the file from disk
 	{
-		cResultsBucket old_bucket(temp_file, m_IndexBitsSz, true);
+		cResultsBucket old_bucket(INT_MAX, m_IndexBitsSz, true);
 			
 		for(std::size_t idx = 0; idx < m_Entries; idx++)	
 		{
@@ -115,7 +115,10 @@ std::unique_ptr<cResultsBucket> cResultsBucket::Split()
 		}
 		(*this) = old_bucket;
 	}
-	temp_file = DB_PATH + temp_file;
+
+	std::stringstream converter;
+	converter << INT_MAX;
+	std::string temp_file = DB_PATH + converter.str();
 	boost::filesystem::path temp_path(temp_file);
 	boost::filesystem::remove(temp_path);
 
