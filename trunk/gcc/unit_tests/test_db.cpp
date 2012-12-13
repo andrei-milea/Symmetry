@@ -67,7 +67,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 {
 	//basic test
 	{
-		cResultsBucket results_bucket(0, 3, true);
+		cResultsBucket results_bucket(0);
 		string param1 = "param1";
 		string param2 = "param2";
 		string param3 = "param3";
@@ -95,13 +95,13 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 		BOOST_CHECK(ok);
 		BOOST_CHECK(result == result3);
 
-		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 3);
+		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 8);
 		BOOST_CHECK(results_bucket.GetCode() == 0);
 	}
 
 	//test persistance
 	{
-		cResultsBucket results_bucket(0, 3);
+		cResultsBucket results_bucket(0);
 		string param1 = "param1";
 		string param2 = "param2";
 		string param3 = "param3";
@@ -122,7 +122,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 		BOOST_CHECK(ok);
 		BOOST_CHECK(result == result3);
 
-		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 3);
+		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 8);
 		BOOST_CHECK(results_bucket.GetCode() == 0);
 	
 		//check invalid param
@@ -134,7 +134,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 
 	//test split
 	{
-		cResultsBucket results_bucket(0, 3);
+		cResultsBucket results_bucket(0);
 		string param1;
 		string result1;
 		string result;
@@ -153,7 +153,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 			BOOST_CHECK(new_results_bucket == nullptr);
 			BOOST_CHECK(ok);
 			BOOST_CHECK(result == result1);
-			BOOST_CHECK(results_bucket.GetIndexBitsSz() == 3);
+			BOOST_CHECK(results_bucket.GetIndexBitsSz() == 8);
 			BOOST_CHECK(results_bucket.GetCode() == 0);
 		}
 
@@ -161,8 +161,8 @@ BOOST_FIXTURE_TEST_CASE(test_results_bucket, gfixture)
 		result1 = "resultf";
 		new_results_bucket = results_bucket.SaveResult(idx + 1, param1, result1);
 		BOOST_CHECK(new_results_bucket != nullptr);
-		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 4);
-		BOOST_CHECK(new_results_bucket->GetIndexBitsSz() == 4);
+		BOOST_CHECK(results_bucket.GetIndexBitsSz() == 9);
+		BOOST_CHECK(new_results_bucket->GetIndexBitsSz() == 9);
 	}
 } 
 
@@ -186,7 +186,7 @@ BOOST_FIXTURE_TEST_CASE(test_results_db, gfixture)
 {
 	cResultsDB* results_db = cResultsDB::GetInstance();
 
-	for(size_t idx = 10; idx < (15 * MAX_ENTRIES); idx++)
+	for(size_t idx = 10; idx < (20 * MAX_ENTRIES); idx++)
 	{
 		string param = generate_random_text();
 		string result = generate_random_text();

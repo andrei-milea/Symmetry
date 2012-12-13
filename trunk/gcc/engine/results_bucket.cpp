@@ -5,13 +5,15 @@
 #include <boost/filesystem.hpp>
 #include <cstdio>
 #include <sstream>
+#include <cmath>
+
+#define MIN_DIRECTORY_SZ			256
 
 namespace resultsDB
 {
 
-cResultsBucket::cResultsBucket(std::size_t code, unsigned short indexbits, bool newfile)
+cResultsBucket::cResultsBucket(std::size_t code)
 	:m_Code(code),
-	m_IndexBitsSz(indexbits),
 	m_End(0),
 	m_HeaderEntry(nullptr),
 	m_Entries(0)
@@ -22,6 +24,8 @@ cResultsBucket::cResultsBucket(std::size_t code, unsigned short indexbits, bool 
 	params.path = DB_PATH + converter.str();
 	params.length = FILE_SZ;
 	params.mode = std::ios_base::in | std::ios_base::out;
+
+	bool newfile = !boost::filesystem::exists(params.path);
 	if(newfile)
 		params.new_file_size = FILE_SZ; 
 	m_MappedFile.open(params);
@@ -29,7 +33,14 @@ cResultsBucket::cResultsBucket(std::size_t code, unsigned short indexbits, bool 
 		throw;
 
 	if(newfile)	//clear file
+	{
 		memset(m_MappedFile.data(), 0, FILE_SZ);
+		m_IndexBitsSz = (m_Code < MIN_DIRECTORY_SZ) ? 8 : std::log2(m_Code);
+	}
+	else
+	{
+		memcpy(&m_IndexBitsSz, m_MappedFile.data(), sizeof(unsigned short));
+	}
 	m_HeaderEntry = reinterpret_cast<bucket_header_entry*>(m_MappedFile.data() + sizeof(unsigned short));
 
 	//count the number of entries
@@ -97,12 +108,14 @@ std::unique_ptr<cResultsBucket> cResultsBucket::Split()
 {
 	m_IndexBitsSz++;
 	std::size_t code = GetFirstBits((1 << (m_IndexBitsSz -1)) | m_HeaderEntry[0].hash);
-	std::unique_ptr<cResultsBucket> newbucket(new cResultsBucket(code, m_IndexBitsSz, true));
+	std::unique_ptr<cResultsBucket> newbucket(new cResultsBucket(code));
+	newbucket->m_IndexBitsSz = m_IndexBitsSz;
 
 	//use this block to delete old_bucket in a natural way(by going out of scope)
 	//before deleting the file from disk
 	{
-		cResultsBucket old_bucket(INT_MAX, m_IndexBitsSz, true);
+		cResultsBucket old_bucket(INT_MAX);
+		old_bucket.m_IndexBitsSz = m_IndexBitsSz;
 			
 		for(std::size_t idx = 0; idx < m_Entries; idx++)	
 		{

@@ -24,7 +24,7 @@ public:
 	 opens the memory mapped file with the specified name
 	 if the newfile argument==true creates a new memory mapped file
 	*/
-	explicit cResultsBucket(std::size_t code, unsigned short indexbits, bool newfile = false);
+	explicit cResultsBucket(std::size_t code);
 	~cResultsBucket();
 
 	bool GetResult(const std::size_t hash, const std::string &params, std::string& result)const;
