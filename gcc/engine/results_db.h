@@ -49,8 +49,8 @@ private:
 private:
 	unsigned int m_DirectorySz;		//m_DirectorySz = 2^m_IndexBitsSz
 	unsigned short m_IndexBitsSz;
-	std::vector<std::string> m_Directory;
-	cLruHashMap<std::string, std::unique_ptr<cResultsBucket> > m_LruHashMap;
+	std::vector<std::size_t> m_Directory;
+	cLruHashMap<std::size_t, std::unique_ptr<cResultsBucket> > m_LruHashMap;
 	static cResultsDB *s_Instance;
 };
 

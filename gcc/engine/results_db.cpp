@@ -24,10 +24,11 @@ cResultsDB::cResultsDB()
 		throw;
 
 	//read directory from idx file
-	std::string bucket_name;
-	while(getline(idx_file, bucket_name))
+	std::string bucket_code_str;
+	while(getline(idx_file, bucket_code_str))
 	{
-		m_Directory.push_back(bucket_name);
+		assert(atoi(bucket_code_str.c_str()) > 0);
+		m_Directory.push_back(atoi(bucket_code_str.c_str()));
 	}
 	if(!idx_file.eof())
 		throw;
@@ -37,10 +38,8 @@ cResultsDB::cResultsDB()
 		m_Directory.resize(MIN_DIRECTORY_SZ);
 		for(std::size_t idx = 0; idx < MIN_DIRECTORY_SZ; idx++)
 		{
-			std::stringstream converter;
-			converter<<GetFirstBits(idx);
-			std::unique_ptr<cResultsBucket> results_bucket(new cResultsBucket(converter.str(), m_IndexBitsSz, true));
-			m_Directory.at(GetFirstBits(idx)) = converter.str();
+			std::unique_ptr<cResultsBucket> results_bucket(new cResultsBucket(GetFirstBits(idx), m_IndexBitsSz, true));
+			m_Directory.at(GetFirstBits(idx)) = GetFirstBits(idx);
 		}
 	}
 	else
@@ -74,13 +73,13 @@ bool cResultsDB::GetResult(engine::COMMAND_TYPE command, const std::string &para
 {
 	std::size_t hash = Hash(command, params);
 	std::size_t index = GetFirstBits(hash);
-	std::string bucket_filename = m_Directory.at(index);
-	auto bucket_iter = m_LruHashMap.find(bucket_filename);
+	std::size_t bucket_code = m_Directory.at(index);
+	auto bucket_iter = m_LruHashMap.find(bucket_code);
 	if(bucket_iter == m_LruHashMap.end())
 	{
 		//load the bucket from the disk
-		std::unique_ptr<cResultsBucket> results_bucket (new cResultsBucket(bucket_filename, m_IndexBitsSz));
-		m_LruHashMap.insert(bucket_filename, results_bucket);
+		std::unique_ptr<cResultsBucket> results_bucket (new cResultsBucket(bucket_code, m_IndexBitsSz));
+		m_LruHashMap.insert(bucket_code, results_bucket);
 		return results_bucket->GetResult(hash, params, result);
 	} 
 	return (*bucket_iter).second->second->GetResult(hash, params, result);
@@ -90,17 +89,16 @@ void cResultsDB::SaveResult(engine::COMMAND_TYPE command, const std::string &par
 {
 	const std::size_t hash = Hash(command, params);
 	std::size_t index = GetFirstBits(hash);
-	std::string bucket_filename;
 	std::unique_ptr<cResultsBucket> results_bucket;
-	bucket_filename = m_Directory.at(index);
-	auto bucket_it = m_LruHashMap.find(bucket_filename);
+	std::size_t bucket_code = m_Directory.at(index);
+	auto bucket_it = m_LruHashMap.find(bucket_code);
 	std::unique_ptr<cResultsBucket> newbucket;
 	if(bucket_it == m_LruHashMap.end())
 	{
 		//load the bucket from the disk
-		std::unique_ptr<cResultsBucket> results_bucket(new cResultsBucket(bucket_filename, m_IndexBitsSz));
+		std::unique_ptr<cResultsBucket> results_bucket(new cResultsBucket(bucket_code, m_IndexBitsSz));
 		newbucket = std::unique_ptr<cResultsBucket>(results_bucket->SaveResult(hash, params, result));
-		m_LruHashMap.insert(bucket_filename, results_bucket);
+		m_LruHashMap.insert(bucket_code, results_bucket);
 	}
 	else
 	{
@@ -111,7 +109,7 @@ void cResultsDB::SaveResult(engine::COMMAND_TYPE command, const std::string &par
 		if(newbucket->GetIndexBitsSz() <= m_IndexBitsSz)
 		{
 			assert(m_IndexBitsSz > 0);
-			m_Directory.at(index | (1 << (m_IndexBitsSz - 1))) = newbucket->GetFileName();
+			m_Directory.at(index | (1 << (m_IndexBitsSz - 1))) = newbucket->GetCode();
 		}
 		else if(newbucket->GetIndexBitsSz() > m_IndexBitsSz)
 		{
@@ -127,9 +125,9 @@ void cResultsDB::SaveResult(engine::COMMAND_TYPE command, const std::string &par
 				m_Directory[idx] = m_Directory[idx - old_size];
 			}
 			//overwrite the new entry
-			m_Directory.at(index | (1 << (m_IndexBitsSz - 1))) = newbucket->GetFileName();
+			m_Directory.at(index | (1 << (m_IndexBitsSz - 1))) = newbucket->GetCode();
 		}
-		m_LruHashMap.insert(newbucket->GetFileName(), newbucket);
+		m_LruHashMap.insert(newbucket->GetCode(), newbucket);
 		SaveResult(command, params, result);
 	}
 };

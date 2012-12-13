@@ -24,7 +24,7 @@ public:
 	 opens the memory mapped file with the specified name
 	 if the newfile argument==true creates a new memory mapped file
 	*/
-	explicit cResultsBucket(std::string filename, unsigned short indexbits, bool newfile = false);
+	explicit cResultsBucket(std::size_t code, unsigned short indexbits, bool newfile = false);
 	~cResultsBucket();
 
 	bool GetResult(const std::size_t hash, const std::string &params, std::string& result)const;
@@ -34,9 +34,9 @@ public:
 		return m_IndexBitsSz;
 	};
 
-	const std::string& GetFileName()const
+	const std::size_t GetCode()const
 	{
-		return m_FileName;
+		return m_Code;
 	};
 
 	/*!
@@ -66,7 +66,7 @@ private:	//too large to copy
 	};
 
 private:
-	std::string m_FileName;
+	std::size_t m_Code;
 	boost::iostreams::mapped_file m_MappedFile;
 	unsigned short m_IndexBitsSz;
 	std::size_t m_End;
