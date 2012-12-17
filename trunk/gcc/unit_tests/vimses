@@ -74,14 +74,14 @@ badd +11 runtests.sh
 badd +108 /home/projects/absalg_root/absalg/gcc/lib/symmetric_rep.h
 badd +1 /home/projects/absalg_root/absalg/gcc/unit_tests/test_group.cpp
 badd +1 /home/projects/absalg_root/absalg/gcc/unit_tests/test_group_elem.cpp
-badd +0 test_db.cpp
-badd +0 ~/projects/absalg/gcc/engine/results_db.h
-badd +0 ~/projects/absalg/gcc/engine/results_db.cpp
-badd +0 ~/projects/absalg/gcc/engine/results_bucket.h
-badd +0 ~/projects/absalg/gcc/engine/results_bucket.cpp
-badd +0 ~/projects/absalg/gcc/engine/lrumap.h
-badd +0 ~/projects/absalg/gcc/engine/lrumap.cpp
-badd +0 ~/projects/absalg/gcc/interface/http_server/http_connection.cpp
+badd +1 test_db.cpp
+badd +1 ~/projects/absalg/gcc/engine/results_db.h
+badd +1 ~/projects/absalg/gcc/engine/results_db.cpp
+badd +1 ~/projects/absalg/gcc/engine/results_bucket.h
+badd +1 ~/projects/absalg/gcc/engine/results_bucket.cpp
+badd +1 ~/projects/absalg/gcc/engine/lrumap.h
+badd +1 ~/projects/absalg/gcc/engine/lrumap.cpp
+badd +1 ~/projects/absalg/gcc/interface/http_server/http_connection.cpp
 args test_engine.cpp
 edit Makefile
 set splitbelow splitright
@@ -192,7 +192,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 2 - ((1 * winheight(0) + 12) / 25)
+let s:l = 2 - ((1 * winheight(0) + 13) / 27)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -307,12 +307,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 189 - ((7 * winheight(0) + 12) / 25)
+let s:l = 148 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-189
-normal! 030l
+148
+normal! 02l
 lcd ~/projects/absalg/gcc/unit_tests
 tabedit ~/projects/absalg/gcc/engine/results_db.h
 set splitbelow splitright
@@ -423,12 +423,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 39 - ((15 * winheight(0) + 12) / 25)
+let s:l = 53 - ((17 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-39
-normal! 019l
+53
+normal! 060l
 lcd ~/projects/absalg/gcc/unit_tests
 tabedit ~/projects/absalg/gcc/engine/results_db.cpp
 set splitbelow splitright
@@ -539,12 +539,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 7 - ((6 * winheight(0) + 12) / 25)
+let s:l = 8 - ((7 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-7
-normal! 024l
+8
+normal! 018l
 lcd ~/projects/absalg/gcc/unit_tests
 tabedit ~/projects/absalg/gcc/engine/results_bucket.h
 set splitbelow splitright
@@ -655,12 +655,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 14 - ((13 * winheight(0) + 12) / 25)
+let s:l = 27 - ((7 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-14
-normal! 023l
+27
+normal! 041l
 lcd ~/projects/absalg/gcc/unit_tests
 tabedit ~/projects/absalg/gcc/engine/results_bucket.cpp
 set splitbelow splitright
@@ -771,12 +771,12 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 121 - ((6 * winheight(0) + 12) / 25)
+let s:l = 118 - ((9 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
-121
-normal! 0
+118
+normal! 01l
 lcd ~/projects/absalg/gcc/unit_tests
 tabedit ~/projects/absalg/gcc/interface/http_server/http_connection.cpp
 set splitbelow splitright
@@ -887,7 +887,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 20 - ((19 * winheight(0) + 12) / 25)
+let s:l = 20 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1003,7 +1003,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 50 - ((23 * winheight(0) + 12) / 25)
+let s:l = 50 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -1119,14 +1119,14 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 38 - ((18 * winheight(0) + 12) / 25)
+let s:l = 38 - ((0 * winheight(0) + 12) / 25)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 38
 normal! 014l
 lcd ~/projects/absalg/gcc/unit_tests
-tabnext 2
+tabnext 6
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
 endif

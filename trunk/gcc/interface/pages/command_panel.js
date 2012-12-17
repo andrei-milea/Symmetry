@@ -1,35 +1,198 @@
 var MainMenu = function () {
 	var current_panel = null;
+	var input_box_state = "hidden";
 
-	function reloadPage() {
-		document.location.reload();
+	function toggle_input_box() {
+		if(input_box_state === "hidden")
+			show_input_box();
+		else
+			hide_input_box();
+	}
+
+	function show_input_box() {
+		input_box_state = "shown";
+		var input_box_button = document.getElementById("inputbox_button");
+		input_box_button.value='Hide Input Box';
+		var all_divs = document.getElementsByTagName('div');
+		for(var i = 0; i < all_divs.length; i++)
+		{
+			if(all_divs[i].id.indexOf("input_div_contents") !== -1)
+				all_divs[i].style.display = "block"
+		}
+
+	}
+
+	function hide_input_box() {
+		input_box_state = "hidden";
+		var input_box_button = document.getElementById("inputbox_button");
+		input_box_button.value="Show Input Box";
+		var all_divs = document.getElementsByTagName('div');
+		for(var i = 0; i < all_divs.length; i++)
+		{
+			if(all_divs[i].id.indexOf("input_div_contents") !== -1)
+				all_divs[i].style.display = "none"
+		}
 	}
 
 	function add_grp_div() {
 
 		if((current_panel !== null) && (current_panel !== GrpPanel)) {
-			reloadPage();
+			current_panel.hide();
+			reset_mainview_canvas();
 		}
+		var button_div = document.getElementById("button_div_id");
+		button_div.style.display = "block";
 		GrpPanel.show();
 		current_panel = GrpPanel;
+		show_input_box();
 	}
 
 	function add_linalg_div() {
-		reloadPage();
+	}
+
+	function add_poly_div() {
+	}
+
+	function add_lineq_div() {
+		if((current_panel !== null) && (current_panel !== LinEqPanel)) {
+			current_panel.hide();
+			reset_mainview_canvas();
+		}
+		var button_div = document.getElementById("button_div_id");
+		button_div.style.display = "block";
+		LinEqPanel.show();
+		current_panel = LinEqPanel;
+		show_input_box();
 	}
 
 	function add_calculus_div() {
-		reloadPage();
+	}
+
+	function reset_mainview_canvas() {
+		var main_view = document.getElementById("main_view_id");
+		main_view.innerHTML="";
+		main_view.style.display = "none";
+		var canvasDiv = document.getElementById("canvas_id");
+		if(canvasDiv.style.display === "block") {
+			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
+			WebGlContext.initWebGL();
+			canvasDiv.style.display = "none";
+		}
 	}
 
 	//public methods
 	return {
+		toggle_input_box : toggle_input_box,
 		add_grp_div : add_grp_div,
 		add_linalg_div : add_linalg_div,
+		add_lineq_div : add_lineq_div,
 		add_calculus_div : add_calculus_div
 	};
 }();
 
+//command pannel for linear equations
+var LinEqPanel = function () {
+	function show() {
+        var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
+        var lineqDiv = document.getElementById("lineq_div_id");
+		lineqcommand_panelDiv.style.display = "block";
+		lineqDiv.style.display = "block";
+	}
+
+	function hide() {
+		var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
+        var lineqDiv = document.getElementById("lineq_div_id");
+		lineqcommand_panelDiv.style.display = "none";
+		lineqDiv.style.display = "none";
+	}
+
+	function lineq_num_changed(elem) {
+		var number = parseInt(elem.value);
+		if(number <= 0)
+		{
+			elem.value = 1;
+			return;
+		}
+		var lineqTable = document.getElementById("lineq_table_id");
+		var rowsnum = lineqTable.getElementsByTagName("tr").length;
+		var colsnum = lineqTable.getElementsByTagName("tr")[0].getElementsByTagName("td").length;
+		if(rowsnum < number)
+		{
+			var j = 0;
+			while(rowsnum + j < number)
+			{
+				var newrow = lineqTable.insertRow(-1);
+ 
+				for(var i = 1; i < colsnum; i++)
+				{	
+					var newcol = newrow.insertCell(-1);
+					newcol.innerHTML = "<input type='text' id='unknown" + rowsnum.toString() + i.toString() +
+					   	"' size='2' maxlength='2'> $x_" + i.toString() + "$";
+				}
+				var newcol = newrow.insertCell(-1);
+				newcol.innerHTML = "<input type='text' id='result" + (rowsnum + j + 1).toString() + i.toString() +
+				   	"' size='2' maxlength='2'> $b_" + (rowsnum + j + 1).toString() + "$";
+				newrow.appendChild(newcol);
+				j++;
+			}
+		}
+		else if(rowsnum > number) 
+		{
+			var j = 0;
+			var rows = lineqTable.getElementsByTagName("tr");
+			while(number < rowsnum - j)
+			{
+				lineqTable.deleteRow(-1);
+				j++;
+			}
+		}
+	}
+
+	function unknowns_num_changed(elem) {
+		var number = parseInt(elem.value);
+		if(number <= 0)
+		{
+			elem.value = 1;
+			return;
+		}
+		var lineqTable = document.getElementById("lineq_table_id");
+		var rows = lineqTable.getElementsByTagName("tr");
+		var colsnum = rows[0].getElementsByTagName("td").length;
+		if(colsnum - 1< number)
+		{
+			for(var i = 0; i < rows.length; i++)
+			{
+				var j = 0;
+				while(colsnum + j - 1 < number)
+				{
+					var newcol = rows[i].insertCell(rows[i].getElementsByTagName("td").length - 1);
+					newcol.innerHTML = "<input type='text' id='unknown" + (i+1).toString() + (colsnum + j).toString() +
+					   	"' size='2' maxlength='2'> $x_" + (colsnum + j).toString() + "$";
+					j++;
+				}
+			}
+		}
+		else if(colsnum > number)
+		{
+			for(var i = 0; i < rows.length; i++)
+			{
+				var j = 0;
+				while(colsnum - j - 1 > number)
+				{
+					rows[i].deleteCell(colsnum - 2 - j);
+					j++;
+				}
+			}
+		}
+	}
+	
+	return {
+		show : show,
+		hide : hide,
+		lineq_num_changed : lineq_num_changed,
+		unknowns_num_changed : unknowns_num_changed
+	};
+}();
 //command panel for group theory
 var GrpPanel = function () {
     var state_main_comm = "visible";
@@ -37,71 +200,18 @@ var GrpPanel = function () {
 	var state_create_grp = "hidden";
 	var group_commands_active = false;	
     
-	function show_group_commands_panel() {
-		add_create_grp_div();
+	function show() {
         var groupcommand_panelDiv = document.getElementById("group_commands_panel");
+        var group_panelDiv = document.getElementById("grp_div_id");
 		groupcommand_panelDiv.style.display = "block";
+		group_panelDiv.style.display = "block";
 	}
 
-	function hide_group_commands_panel() {
-		remove_create_grp_div();
+	function hide() {
         var groupcommand_panelDiv = document.getElementById("group_commands_panel");
+        var group_panelDiv = document.getElementById("grp_div_id");
 		groupcommand_panelDiv.style.display = "none";
-	}
-
-	function add_create_grp_div() {	
-		if(state_create_grp === "hidden") {
-			var command_panelDiv = document.getElementById("command_panel");
-			var createGrpDivTag = document.createElement("div");
-			createGrpDivTag.setAttribute("id", "grp_div_id");
-			createGrpDivTag.setAttribute("onmouseover", "Tooltip.show('generator')");
-			createGrpDivTag.setAttribute("onmouseout", "Tooltip.hide()");
-			createGrpDivTag.innerHTML="&nbsp;&nbsp;&nbsp;"+
-				"<form onSubmit='return GrpPanel.submit_grp()'>"+
-				"<select id='grptype_sel_id' name='Group Type' onchange=''>"+
-				"<option>Small Permutation Groups</option>"+
-				"</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
-				"Select a small permutation group type: &nbsp;&nbsp;&nbsp;"+
-				"<select id='grp_sel_id' name='Group' onchange='GrpPanel.changeGrpType(this)'>"+
-				"<option>Symmetric Group</option>"+
-				"<option>Cyclic Group</option>"+
-				"<option>Dihedral Group</option>"+
-				"</select>"+
-				"</br><hr /></br>"+
-				"<div id='generators_div_id'>"+
-				"Enter generator: &nbsp;&nbsp;&nbsp;"+
-				"<input type='text' id='generator_id'>"+
-				"&nbsp;&nbsp;&nbsp;"+
-				"<input type='button' value='Add' onclick='GrpPanel.add_generator()'>"+
-				"&nbsp;&nbsp;&nbsp;"+
-				"<------OR------>&nbsp;"+
-				"Add generators for predefined groups: &nbsp;&nbsp;&nbsp;"+
-				"<select id='Groups' size='1' onchange='GrpPanel.add_generators(this)'>"+
-				"<option value=''></option>"+
-				"<option value='S3'>S3</option>"+
-				"<option value='S4'>S4</option>"+
-				"<option value='D8'>D8</option>"+
-				"</select></br></br>"+
-				"</div>"+
-				"Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+
-				"<select id='generators_id' size='5' style='Width:200' ></select>"+
-				"&nbsp;&nbsp;&nbsp;"+
-				"<input type='button' value='Clear' onclick='GrpPanel.clear_generators()'>"+
-				"</br></br>After adding the generators hit &nbsp;&nbsp;&nbsp;"+
-				"<input type='submit' value='Go'></form>"+
-				"</br>";
-			command_panelDiv.appendChild(createGrpDivTag);
-			state_create_grp = "visible";
-		}
-	}
-
-	function remove_create_grp_div() {
-		if(state_create_grp === "visible") {
-			var command_panelDiv = document.getElementById("command_panel");
-			grp_divTag = document.getElementById("grp_div_id");
-			command_panelDiv.removeChild(grp_divTag);
-			state_create_grp = "hidden";
-		}
+		group_panelDiv.style.display = "none";
 	}
 
 	function changeGrpType(type) {
@@ -125,13 +235,13 @@ var GrpPanel = function () {
 		else if(type.value === "Cyclic Group") {
 			generators_div.innerHTML =
 				"Enter group order: &nbsp;&nbsp;&nbsp;"+
-				"<input type='text' id='group_size_id'>&nbsp;&nbsp;&nbsp;"+
+				"<input type='text' id='group_size_id' size='2' maxlength='2'>&nbsp;&nbsp;&nbsp;"+
 				"<input type='button' value='Set generator' onclick='GrpPanel.add_generator()'></br></br>";
 		}
 		else {//Dihedral Group 
 		generators_div.innerHTML =
 				"Enter number of sides for the regular polygon: &nbsp;&nbsp;&nbsp;"+
-				"<input type='text' id='group_size_id'>&nbsp;&nbsp;&nbsp;"+
+				"<input type='text' id='group_size_id' size='2' maxlength='2'>&nbsp;&nbsp;&nbsp;"+
 				"<input type='button' value='Set generator' onclick='GrpPanel.add_generator()'></br></br>";
 		}
 	}
@@ -410,8 +520,8 @@ var GrpPanel = function () {
 		add_generators : add_generators,
 		clear_generators : clear_generators,
 		changeGrpType : changeGrpType,
-		show : show_group_commands_panel,
-		hide : hide_group_commands_panel,
+		show : show,
+		hide : hide,
 		reflect_polygon : reflect_polygon,
 		rotate_polygon : rotate_polygon
 	};
@@ -423,17 +533,17 @@ var Tooltip = function () {
 	var endalpha = 70, alpha = 0, timer = 20, speed = 10;
 	var tooltip;
 	var tooltip_map = new Object();
-	tooltip_map.groupTheory = "Explore and visualize concepts in Group Theory";
- 	tooltip_map.linAlg = "Perform computations and analize the geometric meaning of different concepts in Linear Algebra(matrices, systems of linear equations, vector spaces, transformations)";
-	tooltip_map.calculus = "Perform Calculus computations and analyze the behaviour of functions (function graphing)";
-	tooltip_map.tutorials = "Visit our tutorial videos on our Youtube page.";
-	tooltip_map.prev_panel = "Go back to the previous panel (cancel ongoing action).";
+	tooltip_map.lineq = "Enter the system of linear equations by first entering the number of equations ($m$) and unknowns ($n$) and then specifying the coefficients $x_1, x_2, ..., x_n$ and the constant terms $b_1, b_2, ..., b_m$."
+	tooltip_map.vectorfm_lineq = "Each unknown is viewed as an weight for a column vector in a linear combination."
+	tooltip_map.matrixfm_lineq = "Compute the matrix equation $Ax = b$, where A is the $m \\times n$ matrix of coefficients, $x$ is the unknowns column vector and $b$ is the constant terms column vector."
+	tooltip_map.lineq_dependence = "Check if the system is linear independent."
+	tooltip_map.solve_lineq = "Solve the linear system."
 	tooltip_map.select = "Select a predefined group.";
 	tooltip_map.s3 = "Symmetric group of order 3.";
 	tooltip_map.d8 = "Dihedral group of order 8.";
 	tooltip_map.generator = "Generators are of the form (x1,x2,x3,...) which represents the permutation 1->x1, 2->x2, 3->x3, ...";
 	tooltip_map.source = "Visit the project repository on Google Code.";
-	tooltip_map.get_elem = "Compute group elements using Dimono algorithm(permutation groups).";
+	tooltip_map.get_elem = "Compute the elements of the group.";
 	tooltip_map.get_center = "Compute the Center subgroup(elements that commute with all the elements of the group).";
 	tooltip_map.get_cgraph = "Compute the Cayley graph of the group(colored directed graph).";
 	tooltip_map.get_rel = "Compute the defining relations of the group.";
@@ -455,6 +565,7 @@ return{
 		tooltip.innerHTML = tooltip_map[callee];
 		clearInterval(tooltip.timer);
 		tooltip.timer = setInterval(function(){Tooltip.fade(1)},timer);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	},
 
 	fade: function (d)
