@@ -45,28 +45,70 @@
 	}
 </script> 
 
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
 </head>
 
 <body id="body_id" onload="WebGlContext.initWebGL()">
 <input id="session_key_id" type="hidden" name="hidden" value="00">
 Under Construction ...</br>
 
-<div id="general_commands_panel" class="smain_menu">
-<a id="GroupThButton" href="#" onmouseover="Tooltip.show('groupTheory')" onmouseout="Tooltip.hide()" onclick="MainMenu.add_grp_div()">Group Theory</a>
-&nbsp;
-<a id="LinAlgButton" href="#" onmouseover="Tooltip.show('linAlg')" onmouseout="Tooltip.hide()" onclick="MainMenu.add_linalg_div()">Linear Algebra</a>
-&nbsp;
-<a id="CalculusButton" href="#" onmouseover="Tooltip.show('calculus')" onmouseout="Tooltip.hide()" onclick="MainMenu.add_calculus_div()">Calculus</a>
-&nbsp;
-<a href="#" onmouseover="Tooltip.show('tutorials')" onmouseout="Tooltip.hide()">Tutorials</a>
-&nbsp;
-<a href="http://code.google.com/p/absalg/" target="_blank" onmouseover="Tooltip.show('source')" onmouseout="Tooltip.hide()">Source code</a>
-&nbsp;
-<a href="#">About</a>
-&nbsp;
-</br>     
-</br>     
-</br>
+<div id="general_commands_panel" align="center">
+<nav>
+	<ul>
+		<li><a href="#">Algebra</a>
+		<ul>
+			<li><a href="#" onclick="MainMenu.add_grp_div()">Group Theory</a></li>
+			<li><a href="#" onclick="MainMenu.add_poly_div()">Polynomials</a></li>
+			<li><a href="#">Linear Algebra</a>
+			<ul>
+				<li><a href="#" onclick="MainMenu.add_lineq_div()">Systems of Linear Equations</a></li>
+				<li><a href="#" onclick="MainMenu.add_linineq_div()">Systems of Linear Inequations</a></li>
+				<li><a href="#" onclick="MainMenu.add_linalg_div()">Vectors and Matrices</a></li>
+			</ul>
+			</li>
+		</ul>
+		</li>
+		<li><a href="#">Calculus</a>
+		<ul>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Function Graphing</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Trigonometric Functions</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Complex Numbers</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Differentiation</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Integration</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Differential Equations</a></li>
+		</ul>
+		</li>
+		<li><a href="#">Geometry</a>
+		<ul>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Drawing Pad</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Euclidean Geometry</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Hyperbolic Geometry</a></li>
+		</ul>
+		</li>
+		<li><a href="#">Probability Theory</a></li>
+		<li><a href="#">Physics</a>
+		<ul>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Mechanics</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Optics</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Acoustics</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Thermodynamics</a></li>
+			<li><a href="#" onclick="MainMenu.add_linalg_div()">Electromagnetism</a></li>
+		</ul>
+		</li>
+	</ul>
+&nbsp;&nbsp;&nbsp;&nbsp;
+	<ul>
+		<li><a href="http://code.google.com/p/absalg/" target="_blank">Source Code</a></li>
+		<li><a href="#">About</a></li>
+	</ul>
+</nav>
+</br></br>
 </div>
 
 <div id="command_panel" class="scommand_panel">
@@ -84,10 +126,107 @@ Under Construction ...</br>
 <a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_CENTER')">Center Subgroup Elements</a> 
 </div>
 
+<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+<div id='input_div_contents1_id'>
+&nbsp;&nbsp;&nbsp;
+<form onSubmit='return GrpPanel.submit_grp()'>
+<select id='grptype_sel_id' name='Group Type' onchange=''>
+	<option>Small Permutation Groups</option>
+</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Select a small permutation group type: &nbsp;&nbsp;&nbsp;
+<select id='grp_sel_id' name='Group' onchange='GrpPanel.changeGrpType(this)'>
+	<option>Symmetric Group</option>
+	<option>Cyclic Group</option>
+	<option>Dihedral Group</option>
+</select>
+</br><hr /></br>
+<div id='generators_div_id'>
+Enter generator: &nbsp;&nbsp;&nbsp;
+<input type='text' id='generator_id'>
+&nbsp;&nbsp;&nbsp;
+<input type='button' value='Add' onclick='GrpPanel.add_generator()'>
+&nbsp;&nbsp;&nbsp;
+<------OR------>&nbsp;
+Add generators for predefined groups: &nbsp;&nbsp;&nbsp;
+<select id='Groups' size='1' onchange='GrpPanel.add_generators(this)'>
+	<option value=''></option>
+	<option value='S3'>S3</option>
+	<option value='S4'>S4</option>
+	<option value='D8'>D8</option>
+</select></br></br>
+</div>
+Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<select id='generators_id' size='5' style='Width:200' ></select>
+&nbsp;&nbsp;&nbsp;
+<input type='button' value='Clear' onclick='GrpPanel.clear_generators()'>
+</br></br>After adding the generators press &nbsp;&nbsp;&nbsp;
+<input type='submit' value='Ok'></form>
+</br>
+</div>
+</div>
+
+<div id="lineq_commands_panel" class="sbutton" style= "display: none; ">
+
+<div style="width:1px;height:125;background-color:black;float:left;position:relative;"></div>
+</br>
+<a id="command_dependence_lineq" href="#" onmouseover="Tooltip.show('lineq_dependence')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('DEPENDENCE_LINEQ_SYS')">Check linear independence</a> 
+</br>
+<a id="command_vectorfm_lineq_system" href="#" onmouseover="Tooltip.show('vectorfm_lineq')" onmouseout="Tooltip.hide()">Vector form</a> 
+</br>
+<a id="command_matrixfm_system" href="#" onmouseover="Tooltip.show('matrixfm_lineq')" onmouseout="Tooltip.hide()">Matrix form</a> 
+</br>
+<a id="command_solve_lineq_system" href="#" onmouseover="Tooltip.show('solve_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('SOLVE_LINEQ_SYS')">Solve system</a> 
+</br>
+</br>
+</div>
+
+<div id='lineq_div_id' onmouseover="Tooltip.show('lineq')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+<div id='input_div_contents_id'>
+</br>
+Number of equations: &nbsp;&nbsp;&nbsp;
+<input type='text' id='lineq_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.lineq_num_changed(this)">
+&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;
+Number of unknowns: &nbsp;&nbsp;&nbsp;
+<input type='text' id='unknowns_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.unknowns_num_changed(this)">
+</br></br>
+<table id="lineq_table_id" border="1" cellspacing="10" align="center">
+<tr>
+<td><input type='text' id='unknown11' size='2' maxlength='2'> $x_1$</td>
+<td><input type='text' id='unknown12' size='2' maxlength='2'> $x_2$</td>
+<td><input type='text' id='unknown13' size='2' maxlength='2'> $x_3$</td>
+<td><input type='text' id='result1' size='2' maxlength='2'> $b_1$</td>
+</tr>
+<tr>
+<td><input type='text' id='unknown21' size='2' maxlength='2'> $x_1$</td>
+<td><input type='text' id='unknown22' size='2' maxlength='2'> $x_2$</td>
+<td><input type='text' id='unknown23' size='2' maxlength='2'> $x_3$</td>
+<td><input type='text' id='result2' size='2' maxlength='2'> $b_2$</td>
+</tr>
+<tr>
+<td><input type='text' id='unknown31' size='2' maxlength='2'> $x_1$</td>
+<td><input type='text' id='unknown32' size='2' maxlength='2'> $x_2$</td>
+<td><input type='text' id='unknown33' size='2' maxlength='2'> $x_3$</td>
+<td><input type='text' id='result3' size='2' maxlength='2'> $b_3$</td>
+</tr>
+</table>
+</br></br>After adding the system press &nbsp;&nbsp;&nbsp;
+<input type='submit' value='Ok'></form>
+</br>
+</div>
+
+</div>
+
+<div id='button_div_id' style='text-align:center; display:none;'>
+&diams;
+<input id='inputbox_button' type='submit' value='Hide Input Box' onclick='MainMenu.toggle_input_box()'>
+&diams;
+</div>
+
 </div>
 
 <div id="main_view_id" class ="smain_view" style= "display: none;"></div>
-<div id="canvas_id" class="scanvasdiv" style= "display: none;">
+<div id="canvas_id" class="scanvasdiv" style="display: none;">
 <canvas id="main_canvas" class="scanvas" width='512' height='512'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>
 </div>
 <canvas id ='textCanvas' style="border: 1px solid #aaa; visibility: hidden;" width="512" height="64"></canvas>
