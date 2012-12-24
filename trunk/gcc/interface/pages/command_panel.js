@@ -47,10 +47,22 @@ var MainMenu = function () {
 		show_input_box();
 	}
 
-	function add_linalg_div() {
+	function add_vecmat_div() {
+		if((current_panel !== null) && (current_panel !== VecMatPanel)) {
+			current_panel.hide();
+			reset_mainview_canvas();
+		}
+		var button_div = document.getElementById("button_div_id");
+		button_div.style.display = "block";
+		VecMatPanel.show();
+		current_panel = VecMatPanel;
+		show_input_box();
 	}
 
 	function add_poly_div() {
+	}
+
+	function add_feature_div() {
 	}
 
 	function add_lineq_div() {
@@ -69,6 +81,9 @@ var MainMenu = function () {
 	}
 
 	function reset_mainview_canvas() {
+		var added_input_div = document.getElementById("added_input_id");
+		added_input_div.innerHTML="";
+		added_input_div.style.display="none";
 		var main_view = document.getElementById("main_view_id");
 		main_view.innerHTML="";
 		main_view.style.display = "none";
@@ -83,10 +98,154 @@ var MainMenu = function () {
 	//public methods
 	return {
 		toggle_input_box : toggle_input_box,
+		hide_input_box : hide_input_box,
 		add_grp_div : add_grp_div,
-		add_linalg_div : add_linalg_div,
+		add_vecmat_div : add_vecmat_div,
 		add_lineq_div : add_lineq_div,
-		add_calculus_div : add_calculus_div
+		add_calculus_div : add_calculus_div,
+		add_feature_div : add_feature_div
+	};
+}();
+
+var VecMatPanel = function () {
+	function show() {
+        var vecmat_command_panelDiv = document.getElementById("vecmat_commands_panel");
+        var vecmatDiv = document.getElementById("vecmat_div_id");
+		vecmat_command_panelDiv.style.display = "block";
+		vecmatDiv.style.display = "block";
+	}
+
+	function hide() {
+		var vecmat_command_panelDiv = document.getElementById("vecmat_commands_panel");
+        var vecmatDiv = document.getElementById("vecmat_div_id");
+		vecmat_command_panelDiv.style.display = "none";
+		vecmatDiv.style.display = "none";
+	}
+
+	function rows_num_changed(elem) {
+		var number = parseInt(elem.value);
+		if(number <= 0)
+		{
+			elem.value = 1;
+			return;
+		}
+		var lineqTable = document.getElementById("lineq_table_id");
+		var rowsnum = lineqTable.getElementsByTagName("tr").length;
+		var colsnum = lineqTable.getElementsByTagName("tr")[0].getElementsByTagName("td").length;
+		if(rowsnum < number)
+		{
+			var j = 0;
+			while(rowsnum + j < number)
+			{
+				var newrow = lineqTable.insertRow(-1);
+ 
+				for(var i = 1; i < colsnum; i++)
+				{	
+					var newcol = newrow.insertCell(-1);
+					newcol.innerHTML = "<input type='text' id='unknown" + (rowsnum + j + 1).toString() + i.toString() +
+					   	"' size='2' maxlength='2'> $x_" + i.toString() + "$";
+				}
+				var newcol = newrow.insertCell(-1);
+				newcol.innerHTML = "<input type='text' id='result" + (rowsnum + j + 1).toString() +
+				   	"' size='2' maxlength='2'> $b_" + (rowsnum + j + 1).toString() + "$";
+				newrow.appendChild(newcol);
+				j++;
+			}
+		}
+		else if(rowsnum > number) 
+		{
+			var j = 0;
+			var rows = lineqTable.getElementsByTagName("tr");
+			while(number < rowsnum - j)
+			{
+				lineqTable.deleteRow(-1);
+				j++;
+			}
+		}
+	}
+
+	function cols_num_changed(elem) {
+		var number = parseInt(elem.value);
+		if(number <= 0)
+		{
+			elem.value = 1;
+			return;
+		}
+		var lineqTable = document.getElementById("lineq_table_id");
+		var rows = lineqTable.getElementsByTagName("tr");
+		var colsnum = rows[0].getElementsByTagName("td").length;
+		if(colsnum - 1< number)
+		{
+			for(var i = 0; i < rows.length; i++)
+			{
+				var j = 0;
+				while(colsnum + j - 1 < number)
+				{
+					var newcol = rows[i].insertCell(rows[i].getElementsByTagName("td").length - 1);
+					newcol.innerHTML = "<input type='text' id='unknown" + (i+1).toString() + (colsnum + j).toString() +
+					   	"' size='2' maxlength='2'> $x_" + (colsnum + j).toString() + "$";
+					j++;
+				}
+			}
+		}
+		else if(colsnum > number)
+		{
+			for(var i = 0; i < rows.length; i++)
+			{
+				var j = 0;
+				while(colsnum - j - 1 > number)
+				{
+					rows[i].deleteCell(colsnum - 2 - j);
+					j++;
+				}
+			}
+		}
+	}
+
+	function submitMat() {
+		var system_str="$\\begin{cases}"; 
+		var lineqTable = document.getElementById("lineq_table_id");
+		var rows = lineqTable.getElementsByTagName("tr");
+		for(var i = 0; i < rows.length; i++)
+		{
+			var cols = rows[i].getElementsByTagName("td");
+			for(var j = 0; j < cols.length - 1; j++) 	
+			{
+				if(j != 0)
+					system_str+= " + ";
+				var val_str = document.getElementById("unknown" + (i+1).toString() + (j+1).toString()).value;
+				if(isNaN(val_str) || (val_str == ""))
+				{
+					window.alert("Invalid input. Please enter valid coefficients and constant terms!")
+					return;
+				}
+				system_str += val_str + "x_" + (j+1).toString();
+			}
+
+			system_str+= " = ";
+			var res_str = document.getElementById("result" + (i+1).toString()).value;
+			if(isNaN(res_str) || (res_str == ""))
+			{
+				window.alert("Invalid input. Please enter valid coefficients and constant terms!")
+				return;
+			}
+			system_str += document.getElementById("result" + (i+1).toString()).value;
+			system_str+= "\\\\";
+		}
+		system_str+="\\end{cases}$";
+		var added_input_div = document.getElementById("added_input_id");
+		added_input_div.innerHTML = "</br><b>The linear system you provided as input is:</b> </br></br>" + system_str + "</br></br>";
+		added_input_div.style.display = "block";
+		MainMenu.hide_input_box();
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	}
+	
+	return {
+		show : show,
+		hide : hide,
+		rows_num_changed : rows_num_changed,
+		cols_num_changed : cols_num_changed,
+		submitMat : submitMat
 	};
 }();
 
@@ -126,11 +285,11 @@ var LinEqPanel = function () {
 				for(var i = 1; i < colsnum; i++)
 				{	
 					var newcol = newrow.insertCell(-1);
-					newcol.innerHTML = "<input type='text' id='unknown" + rowsnum.toString() + i.toString() +
+					newcol.innerHTML = "<input type='text' id='unknown" + (rowsnum + j + 1).toString() + i.toString() +
 					   	"' size='2' maxlength='2'> $x_" + i.toString() + "$";
 				}
 				var newcol = newrow.insertCell(-1);
-				newcol.innerHTML = "<input type='text' id='result" + (rowsnum + j + 1).toString() + i.toString() +
+				newcol.innerHTML = "<input type='text' id='result" + (rowsnum + j + 1).toString() +
 				   	"' size='2' maxlength='2'> $b_" + (rowsnum + j + 1).toString() + "$";
 				newrow.appendChild(newcol);
 				j++;
@@ -185,14 +344,54 @@ var LinEqPanel = function () {
 			}
 		}
 	}
+
+	function submitSystem() {
+		var system_str="$\\begin{cases}"; 
+		var lineqTable = document.getElementById("lineq_table_id");
+		var rows = lineqTable.getElementsByTagName("tr");
+		for(var i = 0; i < rows.length; i++)
+		{
+			var cols = rows[i].getElementsByTagName("td");
+			for(var j = 0; j < cols.length - 1; j++) 	
+			{
+				if(j != 0)
+					system_str+= " + ";
+				var val_str = document.getElementById("unknown" + (i+1).toString() + (j+1).toString()).value;
+				if(isNaN(val_str) || (val_str == ""))
+				{
+					window.alert("Invalid input. Please enter valid coefficients and constant terms!")
+					return;
+				}
+				system_str += val_str + "x_" + (j+1).toString();
+			}
+
+			system_str+= " = ";
+			var res_str = document.getElementById("result" + (i+1).toString()).value;
+			if(isNaN(res_str) || (res_str == ""))
+			{
+				window.alert("Invalid input. Please enter valid coefficients and constant terms!")
+				return;
+			}
+			system_str += document.getElementById("result" + (i+1).toString()).value;
+			system_str+= "\\\\";
+		}
+		system_str+="\\end{cases}$";
+		var added_input_div = document.getElementById("added_input_id");
+		added_input_div.innerHTML = "</br><b>The linear system you provided as input is:</b> </br></br>" + system_str + "</br></br>";
+		added_input_div.style.display = "block";
+		MainMenu.hide_input_box();
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	}
 	
 	return {
 		show : show,
 		hide : hide,
 		lineq_num_changed : lineq_num_changed,
-		unknowns_num_changed : unknowns_num_changed
+		unknowns_num_changed : unknowns_num_changed,
+		submitSystem : submitSystem
 	};
 }();
+
 //command panel for group theory
 var GrpPanel = function () {
     var state_main_comm = "visible";
@@ -340,36 +539,14 @@ var GrpPanel = function () {
 		static_vars.group_type = group_selTag.options[group_selTag.selectedIndex].value;
 
 		//add to the main div
-		var grpDiv = document.getElementById("grp_div_id");
-		var group_propertyDiv_ = document.getElementById("group_property_div_id");
-		if((group_propertyDiv_ !== undefined) && (group_propertyDiv_ !== null))
-			grpDiv.removeChild(group_propertyDiv_);
-		var group_propertyDiv = document.createElement("div");
-		grpDiv.appendChild(group_propertyDiv);
-		group_propertyDiv.setAttribute("id", "group_property_div_id");
-		var property_tableTag = document.createElement("table");
-		property_tableTag.setAttribute("id", "grp_table_id");
-		property_tableTag.setAttribute("border", "1");
-		group_propertyDiv.appendChild(property_tableTag);
-
-		add_group_property("Group Type", static_vars.group_type);
-		add_group_property("Group Generators", static_vars.generators);
+		var added_input_div = document.getElementById("added_input_id");
+		added_input_div.innerHTML = "";
+		added_input_div.style.display = "block";
+		added_input_div.innerHTML = "</br> <b>The group provided as input is:</b> </br> </br>" + "Group Type: &nbsp;" +
+			static_vars.group_type + "</br>" + "Group Generators: &nbsp;" + static_vars.generators + "</br></br>";
 		group_commands_active = true;
+		MainMenu.hide_input_box();
 		return false;
-	}
-
-	function add_group_property(property, value) {
-		var property_tableTag = document.getElementById("grp_table_id");
-		var rowTag = document.createElement("tr");
-		var cell1Tag = document.createElement("td");
-		var cell2Tag = document.createElement("td");
-		var content1Tag = document.createTextNode(property);
-		var content2Tag = document.createTextNode(value);
-		cell1Tag.appendChild(content1Tag);
-		cell2Tag.appendChild(content2Tag);
-		rowTag.appendChild(cell1Tag);
-		rowTag.appendChild(cell2Tag);
-		property_tableTag.appendChild(rowTag);
 	}
 
 	function submit_grp_command(command) {
@@ -533,15 +710,17 @@ var Tooltip = function () {
 	var endalpha = 70, alpha = 0, timer = 20, speed = 10;
 	var tooltip;
 	var tooltip_map = new Object();
-	tooltip_map.lineq = "Enter the system of linear equations by first entering the number of equations ($m$) and unknowns ($n$) and then specifying the coefficients $x_1, x_2, ..., x_n$ and the constant terms $b_1, b_2, ..., b_m$."
-	tooltip_map.vectorfm_lineq = "Each unknown is viewed as an weight for a column vector in a linear combination."
-	tooltip_map.matrixfm_lineq = "Compute the matrix equation $Ax = b$, where A is the $m \\times n$ matrix of coefficients, $x$ is the unknowns column vector and $b$ is the constant terms column vector."
-	tooltip_map.lineq_dependence = "Check if the system is linear independent."
-	tooltip_map.solve_lineq = "Solve the linear system."
+	tooltip_map.vecmat = "Insert a vector or a matrix or an expression involving operations with both vectors and matrices.";
+	tooltip_map.LU_factorization = "Decompose the matrix as a product of a lower triangular matrix and an upper triangular matrix(LU factorization).";
+	tooltip_map.mat_determinant = "Compute the determinant (if it is a square matrix($n \\times n$)).";
+	tooltip_map.norm = "Specify and compute the norm for the inserted vector/matrix.";
+ 	tooltip_map.mat_inverse = "Compute the inverse of the matrix($A^{-1}$) if it is not singular.";
+	tooltip_map.lineq = "Enter the system of linear equations by first entering the number of equations ($m$) and unknowns ($n$) and then specifying the coefficients $x_1, x_2, ..., x_n$ and the constant terms $b_1, b_2, ..., b_m$.";
+	tooltip_map.solve_lineq = "Solve the linear system.";
 	tooltip_map.select = "Select a predefined group.";
 	tooltip_map.s3 = "Symmetric group of order 3.";
 	tooltip_map.d8 = "Dihedral group of order 8.";
-	tooltip_map.generator = "Generators are of the form (x1,x2,x3,...) which represents the permutation 1->x1, 2->x2, 3->x3, ...";
+	tooltip_map.generator = "Generators are of the form $(x_1,x_2,x_3,...)$ which represents the permutation 1->$x_1$, 2->$x_2$, 3->$x_3$, ...";
 	tooltip_map.source = "Visit the project repository on Google Code.";
 	tooltip_map.get_elem = "Compute the elements of the group.";
 	tooltip_map.get_center = "Compute the Center subgroup(elements that commute with all the elements of the group).";
