@@ -4,6 +4,6 @@
 
 @author ANDREI MILEA
 
-Custom http server used to connect the web GUI to the library.
+Custom http server used to connect the web GUI to the scientific computation library.
 
 */

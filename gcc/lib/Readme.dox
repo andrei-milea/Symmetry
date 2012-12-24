@@ -1,9 +1,9 @@
 /**
 
-@mainpage ABSTRACT ALGEBRA LIBRARY 
+@mainpage SYMMETRY 
 
 @author ANDREI MILEA
 
-Abstract algebra library targeting Group Theory written in c++.
+Computational library(numerical recipes, symbolic computation, etc).
 
 */
