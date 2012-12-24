@@ -1,0 +1,18 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{engine::cParamGrpGenParser\n|# m_GroupType\l|+ GetGroupType()\l+ GetGenerators()\l+ cParamGrpGenParser()\l+ ParseParams()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" group_type" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node2 [label="{engine::cParamGrpGenParser\l::group_type_\n||+ group_type_()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structengine_1_1cParamGrpGenParser_1_1group__type__.html"];
+  Node3 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_Params" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node3 [label="{std::string\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal",fontname="Helvetica"];
+  Node4 [label="{std::basic_string\<\l char \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node5 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_Generators" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node5 [label="{std::vector\< boost\l::any \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node6 -> Node5 [dir="back",color="orange",fontsize="10",style="solid",label=" \< boost::any \>" ,fontname="Helvetica"];
+  Node6 [label="{std::vector\< T \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node7 -> Node6 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond",fontname="Helvetica"];
+  Node7 [label="{T\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+}
