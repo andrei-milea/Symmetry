@@ -1,0 +1,6 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{cGroupElem\< T, BinaryOp \>\n|- m_BinOp\l|+ cGroupElem()\l+ cGroupElem()\l+ cGroupElem()\l+ cGroupElem()\l+ cGroupElem()\l+ cGroupElem()\l+ cGroupElem()\l+ operator=()\l+ ~cGroupElem()\l+ GetOrder()\land 7 more...\l- GetNthPower()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+}

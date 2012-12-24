@@ -1,0 +1,75 @@
+\hypertarget{classresultsDB_1_1cResultsDB}{\section{results\-D\-B\-:\-:c\-Results\-D\-B Class Reference}
+\label{classresultsDB_1_1cResultsDB}\index{results\-D\-B\-::c\-Results\-D\-B@{results\-D\-B\-::c\-Results\-D\-B}}
+}
+
+
+{\ttfamily \#include $<$results\-\_\-db.\-h$>$}
+
+
+
+Collaboration diagram for results\-D\-B\-:\-:c\-Results\-D\-B\-:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_a02d8a22f9d7aea2ee62385decb6e9c9e}{bool {\bfseries Get\-Result} (engine\-::\-C\-O\-M\-M\-A\-N\-D\-\_\-\-T\-Y\-P\-E command, const std\-::string \&params, std\-::string \&result)}\label{classresultsDB_1_1cResultsDB_a02d8a22f9d7aea2ee62385decb6e9c9e}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_a9e27cf265d98568c31252b6164e5f0e5}{void {\bfseries Save\-Result} (engine\-::\-C\-O\-M\-M\-A\-N\-D\-\_\-\-T\-Y\-P\-E command, const std\-::string \&params, const std\-::string \&result)}\label{classresultsDB_1_1cResultsDB_a9e27cf265d98568c31252b6164e5f0e5}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_a559abd644f2f1e2df8909bcf16fd2d07}{void {\bfseries Save\-D\-B} () const }\label{classresultsDB_1_1cResultsDB_a559abd644f2f1e2df8909bcf16fd2d07}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_a8f6921a15fc1e574f8a356352824a0e5}{static \hyperlink{classresultsDB_1_1cResultsDB}{c\-Results\-D\-B} $\ast$ {\bfseries Get\-Instance} ()}\label{classresultsDB_1_1cResultsDB_a8f6921a15fc1e574f8a356352824a0e5}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_ab0f4d48abc214a3156fadafd6ef4cd5c}{{\bfseries c\-Results\-D\-B} (const \hyperlink{classresultsDB_1_1cResultsDB}{c\-Results\-D\-B} \&)}\label{classresultsDB_1_1cResultsDB_ab0f4d48abc214a3156fadafd6ef4cd5c}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_abb3d112babc66b7f4fb4830ae10781f8}{\hyperlink{classresultsDB_1_1cResultsDB}{c\-Results\-D\-B} \& {\bfseries operator=} (const \hyperlink{classresultsDB_1_1cResultsDB}{c\-Results\-D\-B} \&)}\label{classresultsDB_1_1cResultsDB_abb3d112babc66b7f4fb4830ae10781f8}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_ab7f64a509aed66ef34c3edb2dc32877c}{std\-::size\-\_\-t {\bfseries Hash} (engine\-::\-C\-O\-M\-M\-A\-N\-D\-\_\-\-T\-Y\-P\-E command, const std\-::string \&params) const }\label{classresultsDB_1_1cResultsDB_ab7f64a509aed66ef34c3edb2dc32877c}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_a7e9e30b06267f3fccb1cfbc12888c9bd}{std\-::size\-\_\-t {\bfseries Get\-First\-Bits} (const std\-::size\-\_\-t hash) const }\label{classresultsDB_1_1cResultsDB_a7e9e30b06267f3fccb1cfbc12888c9bd}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_a7995d8db612f870c10e630ed3c7227ca}{unsigned int {\bfseries m\-\_\-\-Directory\-Sz}}\label{classresultsDB_1_1cResultsDB_a7995d8db612f870c10e630ed3c7227ca}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_afa72d39f2089001696d68130b24f6b84}{unsigned short {\bfseries m\-\_\-\-Index\-Bits\-Sz}}\label{classresultsDB_1_1cResultsDB_afa72d39f2089001696d68130b24f6b84}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_ac36f682079988ffe2fe6b448491ebb81}{std\-::vector$<$ std\-::size\-\_\-t $>$ {\bfseries m\-\_\-\-Directory}}\label{classresultsDB_1_1cResultsDB_ac36f682079988ffe2fe6b448491ebb81}
+
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_a9ef17deaa280d2b4768357b3756ae6c3}{\hyperlink{classresultsDB_1_1cLruHashMap}{c\-Lru\-Hash\-Map}$<$ std\-::size\-\_\-t, \\*
+std\-::unique\-\_\-ptr\\*
+$<$ \hyperlink{classresultsDB_1_1cResultsBucket}{c\-Results\-Bucket} $>$ $>$ {\bfseries m\-\_\-\-Lru\-Hash\-Map}}\label{classresultsDB_1_1cResultsDB_a9ef17deaa280d2b4768357b3756ae6c3}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cResultsDB_aa8a36a2445a905cc65b79990bdfb0fc7}{static \hyperlink{classresultsDB_1_1cResultsDB}{c\-Results\-D\-B} $\ast$ {\bfseries s\-\_\-\-Instance} = nullptr}\label{classresultsDB_1_1cResultsDB_aa8a36a2445a905cc65b79990bdfb0fc7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+database (based on dynamic hashing) for holding the results of previously received commands -- S\-I\-N\-G\-L\-E\-T\-O\-N 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+results\-\_\-db.\-h\item 
+results\-\_\-db.\-cpp\end{DoxyCompactItemize}
