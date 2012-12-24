@@ -1,0 +1,67 @@
+\hypertarget{classengine_1_1cThreadPool}{\section{engine\-:\-:c\-Thread\-Pool Class Reference}
+\label{classengine_1_1cThreadPool}\index{engine\-::c\-Thread\-Pool@{engine\-::c\-Thread\-Pool}}
+}
+
+
+{\ttfamily \#include $<$thread\-\_\-pool.\-h$>$}
+
+
+
+Collaboration diagram for engine\-:\-:c\-Thread\-Pool\-:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cThreadPool_a1cef23416a63c1a652d07b074a40b42e}{{\bfseries c\-Thread\-Pool} (unsigned int num\-\_\-threads)}\label{classengine_1_1cThreadPool_a1cef23416a63c1a652d07b074a40b42e}
+
+\item 
+\hypertarget{classengine_1_1cThreadPool_a97cf0269aebd226e59d973a89181d709}{void {\bfseries Start\-Pool} ()}\label{classengine_1_1cThreadPool_a97cf0269aebd226e59d973a89181d709}
+
+\item 
+\hypertarget{classengine_1_1cThreadPool_aeafab9fa5546e10b0deebff1e8df60d9}{void {\bfseries Stop\-Pool} ()}\label{classengine_1_1cThreadPool_aeafab9fa5546e10b0deebff1e8df60d9}
+
+\item 
+\hypertarget{classengine_1_1cThreadPool_a99a6a1dc9361e4c17786ad32b17e7706}{void {\bfseries Add\-To\-Command\-Queue} (boost\-::shared\-\_\-ptr$<$ \hyperlink{classengine_1_1cCommand}{c\-Command} $>$ \&command)}\label{classengine_1_1cThreadPool_a99a6a1dc9361e4c17786ad32b17e7706}
+
+\item 
+\hypertarget{classengine_1_1cThreadPool_a207b8bcf506d3cd151f0fc815772111c}{bool {\bfseries is\-Started} () const }\label{classengine_1_1cThreadPool_a207b8bcf506d3cd151f0fc815772111c}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{classengine_1_1cThreadPool_af573f11026d6b6079c56af7e50df5ca6}{Run} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cThreadPool_ae0439f245252951c72e929fcb5f12ea7}{boost\-::thread\-\_\-group {\bfseries m\-\_\-\-Thread\-Pool}}\label{classengine_1_1cThreadPool_ae0439f245252951c72e929fcb5f12ea7}
+
+\item 
+\hypertarget{classengine_1_1cThreadPool_a9e8295a610871d54220f068d447e4b3d}{\hyperlink{classengine_1_1cCommandQueue}{c\-Command\-Queue} {\bfseries m\-\_\-\-Command\-Queue}}\label{classengine_1_1cThreadPool_a9e8295a610871d54220f068d447e4b3d}
+
+\item 
+\hypertarget{classengine_1_1cThreadPool_a5a9ba1d9f84c6edf6312c358973c1e75}{volatile unsigned int {\bfseries m\-\_\-\-Num\-\_\-\-Threads}}\label{classengine_1_1cThreadPool_a5a9ba1d9f84c6edf6312c358973c1e75}
+
+\item 
+\hypertarget{classengine_1_1cThreadPool_a665b990bbfe85aa6dd9be2691373e2d7}{volatile bool {\bfseries m\-\_\-\-Started}}\label{classengine_1_1cThreadPool_a665b990bbfe85aa6dd9be2691373e2d7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+thread pool class uses a queue to hold the commands received 
+
+\subsection{Member Function Documentation}
+\hypertarget{classengine_1_1cThreadPool_af573f11026d6b6079c56af7e50df5ca6}{\index{engine\-::c\-Thread\-Pool@{engine\-::c\-Thread\-Pool}!Run@{Run}}
+\index{Run@{Run}!engine::cThreadPool@{engine\-::c\-Thread\-Pool}}
+\subsubsection[{Run}]{\setlength{\rightskip}{0pt plus 5cm}void engine\-::c\-Thread\-Pool\-::\-Run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [private]}}}\label{classengine_1_1cThreadPool_af573f11026d6b6079c56af7e50df5ca6}
+function that runs in all the threads waits until the queue is not empty and process incoming commands 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+thread\-\_\-pool.\-h\item 
+thread\-\_\-pool.\-cpp\end{DoxyCompactItemize}

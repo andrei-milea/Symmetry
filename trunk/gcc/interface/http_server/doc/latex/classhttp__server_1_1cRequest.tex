@@ -1,0 +1,87 @@
+\hypertarget{classhttp__server_1_1cRequest}{\section{http\-\_\-server\-:\-:c\-Request Class Reference}
+\label{classhttp__server_1_1cRequest}\index{http\-\_\-server\-::c\-Request@{http\-\_\-server\-::c\-Request}}
+}
+
+
+Collaboration diagram for http\-\_\-server\-:\-:c\-Request\-:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cRequest_aa3cadbdda5c1ad42a29f182bddc94fb1}{{\bfseries c\-Request} (std\-::istream \&stream)}\label{classhttp__server_1_1cRequest_aa3cadbdda5c1ad42a29f182bddc94fb1}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_ac9531a813f05222ee24c7a27d2ec90fd}{bool {\bfseries Parse\-Request} ()}\label{classhttp__server_1_1cRequest_ac9531a813f05222ee24c7a27d2ec90fd}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_ab623c396e4dbde0253c99c0a609f275f}{bool {\bfseries Parse\-Resource} ()}\label{classhttp__server_1_1cRequest_ab623c396e4dbde0253c99c0a609f275f}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a4526de1f0c6af63f325b540fa763330b}{std\-::vector$<$ \hyperlink{classhttp__server_1_1cHeader}{c\-Header} $\ast$ $>$ {\bfseries Parse\-Headers} ()}\label{classhttp__server_1_1cRequest_a4526de1f0c6af63f325b540fa763330b}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_af0c3d838c88fef758115eda75cd66835}{R\-E\-Q\-\_\-\-M\-E\-T\-H\-O\-D {\bfseries Get\-Method} () const }\label{classhttp__server_1_1cRequest_af0c3d838c88fef758115eda75cd66835}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a808d2f736c751db6d111d2cbb2458470}{const std\-::string \& {\bfseries Get\-Resource} () const }\label{classhttp__server_1_1cRequest_a808d2f736c751db6d111d2cbb2458470}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a9f1fbe83f22a917f75085326b96a5577}{const std\-::string \& {\bfseries Get\-Version} () const }\label{classhttp__server_1_1cRequest_a9f1fbe83f22a917f75085326b96a5577}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a51ccd6f85abf1eb131bd3e2c10ad2f59}{C\-O\-M\-M\-A\-N\-D\-\_\-\-T\-Y\-P\-E {\bfseries Get\-Command\-Id} () const }\label{classhttp__server_1_1cRequest_a51ccd6f85abf1eb131bd3e2c10ad2f59}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a386946841d675edc9dbf5fd81d8de046}{const std\-::string \& {\bfseries Get\-Param} () const }\label{classhttp__server_1_1cRequest_a386946841d675edc9dbf5fd81d8de046}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_ada8f38975ca9bb05bfe9b5b34aa985a5}{const unsigned int {\bfseries Get\-Session\-Id} () const }\label{classhttp__server_1_1cRequest_ada8f38975ca9bb05bfe9b5b34aa985a5}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cRequest_ab55878881ea0fad5b7801a7d3e67bc6f}{typedef \\*
+std\-::istreambuf\-\_\-iterator$<$ char $>$ {\bfseries base\-\_\-iterator\-\_\-type}}\label{classhttp__server_1_1cRequest_ab55878881ea0fad5b7801a7d3e67bc6f}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a4c4ef5da2042acec5d8f9ff9f0a432c3}{typedef \\*
+boost\-::spirit\-::multi\-\_\-pass\\*
+$<$ base\-\_\-iterator\-\_\-type $>$ {\bfseries forward\-\_\-iterator\-\_\-type}}\label{classhttp__server_1_1cRequest_a4c4ef5da2042acec5d8f9ff9f0a432c3}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a4702912c2025f7ce153f9ac68567b55c}{R\-E\-Q\-\_\-\-M\-E\-T\-H\-O\-D {\bfseries m\-\_\-\-Method}}\label{classhttp__server_1_1cRequest_a4702912c2025f7ce153f9ac68567b55c}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a4bd223196a1aa78de6ff2de4202232fa}{std\-::string {\bfseries m\-\_\-\-Resource}}\label{classhttp__server_1_1cRequest_a4bd223196a1aa78de6ff2de4202232fa}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_ab64ead387c97768aabc1bed343731153}{std\-::string {\bfseries m\-\_\-\-Version}}\label{classhttp__server_1_1cRequest_ab64ead387c97768aabc1bed343731153}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_aa1e6a65858e9cf26432add99470e4104}{std\-::string {\bfseries m\-\_\-\-Headers}}\label{classhttp__server_1_1cRequest_aa1e6a65858e9cf26432add99470e4104}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a2481a39733ba13124de865b30598a310}{C\-O\-M\-M\-A\-N\-D\-\_\-\-T\-Y\-P\-E {\bfseries m\-\_\-\-Command\-Id}}\label{classhttp__server_1_1cRequest_a2481a39733ba13124de865b30598a310}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a5320d5862827483c3f72c4fb385bcb16}{std\-::string {\bfseries m\-\_\-\-Param}}\label{classhttp__server_1_1cRequest_a5320d5862827483c3f72c4fb385bcb16}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a9c32df40a547799225a5ec41099fde53}{unsigned int {\bfseries m\-\_\-\-Session\-Id}}\label{classhttp__server_1_1cRequest_a9c32df40a547799225a5ec41099fde53}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_a346ff4a99509f28178aa3702a877d438}{forward\-\_\-iterator\-\_\-type {\bfseries m\-\_\-\-Fwd\-\_\-begin}}\label{classhttp__server_1_1cRequest_a346ff4a99509f28178aa3702a877d438}
+
+\item 
+\hypertarget{classhttp__server_1_1cRequest_ad9fb0f78ed6fca01cdcdc6b3b01ba519}{forward\-\_\-iterator\-\_\-type {\bfseries m\-\_\-\-Fwd\-\_\-end}}\label{classhttp__server_1_1cRequest_ad9fb0f78ed6fca01cdcdc6b3b01ba519}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+http\-\_\-request.\-h\item 
+http\-\_\-request.\-cpp\end{DoxyCompactItemize}

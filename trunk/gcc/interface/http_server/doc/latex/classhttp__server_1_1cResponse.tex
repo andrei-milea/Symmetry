@@ -1,0 +1,48 @@
+\hypertarget{classhttp__server_1_1cResponse}{\section{http\-\_\-server\-:\-:c\-Response Class Reference}
+\label{classhttp__server_1_1cResponse}\index{http\-\_\-server\-::c\-Response@{http\-\_\-server\-::c\-Response}}
+}
+
+
+Collaboration diagram for http\-\_\-server\-:\-:c\-Response\-:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cResponse_abdb27671f4818f6e6bcbc11530d18ebc}{{\bfseries c\-Response} (boost\-::asio\-::streambuf \&buffer)}\label{classhttp__server_1_1cResponse_abdb27671f4818f6e6bcbc11530d18ebc}
+
+\item 
+\hypertarget{classhttp__server_1_1cResponse_a4643375b14534fa335154c7a88884228}{void {\bfseries Build\-Response} (S\-T\-A\-T\-U\-S\-\_\-\-C\-O\-D\-E status\-\_\-code, const std\-::string \&resource\-\_\-body, const std\-::string resource\-\_\-type)}\label{classhttp__server_1_1cResponse_a4643375b14534fa335154c7a88884228}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\-::map$<$ S\-T\-A\-T\-U\-S\-\_\-\-C\-O\-D\-E, \\*
+std\-::string $>$ {\bfseries s\-\_\-\-Status\-Codes}
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classhttp__server_1_1cResponse_a26980e4d210c8f2e766d3ae987262160}{std\-::ostream {\bfseries m\-\_\-\-Response\-Stream}}\label{classhttp__server_1_1cResponse_a26980e4d210c8f2e766d3ae987262160}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{classhttp__server_1_1cResponse_a173245993bbac50f72d5a8528526cc26}{\index{http\-\_\-server\-::c\-Response@{http\-\_\-server\-::c\-Response}!s\-\_\-\-Status\-Codes@{s\-\_\-\-Status\-Codes}}
+\index{s\-\_\-\-Status\-Codes@{s\-\_\-\-Status\-Codes}!http_server::cResponse@{http\-\_\-server\-::c\-Response}}
+\subsubsection[{s\-\_\-\-Status\-Codes}]{\setlength{\rightskip}{0pt plus 5cm}std\-::map$<$ S\-T\-A\-T\-U\-S\-\_\-\-C\-O\-D\-E, std\-::string $>$ http\-\_\-server\-::c\-Response\-::s\-\_\-\-Status\-Codes\hspace{0.3cm}{\ttfamily [static]}}}\label{classhttp__server_1_1cResponse_a173245993bbac50f72d5a8528526cc26}
+{\bfseries Initial value\-:}
+\begin{DoxyCode}
+ boost::assign::map\_list\_of
+        (OK,\textcolor{stringliteral}{"200 OK"})
+        (ACCEPTED, \textcolor{stringliteral}{"202 Accepted"})
+        (BAD\_REQUEST, \textcolor{stringliteral}{"400 Bad Request"})
+        (NOT\_FOUND, \textcolor{stringliteral}{"404 Not Found"})
+        (NOT\_IMPLEMENTED, \textcolor{stringliteral}{"501 Not Implemented"})
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+http\-\_\-response.\-h\item 
+http\-\_\-response.\-cpp\end{DoxyCompactItemize}

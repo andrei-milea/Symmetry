@@ -1,0 +1,20 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{http_server::cPageBuilder\n|+ ResError\l- m_IdPosition\l- m_IdSize\l- m_ResultStr\l|+ GetIndexPage()\l+ GetPageResource()\l+ GetPage()\l+ GetLoadingPage()\l+ GetPlainContent()\l+ GetInstance()\l# cPageBuilder()\l# cPageBuilder()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node1 [color="grey25",fontsize="10",style="solid",label=" s_Instance" ,arrowhead="odiamond"];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_Resources" ,arrowhead="odiamond"];
+  Node2 [label="{std::map\< std::string,\l std::string \>\n|+ keys\l+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node2 [color="grey25",fontsize="10",style="solid",label=" keys\nelements" ,arrowhead="odiamond"];
+  Node3 [label="{std::string\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal"];
+  Node4 [label="{std::basic_string\<\l char \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node5 -> Node2 [dir="back",color="orange",fontsize="10",style="solid",label=" \< std::string, std\l::string \>" ];
+  Node5 [label="{std::map\< K, T \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node6 -> Node5 [color="grey25",fontsize="10",style="solid",label=" keys" ,arrowhead="odiamond"];
+  Node6 [label="{K\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node7 -> Node5 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node7 [label="{T\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node1 [color="grey25",fontsize="10",style="solid",label=" ResError\nm_ResultStr" ,arrowhead="odiamond"];
+}

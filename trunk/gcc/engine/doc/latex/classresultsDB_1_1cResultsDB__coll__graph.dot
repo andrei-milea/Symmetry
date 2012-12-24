@@ -1,0 +1,25 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{resultsDB::cResultsDB\n|- m_DirectorySz\l- m_IndexBitsSz\l|+ GetResult()\l+ SaveResult()\l+ SaveDB()\l+ GetInstance()\l- cResultsDB()\l- cResultsDB()\l- operator=()\l- Hash()\l- GetFirstBits()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_Directory" ,arrowhead="odiamond"];
+  Node2 [label="{std::vector\< std::size_t \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node2 [dir="back",color="orange",fontsize="10",style="solid",label=" \< std::size_t \>" ];
+  Node3 [label="{std::vector\< T \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node4 -> Node3 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node4 [label="{T\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node5 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_LruHashMap" ,arrowhead="odiamond"];
+  Node5 [label="{resultsDB::cLruHashMap\l\< std::size_t, std::unique\l_ptr\< cResultsBucket \> \>\n|- m_Size\l- m_Entries\l- m_HashTable\l|+ cLruHashMap()\l+ ~cLruHashMap()\l+ resize()\l+ insert()\l+ get()\l+ size()\l+ find()\l+ end()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classresultsDB_1_1cLruHashMap.html"];
+  Node6 -> Node5 [color="grey25",fontsize="10",style="solid",label=" m_ItemsList" ,arrowhead="odiamond"];
+  Node6 [label="{std::list\< std::pair\l\< std::size_t, std::unique\l_ptr\< cResultsBucket \> \> \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node7 -> Node6 [dir="back",color="orange",fontsize="10",style="solid",label=" \< std::pair\< std::size\l_t, std::unique_ptr\< cResults\lBucket \> \> \>" ];
+  Node7 [label="{std::list\< T \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node4 -> Node7 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node8 -> Node5 [dir="back",color="orange",fontsize="10",style="solid",label=" \< std::size_t, std\l::unique_ptr\< cResultsBucket \> \>" ];
+  Node8 [label="{resultsDB::cLruHashMap\l\< KEY, MAPPED \>\n|- m_Size\l- m_Entries\l- m_HashTable\l|+ cLruHashMap()\l+ ~cLruHashMap()\l+ resize()\l+ insert()\l+ get()\l+ size()\l+ find()\l+ end()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classresultsDB_1_1cLruHashMap.html"];
+  Node9 -> Node8 [color="grey25",fontsize="10",style="solid",label=" m_ItemsList" ,arrowhead="odiamond"];
+  Node9 [label="{std::list\< std::pair\l\< KEY, MAPPED \> \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node7 -> Node9 [dir="back",color="orange",fontsize="10",style="solid",label=" \< std::pair\< KEY, MAPPED \> \>" ];
+  Node1 -> Node1 [color="grey25",fontsize="10",style="solid",label=" s_Instance" ,arrowhead="odiamond"];
+}
