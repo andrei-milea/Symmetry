@@ -1,0 +1,15 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{cCayleyGrf\< G \>::cColour\lEdgesVis\< E, Grf \>\n||+ cColourEdgesVis()\l+ ~cColourEdgesVis()\l+ tree_edge()\l+ back_edge()\l+ forward_or_cross_edge()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_SpanningTree" ,arrowhead="odiamond"];
+  Node2 [label="{std::vector\< std::size_t \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node2 [dir="back",color="orange",fontsize="10",style="solid",label=" \< std::size_t \>" ];
+  Node3 [label="{std::vector\< T \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node4 -> Node3 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node4 [label="{T\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node5 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_UncolouredEdges" ,arrowhead="odiamond"];
+  Node5 [label="{std::vector\< E \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node5 [dir="back",color="orange",fontsize="10",style="solid",label=" \< E \>" ];
+}
