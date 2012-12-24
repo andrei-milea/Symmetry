@@ -64,41 +64,41 @@ Under Construction ...</br>
 		<li><a href="#">Algebra</a>
 		<ul>
 			<li><a href="#" onclick="MainMenu.add_grp_div()">Group Theory</a></li>
-			<li><a href="#" onclick="MainMenu.add_poly_div()">Polynomials</a></li>
+			<li><a href="#" onclick="MainMenu.add_poly_div()"><del>Polynomials</del></a></li>
 			<li><a href="#">Linear Algebra</a>
 			<ul>
+				<li><a href="#" onclick="MainMenu.add_vecmat_div()">Vectors and Matrices</a></li>
 				<li><a href="#" onclick="MainMenu.add_lineq_div()">Systems of Linear Equations</a></li>
-				<li><a href="#" onclick="MainMenu.add_linineq_div()">Systems of Linear Inequations</a></li>
-				<li><a href="#" onclick="MainMenu.add_linalg_div()">Vectors and Matrices</a></li>
+				<li><a href="#" onclick="MainMenu.add_feature_div()">Systems of Linear Inequations</a></li>
 			</ul>
 			</li>
 		</ul>
 		</li>
-		<li><a href="#">Calculus</a>
+		<li><a href="#"><del>Calculus</del></a>
 		<ul>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Function Graphing</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Trigonometric Functions</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Complex Numbers</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Differentiation</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Integration</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Differential Equations</a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Function Graphing</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Trigonometric Functions</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Complex Numbers</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Differentiation</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Integration</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Differential Equations</del></a></li>
 		</ul>
 		</li>
-		<li><a href="#">Geometry</a>
+		<li><a href="#"><del>Geometry</del></a>
 		<ul>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Drawing Pad</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Euclidean Geometry</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Hyperbolic Geometry</a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Drawing Pad</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Euclidean Geometry</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Hyperbolic Geometry</del></a></li>
 		</ul>
 		</li>
-		<li><a href="#">Probability Theory</a></li>
-		<li><a href="#">Physics</a>
+		<li><a href="#"><del>Probability Theory</del></a></li>
+		<li><a href="#"><del>Physics</del></a>
 		<ul>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Mechanics</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Optics</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Acoustics</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Thermodynamics</a></li>
-			<li><a href="#" onclick="MainMenu.add_linalg_div()">Electromagnetism</a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Mechanics</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Optics</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Acoustics</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Thermodynamics</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Electromagnetism</del></a></li>
 		</ul>
 		</li>
 	</ul>
@@ -113,115 +113,127 @@ Under Construction ...</br>
 
 <div id="command_panel" class="scommand_panel">
 
-<div id="group_commands_panel" class="sbutton" style= "display: none; ">
+	<div id="group_commands_panel" class="sbutton" style= "display: none; ">
 
-<div style="width:1px;height:125;background-color:black;float:left;position:relative;"></div>
-</br>
-<a id="command_get_elements" href="#" onmouseover="Tooltip.show('get_elem')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_ELEMENTS')">Group Elements</a> 
-</br>
-<a id="command_get_cgraph" href="#" onmouseover="Tooltip.show('get_cgraph')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_CGRAPH')">Cayley Graph</a> 
-</br>
-<a id="command_get_relations" href="#" onmouseover="Tooltip.show('get_rel')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_RELATIONS')">Group Relations</a> 
-</br>
-<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_CENTER')">Center Subgroup Elements</a> 
-</div>
+		<div style="width:1px;height:123;background-color:black;float:left;position:relative;"></div>
+		</br>
+		<a id="command_get_elements" href="#" onmouseover="Tooltip.show('get_elem')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_ELEMENTS')">Group Elements</a> 
+		</br>
+		<a id="command_get_cgraph" href="#" onmouseover="Tooltip.show('get_cgraph')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_CGRAPH')">Cayley Graph</a> 
+		</br>
+		<a id="command_get_relations" href="#" onmouseover="Tooltip.show('get_rel')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_RELATIONS')">Group Relations</a> 
+		</br>
+		<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_CENTER')">Center Subgroup Elements</a> 
+	</div>
 
-<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
-<div id='input_div_contents1_id'>
-&nbsp;&nbsp;&nbsp;
-<form onSubmit='return GrpPanel.submit_grp()'>
-<select id='grptype_sel_id' name='Group Type' onchange=''>
-	<option>Small Permutation Groups</option>
-</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-Select a small permutation group type: &nbsp;&nbsp;&nbsp;
-<select id='grp_sel_id' name='Group' onchange='GrpPanel.changeGrpType(this)'>
-	<option>Symmetric Group</option>
-	<option>Cyclic Group</option>
-	<option>Dihedral Group</option>
-</select>
-</br><hr /></br>
-<div id='generators_div_id'>
-Enter generator: &nbsp;&nbsp;&nbsp;
-<input type='text' id='generator_id'>
-&nbsp;&nbsp;&nbsp;
-<input type='button' value='Add' onclick='GrpPanel.add_generator()'>
-&nbsp;&nbsp;&nbsp;
-<------OR------>&nbsp;
-Add generators for predefined groups: &nbsp;&nbsp;&nbsp;
-<select id='Groups' size='1' onchange='GrpPanel.add_generators(this)'>
-	<option value=''></option>
-	<option value='S3'>S3</option>
-	<option value='S4'>S4</option>
-	<option value='D8'>D8</option>
-</select></br></br>
-</div>
-Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<select id='generators_id' size='5' style='Width:200' ></select>
-&nbsp;&nbsp;&nbsp;
-<input type='button' value='Clear' onclick='GrpPanel.clear_generators()'>
-</br></br>After adding the generators press &nbsp;&nbsp;&nbsp;
-<input type='submit' value='Ok'></form>
-</br>
-</div>
-</div>
+	<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+		<div id='input_div_contents1_id'>
+		&nbsp;&nbsp;&nbsp;
+		<form onSubmit='return GrpPanel.submit_grp()'>
+		<select id='grptype_sel_id' name='Group Type' onchange=''>
+			<option>Small Permutation Groups</option>
+		</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Select a small permutation group type: &nbsp;&nbsp;&nbsp;
+		<select id='grp_sel_id' name='Group' onchange='GrpPanel.changeGrpType(this)'>
+			<option>Symmetric Group</option>
+			<option>Cyclic Group</option>
+			<option>Dihedral Group</option>
+		</select>
+		</br></br><hr /></br>
+		<div id='generators_div_id'>
+		Enter generator: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='generator_id'>
+		&nbsp;&nbsp;&nbsp;
+		<input type='button' value='Add' onclick='GrpPanel.add_generator()'>
+		&nbsp;&nbsp;&nbsp;
+		<------OR------>&nbsp;
+		Add generators for predefined groups: &nbsp;&nbsp;&nbsp;
+		<select id='Groups' size='1' onchange='GrpPanel.add_generators(this)'>
+			<option value=''></option>
+			<option value='S3'>S3</option>
+			<option value='S4'>S4</option>
+			<option value='D8'>D8</option>
+		</select></br></br>
+		</div>
+		Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<select id='generators_id' size='5' style='Width:200' ></select>
+		&nbsp;&nbsp;&nbsp;
+		<input type='button' value='Clear' onclick='GrpPanel.clear_generators()'>
+		</br></br>After adding the generators press &nbsp;&nbsp;&nbsp;
+		<input type='submit' value='Ok'></form>
+		</br>
+		</div>
+	</div>
 
-<div id="lineq_commands_panel" class="sbutton" style= "display: none; ">
+	<div id="lineq_commands_panel" class="sbutton" style= "display: none; ">
 
-<div style="width:1px;height:125;background-color:black;float:left;position:relative;"></div>
-</br>
-<a id="command_dependence_lineq" href="#" onmouseover="Tooltip.show('lineq_dependence')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('DEPENDENCE_LINEQ_SYS')">Check linear independence</a> 
-</br>
-<a id="command_vectorfm_lineq_system" href="#" onmouseover="Tooltip.show('vectorfm_lineq')" onmouseout="Tooltip.hide()">Vector form</a> 
-</br>
-<a id="command_matrixfm_system" href="#" onmouseover="Tooltip.show('matrixfm_lineq')" onmouseout="Tooltip.hide()">Matrix form</a> 
-</br>
-<a id="command_solve_lineq_system" href="#" onmouseover="Tooltip.show('solve_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('SOLVE_LINEQ_SYS')">Solve system</a> 
-</br>
-</br>
-</div>
+		<div style="width:1px;height:65;background-color:black;float:left;position:relative;"></div>
+		</br>
+		<a id="command_solve_lineq_system" href="#" onmouseover="Tooltip.show('solve_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('SOLVE_LINEQ_SYS')">Solve system</a> 
+		</br></br></br></br></br>
+	</div>
 
-<div id='lineq_div_id' onmouseover="Tooltip.show('lineq')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
-<div id='input_div_contents_id'>
-</br>
-Number of equations: &nbsp;&nbsp;&nbsp;
-<input type='text' id='lineq_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.lineq_num_changed(this)">
-&nbsp;&nbsp;&nbsp;
-&nbsp;&nbsp;&nbsp;
-Number of unknowns: &nbsp;&nbsp;&nbsp;
-<input type='text' id='unknowns_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.unknowns_num_changed(this)">
-</br></br>
-<table id="lineq_table_id" border="1" cellspacing="10" align="center">
-<tr>
-<td><input type='text' id='unknown11' size='2' maxlength='2'> $x_1$</td>
-<td><input type='text' id='unknown12' size='2' maxlength='2'> $x_2$</td>
-<td><input type='text' id='unknown13' size='2' maxlength='2'> $x_3$</td>
-<td><input type='text' id='result1' size='2' maxlength='2'> $b_1$</td>
-</tr>
-<tr>
-<td><input type='text' id='unknown21' size='2' maxlength='2'> $x_1$</td>
-<td><input type='text' id='unknown22' size='2' maxlength='2'> $x_2$</td>
-<td><input type='text' id='unknown23' size='2' maxlength='2'> $x_3$</td>
-<td><input type='text' id='result2' size='2' maxlength='2'> $b_2$</td>
-</tr>
-<tr>
-<td><input type='text' id='unknown31' size='2' maxlength='2'> $x_1$</td>
-<td><input type='text' id='unknown32' size='2' maxlength='2'> $x_2$</td>
-<td><input type='text' id='unknown33' size='2' maxlength='2'> $x_3$</td>
-<td><input type='text' id='result3' size='2' maxlength='2'> $b_3$</td>
-</tr>
-</table>
-</br></br>After adding the system press &nbsp;&nbsp;&nbsp;
-<input type='submit' value='Ok'></form>
-</br>
-</div>
+	<div id='lineq_div_id' onmouseover="Tooltip.show('lineq')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+		<div id='input_div_contents_id'>
+		</br>
+		Number of equations: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='lineq_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.lineq_num_changed(this)">
+		&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;
+		Number of unknowns: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='unknowns_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.unknowns_num_changed(this)">
+		</br></br>
+		<table id="lineq_table_id" border="1" cellspacing="10" align="center">
+		<tr>
+		<td><input type='text' id='unknown11' size='2' maxlength='2'> $x_1$</td>
+		<td><input type='text' id='unknown12' size='2' maxlength='2'> $x_2$</td>
+		<td><input type='text' id='unknown13' size='2' maxlength='2'> $x_3$</td>
+		<td><input type='text' id='result1' size='2' maxlength='2'> $b_1$</td>
+		</tr>
+		<tr>
+		<td><input type='text' id='unknown21' size='2' maxlength='2'> $x_1$</td>
+		<td><input type='text' id='unknown22' size='2' maxlength='2'> $x_2$</td>
+		<td><input type='text' id='unknown23' size='2' maxlength='2'> $x_3$</td>
+		<td><input type='text' id='result2' size='2' maxlength='2'> $b_2$</td>
+		</tr>
+		<tr>
+		<td><input type='text' id='unknown31' size='2' maxlength='2'> $x_1$</td>
+		<td><input type='text' id='unknown32' size='2' maxlength='2'> $x_2$</td>
+		<td><input type='text' id='unknown33' size='2' maxlength='2'> $x_3$</td>
+		<td><input type='text' id='result3' size='2' maxlength='2'> $b_3$</td>
+		</tr>
+		</table>
+		</br></br>After adding the system press &nbsp;&nbsp;&nbsp;
+		<input type='submit' value='Ok' onclick="LinEqPanel.submitSystem()"></form>
+		</br>
+		</div>
+	</div>
 
-</div>
+	<div id="vecmat_commands_panel" class="sbutton" style= "display: none; ">
 
-<div id='button_div_id' style='text-align:center; display:none;'>
-&diams;
-<input id='inputbox_button' type='submit' value='Hide Input Box' onclick='MainMenu.toggle_input_box()'>
-&diams;
-</div>
+		<div style="width:1px;height:123;background-color:black;float:left;position:relative;"></div>
+		</br>
+		<a id="command_get_norm" href="#" onmouseover="Tooltip.show('norm')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_NORM')">Compute norm</a>
+		</br>
+		<a id="command_get_inverse" href="#" onmouseover="Tooltip.show('mat_inverse')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_INVERSE')">Compute inverse matrix</a> 
+		</br>
+		<a id="command_determinant" href="#" onmouseover="Tooltip.show('mat_determinant')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_DETERMINANT')">Compute determinant</a> 
+		</br>
+		<a id="command_LU_factorize" href="#" onmouseover="Tooltip.show('LU_factorization')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_LU')">Perform a LU factorization</a> 
+		</br>
+	</div>
+
+	<div id='vecmat_div_id' onmouseover="Tooltip.show('vecmat')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+	</div>
+
+	<div id='button_div_id' style='text-align:center; display:none;'>
+	&diams;
+	<input id='inputbox_button' type='submit' value='Hide Input Box' onclick='MainMenu.toggle_input_box()'>
+	&diams;
+	</div>
+
+	<div id='added_input_id' class='sinput_div_id' style='text-align:center; display:none;'>
+	</div>
 
 </div>
 
