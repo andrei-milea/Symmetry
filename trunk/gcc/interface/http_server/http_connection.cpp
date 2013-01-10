@@ -83,7 +83,12 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				cResponse response(m_ResponseBuf);
 				const std::string resource = cPageBuilder::GetInstance()->GetPageResource(
 				                                 _request.GetResource());
-				response.BuildResponse(OK, resource, "text/javascript");
+				if(std::string::npos != _request.GetResource().find("js"))
+					response.BuildResponse(OK, resource, "text/javascript");
+				else if(std::string::npos != _request.GetResource().find(".jpg"))
+					response.BuildResponse(OK, resource, "image/jpg");
+				else
+					response.BuildResponse(OK, resource, "text/javascript");
 			}
 			else
 			{

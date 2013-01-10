@@ -58,6 +58,8 @@ public:
 				pcommand = new cGetMatExprCommand(LinAlgParamParser.GetLinExpression());
 			}
 		}
+		else
+			throw std::runtime_error(CONTEXT_STR + "invalid command received :" + request_str);
 
 		return pcommand;
 	};
