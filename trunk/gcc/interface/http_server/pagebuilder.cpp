@@ -3,6 +3,7 @@
 #include "../../engine/groupgen_command.h"
 #include "../../engine/getcgraph_command.h"
 #include "../../engine/getrel_command.h"
+#include "../../engine/getmatexpr_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -101,61 +102,89 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 
 	//TODO --  change this
 	boost::shared_ptr<cGetCGraphCommand> command_cgraph = boost::dynamic_pointer_cast<cGetCGraphCommand>(pCommand);
-	boost::shared_ptr<cGroupGenCommand> command = boost::dynamic_pointer_cast<cGroupGenCommand>(pCommand);
+	boost::shared_ptr<cGroupGenCommand> command_groupgen = boost::dynamic_pointer_cast<cGroupGenCommand>(pCommand);
 	boost::shared_ptr<cGetRelCommand> command_rel = boost::dynamic_pointer_cast<cGetRelCommand>(pCommand);
-	GROUP_TYPE group_type = command->GetGroupType();
-	if(SYMMETRIC_GROUP == group_type || CYCLIC_GROUP == group_type || DIHEDRAL_GROUP == group_type)
+	boost::shared_ptr<cGetMatExprCommand> command_matexpr = boost::dynamic_pointer_cast<cGetMatExprCommand>(pCommand);
+
+	if(command_matexpr)
 	{
-		if(command_cgraph)
+		ss.str("");
+		m_ResultStr = "$\\begin{bmatrix} ";
+		boost::numeric::ublas::matrix<double> mat = command_matexpr->GetResult();
+		for(std::size_t rows_idx = 0; rows_idx < mat.size1(); rows_idx++)
 		{
-			m_ResultStr = "</br>Cayley Graph representation as adjacency list:</br>";
-			std::stringstream redirectstream;
-			std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
-			std::string str;
-			std::cout<<command_cgraph->GetResult();
-			while(std::getline(redirectstream, str))
-			{
-				ss<<str<<"</br>";
-			}
-			//put back the old stream buffer
-			std::cout.rdbuf(oldbuf);
-
-			m_ResultStr += ss.str();
-		}
-		else if(command_rel)
-		{
-			m_ResultStr = "</br>Defining Relations:</br></br>";
-			std::string str;
-			const std::vector<cGroupRelation> &relations = command_rel->GetResult();
-
-			ss.str("");
-			std::size_t index = 1;
-			for(auto rel_iter = relations.begin(); rel_iter != relations.end(); rel_iter++)
-			{
-				ss<<index<<". "<<*rel_iter<<"</br>";
-				index++;
-			}	
-			m_ResultStr += ss.str();
-		}
-		else if(command)
-		{
-			m_ResultStr = "</br>Group Elements: </br></br><ul id='list-elem'>";
-			std::string perm_str;
-			const std::vector<SymmGrpElem> &elements = command->GetResult();
-			for(std::size_t index = 0; index < elements.size(); index++)
+			for(std::size_t cols_idx = 0; cols_idx < mat.size2(); cols_idx++)
 			{
 				ss.str("");
-				ss<<elements[index];
-				perm_str = ss.str();
-				perm_str.replace(perm_str.find("\n"), 1, "</br>");
-				m_ResultStr += "<li>" + perm_str + "</li>";
+				ss<<mat(rows_idx, cols_idx);
+				m_ResultStr += ss.str(); 
+
+				if(cols_idx < mat.size2() - 1)
+					m_ResultStr += " & ";
 			}
-			m_ResultStr += "</ul>";
+
+			if(rows_idx < mat.size1() - 1)
+				m_ResultStr += " \\\\ ";
 		}
+		m_ResultStr += " \\end{bmatrix}$";
 	}
-	else
+	else if(command_cgraph)
 	{
-		throw std::runtime_error(CONTEXT_STR + "invalid group type");
+		GROUP_TYPE group_type = command_cgraph->GetGroupType();
+		if(SYMMETRIC_GROUP != group_type && CYCLIC_GROUP != group_type && DIHEDRAL_GROUP != group_type)
+			throw std::runtime_error(CONTEXT_STR + "invalid group type");
+
+		m_ResultStr = "</br>Cayley Graph representation as adjacency list:</br>";
+		std::stringstream redirectstream;
+		std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
+		std::string str;
+		std::cout<<command_cgraph->GetResult();
+		while(std::getline(redirectstream, str))
+		{
+			ss<<str<<"</br>";
+		}
+		//put back the old stream buffer
+		std::cout.rdbuf(oldbuf);
+
+		m_ResultStr += ss.str();
+	}
+	else if(command_rel)
+	{
+		GROUP_TYPE group_type = command_rel->GetGroupType();
+		if(SYMMETRIC_GROUP != group_type && CYCLIC_GROUP != group_type && DIHEDRAL_GROUP != group_type)
+			throw std::runtime_error(CONTEXT_STR + "invalid group type");
+
+		m_ResultStr = "</br>Defining Relations:</br></br>";
+		std::string str;
+		const std::vector<cGroupRelation> &relations = command_rel->GetResult();
+
+		ss.str("");
+		std::size_t index = 1;
+		for(auto rel_iter = relations.begin(); rel_iter != relations.end(); rel_iter++)
+		{
+			ss<<index<<". $"<<*rel_iter<<"$</br>";
+			index++;
+		}	
+		m_ResultStr += ss.str();
+	}
+	else if(command_groupgen)
+	{
+		GROUP_TYPE group_type = command_groupgen->GetGroupType();
+		if(SYMMETRIC_GROUP != group_type && CYCLIC_GROUP != group_type && DIHEDRAL_GROUP != group_type)
+			throw std::runtime_error(CONTEXT_STR + "invalid group type");
+
+		m_ResultStr = "</br>Group Elements: </br></br><ul id='list-elem'>";
+		std::string perm_str;
+		const std::vector<SymmGrpElem> &elements = command_groupgen->GetResult();
+		for(std::size_t index = 0; index < elements.size(); index++)
+		{
+			ss.str("");
+			ss<<elements[index];
+			perm_str = ss.str();
+			perm_str.replace(perm_str.find("\n"), 1, "</br>");
+			m_ResultStr += "<li>" + perm_str + "</li>";
+		}
+		m_ResultStr += "</ul>";
 	}
 	return m_ResultStr;
 };

@@ -26,6 +26,7 @@ using namespace boost::spirit::ascii;
 //				>> "\r\n" ;
 
 #define CRLF "\r\n"
+#define DBL_CRLF "\r\n\r\n"
 
 //parsing symbol table
 struct method_: symbols<char, short>
@@ -53,7 +54,12 @@ struct command_: symbols<char, short>
 		("GET_ELEMENTS", GET_ELEMENTS)
 		("GET_CENTER", GET_CENTER)
 		("GET_CGRAPH", GET_CGRAPH)
-		("GET_RELATIONS", GET_RELATIONS);
+		("GET_RELATIONS", GET_RELATIONS)
+		("GET_NORM", GET_NORM)
+		("GET_MAT_INVERSE", GET_MAT_INVERSE)
+		("GET_MAT_DETERMINANT", GET_MAT_DETERMINANT)
+		("GET_MAT_LU", GET_MAT_LU)
+		("GET_MAT_EXPR", GET_MAT_EXPR);
 	}
 } command;
 /************************************************************/
@@ -93,18 +99,36 @@ bool cRequest::ParseRequest()
 	return result;
 };
 
+bool cRequest::ParseHeaders()
+{
+	std::string first_part;
+	bool result =  parse(m_Headers.begin(), m_Headers.end(),
+				 //grammar
+				 (
 
-bool cRequest::ParseResource()
+	                (*(boost::spirit::ascii::char_ - lit(DBL_CRLF))
+					>>DBL_CRLF>>
+					*(boost::spirit::ascii::char_))
+				 )
+				 ///////
+				 ,
+				 first_part,
+				 m_Command
+				);
+	return result;
+};
+
+bool cRequest::ParseCommand()
 {
 	short command_type;
-	bool result =  parse(m_Resource.begin(), m_Resource.end(),
-	                     //gramar
+	bool result =  parse(m_Command.begin(), m_Command.end(),
+	                     //grammar
 	                     (
-	                         lit("/id=")
+	                         lit("id=")
 	                         >> int_
 	                         >>lit("command=") > command
 	                         >>lit("param=")
-	                         >(+~boost::spirit::ascii::char_(' '))
+	                         >(+boost::spirit::ascii::char_)
 	                     )
 	                     ///////
 	                     ,
@@ -115,5 +139,6 @@ bool cRequest::ParseResource()
 	m_CommandId = (COMMAND_TYPE)command_type;
 	return result;
 };
+
 
 }

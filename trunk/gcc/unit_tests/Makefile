@@ -33,7 +33,7 @@ test_lattice: test_lattice.cpp
 	#test_engine compilation
 	########################
 
-test_engine_main: test_engine.o estimate.o getelem_command.o getcenter_command.o getcgraph_command.o getrel_command.o session.o logger.o command_queue.o thread_pool.o
+test_engine_main: test_engine.o estimate.o getelem_command.o getcenter_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o session.o logger.o command_queue.o thread_pool.o
 	$(GCC) $^ $(LFLAGS) -o test_engine_main
 
 test_engine.o: test_engine.cpp
@@ -49,6 +49,9 @@ getcenter_command.o: ../engine/getcenter_command.cpp
 	$(GCC) $(CFLAGS) $<
 
 getcgraph_command.o: ../engine/getcgraph_command.cpp
+	$(GCC) $(CFLAGS) $<
+
+getmatexpr_command.o: ../engine/getmatexpr_command.cpp
 	$(GCC) $(CFLAGS) $<
 
 getrel_command.o: ../engine/getrel_command.cpp

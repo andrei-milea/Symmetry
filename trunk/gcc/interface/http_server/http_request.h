@@ -38,8 +38,9 @@ public:
 	~cRequest() {};
 
 	bool ParseRequest();
+	bool ParseHeaders();
 	bool ParseResource();
-	std::vector<cHeader*> ParseHeaders();
+	bool ParseCommand();
 
 	REQ_METHOD				GetMethod()const
 	{
@@ -64,19 +65,19 @@ public:
 	const std::string&		GetParam()const
 	{
 		return m_Param;
-	}
+	};
 
 	const unsigned int		GetSessionId()const
 	{
 		return m_SessionId;
 	};
 
-
 private:
 	REQ_METHOD                      m_Method;
 	std::string                     m_Resource;
 	std::string                     m_Version;
 	std::string                     m_Headers;
+	std::string						m_Command;
 	COMMAND_TYPE					m_CommandId;
 	std::string						m_Param;
 	unsigned int					m_SessionId;
