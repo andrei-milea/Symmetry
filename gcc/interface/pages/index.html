@@ -63,22 +63,25 @@ Under Construction ...</br>
 	<ul>
 		<li><a href="#">Algebra</a>
 		<ul>
-			<li><a href="#" onclick="MainMenu.add_grp_div()">Group Theory</a></li>
+			<li><a href="#">Abstract Algebra</a>
+			<ul>
+				<li><a href="#" onclick="MainMenu.add_grp_div()">Group Theory</a></li>
+				<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Rings and Ideals</del></a></li>
+			</ul>
+			</li>
 			<li><a href="#" onclick="MainMenu.add_poly_div()"><del>Polynomials</del></a></li>
 			<li><a href="#">Linear Algebra</a>
 			<ul>
 				<li><a href="#" onclick="MainMenu.add_vecmat_div()">Vectors and Matrices</a></li>
 				<li><a href="#" onclick="MainMenu.add_lineq_div()">Systems of Linear Equations</a></li>
-				<li><a href="#" onclick="MainMenu.add_feature_div()">Systems of Linear Inequations</a></li>
+				<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Linear optimizations</del></a></li>
 			</ul>
 			</li>
 		</ul>
 		</li>
 		<li><a href="#"><del>Calculus</del></a>
 		<ul>
-			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Function Graphing</del></a></li>
-			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Trigonometric Functions</del></a></li>
-			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Complex Numbers</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_feature_div()">Function Graphing</a></li>
 			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Differentiation</del></a></li>
 			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Integration</del></a></li>
 			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Differential Equations</del></a></li>
@@ -117,13 +120,13 @@ Under Construction ...</br>
 
 		<div style="width:1px;height:123;background-color:black;float:left;position:relative;"></div>
 		</br>
-		<a id="command_get_elements" href="#" onmouseover="Tooltip.show('get_elem')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_ELEMENTS')">Group Elements</a> 
+		<a id="command_get_elements" href="#" onmouseover="Tooltip.show('get_elem')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_ELEMENTS')">Group Elements</a> 
 		</br>
-		<a id="command_get_cgraph" href="#" onmouseover="Tooltip.show('get_cgraph')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_CGRAPH')">Cayley Graph</a> 
+		<a id="command_get_cgraph" href="#" onmouseover="Tooltip.show('get_cgraph')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_CGRAPH')">Cayley Graph</a> 
 		</br>
-		<a id="command_get_relations" href="#" onmouseover="Tooltip.show('get_rel')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_RELATIONS')">Group Relations</a> 
+		<a id="command_get_relations" href="#" onmouseover="Tooltip.show('get_rel')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_RELATIONS')">Group Relations</a> 
 		</br>
-		<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_grp_command('GET_CENTER')">Center Subgroup Elements</a> 
+		<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_CENTER')">Center Subgroup Elements</a> 
 	</div>
 
 	<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
@@ -224,6 +227,52 @@ Under Construction ...</br>
 	</div>
 
 	<div id='vecmat_div_id' onmouseover="Tooltip.show('vecmat')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+		<div id='input_div_contents_id'>
+
+		</br>
+		<select id='matrix_select_id' name='Select matrix input' style='font-size:16px; border: 2px solid; background: #FBFDFB' onchange='VecMatPanel.matrixSelection(this)'>
+			<option>Input a matrix</option>
+			<option>Input a vector (column matrix)</option>
+			<option>Input a matrix expression - linear combination (using latex)</option>
+		</select>
+
+		</br>
+		</br>
+		<div id='insert_matrix_id'>
+			Number of rows: &nbsp;&nbsp;&nbsp;
+			<input type='text' id='rows_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.rows_num_changed(this)">
+			&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;
+			Number of columns: &nbsp;&nbsp;&nbsp;
+			<input type='text' id='cols_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.cols_num_changed(this)">
+			</br></br>
+			<table id="mat_table_id" border="1" cellspacing="10" align="center">
+			<tr>
+			<td><input type='text' id='entry11' size='8' maxlength='8'></td>
+			<td><input type='text' id='entry12' size='8' maxlength='8'></td>
+			<td><input type='text' id='entry13' size='8' maxlength='8'></td>
+			</tr>
+			<tr>
+			<td><input type='text' id='entry21' size='8' maxlength='8'></td>
+			<td><input type='text' id='entry22' size='8' maxlength='8'></td>
+			<td><input type='text' id='entry23' size='8' maxlength='8'></td>
+			</tr>
+			<tr>
+			<td><input type='text' id='entry31' size='8' maxlength='8'></td>
+			<td><input type='text' id='entry32' size='8' maxlength='8'></td>
+			<td><input type='text' id='entry33' size='8' maxlength='8'></td>
+			</tr>
+			</table>
+			</div>
+
+			<div id='insert_matrix_expr_id' style="display: none;">
+			<textarea id='mat_expr_text_id' cols='40' rows='10'>$\left( \begin{bmatrix} 3 & 9 & 8 \\ 4 & 6 & 2 \\ 0.5 & 1 & 9\end{bmatrix} + \begin{bmatrix} 1 & 2 & 5 \\ 4 & 5 & 6 \\ -1 & 0.5 & -1 \end{bmatrix} \right) * \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix}$</textarea>
+			</div>
+		</br></br>After adding the input press &nbsp;&nbsp;&nbsp;
+		<input type='submit' value='Ok' onclick="VecMatPanel.submitMat()"></form>
+		</br>
+		</div>
+
 	</div>
 
 	<div id='button_div_id' style='text-align:center; display:none;'>

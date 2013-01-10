@@ -24,14 +24,32 @@ cEstimator						cHttpConnection::s_Estimator;
 
 typedef std::pair<std::size_t, cSession*> ses_pair;
 
+typedef boost::asio::buffers_iterator<boost::asio::streambuf::const_buffers_type> iterator;
+std::pair<iterator, bool> get_whole_http_message(iterator begin, iterator end)
+{
+	std::string bufstr(begin, end);
+	if(0 == (end - begin))
+		return std::make_pair(begin, false);
+	std::size_t len_iter = bufstr.find("Content-Length: ");
+	std::size_t delim_iter = bufstr.find("\r\n\r\n");
+	if(std::string::npos ==	len_iter  && std::string::npos != delim_iter)
+		return std::make_pair(end, true);
+	std::string lenpart = bufstr.substr(len_iter);
+	std::string lenstr = bufstr.substr(len_iter + 16, lenpart.find("\r\n"));
+	int body_sz = atoi(lenstr.c_str());
+	if((bufstr.begin() + delim_iter + 4 + body_sz) == bufstr.end())
+		return std::make_pair(end, true);
+
+	return std::make_pair(begin, false);
+};
+
 void cHttpConnection::HandleClient()
 {
 	//read
-	boost::asio::async_read_until(m_Socket, m_RequestBuf, "\r\n",
+	boost::asio::async_read_until(m_Socket, m_RequestBuf, get_whole_http_message,
 	                              boost::bind(&cHttpConnection::HandleRequest, shared_from_this(),
-	                                      boost::asio::placeholders::error));
+	                              boost::asio::placeholders::error));
 };
-
 
 void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 {
@@ -67,32 +85,48 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				                                 _request.GetResource());
 				response.BuildResponse(OK, resource, "text/javascript");
 			}
-			else //request is a command
+			else
 			{
 				cResponse response(m_ResponseBuf);
-				_request.ParseResource();
+				//assert(false);
+				//add new session
+				//cHttpConnection::s_Sessions.insert(ses_pair(ses_id, new cSession(ses_id)));
+
+				//const std::string index_page  = cPageBuilder::GetInstance()->GetIndexPage(ses_id);
+				response.BuildResponse(NOT_FOUND, "", "text/plain");
+				//response.BuildResponse(NOT_FOUND, "BAD_REQUEST");
+			}
+			boost::asio::async_write(m_Socket, m_ResponseBuf,
+			                        boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
+									boost::asio::placeholders::error));
+			break;
+		case POST_M:
+			{	//////////////the request is a command
+				cResponse response(m_ResponseBuf);
+				if( (false == _request.ParseHeaders()) || (false == _request.ParseCommand()) )
+				{
+					response.BuildResponse(NOT_FOUND, "", "text/plain");
+					boost::asio::async_write(m_Socket, m_ResponseBuf,
+									 boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
+									 boost::asio::placeholders::error));
+					return;
+				}
+					
 				unsigned int ses_id = _request.GetSessionId();
 
 				if(cHttpConnection::s_Sessions.find(ses_id)!=cHttpConnection::s_Sessions.end())
 				{
 					HandleExistingSession(response, _request, ses_id);
 				}
-				else //session lost or invalid request
+				else
 				{
-					//assert(false);
-					//add new session
-					//cHttpConnection::s_Sessions.insert(ses_pair(ses_id, new cSession(ses_id)));
-
-					//const std::string index_page  = cPageBuilder::GetInstance()->GetIndexPage(ses_id);
 					response.BuildResponse(NOT_FOUND, "", "text/plain");
-					//response.BuildResponse(NOT_FOUND, "BAD_REQUEST");
 				}
+
+				boost::asio::async_write(m_Socket, m_ResponseBuf,
+									 boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
+									 boost::asio::placeholders::error));
 			}
-			boost::asio::async_write(m_Socket, m_ResponseBuf,
-			                         boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
-			                                     boost::asio::placeholders::error));
-			break;
-		case POST_M:
 			break;
 		case HEAD_M:
 			break;

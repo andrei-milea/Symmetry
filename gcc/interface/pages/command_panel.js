@@ -1,3 +1,36 @@
+
+//global function that submits a command to the symmetry server
+//and returns its result -- used in all the componets
+XMLHttpRequest.prototype.sendAsBin = function(datastr) {
+	var ui8a = new Uint8Array(datastr.length);
+	for (var i = 0; i < datastr.length; i++) {
+			ui8a[i] = (datastr.charCodeAt(i) & 0xff);
+	}
+	this.send(ui8a.buffer);
+}
+
+function submitCommand (request) {
+	var xmlhttp;
+	if (window.XMLHttpRequest) {
+		// code for IE7+, Firefox, Chrome, Opera, Safari
+		xmlhttp=new XMLHttpRequest();
+	}
+	else {
+		// code for IE6, IE5
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+	} 
+
+	var sessionkeyTag = document.getElementById("session_key_id");
+
+	var _request = "id=" + sessionkeyTag.value + request;
+	xmlhttp.open("POST", self.location.hostname, false);
+	xmlhttp.setRequestHeader("Content-type", "text/plain; charset=US-ASCII");
+	//xmlhttp.setRequestHeader("Content-length", _request.length);
+	//xmlhttp.setRequestHeader("Connection", "close");
+	xmlhttp.sendAsBin(_request);
+	return xmlhttp.responseText;
+}
+
 var MainMenu = function () {
 	var current_panel = null;
 	var input_box_state = "hidden";
@@ -14,8 +47,7 @@ var MainMenu = function () {
 		var input_box_button = document.getElementById("inputbox_button");
 		input_box_button.value='Hide Input Box';
 		var all_divs = document.getElementsByTagName('div');
-		for(var i = 0; i < all_divs.length; i++)
-		{
+		for(var i = 0; i < all_divs.length; i++) {
 			if(all_divs[i].id.indexOf("input_div_contents") !== -1)
 				all_divs[i].style.display = "block"
 		}
@@ -27,8 +59,7 @@ var MainMenu = function () {
 		var input_box_button = document.getElementById("inputbox_button");
 		input_box_button.value="Show Input Box";
 		var all_divs = document.getElementsByTagName('div');
-		for(var i = 0; i < all_divs.length; i++)
-		{
+		for(var i = 0; i < all_divs.length; i++) {
 			if(all_divs[i].id.indexOf("input_div_contents") !== -1)
 				all_divs[i].style.display = "none"
 		}
@@ -108,6 +139,9 @@ var MainMenu = function () {
 }();
 
 var VecMatPanel = function () {
+	var mat_expr_computed = true;
+	var command_input_str = "";
+
 	function show() {
         var vecmat_command_panelDiv = document.getElementById("vecmat_commands_panel");
         var vecmatDiv = document.getElementById("vecmat_div_id");
@@ -124,41 +158,35 @@ var VecMatPanel = function () {
 
 	function rows_num_changed(elem) {
 		var number = parseInt(elem.value);
-		if(number <= 0)
-		{
+		if(number <= 0) {
 			elem.value = 1;
+			rows_num_changed(elem);
 			return;
 		}
-		var lineqTable = document.getElementById("lineq_table_id");
-		var rowsnum = lineqTable.getElementsByTagName("tr").length;
-		var colsnum = lineqTable.getElementsByTagName("tr")[0].getElementsByTagName("td").length;
-		if(rowsnum < number)
-		{
+		var matTable = document.getElementById("mat_table_id");
+		var rowsnum = matTable.getElementsByTagName("tr").length;
+		var colsnum = matTable.getElementsByTagName("tr")[0].getElementsByTagName("td").length;
+		if(rowsnum < number) {
 			var j = 0;
 			while(rowsnum + j < number)
 			{
-				var newrow = lineqTable.insertRow(-1);
+				var newrow = matTable.insertRow(-1);
  
-				for(var i = 1; i < colsnum; i++)
+				for(var i = 1; i <= colsnum; i++)
 				{	
 					var newcol = newrow.insertCell(-1);
-					newcol.innerHTML = "<input type='text' id='unknown" + (rowsnum + j + 1).toString() + i.toString() +
-					   	"' size='2' maxlength='2'> $x_" + i.toString() + "$";
+					newcol.innerHTML = "<input type='text' id='entry" + (rowsnum + j + 1).toString() + i.toString() +
+					   	"' size='8' maxlength='8'>";
 				}
-				var newcol = newrow.insertCell(-1);
-				newcol.innerHTML = "<input type='text' id='result" + (rowsnum + j + 1).toString() +
-				   	"' size='2' maxlength='2'> $b_" + (rowsnum + j + 1).toString() + "$";
-				newrow.appendChild(newcol);
 				j++;
 			}
 		}
-		else if(rowsnum > number) 
-		{
+		else if(rowsnum > number) {
 			var j = 0;
-			var rows = lineqTable.getElementsByTagName("tr");
+			var rows = matTable.getElementsByTagName("tr");
 			while(number < rowsnum - j)
 			{
-				lineqTable.deleteRow(-1);
+				matTable.deleteRow(-1);
 				j++;
 			}
 		}
@@ -166,86 +194,121 @@ var VecMatPanel = function () {
 
 	function cols_num_changed(elem) {
 		var number = parseInt(elem.value);
-		if(number <= 0)
-		{
+		if(number <= 0) {
 			elem.value = 1;
+			cols_num_changed(elem);
 			return;
 		}
-		var lineqTable = document.getElementById("lineq_table_id");
-		var rows = lineqTable.getElementsByTagName("tr");
+		var matTable = document.getElementById("mat_table_id");
+		var rows = matTable.getElementsByTagName("tr");
 		var colsnum = rows[0].getElementsByTagName("td").length;
-		if(colsnum - 1< number)
-		{
-			for(var i = 0; i < rows.length; i++)
-			{
+		if(colsnum - 1 < number) {
+			for(var i = 0; i < rows.length; i++) {
 				var j = 0;
-				while(colsnum + j - 1 < number)
-				{
-					var newcol = rows[i].insertCell(rows[i].getElementsByTagName("td").length - 1);
-					newcol.innerHTML = "<input type='text' id='unknown" + (i+1).toString() + (colsnum + j).toString() +
-					   	"' size='2' maxlength='2'> $x_" + (colsnum + j).toString() + "$";
+				while(colsnum + j < number) {
+					var newcol = rows[i].insertCell(-1);
+					newcol.innerHTML = "<input type='text' id='entry" + (i+1).toString() + (colsnum + j + 1).toString() +
+					   	"' size='8' maxlength='8'>";
 					j++;
 				}
 			}
 		}
-		else if(colsnum > number)
-		{
-			for(var i = 0; i < rows.length; i++)
-			{
+		else if(colsnum > number) {
+			for(var i = 0; i < rows.length; i++) {
 				var j = 0;
-				while(colsnum - j - 1 > number)
-				{
-					rows[i].deleteCell(colsnum - 2 - j);
+				while(colsnum - j > number) {
+					rows[i].deleteCell(colsnum - 1 - j);
 					j++;
 				}
 			}
 		}
+	}
+
+	function matrixSelection(select) {
+		if(select.value === "Input a matrix") {
+			var insert_matrix_div = document.getElementById("insert_matrix_id");
+			var insert_matrix_expr_div = document.getElementById("insert_matrix_expr_id");
+			insert_matrix_div.style.display = "block";
+			insert_matrix_expr_div.style.display = "none";
+		}
+		else if(select.value === "Input a vector (column matrix)") {
+			var insert_matrix_div = document.getElementById("insert_matrix_id");
+			var insert_matrix_expr_div = document.getElementById("insert_matrix_expr_id");
+			insert_matrix_div.style.display = "block";
+			insert_matrix_expr_div.style.display = "none";
+			var cols_number = document.getElementById("cols_number_id");
+			cols_number.value = 1;
+			cols_num_changed(cols_number);
+		}
+		else {//input a matrix expression
+			var insert_matrix_div = document.getElementById("insert_matrix_id");
+			var insert_matrix_expr_div = document.getElementById("insert_matrix_expr_id");
+			insert_matrix_div.style.display = "none";
+			insert_matrix_expr_div.style.display = "block";
+		}
+
 	}
 
 	function submitMat() {
-		var system_str="$\\begin{cases}"; 
-		var lineqTable = document.getElementById("lineq_table_id");
-		var rows = lineqTable.getElementsByTagName("tr");
-		for(var i = 0; i < rows.length; i++)
-		{
-			var cols = rows[i].getElementsByTagName("td");
-			for(var j = 0; j < cols.length - 1; j++) 	
-			{
-				if(j != 0)
-					system_str+= " + ";
-				var val_str = document.getElementById("unknown" + (i+1).toString() + (j+1).toString()).value;
-				if(isNaN(val_str) || (val_str == ""))
-				{
-					window.alert("Invalid input. Please enter valid coefficients and constant terms!")
-					return;
+		var insert_matrix_expr_div = document.getElementById("insert_matrix_expr_id");
+		if(insert_matrix_expr_div.style.display === "none") {
+			command_input_str="$\\begin{bmatrix}"; 
+			var matTable = document.getElementById("mat_table_id");
+			var rows = matTable.getElementsByTagName("tr");
+			for(var i = 0; i < rows.length; i++) {
+				var cols = rows[i].getElementsByTagName("td");
+				for(var j = 0; j < cols.length; j++) {
+					if(j != 0)
+						command_input_str+= " & ";
+					var val_str = document.getElementById("entry" + (i+1).toString() + (j+1).toString()).value;
+					if(isNaN(val_str) || (val_str == "")) {
+						window.alert("Invalid input. Please enter valid coefficients and constant terms!")
+						return;
+					}
+					command_input_str += val_str;
 				}
-				system_str += val_str + "x_" + (j+1).toString();
+				command_input_str+= "\\\\";
 			}
-
-			system_str+= " = ";
-			var res_str = document.getElementById("result" + (i+1).toString()).value;
-			if(isNaN(res_str) || (res_str == ""))
-			{
-				window.alert("Invalid input. Please enter valid coefficients and constant terms!")
+			command_input_str+="\\end{bmatrix}$";
+			var added_input_div = document.getElementById("added_input_id");
+			added_input_div.innerHTML = "</br><b>The matrix you provided as input is:</b> </br></br>" + command_input_str + "</br></br>";
+			added_input_div.style.display = "block";
+			MainMenu.hide_input_box();
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		}
+		else {
+			var mat_expr = document.getElementById("mat_expr_text_id");
+			var added_input_div = document.getElementById("added_input_id");
+			command_input_str = mat_expr.value;
+			var result = submit_command('GET_MAT_EXPR');
+			if(result.indexOf("$") === -1) {
+				alert("Invalid input: " + result + ".Please enter valid (la)tex code for a linear combination.");
 				return;
 			}
-			system_str += document.getElementById("result" + (i+1).toString()).value;
-			system_str+= "\\\\";
+			added_input_div.innerHTML = "</br><b>The matrix expression you provided as input is:</b> </br></br>" + mat_expr.value + "</br></br> <b>with the result: </b></br></br>" + result + "</br></br>";
+			added_input_div.style.display = "block";
+			MainMenu.hide_input_box();
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			mat_expr_computed = false;
 		}
-		system_str+="\\end{cases}$";
-		var added_input_div = document.getElementById("added_input_id");
-		added_input_div.innerHTML = "</br><b>The linear system you provided as input is:</b> </br></br>" + system_str + "</br></br>";
-		added_input_div.style.display = "block";
-		MainMenu.hide_input_box();
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
-	
+
+	function submit_command(command) {
+		var request = "command=" + command;
+		command_input_str = command_input_str.substr(1,command_input_str.length);
+		request += "param=" + command_input_str;
+		if(command === 'GET_MAT_EXPR')
+			return submitCommand(request);
+	}
+
 	return {
 		show : show,
 		hide : hide,
 		rows_num_changed : rows_num_changed,
 		cols_num_changed : cols_num_changed,
-		submitMat : submitMat
+		submitMat : submitMat,
+		matrixSelection : matrixSelection,
+		submit_command : submit_command
 	};
 }();
 
@@ -267,23 +330,20 @@ var LinEqPanel = function () {
 
 	function lineq_num_changed(elem) {
 		var number = parseInt(elem.value);
-		if(number <= 0)
-		{
+		if(number <= 0) {
 			elem.value = 1;
+			lineq_num_changed(elem);
 			return;
 		}
 		var lineqTable = document.getElementById("lineq_table_id");
 		var rowsnum = lineqTable.getElementsByTagName("tr").length;
 		var colsnum = lineqTable.getElementsByTagName("tr")[0].getElementsByTagName("td").length;
-		if(rowsnum < number)
-		{
+		if(rowsnum < number) {
 			var j = 0;
-			while(rowsnum + j < number)
-			{
+			while(rowsnum + j < number) {
 				var newrow = lineqTable.insertRow(-1);
  
-				for(var i = 1; i < colsnum; i++)
-				{	
+				for(var i = 1; i < colsnum; i++) {	
 					var newcol = newrow.insertCell(-1);
 					newcol.innerHTML = "<input type='text' id='unknown" + (rowsnum + j + 1).toString() + i.toString() +
 					   	"' size='2' maxlength='2'> $x_" + i.toString() + "$";
@@ -295,12 +355,10 @@ var LinEqPanel = function () {
 				j++;
 			}
 		}
-		else if(rowsnum > number) 
-		{
+		else if(rowsnum > number) {
 			var j = 0;
 			var rows = lineqTable.getElementsByTagName("tr");
-			while(number < rowsnum - j)
-			{
+			while(number < rowsnum - j) {
 				lineqTable.deleteRow(-1);
 				j++;
 			}
@@ -309,21 +367,18 @@ var LinEqPanel = function () {
 
 	function unknowns_num_changed(elem) {
 		var number = parseInt(elem.value);
-		if(number <= 0)
-		{
+		if(number <= 0) {
 			elem.value = 1;
+			unknowns_num_changed(elem);
 			return;
 		}
 		var lineqTable = document.getElementById("lineq_table_id");
 		var rows = lineqTable.getElementsByTagName("tr");
 		var colsnum = rows[0].getElementsByTagName("td").length;
-		if(colsnum - 1< number)
-		{
-			for(var i = 0; i < rows.length; i++)
-			{
+		if(colsnum - 1 < number) {
+			for(var i = 0; i < rows.length; i++) {
 				var j = 0;
-				while(colsnum + j - 1 < number)
-				{
+				while(colsnum + j - 1 < number) {
 					var newcol = rows[i].insertCell(rows[i].getElementsByTagName("td").length - 1);
 					newcol.innerHTML = "<input type='text' id='unknown" + (i+1).toString() + (colsnum + j).toString() +
 					   	"' size='2' maxlength='2'> $x_" + (colsnum + j).toString() + "$";
@@ -333,11 +388,9 @@ var LinEqPanel = function () {
 		}
 		else if(colsnum > number)
 		{
-			for(var i = 0; i < rows.length; i++)
-			{
+			for(var i = 0; i < rows.length; i++) {
 				var j = 0;
-				while(colsnum - j - 1 > number)
-				{
+				while(colsnum - j - 1 > number) {
 					rows[i].deleteCell(colsnum - 2 - j);
 					j++;
 				}
@@ -349,16 +402,13 @@ var LinEqPanel = function () {
 		var system_str="$\\begin{cases}"; 
 		var lineqTable = document.getElementById("lineq_table_id");
 		var rows = lineqTable.getElementsByTagName("tr");
-		for(var i = 0; i < rows.length; i++)
-		{
+		for(var i = 0; i < rows.length; i++) {
 			var cols = rows[i].getElementsByTagName("td");
-			for(var j = 0; j < cols.length - 1; j++) 	
-			{
+			for(var j = 0; j < cols.length - 1; j++) {
 				if(j != 0)
 					system_str+= " + ";
 				var val_str = document.getElementById("unknown" + (i+1).toString() + (j+1).toString()).value;
-				if(isNaN(val_str) || (val_str == ""))
-				{
+				if(isNaN(val_str) || (val_str == "")) {
 					window.alert("Invalid input. Please enter valid coefficients and constant terms!")
 					return;
 				}
@@ -367,8 +417,7 @@ var LinEqPanel = function () {
 
 			system_str+= " = ";
 			var res_str = document.getElementById("result" + (i+1).toString()).value;
-			if(isNaN(res_str) || (res_str == ""))
-			{
+			if(isNaN(res_str) || (res_str == "")) {
 				window.alert("Invalid input. Please enter valid coefficients and constant terms!")
 				return;
 			}
@@ -461,6 +510,10 @@ var GrpPanel = function () {
 		}
 		else if(grp_typeTag.value === "Cyclic Group") {
 			size = parseInt(sizeTag.value);
+			if(size > 20) {
+				alert("Maximum allowed group order is 20. Please enter a smaller order.");
+				return;
+			}
 			var perm = new Array();
 			for(i = 0; i < size-1; i++) {
 				perm[i] = i+2;
@@ -472,6 +525,10 @@ var GrpPanel = function () {
 		}
 		else if(grp_typeTag.value === "Dihedral Group") {
 			size = parseInt(sizeTag.value);
+			if(size > 20) {
+				alert("Maximum allowed size is 20. Please enter a smaller size.");
+				return;
+			}
 			var perm1 = new Array();
 			for(i = 0; i < size-1; i++) {
 				perm1[i] = i+2;
@@ -549,7 +606,7 @@ var GrpPanel = function () {
 		return false;
 	}
 
-	function submit_grp_command(command) {
+	function submit_command(command) {
 		if(group_commands_active === true) {
 			var group_types_map = new Object();
 			group_types_map["Symmetric Group"] = "SYMMETRIC_GROUP";
@@ -557,26 +614,11 @@ var GrpPanel = function () {
 			group_types_map["Dihedral Group"] = "DIHEDRAL_GROUP";
 
 			var request = new String();
-			var xmlhttp;
-			if (window.XMLHttpRequest) {
-				// code for IE7+, Firefox, Chrome, Opera, Safari
-				xmlhttp=new XMLHttpRequest();
-			}
-			else {
-				// code for IE6, IE5
-				xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-			} 
-
-			var sessionkeyTag = document.getElementById("session_key_id");
-
-			request = "id=" + sessionkeyTag.value;
 			request += "command=" + command;
 			request += "param=" + group_types_map[static_vars.group_type];
 			request	+= static_vars.generators;
-			xmlhttp.open("GET", request, false);
-			xmlhttp.send();
 			var main_view = document.getElementById("main_view_id");
-			main_view.innerHTML=xmlhttp.responseText;
+			main_view.innerHTML = submitCommand(request);
 			main_view.style.display = "block";
 			var canvasDiv = document.getElementById("canvas_id");
 			if(canvasDiv.style.display === "block") {
@@ -691,7 +733,7 @@ var GrpPanel = function () {
 
 	//public methods
 	return {
-		submit_grp_command : submit_grp_command,
+		submit_command : submit_command,
 		submit_grp : submit_grp,
 		add_generator : add_generator,
 		add_generators : add_generators,

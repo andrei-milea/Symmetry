@@ -1,5 +1,5 @@
-#ifndef _GROUPGEN_COMMAND
-#define _GROUPGEN_COMMAND
+#ifndef _GROUPGEN_COMMAND_H
+#define _GROUPGEN_COMMAND_H
 
 #include "command.h"
 #include "group_gen_parser.h"

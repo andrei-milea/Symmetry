@@ -5,6 +5,8 @@
 #include "getcenter_command.h"
 #include "getcgraph_command.h"
 #include "getrel_command.h"
+#include "linalg_parser.h"
+#include "getmatexpr_command.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -17,7 +19,12 @@ enum COMMAND_TYPE
     GET_ELEMENTS,
     GET_CENTER,
     GET_CGRAPH,
-	GET_RELATIONS
+	GET_RELATIONS,
+	GET_NORM,
+	GET_MAT_INVERSE,
+	GET_MAT_DETERMINANT,
+	GET_MAT_LU,
+	GET_MAT_EXPR
 };
 
 /*!
@@ -29,7 +36,7 @@ public:
 	static cCommand *GetCommand(COMMAND_TYPE command, const std::string& param)
 	{
 		cCommand *pcommand;
-		if(cCommandCreator::isGroupCommand(command))
+		if(command <= GET_RELATIONS)	//is group command
 		{
 			cParamGrpGenParser GenParamParser(param);
 			GenParamParser.ParseParams();
@@ -42,14 +49,18 @@ public:
 			else if(GET_RELATIONS)
 				pcommand = new cGetRelCommand(GenParamParser.GetGroupType(), GenParamParser.GetGenerators());
 		}
+		else if(command <= GET_MAT_EXPR)
+		{
+			cLinAlgParser LinAlgParamParser(param);
+			LinAlgParamParser.ParseParams();
+			if(GET_MAT_EXPR == command)
+			{
+				pcommand = new cGetMatExprCommand(LinAlgParamParser.GetLinExpression());
+			}
+		}
 
 		return pcommand;
 	};
-private:
-	static bool isGroupCommand(COMMAND_TYPE command)
-	{
-		return (command>4) ? false : true;
-	}
 };
 
 }
