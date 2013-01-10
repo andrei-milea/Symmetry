@@ -54,10 +54,11 @@
 
 </head>
 
-<body id="body_id" onload="WebGlContext.initWebGL()">
+<body id="body_id" onload="WebGlContext.initWebGL()" bgcolor="#DCE2E7">
 <input id="session_key_id" type="hidden" name="hidden" value="00">
 Under Construction ...</br>
 
+<div id="whole_page_id" class="swholepage">
 <div id="general_commands_panel" align="center">
 <nav>
 	<ul>
@@ -114,6 +115,9 @@ Under Construction ...</br>
 </br></br>
 </div>
 
+<div id="wiki_panel_id" class="swiki_panel">
+</div>
+
 <div id="command_panel" class="scommand_panel">
 
 	<div id="group_commands_panel" class="sbutton" style= "display: none; ">
@@ -129,6 +133,7 @@ Under Construction ...</br>
 		<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_CENTER')">Center Subgroup Elements</a> 
 	</div>
 
+	</br></br>
 	<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
 		<div id='input_div_contents1_id'>
 		&nbsp;&nbsp;&nbsp;
@@ -292,10 +297,13 @@ Under Construction ...</br>
 </div>
 <canvas id ='textCanvas' style="border: 1px solid #aaa; visibility: hidden;" width="512" height="64"></canvas>
 
+</div>
+
 <div align="center" id="final" style="text-align:center; position: fixed; bottom: 0;">
 
 Copyright © Andrei Milea 2011
 </div>
+
 </body>
 
 </html>

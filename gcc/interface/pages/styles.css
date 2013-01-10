@@ -1,4 +1,14 @@
 
+.swholepage{
+margin-left: 100;
+box-shadow: 9px 9px 9px rgba(0,0,0,0.20);
+border:1px solid #aaa;
+width: 1000;
+min-height: 95%;
+background: #ffffff; 
+}
+
+
 del{text-decoration:line-through;}
 
 /* navigation menu style*/
@@ -93,7 +103,7 @@ nav ul ul ul {
 .sbutton{
 padding: 0px;
 margin: 0px;
-margin-left: 20;
+margin-left: 100;
 border-right-style:solid;
 border-right-color:#FFF;
 border-right-width:3px;;
@@ -127,36 +137,48 @@ border-right-width:3px;
 
 .scommand_panel
 {
-margin-top: 10;
-margin-left: 20;
+margin-top: 15;
+margin-left: 18;
 position: relative;
+}
+
+.swiki_panel
+{
+margin-left: 500;
+width: 25em;
+position: absolute;
 }
 
 /*canvas style*/
 .scanvasdiv
 {
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+border-radius: 3px;  
 text-align: center;
 border:1px solid #aaa;
 margin-top: 20;
 margin-right: auto;
 margin-left: auto;
 position: relative;
-width: 800px; height: 800px;
+width: 800px; height: 630px;
+background-color: #F2F2F2;
 }
 .scanvas
 {
 margin-top: auto;
 margin-left: auto;
 margin-right: auto;
-width: 512px; height: 512px;
+width: 512px; height: 500;
 }
 
 .smain_view
 {
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+border-radius: 3px;  
 text-align: center;
 overflow: auto;
 border:1px solid #aaa;
-background: #FBFDFB;
+background-color: #F2F2F2;
 margin-top: 50;
 margin-right: auto;
 margin-left: auto;
@@ -166,12 +188,13 @@ width: 800; height: 50%;
 
 .sinput_div_id
 {
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+border-radius: 3px;  
 border:1px solid #aaa;
 text-align: center;
-background: #FBFDFB;
+background-color: #F2F2F2;
 margin-right: auto;
 margin-left: auto;
-/*width: 80%; height: 50%;*/
 width: 800; height: auto;
 margin-top: 50;
 position: relative;
@@ -180,6 +203,9 @@ padding-bottom: 0.1cm;
 
 #group_property_div_id
 {
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+background-color: #F2F2F2;
+border-radius: 3px;  
 text-align: center;
 position: relative;
 width: 50%;
@@ -196,7 +222,7 @@ border-top-right-radius: 18px 18px;
 font-size:14px;
 position: absolute;
 top: 20;
-margin-left: 400;
+margin-left: 350;
 display:block;
 width: 25em;
 padding:2% 2% 2% 2%;
@@ -270,7 +296,7 @@ input[type="button"]:hover, input[type="submit"]:hover
 	width: auto;
 	margin: 3px 3px;
 	padding: 3px 7px;
-	background: #ffffff;
+	background: #b8b8b8;
 	vertical-align: middle;
 	border: 1px Solid black;
  }
@@ -282,7 +308,7 @@ input[type="button"]:hover, input[type="submit"]:hover
 	width: auto;
 	margin: 3px 3px;
 	padding: 3px 7px;
-	background: #ffffff;
+	background: #b8b8b8;
 	vertical-align: middle;
 	border: 1px Solid black;
  }
@@ -294,7 +320,7 @@ input[type="button"]:hover, input[type="submit"]:hover
 	width: auto;
 	margin: 3px 3px;
 	padding: 3px 7px;
-	background: #ffffff;
+	background: #b8b8b8;
 	vertical-align: middle;
 	border: 1px Solid black;
  }

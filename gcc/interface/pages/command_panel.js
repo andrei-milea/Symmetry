@@ -73,6 +73,11 @@ var MainMenu = function () {
 		}
 		var button_div = document.getElementById("button_div_id");
 		button_div.style.display = "block";
+
+		//add wiki link
+		var wiki_panel_div = document.getElementById("wiki_panel_id");
+		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Group_(mathematics)' target='_blank'>Group Theory - Wikipedia</br><img src='Rubiks_cube.jpg' alt='Rubik cube(picture from wikipedia)' height='160' width='170'><\a>";
+		
 		GrpPanel.show();
 		current_panel = GrpPanel;
 		show_input_box();
@@ -85,6 +90,11 @@ var MainMenu = function () {
 		}
 		var button_div = document.getElementById("button_div_id");
 		button_div.style.display = "block";
+
+		//add wiki link
+		var wiki_panel_div = document.getElementById("wiki_panel_id");
+		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Matrix_(mathematics)' target='_blank'>Vectors and Matrices - Wikipedia</br><img src='linear_spaces.jpg' alt='Linear Spaces(picture from wikipedia)' height='160' width='170'><\a>";
+		
 		VecMatPanel.show();
 		current_panel = VecMatPanel;
 		show_input_box();
@@ -103,6 +113,11 @@ var MainMenu = function () {
 		}
 		var button_div = document.getElementById("button_div_id");
 		button_div.style.display = "block";
+
+		//add wiki link
+		var wiki_panel_div = document.getElementById("wiki_panel_id");
+		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/System_of_linear_equations' target='_blank'>Systems of Linear Equations - Wikipedia</br><img src='lineareq.jpg' alt='Linear Equations(picture from wikipedia)' height='160' width='170'><\a>";
+
 		LinEqPanel.show();
 		current_panel = LinEqPanel;
 		show_input_box();
@@ -285,6 +300,7 @@ var VecMatPanel = function () {
 				alert("Invalid input: " + result + ".Please enter valid (la)tex code for a linear combination.");
 				return;
 			}
+			command_input_str = result;
 			added_input_div.innerHTML = "</br><b>The matrix expression you provided as input is:</b> </br></br>" + mat_expr.value + "</br></br> <b>with the result: </b></br></br>" + result + "</br></br>";
 			added_input_div.style.display = "block";
 			MainMenu.hide_input_box();
@@ -296,9 +312,17 @@ var VecMatPanel = function () {
 	function submit_command(command) {
 		var request = "command=" + command;
 		command_input_str = command_input_str.substr(1,command_input_str.length);
+		if(0 === command_input_str.length)
+			alert("Please provide the input first(matrix, vector, linear combination).")
 		request += "param=" + command_input_str;
 		if(command === 'GET_MAT_EXPR')
 			return submitCommand(request);
+		else if(command === 'GET_NORM')
+		{
+			var main_view = document.getElementById("main_view_id");
+			main_view.innerHTML = submitCommand(request);
+			main_view.style.display = "block";
+		}
 	}
 
 	return {
@@ -667,10 +691,6 @@ var GrpPanel = function () {
 					canvasDiv.insertBefore(reflectTag, main_canvas);
 					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 					canvasDiv.insertBefore(permuTag, main_canvas);
-					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
-					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
-					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
-					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 					DihedralRep.startScene((generatorsTag.options[0].text.length - 1) / 2);
 				}
 			}
@@ -749,13 +769,13 @@ var GrpPanel = function () {
 
 
 var Tooltip = function () {
-	var endalpha = 70, alpha = 0, timer = 20, speed = 10;
+	var endalpha = 90, alpha = 0, timer = 20, speed = 10;
 	var tooltip;
 	var tooltip_map = new Object();
 	tooltip_map.vecmat = "Insert a vector or a matrix or an expression involving operations with both vectors and matrices.";
 	tooltip_map.LU_factorization = "Decompose the matrix as a product of a lower triangular matrix and an upper triangular matrix(LU factorization).";
 	tooltip_map.mat_determinant = "Compute the determinant (if it is a square matrix($n \\times n$)).";
-	tooltip_map.norm = "Specify and compute the norm for the inserted vector/matrix.";
+	tooltip_map.norm = "Compute the euclidean norm for the inserted vector.";
  	tooltip_map.mat_inverse = "Compute the inverse of the matrix($A^{-1}$) if it is not singular.";
 	tooltip_map.lineq = "Enter the system of linear equations by first entering the number of equations ($m$) and unknowns ($n$) and then specifying the coefficients $x_1, x_2, ..., x_n$ and the constant terms $b_1, b_2, ..., b_m$.";
 	tooltip_map.solve_lineq = "Solve the linear system.";
