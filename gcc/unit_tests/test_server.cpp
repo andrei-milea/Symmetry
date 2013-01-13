@@ -21,7 +21,8 @@ BOOST_AUTO_TEST_CASE(test_request)
 	std::stringstream input_stream(command);
 	cRequest request(input_stream);
 	BOOST_CHECK(request.ParseRequest());
-	BOOST_CHECK(request.ParseResource());
+	BOOST_CHECK(request.ParseHeaders());
+	BOOST_CHECK(request.ParseCommand());
 	BOOST_CHECK(12 == request.GetSessionId());
 	BOOST_CHECK(GET_ELEMENTS == request.GetCommandId());
 	BOOST_CHECK("HTTP/1.1" == request.GetVersion());

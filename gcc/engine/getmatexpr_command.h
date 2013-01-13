@@ -1,13 +1,15 @@
 #ifndef _GETMATEXPR_COMMAND_H
 #define _GETMATEXPR_COMMAND_H
 
-#include "linalg_command.h"
+#include "command.h"
 #include "linalg_parser.h"
+
+#include <boost/numeric/ublas/matrix.hpp>
 
 namespace engine
 {
 
-class cGetMatExprCommand : public cLinAlgCommand
+class cGetMatExprCommand : public cCommand
 {
 public:
 	cGetMatExprCommand(const sLinExpression &expr)
@@ -19,6 +21,10 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
+	const boost::numeric::ublas::matrix<double>& GetResult()const
+	{
+		return m_MatrixResult;
+	};
 	
 
 private:
@@ -27,6 +33,7 @@ private:
 	boost::variant<boost::numeric::ublas::matrix<double>, double> EvalFactor(const sLinFactor& factor);
 
 private:
+	boost::numeric::ublas::matrix<double> m_MatrixResult;
 	sLinExpression m_Expression;
 };
 
