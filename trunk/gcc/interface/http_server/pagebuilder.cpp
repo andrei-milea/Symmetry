@@ -4,6 +4,9 @@
 #include "../../engine/getcgraph_command.h"
 #include "../../engine/getrel_command.h"
 #include "../../engine/getmatexpr_command.h"
+#include "../../engine/getnorm_command.h"
+#include "../../engine/getdeterminant_command.h"
+#include "../../engine/getinverse_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -105,12 +108,30 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	boost::shared_ptr<cGroupGenCommand> command_groupgen = boost::dynamic_pointer_cast<cGroupGenCommand>(pCommand);
 	boost::shared_ptr<cGetRelCommand> command_rel = boost::dynamic_pointer_cast<cGetRelCommand>(pCommand);
 	boost::shared_ptr<cGetMatExprCommand> command_matexpr = boost::dynamic_pointer_cast<cGetMatExprCommand>(pCommand);
+	boost::shared_ptr<cGetNormCommand> command_norm = boost::dynamic_pointer_cast<cGetNormCommand>(pCommand);
+	boost::shared_ptr<cGetDeterminantCommand> command_determinant = boost::dynamic_pointer_cast<cGetDeterminantCommand>(pCommand);
+	boost::shared_ptr<cGetInverseCommand> command_inverse = boost::dynamic_pointer_cast<cGetInverseCommand>(pCommand);
 
-	if(command_matexpr)
+	if(command_norm || command_determinant)
+	{
+		ss.str("");
+		if(command_norm)
+			ss<<command_norm->GetResult();
+		else if(command_determinant)
+			ss<<command_determinant->GetResult();
+		m_ResultStr = "$ " + ss.str() + " $";
+	}
+	else if(command_matexpr || command_inverse || (command_determinant && command_determinant->isLuCommand()))
 	{
 		ss.str("");
 		m_ResultStr = "$\\begin{bmatrix} ";
-		boost::numeric::ublas::matrix<double> mat = command_matexpr->GetResult();
+		boost::numeric::ublas::matrix<double> mat;
+		if(command_matexpr)
+			mat = command_matexpr->GetResult();
+		else if(command_inverse)
+			mat = command_inverse->GetResult();
+		else if(command_determinant)
+			mat = command_determinant->GetLUMatrix();
 		for(std::size_t rows_idx = 0; rows_idx < mat.size1(); rows_idx++)
 		{
 			for(std::size_t cols_idx = 0; cols_idx < mat.size2(); cols_idx++)

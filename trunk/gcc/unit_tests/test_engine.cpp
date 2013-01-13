@@ -5,12 +5,12 @@
 #include <boost/numeric/ublas/io.hpp>
 
 
-/*
 #define BOOST_TEST_MODULE "test_engine"
 #include "boost/test/included/unit_test.hpp"
 
 using namespace boost::unit_test;
 using namespace engine;
+using namespace boost::numeric::ublas;
 
 typedef cGroupElem< cPermElem, Multiplication> SymmetricGrpGen;
 
@@ -129,20 +129,6 @@ BOOST_AUTO_TEST_SUITE(test_command_parser)//////////////////////////////////////
 
 BOOST_AUTO_TEST_CASE(test_linalg_parser)
 {
-	std::string params = "\\left( \\begin{bmatrix} 3 \\\\ 4 \\\\ 0.5 \\end{bmatrix} + \\begin{bmatrix} 1 & 2 & 5 \\\\ 4 & 5 & 6 \\\\ -1 & 0.5 & -1 \\end{bmatrix}\\right) * \\begin{bmatrix} 7 \\\\ 8 \\\\ 9 \\end{bmatrix}";
-	cLinAlgParser parser(params);
-	parser.ParseParams();
-	const sLinExpression expr = parser.GetLinExpression();
-}
-
-BOOST_AUTO_TEST_SUITE_END()//////////////////////////////////////////////////
-*/
-
-using namespace engine;
-using namespace boost::numeric::ublas;
-
-int main()
-{
 	std::string params = "\\left(\\begin{bmatrix} 3 & 9 & 8 \\\\ 4 & 6 & 2 \\\\ 0.5 & 1 & 9 \\end{bmatrix} + \\begin{bmatrix} 1 & 2 & 5 \\\\ 4 & 5 & 6 \\\\ -1 & 0.5 & -1 \\end{bmatrix}\\right) * \\begin{bmatrix} 7 \\\\ 8 \\\\ 9 \\end{bmatrix}";
 	cLinAlgParser parser(params);
 	parser.ParseParams();
@@ -150,6 +136,19 @@ int main()
 	cGetMatExprCommand command(expr);
 	command.Execute();
 	matrix<double> result = command.GetResult();
-	return 1;
 }
+
+BOOST_AUTO_TEST_SUITE_END()//////////////////////////////////////////////////
+
+//int main()
+//{
+//	std::string params = "\\left(\\begin{bmatrix} 3 & 9 & 8 \\\\ 4 & 6 & 2 \\\\ 0.5 & 1 & 9 \\end{bmatrix} + \\begin{bmatrix} 1 & 2 & 5 \\\\ 4 & 5 & 6 \\\\ -1 & 0.5 & -1 \\end{bmatrix}\\right) * \\begin{bmatrix} 7 \\\\ 8 \\\\ 9 \\end{bmatrix}";
+//	cLinAlgParser parser(params);
+//	parser.ParseParams();
+//	const sLinExpression expr = parser.GetLinExpression();
+//	cGetMatExprCommand command(expr);
+//	command.Execute();
+//	matrix<double> result = command.GetResult();
+//	return 1;
+//}
 

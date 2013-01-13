@@ -272,6 +272,8 @@ var VecMatPanel = function () {
 			var rows = matTable.getElementsByTagName("tr");
 			for(var i = 0; i < rows.length; i++) {
 				var cols = rows[i].getElementsByTagName("td");
+				if(i != 0)
+					command_input_str+= "\\\\";
 				for(var j = 0; j < cols.length; j++) {
 					if(j != 0)
 						command_input_str+= " & ";
@@ -282,7 +284,6 @@ var VecMatPanel = function () {
 					}
 					command_input_str += val_str;
 				}
-				command_input_str+= "\\\\";
 			}
 			command_input_str+="\\end{bmatrix}$";
 			var added_input_div = document.getElementById("added_input_id");
@@ -311,17 +312,60 @@ var VecMatPanel = function () {
 
 	function submit_command(command) {
 		var request = "command=" + command;
-		command_input_str = command_input_str.substr(1,command_input_str.length);
-		if(0 === command_input_str.length)
+		var _command_input_str = command_input_str.substr(1,command_input_str.length-1);
+		if(0 === _command_input_str.length) {
 			alert("Please provide the input first(matrix, vector, linear combination).")
-		request += "param=" + command_input_str;
-		if(command === 'GET_MAT_EXPR')
+		}
+		request += "param=" + _command_input_str;
+		if(command === 'GET_MAT_EXPR') {
 			return submitCommand(request);
-		else if(command === 'GET_NORM')
+		}
+		else if(command === 'GET_NORM') {
+			var main_view = document.getElementById("main_view_id");
+			var result = submitCommand(request);
+			if(-1 === result.indexOf("$")) {
+				alert("Invalid input. Please provide a valid vector to compute the euclidean norm.");
+			}
+			else {
+				main_view.innerHTML = "<b>euclidean norm: " + result + "</b>";
+				main_view.style.display = "block";
+			}
+		}
+		else if(command === 'GET_MAT_DETERMINANT')
 		{
 			var main_view = document.getElementById("main_view_id");
-			main_view.innerHTML = submitCommand(request);
-			main_view.style.display = "block";
+			var result = submitCommand(request);
+			if(-1 === result.indexOf("$")) {
+				alert("Invalid input. Please provide a valid square matrix for the determinant command.");
+			}
+			else {
+				main_view.innerHTML = "<b>determinant: " + result + "</b>";
+				main_view.style.display = "block";
+			}
+		}
+		else if(command === 'GET_MAT_INVERSE')
+		{
+			var main_view = document.getElementById("main_view_id");
+			var result = submitCommand(request);
+			if(-1 === result.indexOf("$")) {
+				alert("Invalid input. Please provide a valid square non-singular matrix for the inverse command.");
+			}
+			else {
+				main_view.innerHTML = "</br><b>inverse matrix: " + result + "</b>";
+				main_view.style.display = "block";
+			}
+		}
+		else if(command === 'GET_MAT_LU')
+		{
+			var main_view = document.getElementById("main_view_id");
+			var result = submitCommand(request);
+			if(-1 === result.indexOf("$")) {
+				alert("Invalid input. Please provide a valid matrix for the LU factorization.");
+			}
+			else {
+				main_view.innerHTML = "</br><b>LU matrix: " + result + "</b>";
+				main_view.style.display = "block";
+			}
 		}
 	}
 

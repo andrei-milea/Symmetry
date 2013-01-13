@@ -183,7 +183,9 @@ margin-top: 50;
 margin-right: auto;
 margin-left: auto;
 position: relative;
-width: 800; height: 50%;
+width: 800;
+min-height: 150;
+max-height: 500;
 }
 
 .sinput_div_id
