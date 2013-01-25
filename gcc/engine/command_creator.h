@@ -1,6 +1,7 @@
 #ifndef _COMMAND_CREATOR_H
 #define _COMMAND_CREATOR_H
 
+#include "command.h"
 #include "getelem_command.h"
 #include "getcenter_command.h"
 #include "getcgraph_command.h"
@@ -10,25 +11,13 @@
 #include "getnorm_command.h"
 #include "getdeterminant_command.h"
 #include "getinverse_command.h"
+#include "getrref_command.h"
+#include "getlinsyssol_command.h"
 
 #include <boost/shared_ptr.hpp>
 
 namespace engine
 {
-
-enum COMMAND_TYPE
-{
-    NULL_COMMAND = 0,
-    GET_ELEMENTS,
-    GET_CENTER,
-    GET_CGRAPH,
-	GET_RELATIONS,
-	GET_NORM,
-	GET_MAT_INVERSE,
-	GET_MAT_DETERMINANT,
-	GET_MAT_LU,
-	GET_MAT_EXPR
-};
 
 /*!
   implements the command creation using a variant of Factory method
@@ -62,13 +51,15 @@ public:
 				pcommand = new cGetNormCommand(LinAlgParamParser.GetLinExpression());
 			else if(GET_MAT_DETERMINANT == command)
 				pcommand = new cGetDeterminantCommand(LinAlgParamParser.GetLinExpression());
-			else if(GET_MAT_LU == command)
-				pcommand = new cGetDeterminantCommand(LinAlgParamParser.GetLinExpression(), true);
 			else if(GET_MAT_INVERSE == command)
 				pcommand = new cGetInverseCommand(LinAlgParamParser.GetLinExpression());
+			else if(GET_MAT_RREF == command)
+				pcommand = new cGetRREFCommand(LinAlgParamParser.GetLinExpression());
+			else if(SOLVE_LINEQ_SYS == command || APPROX_LINEQ_SYS == command || SOLVEG_LINEQ_SYS == command)
+				pcommand = new cGetLinSysSolCommand(LinAlgParamParser.GetLinExpression(), command);
 		}
 		else
-			throw std::runtime_error(CONTEXT_STR + "invalid command received :" + param);
+			throw std::invalid_argument(CONTEXT_STR + "invalid command received :" + param);
 
 		return pcommand;
 	};

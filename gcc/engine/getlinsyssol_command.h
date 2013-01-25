@@ -1,5 +1,5 @@
-#ifndef _GETDETERMINANT_COMMAND_H
-#define _GETDETERMINANT_COMMAND_H
+#ifndef _GETLINSYSSOL_COMMAND_H
+#define _GETLINSYSSOL_COMMAND_H
 
 #include "command.h"
 #include "linalg_parser.h"
@@ -11,35 +11,30 @@ namespace bnu = boost::numeric::ublas;
 namespace engine
 {
 
-class cGetDeterminantCommand : public cCommand
+class cGetLinSysSolCommand : public cCommand
 {
 public:
-	cGetDeterminantCommand(const sLinExpression &expr)
+	cGetLinSysSolCommand(const sLinExpression &expr, COMMAND_TYPE command)
 		:m_Expression(expr),
-		m_Result(0.0),
-		m_Trace(0.0)
+		m_CommandType(command)
 	{};
-	~cGetDeterminantCommand()	{};
+	~cGetLinSysSolCommand()	{};
 
 	void Execute();
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	double GetResult()const
+	const bnu::matrix<double>& GetResult()const
 	{	return m_Result;	};
-
-	double GetTrace()const
-	{	return m_Trace;	};
 
 private:
 	sLinExpression m_Expression;
-	double m_Result;
-	double m_Trace;
+	bnu::matrix<double> m_Result;
+	COMMAND_TYPE m_CommandType;
 };
 
 }
 
 #endif
-
 
 

@@ -1,4 +1,4 @@
-all: test_tree test_perm test_group_el test_symmetric test_std_ex test_cayley_grf test_group test_engine_main test_server_main test_results_db
+all: test_tree test_perm test_group_el test_symmetric test_std_ex test_cayley_grf test_group test_engine_main test_server_main test_results_db test_matrix
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
 BFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 LFLAGS =-lboost_system -pthread -lboost_thread-mt -lboost_date_time -lboost_iostreams -lboost_filesystem -lboost_random
@@ -22,6 +22,9 @@ test_std_ex: test_std_ex.cpp
 
 test_group: test_group.cpp
 	$(GCC) $(BFLAGS) test_group.cpp -o test_group
+
+test_matrix: test_matrix.cpp
+	$(GCC) $(BFLAGS) test_matrix.cpp -o test_matrix
 
 test_cayley_grf: test_cayley_grf.cpp
 	$(GCC) $(BFLAGS) test_cayley_grf.cpp -o test_cayley_grf
@@ -124,7 +127,7 @@ clean:
 	cd ../engine; make clean
 	cd ../interface/http_server; make clean
 	
-TESTS = test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main test_results_db
+TESTS = test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main test_results_db test_matrix
 #test_lattice 
 
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp

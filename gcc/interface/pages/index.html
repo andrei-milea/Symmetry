@@ -56,11 +56,20 @@
 
 <body id="body_id" onload="WebGlContext.initWebGL()" bgcolor="#DCE2E7">
 <input id="session_key_id" type="hidden" name="hidden" value="00">
-Under Construction ...</br>
+</br>
 
 <div id="whole_page_id" class="swholepage">
 <div id="general_commands_panel" align="center">
 <nav>
+	<ul onmouseover="Tooltip.show('sym_codes')" onmouseout="Tooltip.hide()">
+		<li><a href="#">Symmetry Codes</a>
+			<ul>
+				<li><a href="#"><del>New worksheet</del></a></li>
+				<li><a href="#"><del>Load worksheet...</del></a></li>
+			</ul>
+		</li>
+	</ul>
+	&nbsp;&nbsp;&nbsp;&nbsp;
 	<ul>
 		<li><a href="#">Algebra</a>
 		<ul>
@@ -95,7 +104,7 @@ Under Construction ...</br>
 			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Hyperbolic Geometry</del></a></li>
 		</ul>
 		</li>
-		<li><a href="#"><del>Probability Theory</del></a></li>
+		<li><a href="#"><del>Probabilities & Statistics</del></a></li>
 		<li><a href="#"><del>Physics</del></a>
 		<ul>
 			<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Mechanics</del></a></li>
@@ -108,11 +117,10 @@ Under Construction ...</br>
 	</ul>
 &nbsp;&nbsp;&nbsp;&nbsp;
 	<ul>
-		<li><a href="http://code.google.com/p/absalg/" target="_blank">Source Code</a></li>
-		<li><a href="#">About</a></li>
+		<li><a href="http://code.google.com/p/absalg/" target="_blank">About</a></li>
 	</ul>
 </nav>
-</br></br>
+</br>
 </div>
 
 <div id="wiki_panel_id" class="swiki_panel">
@@ -131,9 +139,10 @@ Under Construction ...</br>
 		<a id="command_get_relations" href="#" onmouseover="Tooltip.show('get_rel')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_RELATIONS')">Group Relations</a> 
 		</br>
 		<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_CENTER')">Center Subgroup Elements</a> 
+		</br>
+		</br>
 	</div>
 
-	</br></br>
 	<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
 		<div id='input_div_contents1_id'>
 		&nbsp;&nbsp;&nbsp;
@@ -175,9 +184,13 @@ Under Construction ...</br>
 
 	<div id="lineq_commands_panel" class="sbutton" style= "display: none; ">
 
-		<div style="width:1px;height:65;background-color:black;float:left;position:relative;"></div>
+		<div style="width:1px;height:80;background-color:black;float:left;position:relative;"></div>
 		</br>
 		<a id="command_solve_lineq_system" href="#" onmouseover="Tooltip.show('solve_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('SOLVE_LINEQ_SYS')">Solve system</a> 
+		</br>
+		<a id="command_approx_lineq_system" href="#" onmouseover="Tooltip.show('approx_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('APPROX_LINEQ_SYS')">Least Squares Approximation</a> 
+		</br>
+		<a id="command_solveg_lineq_system" href="#" onmouseover="Tooltip.show('solveg_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('SOLVEG_LINEQ_SYS')">General solution</a> 
 		</br></br></br></br></br>
 	</div>
 
@@ -219,16 +232,21 @@ Under Construction ...</br>
 
 	<div id="vecmat_commands_panel" class="sbutton" style= "display: none; ">
 
-		<div style="width:1px;height:123;background-color:black;float:left;position:relative;"></div>
+		<div style="width:1px;height:155;background-color:black;float:left;position:relative;"></div>
 		</br>
-		<a id="command_get_norm" href="#" onmouseover="Tooltip.show('norm')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_NORM')">Compute norm</a>
+		<a id="command_get_norm" href="#" onmouseover="Tooltip.show('norm')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_NORM')">Euclidean Norm</a>
 		</br>
-		<a id="command_get_inverse" href="#" onmouseover="Tooltip.show('mat_inverse')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_INVERSE')">Compute inverse matrix</a> 
+		<a id="command_get_inverse" href="#" onmouseover="Tooltip.show('mat_inverse')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_INVERSE')">Inverse Matrix</a> 
 		</br>
-		<a id="command_determinant" href="#" onmouseover="Tooltip.show('mat_determinant')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_DETERMINANT')">Compute determinant</a> 
+		<a id="command_determinant" href="#" onmouseover="Tooltip.show('mat_determinant')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_DETERMINANT')">Determinant and Trace</a> 
 		</br>
-		<a id="command_LU_factorize" href="#" onmouseover="Tooltip.show('LU_factorization')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_LU')">Perform a LU factorization</a> 
+		<a id="command_rref" href="#" onmouseover="Tooltip.show('mat_rref')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_RREF')">Reduced Echelon Form</a> 
 		</br>
+		<a id="command_gramsch" href="#" onmouseover="Tooltip.show('gramsch')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_QR')"><del>Orthogonalization</del></a> 
+		</br>
+		<a id="command_eigenvalues" href="#" onmouseover="Tooltip.show('eigenvalues')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_EIGENVALUES')"><del>Eigenvalues</del></a> 
+		</br>
+
 	</div>
 
 	<div id='vecmat_div_id' onmouseover="Tooltip.show('vecmat')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">

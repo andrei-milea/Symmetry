@@ -58,8 +58,11 @@ struct command_: symbols<char, short>
 		("GET_NORM", GET_NORM)
 		("GET_MAT_INVERSE", GET_MAT_INVERSE)
 		("GET_MAT_DETERMINANT", GET_MAT_DETERMINANT)
-		("GET_MAT_LU", GET_MAT_LU)
-		("GET_MAT_EXPR", GET_MAT_EXPR);
+		("GET_MAT_RREF", GET_MAT_RREF)
+		("GET_MAT_EXPR", GET_MAT_EXPR)
+		("SOLVE_LINEQ_SYS", SOLVE_LINEQ_SYS)
+		("APPROX_LINEQ_SYS", APPROX_LINEQ_SYS)
+		("SOLVEG_LINEQ_SYS", SOLVEG_LINEQ_SYS);
 	}
 } command;
 /************************************************************/

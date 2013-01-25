@@ -87,6 +87,8 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 					response.BuildResponse(OK, resource, "text/javascript");
 				else if(std::string::npos != _request.GetResource().find(".jpg"))
 					response.BuildResponse(OK, resource, "image/jpg");
+				else if(std::string::npos != _request.GetResource().find(".css"))
+					response.BuildResponse(OK, resource, "text/css");
 				else
 					response.BuildResponse(OK, resource, "text/javascript");
 			}
