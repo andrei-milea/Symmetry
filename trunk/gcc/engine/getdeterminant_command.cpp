@@ -19,12 +19,14 @@ void cGetDeterminantCommand::Execute()
 		throw std::runtime_error(CONTEXT_STR + " Invalid input. Provide a valid square matrix to compute the determinant.");
 
 	//add the matrix stored in row major order
-	m_LuMatrix.resize(cols_no, cols_no, false);
+	bnu::matrix<double> matrix(cols_no, cols_no);
 	for(std::size_t rows_idx = 0; rows_idx < cols_no; rows_idx++)
 		for(std::size_t cols_idx = 0; cols_idx < cols_no; cols_idx++)
-			m_LuMatrix(rows_idx, cols_idx) = mat->elements[cols_idx + rows_idx*cols_no];
+			matrix(rows_idx, cols_idx) = mat->elements[cols_idx + rows_idx*cols_no];
 
-	m_Result = get_determinant(m_LuMatrix);
+	for(std::size_t cols_idx = 0; cols_idx < cols_no; cols_idx++)
+		m_Trace += matrix(cols_idx, cols_idx);
+	m_Result = get_determinant(matrix);
 };
 
 unsigned int cGetDeterminantCommand::EstimateRunTime(const cEstimator &estimator)const

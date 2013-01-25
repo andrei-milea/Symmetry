@@ -4,7 +4,7 @@ CFLAGS =-c -std=c++0x -g -Wall -I /usr/include/boost
 LFLAGS =-lboost_system -pthread -lboost_thread-mt -lboost_date_time -lboost_filesystem
 GCC = g++
 
-main:	main.o http_server.o http_connection.o http_request.o http_response.o connection_manager.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o session.o logger.o command_queue.o thread_pool.o pagebuilder.o
+main:	main.o http_server.o http_connection.o http_request.o http_response.o connection_manager.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o getrref_command.o getlinsyssol_command.o session.o logger.o command_queue.o thread_pool.o pagebuilder.o
 	$(GCC) $^ $(LFLAGS) -o run 
 
 
@@ -51,6 +51,12 @@ getdeterminant_command.o: getdeterminant_command.cpp command.h
 	$(GCC) $(CFLAGS) $<
 
 getinverse_command.o: getinverse_command.cpp command.h 
+	$(GCC) $(CFLAGS) $<
+
+getrref_command.o: getrref_command.cpp command.h
+	$(GCC) $(CFLAGS) $<
+
+getlinsyssol_command.o: getlinsyssol_command.cpp command.h
 	$(GCC) $(CFLAGS) $<
 
 session.o: session.cpp session.h

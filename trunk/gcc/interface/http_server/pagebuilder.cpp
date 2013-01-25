@@ -7,6 +7,8 @@
 #include "../../engine/getnorm_command.h"
 #include "../../engine/getdeterminant_command.h"
 #include "../../engine/getinverse_command.h"
+#include "../../engine/getrref_command.h"
+#include "../../engine/getlinsyssol_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -111,17 +113,49 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	boost::shared_ptr<cGetNormCommand> command_norm = boost::dynamic_pointer_cast<cGetNormCommand>(pCommand);
 	boost::shared_ptr<cGetDeterminantCommand> command_determinant = boost::dynamic_pointer_cast<cGetDeterminantCommand>(pCommand);
 	boost::shared_ptr<cGetInverseCommand> command_inverse = boost::dynamic_pointer_cast<cGetInverseCommand>(pCommand);
+	boost::shared_ptr<cGetRREFCommand> command_rref = boost::dynamic_pointer_cast<cGetRREFCommand>(pCommand);
+	boost::shared_ptr<cGetLinSysSolCommand> command_lineq = boost::dynamic_pointer_cast<cGetLinSysSolCommand>(pCommand);
 
-	if(command_norm || command_determinant)
+	if(command_rref || command_lineq)
+	{
+		boost::numeric::ublas::matrix<double> mat;
+		mat = command_rref->GetResult();
+		m_ResultStr = "$\\begin{bmatrix} ";
+		for(std::size_t rows_idx = 0; rows_idx < mat.size1(); rows_idx++)
+		{
+			for(std::size_t cols_idx = 0; cols_idx < mat.size2(); cols_idx++)
+			{
+				ss.str("");
+				ss<<mat(rows_idx, cols_idx);
+				m_ResultStr += ss.str(); 
+
+				if(cols_idx < mat.size2() - 1)
+					m_ResultStr += " & ";
+			}
+
+			if(rows_idx < mat.size1() - 1)
+				m_ResultStr += " \\\\ ";
+		}
+		m_ResultStr += " \\end{bmatrix}$";
+	}
+	else if(command_norm || command_determinant)
 	{
 		ss.str("");
 		if(command_norm)
+		{
 			ss<<command_norm->GetResult();
+			m_ResultStr = "$ " + ss.str() + " $";
+		}
 		else if(command_determinant)
+		{
 			ss<<command_determinant->GetResult();
-		m_ResultStr = "$ " + ss.str() + " $";
+			m_ResultStr = "$ " + ss.str() + " , ";
+			ss.str("");
+			ss<<command_determinant->GetTrace();
+			m_ResultStr += ss.str() + " $";
+		}
 	}
-	else if(command_matexpr || command_inverse || (command_determinant && command_determinant->isLuCommand()))
+	else if(command_matexpr || command_inverse)
 	{
 		ss.str("");
 		m_ResultStr = "$\\begin{bmatrix} ";
@@ -130,8 +164,6 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 			mat = command_matexpr->GetResult();
 		else if(command_inverse)
 			mat = command_inverse->GetResult();
-		else if(command_determinant)
-			mat = command_determinant->GetLUMatrix();
 		for(std::size_t rows_idx = 0; rows_idx < mat.size1(); rows_idx++)
 		{
 			for(std::size_t cols_idx = 0; cols_idx < mat.size2(); cols_idx++)
@@ -194,7 +226,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		if(SYMMETRIC_GROUP != group_type && CYCLIC_GROUP != group_type && DIHEDRAL_GROUP != group_type)
 			throw std::runtime_error(CONTEXT_STR + "invalid group type");
 
-		m_ResultStr = "</br>Group Elements: </br></br><ul id='list-elem'>";
+		m_ResultStr = "</br>Elements: </br></br><ul id='list-elem'>";
 		std::string perm_str;
 		const std::vector<SymmGrpElem> &elements = command_groupgen->GetResult();
 		for(std::size_t index = 0; index < elements.size(); index++)

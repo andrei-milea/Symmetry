@@ -118,7 +118,7 @@ public:
 	{
 		assert(!m_GenSet.empty());
 		if(m_GenSet.empty())
-			throw;
+			throw std::logic_error("no generators provided");
 		if(m_GenSet.size() == 1)
 			return GetCyclicSubgroupEl(*m_GenSet.begin());
 

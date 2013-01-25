@@ -8,6 +8,10 @@
 
 namespace bnu = boost::numeric::ublas;
 
+/*!
+ computes the determinant by performing LUP factorization
+ and multiplying the diagonal
+*/
 template <typename T>
 T get_determinant(bnu::matrix<T>& matrix)
 {
@@ -32,6 +36,10 @@ T get_determinant(bnu::matrix<T>& matrix)
 	return determinant;
 };
 
+/*!
+ computes the inverse by performing LUP factorization
+ and back substitution
+*/
 template <typename T>
 bool get_inverse(bnu::matrix<T>& matrix, bnu::matrix<T>& inverse)
 {
@@ -42,10 +50,72 @@ bool get_inverse(bnu::matrix<T>& matrix, bnu::matrix<T>& inverse)
 		return false;
 	}	
 	inverse.assign(bnu::identity_matrix<T>(matrix.size1()));
+	//solve AX=I
 	bnu::lu_substitute(matrix, perm_matrix, inverse);
 	return true;
 };
 
+/*!
+ computes the row reduced echelon form by performing Gauss-Jordan elimination
+ with partial pivoting and replaces the input matrix with it
+*/
+template <typename T>
+void rref(bnu::matrix<T>& matrix)
+{
+	std::size_t pivot_col = 0;
+
+	for(std::size_t rows_idx = 0; rows_idx < matrix.size1(); rows_idx++)
+	{
+		if(pivot_col >= matrix.size2())
+			return;
+
+		//search for a pivot if needed
+		std::size_t rows1_idx = rows_idx;
+		while(matrix(rows1_idx, pivot_col) == 0.0)
+		{
+			rows1_idx++;
+			if(rows1_idx >= matrix.size1())
+			{
+				rows1_idx = rows_idx;
+				pivot_col++;
+				if(pivot_col >= matrix.size2())
+					return;
+			}
+		}
+
+		//swap rows if necessary
+		if(rows_idx != rows1_idx)
+		{
+			bnu::vector<T> temp = bnu::row(matrix, rows_idx);
+			bnu::row(matrix, rows_idx) = bnu::row(matrix, rows1_idx);
+			bnu::row(matrix, rows1_idx) = temp;
+		}
+
+		//divide the row by the pivot
+		T pivot = matrix(rows_idx, pivot_col);
+		for(std::size_t cols_idx = 0; cols_idx < matrix.size2(); cols_idx++)
+		{
+			assert(pivot != 0.0);
+			if(pivot != 1.0)
+				matrix(rows_idx, cols_idx) /= pivot;
+		}
+
+		//elimination
+		for(std::size_t rows2_idx = 0; rows2_idx < matrix.size1(); rows2_idx++)
+		{
+			if(rows2_idx != rows_idx)
+			{
+				T piv_elim = matrix(rows2_idx, pivot_col);
+				for(std::size_t cols_idx = 0; cols_idx < matrix.size2(); cols_idx++)
+				{
+					matrix(rows2_idx, cols_idx) -= piv_elim * matrix(rows_idx, cols_idx);
+				}
+			}
+		}
+		//std::cout<<matrix<<"\n";
+		pivot_col++;
+	}
+};
 
 #endif
 
