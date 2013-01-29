@@ -6,7 +6,7 @@ var WebGlContext = function() {
 		gl.fntTexture = gl.createTexture();
 		var context2D = document.getElementById('textCanvas').getContext('2d');	
 		context2D.font = 'normal 21px Times New Roman';
-		context2D.fillStyle = 'rgba(255,255,255,2)';
+		context2D.fillStyle = 'rgba(242,242,242,250)';
 		context2D.fillRect(0,0, 512, 64);
 		context2D.lineWidth = 2;
 		context2D.strokeStyle = 'rgba(0,0,0,255)';

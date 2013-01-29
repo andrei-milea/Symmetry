@@ -7,15 +7,15 @@ namespace engine
 void cGetLinSysSolCommand::Execute()
 {
 	if((1 != m_Expression.terms.size()) || (1 != m_Expression.terms[0].factors.size()))
-		throw std::runtime_error(CONTEXT_STR + " Invalid input. Provide a valid linear system.");
+		throw std::runtime_error("Invalid input. Provide a valid linear system.");
 	cMatrix *mat = boost::get<cMatrix >(&(m_Expression.terms[0].factors[0].factor));
 	if(nullptr == mat)
-		throw std::runtime_error(CONTEXT_STR + " Invalid input. Provide a valid linear system.");
+		throw std::runtime_error("Invalid input. Provide a valid linear system.");
 
 	double double_cols_no = mat->elements.size()/mat->rows_no;
 	std::size_t cols_no = mat->elements.size()/mat->rows_no;
 	if(double_cols_no != std::floor(double_cols_no))
-		throw std::runtime_error(CONTEXT_STR + " Invalid input. Provide a valid linear system.");
+		throw std::runtime_error("Invalid input. Provide a valid linear system.");
 
 	//add the matrix stored in row major order
 	m_Result.resize(mat->rows_no, cols_no);
@@ -24,18 +24,22 @@ void cGetLinSysSolCommand::Execute()
 			m_Result(rows_idx, cols_idx) = mat->elements[cols_idx + rows_idx*cols_no];
 
 	cLinEqSys<double> lin_eq_sys(m_Result);
+	bnu::vector<double> result;
 	if(SOLVE_LINEQ_SYS == m_CommandType || SOLVEG_LINEQ_SYS == m_CommandType)
 	{
-		bnu::vector<double> result = lin_eq_sys.SolveUnique();
-		m_Result.resize(result.size(),1);
-		for(std::size_t idx = 0; idx < result.size(); idx++)
-			m_Result(idx,0) = result(idx);
+		if(SOLVEG_LINEQ_SYS == m_CommandType)
+			throw std::runtime_error("Not implemented.");
+		result = lin_eq_sys.SolveUnique();
+		
 	}
 	else
 	{
 		assert(m_CommandType == APPROX_LINEQ_SYS);
-		//m_Result = lin_eq_sys.SolveUnderdetermined();
+		result = lin_eq_sys.SolveOverdetermined();
 	}
+	m_Result.resize(result.size(),1);
+	for(std::size_t idx = 0; idx < result.size(); idx++)
+		m_Result(idx,0) = result(idx);
 };
 
 unsigned int cGetLinSysSolCommand::EstimateRunTime(const cEstimator &estimator)const

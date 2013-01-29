@@ -18,10 +18,9 @@ class cLinEqSys
 {
 public:
 	cLinEqSys(const T **elems, std::size_t rows, std::size_t cols)
-		:m_Rows(rows),
-		m_Cols(cols)
 	{
 		//init coefficients matrix
+		m_CoeffMatrix.resize(rows,cols);
 		for(std::size_t row = 0; row < rows; row++)	
 		{
 			for(std::size_t col = 0; col < cols - 1; col++)
@@ -32,6 +31,7 @@ public:
 		}
 
 		//init vector of constant terms
+		m_ConstantTermVec.resize(rows);
 		for(std::size_t row = 0; row < rows; row++)	
 			m_ConstantTermVec(row) = elems[row][cols - 1];
 	};
@@ -39,11 +39,13 @@ public:
 	cLinEqSys(bnu::matrix<T>& mat)
 	{
 		//init coefficients matrix
+		m_CoeffMatrix.resize(mat.size1(),mat.size2() - 1);
 		for(std::size_t row = 0; row < mat.size1(); row++)	
 			for(std::size_t col = 0; col < mat.size2() - 1; col++)
 				m_CoeffMatrix(row, col) = mat(row, col);
 
 		//init right hand side
+		m_ConstantTermVec.resize(mat.size1());
 		for(std::size_t row = 0; row < mat.size1(); row++)	
 			m_ConstantTermVec(row) = mat(row, mat.size2() - 1);
 	};
@@ -58,10 +60,11 @@ public:
 	*/
 	bnu::vector<T>& SolveUnique()
 	{
-		assert(m_Rows == m_Cols);
-		bnu::permutation_matrix<T> pmMat(m_Rows);
+		if(m_CoeffMatrix.size1() != m_CoeffMatrix.size2())
+			throw std::logic_error("underdetermined or overdetermined system");
+		bnu::permutation_matrix<T> pmMat(m_CoeffMatrix.size1());
 		if(0 != lu_factorize(m_CoeffMatrix, pmMat))
-			throw std::logic_error("singular matrix");
+			throw std::logic_error("no solution, singular matrix");
 		bnu::lu_substitute(m_CoeffMatrix, pmMat, m_ConstantTermVec);
 		return m_ConstantTermVec;
 	};
@@ -74,12 +77,13 @@ public:
 	*/
 	bnu::vector<T> SolveOverdetermined()
 	{
-		assert(m_Rows > m_Cols);
+		if(m_CoeffMatrix.size1() < m_CoeffMatrix.size2())
+			throw std::logic_error("underdetermined system");
 		bnu::matrix<T> inverse;
 		bnu::matrix<T> temp = bnu::prod(bnu::trans(m_CoeffMatrix), m_CoeffMatrix);
 		if(false == get_inverse(temp, inverse))
-			throw std::logic_error("trans(A) * A should not be singular");
-		bnu::matrix<T> temp1 = bnu::prod(inverse, m_CoeffMatrix);
+			throw std::logic_error("no solution, trans(A) * A should not be singular");
+		bnu::matrix<T> temp1 = bnu::prod(inverse, bnu::trans(m_CoeffMatrix));
 		return bnu::prod(temp1, m_ConstantTermVec);
 	};
 
@@ -89,13 +93,11 @@ public:
 	*/
 	bool SolveUnderdetermined(std::vector<T>& solution)
 	{
-		assert(m_Rows > m_Cols);
+		assert(m_CoeffMatrix.size1() > m_CoeffMatrix.size2());
 		//TODO
 	};
 
 private:
-	std::size_t m_Rows;
-	std::size_t m_Cols;
 	bnu::matrix<T> m_CoeffMatrix;
 	bnu::vector<T> m_ConstantTermVec;
 };

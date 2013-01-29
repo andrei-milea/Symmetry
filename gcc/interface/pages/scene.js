@@ -12,7 +12,8 @@ var Scene = function() {
 
 	function initViewport() {
 		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-		gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		//gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+		gl.clearColor(242, 242, 242, 250);
 	}
 
 	function setGl(_gl) {

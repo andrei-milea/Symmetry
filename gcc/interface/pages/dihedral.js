@@ -2,7 +2,7 @@ var DihedralRep = function() {
 	var _scene = null;
 	var _polygon = null;
 
-	function startScene(size) {
+	function startAnim(size) {
 		if(_scene !== null) {
 			_scene.clearScene();
 		}
@@ -85,7 +85,7 @@ var DihedralRep = function() {
 	}
 
 	return {
-		startScene : startScene,
+		startAnim : startAnim,
 		RotatePolygon : RotatePolygon,
 		ReflectPolygon : ReflectPolygon,
 		isPendingMove : isPendingMove
