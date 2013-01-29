@@ -17,7 +17,7 @@ void cGetMatExprCommand::Execute()
 matrix<double> cGetMatExprCommand::ComputeExpression(const sLinExpression &expression)
 {
 	if((expression.terms.size() != 1) && (expression.terms.size() != expression.operations.size() + 1))
-			throw std::runtime_error(CONTEXT_STR + " Failed to parse expression. Invalid terms.");
+			throw std::runtime_error("Failed to parse expression. Invalid terms.");
 
 	if(1 == expression.terms.size())
 	{
@@ -42,13 +42,13 @@ matrix<double> cGetMatExprCommand::ComputeExpression(const sLinExpression &expre
 matrix<double> cGetMatExprCommand::EvalTerm(const sLinTerm& term)
 {
 	if((term.factors.size() != 1) && (term.factors.size() != term.operations.size() + 1))
-		throw std::runtime_error(CONTEXT_STR + " Failed to parse expression. Invalid terms.");
+		throw std::runtime_error("Failed to parse expression. Invalid terms.");
 	if(1 == term.factors.size())
 	{
 		boost::variant<matrix<double>, double> factor = EvalFactor(term.factors[0]);
 		matrix<double>* mat = boost::get<matrix<double> >(&factor);
 		if(nullptr == mat)
-			throw std::runtime_error(CONTEXT_STR + " Failed to parse expression. Invalid term.");
+			throw std::runtime_error("Failed to parse expression. Invalid term.");
 		return *mat;
 	}
 	
@@ -65,7 +65,7 @@ matrix<double> cGetMatExprCommand::EvalTerm(const sLinTerm& term)
 		MatrixResult = boost::get<matrix<double> > (&result_factor);
 		res_idx++;
 		if(res_idx == term.factors.size())
-			throw std::runtime_error(CONTEXT_STR + " Failed to parse expression. Invalid terms.");
+			throw std::runtime_error("Failed to parse expression. Invalid terms.");
 	}
 	if(res_idx != 0)
 	{
@@ -97,7 +97,7 @@ boost::variant<matrix<double>, double> cGetMatExprCommand::EvalFactor(const sLin
 		double double_cols_no = mat->elements.size()/mat->rows_no;
 		std::size_t cols_no = mat->elements.size()/mat->rows_no;
 		if(double_cols_no != std::floor(double_cols_no))
-			throw std::runtime_error(CONTEXT_STR + " Failed to parse expression. Invalid matrix.");
+			throw std::runtime_error("Failed to parse expression. Invalid matrix.");
 
 		//add the matrix stored in row major order
 		matrix<double> ResultMatrix(mat->rows_no, cols_no);

@@ -8,15 +8,15 @@ namespace engine
 void cGetDeterminantCommand::Execute()
 {
 	if((1 != m_Expression.terms.size()) || (1 != m_Expression.terms[0].factors.size()))
-		throw std::runtime_error(CONTEXT_STR + " Invalid input. Provide a valid square matrix to compute the determinant.");
+		throw std::runtime_error("Invalid input. Provide a valid square matrix to compute the determinant.");
 	cMatrix *mat = boost::get<cMatrix >(&(m_Expression.terms[0].factors[0].factor));
 	if(nullptr == mat)
-		throw std::runtime_error(CONTEXT_STR + " Invalid input. Provide a valid square matrix to compute the determinant.");
+		throw std::runtime_error("Invalid input. Provide a valid square matrix to compute the determinant.");
 
 	double double_cols_no = mat->elements.size()/mat->rows_no;
 	std::size_t cols_no = mat->elements.size()/mat->rows_no;
 	if((double_cols_no != std::floor(double_cols_no)) || (cols_no != mat->rows_no))
-		throw std::runtime_error(CONTEXT_STR + " Invalid input. Provide a valid square matrix to compute the determinant.");
+		throw std::runtime_error("Invalid input. Provide a valid square matrix to compute the determinant.");
 
 	//add the matrix stored in row major order
 	bnu::matrix<double> matrix(cols_no, cols_no);

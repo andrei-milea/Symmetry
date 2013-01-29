@@ -76,7 +76,7 @@ var MainMenu = function () {
 
 		//add wiki link
 		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Group_(mathematics)' target='_blank'>Group Theory - Wikipedia</br><img src='Rubiks_cube.jpg' alt='Rubik cube(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
+		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Group_(mathematics)' target='_blank'>Group Theory(Wikipedia)</br><img src='Rubiks_cube.jpg' alt='Rubik cube(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
 		
 		GrpPanel.show();
 		current_panel = GrpPanel;
@@ -93,7 +93,7 @@ var MainMenu = function () {
 
 		//add wiki link
 		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Matrix_(mathematics)' target='_blank'>Vectors and Matrices - Wikipedia</br><img src='linear_spaces.jpg' alt='Linear Spaces(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
+		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Matrix_(mathematics)' target='_blank'>Vectors and Matrices(Wikipedia)</br><img src='linear_spaces.jpg' alt='Linear Spaces(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
 		
 		VecMatPanel.show();
 		current_panel = VecMatPanel;
@@ -116,7 +116,7 @@ var MainMenu = function () {
 
 		//add wiki link
 		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/System_of_linear_equations' target='_blank'>Systems of Linear Equations - Wikipedia</br><img src='lineareq.jpg' alt='Linear Equations(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
+		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/System_of_linear_equations' target='_blank'>Systems of Linear Equations(Wikipedia)</br><img src='lineareq.jpg' alt='Linear Equations(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
 
 		LinEqPanel.show();
 		current_panel = LinEqPanel;
@@ -191,7 +191,7 @@ var VecMatPanel = function () {
 				{	
 					var newcol = newrow.insertCell(-1);
 					newcol.innerHTML = "<input type='text' id='entry" + (rowsnum + j + 1).toString() + i.toString() +
-					   	"' size='8' maxlength='8'>";
+					   	"' size='5' maxlength='15'>";
 				}
 				j++;
 			}
@@ -223,7 +223,7 @@ var VecMatPanel = function () {
 				while(colsnum + j < number) {
 					var newcol = rows[i].insertCell(-1);
 					newcol.innerHTML = "<input type='text' id='entry" + (i+1).toString() + (colsnum + j + 1).toString() +
-					   	"' size='8' maxlength='8'>";
+					   	"' size='5' maxlength='15'>";
 					j++;
 				}
 			}
@@ -324,7 +324,7 @@ var VecMatPanel = function () {
 			var main_view = document.getElementById("main_view_id");
 			var result = submitCommand(request);
 			if(-1 === result.indexOf("$")) {
-				alert("Invalid input. Please provide a valid vector to compute the euclidean norm.");
+				alert("error : " + result);
 				return;
 			}
 			else {
@@ -337,7 +337,7 @@ var VecMatPanel = function () {
 			var main_view = document.getElementById("main_view_id");
 			var result = submitCommand(request);
 			if(-1 === result.indexOf("$")) {
-				alert("Invalid input. Please provide a valid square matrix for the determinant command.");
+				alert("error : " + result);
 				return;
 			}
 			else {
@@ -351,7 +351,7 @@ var VecMatPanel = function () {
 			var main_view = document.getElementById("main_view_id");
 			var result = submitCommand(request);
 			if(-1 === result.indexOf("$")) {
-				alert("Invalid input. Please provide a valid square non-singular matrix for the inverse command.");
+				alert("error : " + result);
 				return;
 			}
 			else {
@@ -380,7 +380,7 @@ var VecMatPanel = function () {
 			var main_view = document.getElementById("main_view_id");
 			var result = submitCommand(request);
 			if(-1 === result.indexOf("$")) {
-				alert("Invalid input. Please provide a square matrix for computing the eigenvalues.");
+				alert("error : " + result);
 				return;
 			}
 			else {
@@ -439,11 +439,11 @@ var LinEqPanel = function () {
 				for(var i = 1; i < colsnum; i++) {	
 					var newcol = newrow.insertCell(-1);
 					newcol.innerHTML = "<input type='text' id='unknown" + (rowsnum + j + 1).toString() + i.toString() +
-					   	"' size='2' maxlength='2'> $x_" + i.toString() + "$";
+					   	"' size='5' maxlength='15'> $x_" + i.toString() + "$";
 				}
 				var newcol = newrow.insertCell(-1);
 				newcol.innerHTML = "<input type='text' id='result" + (rowsnum + j + 1).toString() +
-				   	"' size='2' maxlength='2'> $b_" + (rowsnum + j + 1).toString() + "$";
+				   	"' size='5' maxlength='15'> $b_" + (rowsnum + j + 1).toString() + "$";
 				newrow.appendChild(newcol);
 				j++;
 			}
@@ -474,7 +474,7 @@ var LinEqPanel = function () {
 				while(colsnum + j - 1 < number) {
 					var newcol = rows[i].insertCell(rows[i].getElementsByTagName("td").length - 1);
 					newcol.innerHTML = "<input type='text' id='unknown" + (i+1).toString() + (colsnum + j).toString() +
-					   	"' size='2' maxlength='2'> $x_" + (colsnum + j).toString() + "$";
+					   	"' size='5' maxlength='15'> $x_" + (colsnum + j).toString() + "$";
 					j++;
 				}
 			}
@@ -551,7 +551,7 @@ var LinEqPanel = function () {
 				alert("error : " + result);
 				return;
 			}
-			main_view.innerHTML = "<b>vector solution: " + result + "</b></br></br>";
+			main_view.innerHTML = "</br></br><b>vector solution: " + result + "</b></br></br>";
 			main_view.style.display = "block";
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		}
@@ -745,7 +745,7 @@ var GrpPanel = function () {
 			request += "param=" + group_types_map[static_vars.group_type];
 			request	+= static_vars.generators;
 			var main_view = document.getElementById("main_view_id");
-			main_view.innerHTML = submitCommand(request) + "</br></br>";
+			main_view.innerHTML = submitCommand(request);
 			main_view.style.display = "block";
 			var canvasDiv = document.getElementById("canvas_id");
 			if(canvasDiv.style.display === "block") {
@@ -794,7 +794,7 @@ var GrpPanel = function () {
 					canvasDiv.insertBefore(reflectTag, main_canvas);
 					canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 					canvasDiv.insertBefore(permuTag, main_canvas);
-					DihedralRep.startScene((generatorsTag.options[0].text.length - 1) / 2);
+					DihedralRep.startAnim((generatorsTag.options[0].text.length - 1) / 2);
 				}
 			}
 			window.onbeforeunload = function() { return "Your previous results will be lost !"; };
@@ -872,10 +872,10 @@ var GrpPanel = function () {
 
 
 var Tooltip = function () {
-	var endalpha = 70, alpha = 0, timer = 20, speed = 10;
+	var endalpha = 70, alpha = 0, timer = 20, speed = 5;
 	var tooltip;
 	var tooltip_map = new Object();
-	tooltip_map.solveg_lineq = "Solve an underdetermined system (obtain the general solution - $x_particular$ + nullspace).";
+	tooltip_map.solveg_lineq = "Solve an underdetermined system (obtain the general solution - $x_{particular}$ + nullspace).";
 	tooltip_map.gramsch = "Compute an orthonormal basis given a matrix with linearly independent columns (the Q matrix from the $A = Q R$ factorization using Gram-Schmidt).";
 	tooltip_map.mat_rref = "Compute the Row Reduced Echelon Form for the given matrix(Gaussian-Jordan elimination).";
 	tooltip_map.sym_codes = "Use the SYMMETRY INTERPRETED LANGUAGE directly in the browser to perform and develop advanced computations using the provided API.";
@@ -887,11 +887,7 @@ var Tooltip = function () {
  	tooltip_map.mat_inverse = "Compute the inverse of the matrix ($A^{-1}$) if it is not singular.";
 	tooltip_map.lineq = "Enter the system of linear equations by first entering the number of equations ($m$) and unknowns ($n$) and then specifying the coefficients $x_1, x_2, ..., x_n$ and the constant terms $b_1, b_2, ..., b_m$.";
 	tooltip_map.solve_lineq = "Solve the linear system if it has a single uniques solution.";
-	tooltip_map.select = "Select a predefined group.";
-	tooltip_map.s3 = "Symmetric group of order 3.";
-	tooltip_map.d8 = "Dihedral group of order 8.";
-	tooltip_map.generator = "Generators are of the form $(x_1,x_2,x_3,...)$ which represents the permutation 1->$x_1$, 2->$x_2$, 3->$x_3$, ...";
-	tooltip_map.source = "Visit the project repository on Google Code.";
+	tooltip_map.generator = "Generators should be provided as a permutation array $(x_1,x_2,x_3,...)$ which represents the permutation 1->$x_1$, 2->$x_2$, 3->$x_3$, ...";
 	tooltip_map.get_elem = "Compute the elements of the group.";
 	tooltip_map.get_center = "Compute the Center subgroup (elements that commute with all the elements of the group).";
 	tooltip_map.get_cgraph = "Compute the Cayley graph of the group (colored directed graph).";

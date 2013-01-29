@@ -48,7 +48,8 @@ bool get_inverse(bnu::matrix<T>& matrix, bnu::matrix<T>& inverse)
 	if(bnu::lu_factorize(matrix, perm_matrix))
 	{
 		return false;
-	}	
+	}
+	inverse.resize(matrix.size1(), matrix.size1());
 	inverse.assign(bnu::identity_matrix<T>(matrix.size1()));
 	//solve AX=I
 	bnu::lu_substitute(matrix, perm_matrix, inverse);

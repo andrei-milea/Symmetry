@@ -104,6 +104,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 {
 	m_ResultStr.clear();
 	std::stringstream ss;
+	ss.precision(std::numeric_limits<double>::digits10);
 
 	//TODO --  change this
 	boost::shared_ptr<cGetCGraphCommand> command_cgraph = boost::dynamic_pointer_cast<cGetCGraphCommand>(pCommand);
@@ -119,7 +120,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	if(command_rref || command_lineq)
 	{
 		boost::numeric::ublas::matrix<double> mat;
-		mat = command_rref->GetResult();
+		mat = (command_rref ? command_rref->GetResult() : command_lineq->GetResult());
 		m_ResultStr = "$\\begin{bmatrix} ";
 		for(std::size_t rows_idx = 0; rows_idx < mat.size1(); rows_idx++)
 		{
@@ -149,7 +150,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		else if(command_determinant)
 		{
 			ss<<command_determinant->GetResult();
-			m_ResultStr = "$ " + ss.str() + " , ";
+			m_ResultStr = "$ " + ss.str() + " ; ";
 			ss.str("");
 			ss<<command_determinant->GetTrace();
 			m_ResultStr += ss.str() + " $";
@@ -237,7 +238,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 			perm_str.replace(perm_str.find("\n"), 1, "</br>");
 			m_ResultStr += "<li>" + perm_str + "</li>";
 		}
-		m_ResultStr += "</ul>";
+		m_ResultStr += "</ul></br></br>";
 	}
 	return m_ResultStr;
 };

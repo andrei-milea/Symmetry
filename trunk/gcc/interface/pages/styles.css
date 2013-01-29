@@ -103,7 +103,7 @@ nav ul ul ul {
 .sbutton{
 padding: 0px;
 margin: 0px;
-margin-left: 100;
+margin-left: 27;
 border-right-style:solid;
 border-right-color:#FFF;
 border-right-width:3px;;
@@ -138,7 +138,7 @@ border-right-width:3px;
 .scommand_panel
 {
 margin-top: 15;
-margin-left: 18;
+margin-left: 0;
 position: relative;
 }
 
@@ -178,6 +178,7 @@ box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
 text-align: center;
 overflow: auto;
+clear: both;
 border:1px solid #aaa;
 background-color: #F2F2F2;
 margin-top: 50;
@@ -185,7 +186,7 @@ margin-right: auto;
 margin-left: auto;
 position: relative;
 width: 800;
-min-height: 150;
+min-height: 200;
 max-height: 500;
 }
 
