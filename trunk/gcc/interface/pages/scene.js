@@ -7,7 +7,7 @@ var Scene = function() {
 	function setDefaultCamera() {
 		mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
 		mat4.identity(mvMatrix);
-		mat4.translate(mvMatrix, [0.0, 0.0, -7.0]);
+		mat4.translate(mvMatrix, [0.0, 0.0, -9.0]);
 	}
 
 	function initViewport() {
@@ -37,7 +37,7 @@ var Scene = function() {
 		setDefaultCamera();
 		for(var obj in scene_graph)	{
 			scene_graph[obj].setCamera(mvMatrix, pMatrix);
-			scene_graph[obj].Draw(gl);
+			scene_graph[obj].draw(gl);
 		}
 	}
 
@@ -46,7 +46,7 @@ var Scene = function() {
 		if (animLastTime != 0) {
 			var elapsed = timeNow - animLastTime;
 			for(var obj in scene_graph) {
-				scene_graph[obj].Animate(elapsed);
+				scene_graph[obj].animate(elapsed);
 			}
 		}
 		animLastTime = timeNow;
