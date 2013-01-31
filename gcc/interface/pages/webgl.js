@@ -117,6 +117,9 @@ var WebGlContext = function() {
 		shaderProgram.vertexTextureAttribute = gl.getAttribLocation(shaderProgram, "aTextureCoord");
 		gl.enableVertexAttribArray(shaderProgram.vertexTextureAttribute);
 
+		shaderProgram.vertexColorAttribute = gl.getAttribLocation(shaderProgram, "aVertexColor");
+		shaderProgram.useTexture = gl.getUniformLocation(shaderProgram, "uUseTexture");
+		
 		shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
 		shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
 		shaderProgram.shaderSamplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");

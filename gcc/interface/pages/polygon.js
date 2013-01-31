@@ -56,7 +56,7 @@ var Polygon = function() {
 		return degrees * Math.PI / 180;
 	}
 
-	function Draw(gl) {
+	function draw(gl) {
 		//prepare position buffer for drawing
 		gl.bindBuffer(gl.ARRAY_BUFFER, vertexPositionBuffer);
 		gl.vertexAttribPointer(gl.ShaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
@@ -66,12 +66,17 @@ var Polygon = function() {
 		mat4.rotate(mvMatrix, degToRad(refangle), [1, 0, 0]);
 		mat4.rotate(mvMatrix, degToRad(angle), [0, 0, 1]);
 
+		//draw without texture
+		gl.uniform1f(gl.ShaderProgram.useTexture, 0.0);
+		gl.disableVertexAttribArray(gl.ShaderProgram.vertexTextureAttribute);
+	
+
 		//prepare texture buffer for drawing
-		gl.bindBuffer(gl.ARRAY_BUFFER, blackTextureBuffer);
-		gl.vertexAttribPointer(gl.ShaderProgram.vertexTextureAttribute, 2, gl.FLOAT, false, 0, 0);
-		gl.activeTexture(gl.TEXTURE0);
-		gl.bindTexture(gl.TEXTURE_2D, gl.blackTexture);
-		gl.uniform1i(gl.ShaderProgram.shaderSamplerUniform, 0);
+//		gl.bindBuffer(gl.ARRAY_BUFFER, blackTextureBuffer);
+//		gl.vertexAttribPointer(gl.ShaderProgram.vertexTextureAttribute, 2, gl.FLOAT, false, 0, 0);
+//		gl.activeTexture(gl.TEXTURE0);
+//		gl.bindTexture(gl.TEXTURE_2D, gl.blackTexture);
+//		gl.uniform1i(gl.ShaderProgram.shaderSamplerUniform, 0);
 
 		setMatrixUniforms(gl);
 		gl.drawArrays(gl.LINE_LOOP, 0, vertexNum);
@@ -79,15 +84,19 @@ var Polygon = function() {
 		//restore the model view matrix
 		mvPopMatrix();
 
-		DrawText(gl);
+		gl.enableVertexAttribArray(gl.ShaderProgram.vertexTextureAttribute);
+		drawText(gl);
 	}
 
-	function DrawText(gl) {
+	function drawText(gl) {
 
 		for(var i = 0; i < vertexNum; i++) {
 			//prepare position buffer for drawing
 			gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextBuffer);
 			gl.vertexAttribPointer(gl.ShaderProgram.vertexPositionAttribute, 3, gl.FLOAT, false, 0, 0);
+
+			//draw with texture
+			gl.uniform1f(gl.ShaderProgram.useTexture, 1.0);
 
 			//prepare texture buffer for drawing
 			gl.bindBuffer(gl.ARRAY_BUFFER, vertexTextureBuffer);
@@ -192,7 +201,7 @@ var Polygon = function() {
 		return pending_move;
 	}
 
-	function Animate(elapsedTime) {
+	function animate(elapsedTime) {
 		pending_move = 0;
 		if((angle > rotation) && (angle - rotation > 1)) {
 			angle -= rotationSpeed * elapsedTime / 1000.0;
@@ -228,8 +237,8 @@ var Polygon = function() {
 		setCamera : setCamera,
 		setVertexNum : setVertexNum,
 		addTextureCoords : addTextureCoords,
-		Draw : Draw,
-		Animate : Animate,
+		draw : draw,
+		animate : animate,
 		isPendingMove : isPendingMove,
 		Rotate : Rotate,
 		Reflect : Reflect

@@ -406,6 +406,7 @@ var VecMatPanel = function () {
 //command pannel for linear equations
 var LinEqPanel = function () {
 	var command_input_str = "";
+	var sys_matrix;
 
 	function show() {
         var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
@@ -423,8 +424,8 @@ var LinEqPanel = function () {
 
 	function lineq_num_changed(elem) {
 		var number = parseInt(elem.value);
-		if(number <= 0) {
-			elem.value = 1;
+		if(number <= 1) {
+			elem.value = 2;
 			lineq_num_changed(elem);
 			return;
 		}
@@ -460,8 +461,8 @@ var LinEqPanel = function () {
 
 	function unknowns_num_changed(elem) {
 		var number = parseInt(elem.value);
-		if(number <= 0) {
-			elem.value = 1;
+		if(number <= 1) {
+			elem.value = 2;
 			unknowns_num_changed(elem);
 			return;
 		}
@@ -496,8 +497,15 @@ var LinEqPanel = function () {
 		command_input_str="$\\begin{bmatrix}"; 
 		var lineqTable = document.getElementById("lineq_table_id");
 		var rows = lineqTable.getElementsByTagName("tr");
+		var lineq_size = 0;
+
+		//alloc dynamic array of arrays
+		sys_matrix = new Array(rows.length);
+
 		for(var i = 0; i < rows.length; i++) {
 			var cols = rows[i].getElementsByTagName("td");
+			lineq_size = cols.length - 1;
+			sys_matrix[i] = new Array(cols.length);
 			if(0 !== i)
 				command_input_str+= "\\\\";
 			for(var j = 0; j < cols.length - 1; j++) {
@@ -512,6 +520,7 @@ var LinEqPanel = function () {
 				}
 				system_str += val_str + "x_" + (j+1).toString();
 				command_input_str += val_str;
+				sys_matrix[i][j] = parseFloat(val_str);
 			}
 
 			system_str+= " = ";
@@ -520,7 +529,8 @@ var LinEqPanel = function () {
 				window.alert("Invalid input. Please enter valid coefficients and constant terms!")
 				return;
 			}
-			system_str += document.getElementById("result" + (i+1).toString()).value;
+			system_str += res_str;
+			sys_matrix[i][cols.length - 1] = parseFloat(res_str);
 
 			command_input_str+= " & ";
 			command_input_str += document.getElementById("result" + (i+1).toString()).value;
@@ -534,6 +544,10 @@ var LinEqPanel = function () {
 		added_input_div.style.display = "block";
 		MainMenu.hide_input_box();
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		if(lineq_size < 4)
+			addGeometry(sys_matrix);
+		else
+			removeGeometry();
 	}
 
 	function submit_command(command) {
@@ -556,6 +570,84 @@ var LinEqPanel = function () {
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		}
 	}
+
+
+	function addGeometry(sys_matrix) {
+		var canvasDiv = document.getElementById("canvas_id");
+		if(canvasDiv.style.display === "block") {
+			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='700' height='700'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
+			WebGlContext.initWebGL();
+			canvasDiv.style.display = "none";
+		}
+		canvasDiv.style.display = "block";
+
+		var main_canvas = document.getElementById("main_canvas");
+		main_canvas.width = 700;
+		main_canvas.height = 700;
+		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+		canvasDiv.insertBefore(document.createTextNode('Geometric Interpretation(right-hand coordinate system):'), main_canvas);
+		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+
+		WebGlContext.initWebGL();
+		LinGeometry.clear();
+		if(sys_matrix[0].length === 4) {
+			addGeometryRadioB(sys_matrix);
+			LinGeometry.addAxes(true);
+
+			for(var idx = 0; idx < sys_matrix.length; idx++)
+				LinGeometry.add3DEquation(sys_matrix[idx][0], sys_matrix[idx][1], sys_matrix[idx][2], sys_matrix[idx][3]);
+
+		}
+		else {
+			LinGeometry.addAxes(false);
+			addGeometryRadioB(sys_matrix);
+
+			for(var idx = 0; idx < sys_matrix.length; idx++)
+				LinGeometry.add2DEquation(sys_matrix[idx][0], sys_matrix[idx][1], sys_matrix[idx][2]);
+		}
+
+		canvasDiv.appendChild(document.createElement("br"));
+	}
+
+	function removeGeometry() {
+		var canvasDiv = document.getElementById("canvas_id");
+		if(canvasDiv.style.display === "block") {
+			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='700' height='700'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
+			WebGlContext.initWebGL();
+			canvasDiv.style.display = "none";
+			LinGeometry.clear();
+		}
+	}
+
+	function addGeometryRadioB(sys_matrix) {
+
+		new_div = document.createElement("div");
+		new_div.align = 'center';
+		new_div.innerHTML = "Highlight a linear equation(in red): </br>";
+		for(var i = 0; i < sys_matrix.length; i++) {
+			var system_str = "$";
+			var j = 0;
+			for(j = 0; j < sys_matrix[i].length - 1; j++) {
+				if(j != 0) {
+					system_str+= " + ";
+				}
+				system_str += sys_matrix[i][j].toString() + "x_" + (j+1).toString();
+			}
+			system_str += " = ";
+			system_str += sys_matrix[i][j].toString();
+			system_str += "$";
+
+			//add to page
+			new_div.innerHTML += "<input type='radio' onclick='LinGeometry.highlightEquation(value)' name='group1' value='" + i.toString() + "'>" + system_str + "<br>";
+		}
+
+		var canvasDiv = document.getElementById("canvas_id");
+		var main_canvas = document.getElementById("main_canvas");
+		canvasDiv.insertBefore(new_div, main_canvas);
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+	}
+
 
 	
 	return {
@@ -817,7 +909,7 @@ var GrpPanel = function () {
 			permutation.substr(pos-1,permutation.length - 2 - pos) + " ";
 		permuTag.innerHTML = "<li>" + permutation + "</li>";
 
-		DihedralRep.RotatePolygon();
+		DihedralRep.rotatePolygon();
 	}
 
 	function reflect_polygon() {
@@ -851,7 +943,7 @@ var GrpPanel = function () {
 
 		permuTag.innerHTML = "<li>" + permutation + "</li>";
 
-		DihedralRep.ReflectPolygon();
+		DihedralRep.reflectPolygon();
 	}
 
 	//public methods

@@ -9,11 +9,11 @@ var DihedralRep = function() {
 		_scene = new Scene();
 		_polygon = new Polygon();
 		_scene.setGl(WebGlContext.getGl());
-		AddPolygonToScene(size);
+		addPolygonToScene(size);
 		_scene.anim_loop();
 	}	
 
-	function AddPolygonToScene(size) {
+	function addPolygonToScene(size) {
 		if(size < 3 || size > 9)
 			return;
 		_polygon.init(0, 50);
@@ -72,11 +72,11 @@ var DihedralRep = function() {
 		_scene.addModel(_polygon);
 	}
 
-	function RotatePolygon() {
+	function rotatePolygon() {
 		_polygon.Rotate();
 	}
 
-	function ReflectPolygon() {
+	function reflectPolygon() {
 		_polygon.Reflect();
 	}
 
@@ -86,8 +86,8 @@ var DihedralRep = function() {
 
 	return {
 		startAnim : startAnim,
-		RotatePolygon : RotatePolygon,
-		ReflectPolygon : ReflectPolygon,
+		rotatePolygon : rotatePolygon,
+		reflectPolygon : reflectPolygon,
 		isPendingMove : isPendingMove
 	}
 }();
