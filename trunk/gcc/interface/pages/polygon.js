@@ -29,8 +29,10 @@ var Polygon = function() {
 	var mvMatrix;
 	var pMatrix;
 
-	function setCamera(mv_matrix, p_matrix) {
-		mvMatrix = mv_matrix;
+	function setCamera(mv_Matrix, p_matrix) {
+		var copy = mat4.create();
+		mat4.set(mv_Matrix, copy);
+		mvMatrix = copy;
 		pMatrix = p_matrix;
 	}
 

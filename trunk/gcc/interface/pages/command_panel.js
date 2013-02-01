@@ -543,11 +543,11 @@ var LinEqPanel = function () {
 		added_input_div.innerHTML = "</br><b>The linear system you provided as input is:</b> </br></br>" + system_str + "<br></br><b>with the associated matrix:</b></br></br>" + command_input_str + "</br></br>";
 		added_input_div.style.display = "block";
 		MainMenu.hide_input_box();
-		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 		if(lineq_size < 4)
 			addGeometry(sys_matrix);
 		else
 			removeGeometry();
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
 
 	function submit_command(command) {
@@ -586,6 +586,29 @@ var LinEqPanel = function () {
 		main_canvas.height = 700;
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 		canvasDiv.insertBefore(document.createTextNode('Geometric Interpretation(right-hand coordinate system):'), main_canvas);
+		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+
+		var toggleTag = document.createElement("input");
+		toggleTag.setAttribute("type","button");
+		toggleTag.setAttribute("value","Toggle Camera Rotation");
+		toggleTag.setAttribute("onclick","LinGeometry.toggleCameraRotation()"); 
+
+		var zoom_inTag = document.createElement("input");
+		zoom_inTag.setAttribute("type","button");
+		zoom_inTag.setAttribute("value","Zoom in");
+		zoom_inTag.setAttribute("onclick","LinGeometry.zoom_in()"); 
+
+		var zoom_outTag = document.createElement("input");
+		zoom_outTag.setAttribute("type","button");
+		zoom_outTag.setAttribute("value","Zoom out");
+		zoom_outTag.setAttribute("onclick","LinGeometry.zoom_out()"); 
+
+
+		canvasDiv.insertBefore(zoom_inTag, main_canvas);
+		canvasDiv.insertBefore(zoom_outTag, main_canvas);
+		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+		canvasDiv.insertBefore(toggleTag, main_canvas);
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 
