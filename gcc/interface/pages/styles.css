@@ -144,10 +144,13 @@ position: relative;
 
 .swiki_panel
 {
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 text-align: center;
-margin-left: 710;
-width: 25em;
+margin-left: 800;
+width: auto;
+border:1px solid #aaa;
 position: absolute;
+background-color: #FFFFFF;
 }
 
 /*canvas style*/

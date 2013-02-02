@@ -266,6 +266,10 @@ var Letters = new function() {
 		pos['7'] = [letterw*8 + 7*space, letterh_begin, letterw*7 + 7*space, letterh_begin, letterw*8 + 7*space, letterh_end, letterw*7 + 7*space, letterh_end];
 		pos['8'] = [letterw*9 + 8*space, letterh_begin, letterw*8 + 8*space, letterh_begin, letterw*9 + 8*space, letterh_end, letterw*8 + 8*space, letterh_end];
 		pos['9'] = [letterw*10 + 9*space, letterh_begin, letterw*9 + 9*space, letterh_begin, letterw*10 + 9*space, letterh_end, letterw*9 + 9*space, letterh_end];
+		pos['10'] = [letterw*11 + 10*space, letterh_begin, letterw*10 + 10*space, letterh_begin, letterw*11 + 10*space, letterh_end, letterw*10 + 10*space, letterh_end];
+		pos['11'] = [letterw*12 + 11*space, letterh_begin, letterw*11 + 11*space, letterh_begin, letterw*12 + 11*space, letterh_end, letterw*11 + 11*space, letterh_end];
+		pos['12'] = [letterw*13 + 12*space, letterh_begin, letterw*12 + 12*space, letterh_begin, letterw*13 + 12*space, letterh_end, letterw*12 + 12*space, letterh_end];
+
 	}	
 
 	return {

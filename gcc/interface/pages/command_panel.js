@@ -116,7 +116,7 @@ var MainMenu = function () {
 
 		//add wiki link
 		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/System_of_linear_equations' target='_blank'>Systems of Linear Equations(Wikipedia)</br><img src='lineareq.jpg' alt='Linear Equations(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
+		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/System_of_linear_equations' target='_blank'>Linear Systems(Wikipedia)</br><img src='lineareq.jpg' alt='Linear Equations(picture from wikipedia)' height='160' width='170' style='opacity:0.9;filter:alpha(opacity=90);'><\a>";
 
 		LinEqPanel.show();
 		current_panel = LinEqPanel;
@@ -630,6 +630,7 @@ var LinEqPanel = function () {
 				LinGeometry.add2DEquation(sys_matrix[idx][0], sys_matrix[idx][1], sys_matrix[idx][2]);
 		}
 
+		canvasDiv.appendChild(document.createElement("br"));
 		canvasDiv.appendChild(document.createElement("br"));
 	}
 
