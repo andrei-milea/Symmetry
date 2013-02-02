@@ -16,10 +16,10 @@ var WebGlContext = function() {
 		context2D.save();
 	  
 		context2D.fillStyle = 'rgba(252, 255, 255, 255)';
-		context2D.strokeText("0 1 2 3 4 5 6 7 8 9 a b c d e f g h i j k l m n o p r s t u v q x y z", 0, 15);
+		context2D.strokeText("0 1 2 3 4 5 6 7 8 9 x y z a b c d e f g h i j k l m n o p r s t u v q", 0, 15);
 		context2D.strokeText("A B C D E F G H I J K L M N O P R S T U V Q X Y Z", 0, 40);
 		context2D.fillStyle = 'rgba(80, 80, 80, 255)';
-		context2D.fillText("0 1 2 3 4 5 6 7 8 9 a b c d e f g h i j k l m n o p r s t u v q x y z", 0, 15);
+		context2D.fillText("0 1 2 3 4 5 6 7 8 9 x y z d a b c e f g h i j k l m n o p r s t u v q", 0, 15);
 		context2D.fillText("A B C D E F G H I J K L M N O P R S T U V Q X Y Z", 0, 40);
 
 		context2D.fillStyle = 'rgba(0, 0, 0, 255)';

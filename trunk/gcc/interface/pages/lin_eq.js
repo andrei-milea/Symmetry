@@ -28,8 +28,8 @@ var LinEq = function() {
 	}
 
 	function set2DEquation(x, y, r) {
-		vertices.push(3.0, (r - x * 3.0) / y, 0.0);
-		vertices.push((r - y * 3.0) / x, 3.0, 0.0);
+		vertices.push(-3.0, (r - x * (-3.0)) / y, 0.0);
+		vertices.push(3.0, (r - x * (3.0)) / y, 0.0);
 	}
 
 	function set3DEquation(x, y, z, r) {

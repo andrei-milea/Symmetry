@@ -21,6 +21,8 @@ var LinGeometry = function() {
 		}
 		_is3d = is3d;
 
+		_scene.setZoom(-15);
+
 		_scene.setGl(WebGlContext.getGl());
 		_scene.addModel(_axes);
 		_scene.anim_loop();

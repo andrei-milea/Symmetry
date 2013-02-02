@@ -151,6 +151,8 @@
 		<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_CENTER')">Center Subgroup Elements</a> 
 		</br>
 		</br>
+		</br>
+		</br>
 	</div>
 
 	<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
@@ -159,6 +161,10 @@
 		<form onSubmit='return GrpPanel.submit_grp()'>
 		<select id='grptype_sel_id' name='Group Type' onchange=''>
 			<option>Small Permutation Groups</option>
+			<option><del>Large Permutation Groups(not implemented)</del></option>
+			<option><del>Linear Groups(not implemented)</del></option>
+			<option><del>Quotient Groups(not implemented)</del></option>
+			<option><del>Topological Groups(not implemented)</del></option>
 		</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		Select a small permutation group type: &nbsp;&nbsp;&nbsp;
 		<select id='grp_sel_id' name='Group' onchange='GrpPanel.changeGrpType(this)'>
