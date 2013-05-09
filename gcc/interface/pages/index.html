@@ -14,7 +14,10 @@
 <script src="dihedral.js" type="text/javascript"></script>
 
 <script src="command_panel.js" type="text/javascript"></script>
-
+<script src="vecmat_command_panel.js" type="text/javascript"></script>
+<script src="lineq_command_panel.js" type="text/javascript"></script>
+<script src="groupth_command_panel.js" type="text/javascript"></script>
+<script src="poly_command_panel.js" type="text/javascript"></script>
 
 
 <!-- shaders -->
@@ -89,7 +92,7 @@
 				<li><a href="#" onclick="MainMenu.add_feature_div()"><del>Rings and Ideals</del></a></li>
 			</ul>
 			</li>
-			<li><a href="#" onclick="MainMenu.add_poly_div()"><del>Polynomials</del></a></li>
+			<li><a href="#" onclick="MainMenu.add_poly_div()">Polynomials</a></li>
 			<li><a href="#">Linear Algebra</a>
 			<ul>
 				<li><a href="#" onclick="MainMenu.add_vecmat_div()">Vectors and Matrices</a></li>
@@ -311,6 +314,60 @@
 		</br>
 		</div>
 
+	</div>
+
+	<div id="poly_panel" class="sbutton" style= "display: none; ">
+
+		<div style="width:1px;height:100;background-color:black;float:left;position:relative;"></div>
+		</br>
+		<a id="command_get_roots" href="#" onmouseover="Tooltip.show('roots')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_ROOTS')">Roots</a>
+		</br>
+		<a id="command_factorization" href="#" onmouseover="Tooltip.show('factorization')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_FACTORIZATION')">Factorization</a> 
+		</br>
+		<a id="command_discriminant" href="#" onmouseover="Tooltip.show('discriminant')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_DISCRIMINANT')">Discriminant</a> 
+		</br>
+		</br>
+		</br>
+		</br>
+	</div>
+
+	<div id='poly_div_id' onmouseover="Tooltip.show('poly')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+		<div id='input_div_contents_id'>
+
+		</br>
+		<select id='poly_select_id' name='Select polynomial type' style='font-size:16px; border: 2px solid; background: #FBFDFB' onchange='PolyPanel.polySelection(this)'>
+			<option>Single Variable Polynomial</option>
+			<option>Multivariable Polynomial(not implemented)</option>
+		</select>
+
+		</br>
+		</br>
+		</br>
+		<input type='radio' name='group1' value='int' checked='yes'>over the field of integers $\mathbb{Z}$
+		</br>
+		<input type='radio' name='group1' value='double'>over the field of real numbers $\mathbb{R}$
+		</br>
+
+		</br>
+		</br>
+		<div id='insert_poly_id'>
+			Degree: &nbsp;&nbsp;&nbsp;
+			<input type='text' id='degree_id' value='3' size='2' maxlength='2' onkeyup="PolyPanel.degreeChanged(this)">
+			</br></br>
+			<table id="poly_table_id" border="1" cellspacing="10" align="center">
+			<tr>
+			<td><input type='text' id='entry1' size='8' maxlength='15'></td>
+			<td><input type='text' id='entry2' size='8' maxlength='15'></td>
+			<td><input type='text' id='entry3' size='8' maxlength='15'></td>
+			<td><input type='text' id='entry4' size='8' maxlength='15'></td>
+			</tr>
+			</table>
+			</div>
+
+		</br></br>After adding the input press &nbsp;&nbsp;&nbsp;
+		<input type='submit' value='Ok' onclick="PolyPanel.submitPoly()"></form>
+		</br>
+		</div>
 	</div>
 
 	<div id='button_div_id' style='text-align:center; display:none;'>
