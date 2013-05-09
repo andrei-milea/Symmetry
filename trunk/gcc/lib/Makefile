@@ -13,8 +13,8 @@ tst_group.o: tst_group.cpp
 clean:
 	rm -rf *o tst_group 
 
-SRCS = *.cpp *.h
-CTAGS=etags -o tags
+SRCS = *.cpp *.h /usr/include/boost
+CTAGS=ctags -R -o tags
 
 tags:
 		${CTAGS} $(SRCS)
