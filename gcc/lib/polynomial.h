@@ -71,9 +71,6 @@ public:
 	~cPolynomial()
 	{
 	};
-
-private:
-	polynomial_traits<T, VARS, POLY_REP>::polynomial_impl m_PolynomialImpl;
 };
 
 #endif
