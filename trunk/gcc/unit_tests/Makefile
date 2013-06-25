@@ -5,6 +5,9 @@ LFLAGS =-lboost_system -pthread -lboost_thread-mt -lboost_date_time -lboost_iost
 GCC = g++
 VPATH = ../interface/http_server:../engine
 
+test_poly: test_poly.cpp ../lib/univar_polynomial.h
+	$(GCC) $(BFLAGS) test_poly.cpp -o test_poly
+
 test_tree: test_tree.cpp
 	$(GCC) $(BFLAGS) test_tree.cpp -o test_tree
 

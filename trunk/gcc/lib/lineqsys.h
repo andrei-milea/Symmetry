@@ -61,10 +61,10 @@ public:
 	bnu::vector<T>& SolveUnique()
 	{
 		if(m_CoeffMatrix.size1() != m_CoeffMatrix.size2())
-			throw std::logic_error("underdetermined or overdetermined system");
+			throw std::runtime_error("underdetermined or overdetermined system");
 		bnu::permutation_matrix<T> pmMat(m_CoeffMatrix.size1());
 		if(0 != lu_factorize(m_CoeffMatrix, pmMat))
-			throw std::logic_error("no solution, singular matrix");
+			throw bnu::singular("no solution, singular matrix");
 		bnu::lu_substitute(m_CoeffMatrix, pmMat, m_ConstantTermVec);
 		return m_ConstantTermVec;
 	};
@@ -78,11 +78,11 @@ public:
 	bnu::vector<T> SolveOverdetermined()
 	{
 		if(m_CoeffMatrix.size1() < m_CoeffMatrix.size2())
-			throw std::logic_error("underdetermined system");
+			throw std::runtime_error("underdetermined system");
 		bnu::matrix<T> inverse;
 		bnu::matrix<T> temp = bnu::prod(bnu::trans(m_CoeffMatrix), m_CoeffMatrix);
 		if(false == get_inverse(temp, inverse))
-			throw std::logic_error("no solution, trans(A) * A should not be singular");
+			throw bnu::singular("no solution, trans(A) * A should not be singular");
 		bnu::matrix<T> temp1 = bnu::prod(inverse, bnu::trans(m_CoeffMatrix));
 		return bnu::prod(temp1, m_ConstantTermVec);
 	};
