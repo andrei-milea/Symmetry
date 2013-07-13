@@ -1,12 +1,35 @@
-all: test_tree test_perm test_group_el test_symmetric test_std_ex test_cayley_grf test_group test_engine_main test_server_main test_results_db test_matrix
+all: test_tree test_perm test_group_el test_symmetric test_std_ex test_cayley_grf test_group test_engine_main test_server_main test_results_db test_matrix test_poly test_func
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
 BFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
 LFLAGS =-lboost_system -pthread -lboost_thread-mt -lboost_date_time -lboost_iostreams -lboost_filesystem -lboost_random
 GCC = g++
 VPATH = ../interface/http_server:../engine
 
-test_poly: test_poly.cpp ../lib/univar_polynomial.h
-	$(GCC) $(BFLAGS) test_poly.cpp -o test_poly
+##############################################
+test_func: test_func.o func_expr.o trig_funcs.o univar_polynomial.o
+	$(GCC) $^ -o test_func
+
+test_func.o: test_func.cpp
+	$(GCC) $(CFLAGS) $<
+
+func_expr.o: ../lib/func_expr.cpp ../lib/univar_polynomial.h ../lib/univar_func.h
+	$(GCC) $(CFLAGS) $<
+
+trig_funcs.o: ../lib/trig_funcs.cpp ../lib/trig_funcs.h
+	$(GCC) $(CFLAGS) $<
+##############################################
+
+
+##############################################
+test_poly: univar_polynomial.o func_expr.o trig_funcs.o test_poly.o
+	$(GCC) $^ -o test_poly
+
+univar_polynomial.o: ../lib/univar_polynomial.cpp ../lib/univar_polynomial.h ../lib/univar_func.h
+	$(GCC) $(CFLAGS) $<
+
+test_poly.o: test_poly.cpp
+	$(GCC) $(CFLAGS) $<
+##############################################
 
 test_tree: test_tree.cpp
 	$(GCC) $(BFLAGS) test_tree.cpp -o test_tree
@@ -130,7 +153,7 @@ clean:
 	cd ../engine; make clean
 	cd ../interface/http_server; make clean
 	
-TESTS = test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main test_results_db test_matrix
+TESTS = test_tree test_perm test_group_el test_symmetric test_std_ex test_group test_cayley_grf test_engine_main test_server_main test_results_db test_matrix test_poly test_func
 #test_lattice 
 
 #SRCS = *.cpp *.h /usr/include/boost/numeric/ublas/matrix.hpp
