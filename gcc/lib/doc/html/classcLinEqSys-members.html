@@ -107,21 +107,20 @@ $(document).ready(function(){initNavTree('classcLinEqSys.html','');});
 
 <p>This is the complete list of members for <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>cLinEqSys</b>(const T **elems, std::size_t rows, std::size_t cols=rows) m_Rows(rows) (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">explicit</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>m_CoeffMatrix</b> (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>m_Cols</b> (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>m_Cols</b>(cols) (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>m_ConstantTermVec</b> (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0"><td class="entry"><b>m_Rows</b> (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
-  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>Solve</b>(std::vector&lt; T &gt; &amp;solution) (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr><td class="entry"><a class="el" href="classcLinEqSys.html#a5cf8e03b2a4a4526489527f7704150e6">SVD</a>()</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"></td></tr>
-  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>~cLinEqSys</b>() (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>cLinEqSys</b>(const T **elems, std::size_t rows, std::size_t cols) (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>cLinEqSys</b>(bnu::matrix&lt; T &gt; &amp;mat) (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"class="even"><td class="entry"><b>m_CoeffMatrix</b> (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>m_ConstantTermVec</b> (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">private</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcLinEqSys.html#ad3d9edcf200c3256220054f5ee0fdaeb">SolveOverdetermined</a>()</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr><td class="entry"><a class="el" href="classcLinEqSys.html#a7144d697d601517aead8642f5956a9b0">SolveUnderdetermined</a>(std::vector&lt; T &gt; &amp;solution)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classcLinEqSys.html#a39978bcfd4366712d09e7eb54bb09cef">SolveUnique</a>()</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0"><td class="entry"><b>~cLinEqSys</b>() (defined in <a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a>)</td><td class="entry"><a class="el" href="classcLinEqSys.html">cLinEqSys&lt; T &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Thu Jan 10 2013 17:36:34 for SYMMETRY by
+    <li class="footer">Generated on Sat Jul 13 2013 14:47:00 for SYMMETRY by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.1 </li>
   </ul>

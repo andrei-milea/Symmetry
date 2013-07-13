@@ -1,0 +1,6 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{cUnivarPolynomial\< T \>\n|- m_PolyImpl\l- m_Tolerance\l|+ cUnivarPolynomial()\l+ cUnivarPolynomial()\l+ cUnivarPolynomial()\l+ ~cUnivarPolynomial()\l+ size()\l+ degree()\l+ derivative()\l+ derivative()\l+ primitive()\l+ primitive()\land 12 more...\l+ zero()\l- solveRQuadratic()\l- solveRCubic()\l- sturmSignsNo()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+}

@@ -1,0 +1,20 @@
+var NAVTREEINDEX2 =
+{
+"structpolynomial__traits.html":[1,0,48],
+"structpolynomial__traits.html#a4b333428fea1558adf753729f9ef91f4":[1,0,48,0],
+"structtree_1_1btree__node.html":[1,0,2,9],
+"structtree_1_1btree__node.html#a1f44c7c53c16a4f8827b0f4b468d4531":[1,0,2,9,2],
+"structtree_1_1btree__node.html#a5629c9251b83ce8222445d1beb0567ff":[1,0,2,9,0],
+"structtree_1_1btree__node.html#a6f97b71a8cb5cf273cf3a1635a1b8551":[1,0,2,9,1],
+"structtree_1_1btree__node.html#a82e9a7410832850bc4c05a5eb63fab21":[1,0,2,9,4],
+"structtree_1_1btree__node.html#aed5a80dfa830209910c13f7a55b91b83":[1,0,2,9,3],
+"structtree_1_1btree__threaded__node.html":[1,0,2,10],
+"structtree_1_1btree__threaded__node.html#a06b2ebcf5e85dd9feb184872af4a6e30":[1,0,2,10,6],
+"structtree_1_1btree__threaded__node.html#a1179a89253389e3c964653739394fbbd":[1,0,2,10,4],
+"structtree_1_1btree__threaded__node.html#a2752127b5320f35b87cd1e347db586f5":[1,0,2,10,1],
+"structtree_1_1btree__threaded__node.html#a4eedf9c4f0d905ca2163d37ddcb855be":[1,0,2,10,2],
+"structtree_1_1btree__threaded__node.html#a5e5eae28d7768dec56849d6d3293c34a":[1,0,2,10,0],
+"structtree_1_1btree__threaded__node.html#ad2ffcfc42ad38e941223e32995013b21":[1,0,2,10,5],
+"structtree_1_1btree__threaded__node.html#ae2f6a8e3479fc61c5cd635a649a2b0f0":[1,0,2,10,3],
+"structunivariate.html":[1,0,50]
+};

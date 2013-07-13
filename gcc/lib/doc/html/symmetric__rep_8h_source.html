@@ -194,7 +194,7 @@ $(document).ready(function(){initNavTree('symmetric__rep_8h.html','');});
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="keyword">    </span>{</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;        assert(!m_GenSet.empty());</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;        <span class="keywordflow">if</span>(m_GenSet.empty())</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">throw</span>;</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;            <span class="keywordflow">throw</span> std::logic_error(<span class="stringliteral">&quot;no generators provided&quot;</span>);</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="keywordflow">if</span>(m_GenSet.size() == 1)</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;            <span class="keywordflow">return</span> <a class="code" href="classcSymmetricRep.html#a2dfa5d3358d69914a625536d994be72c">GetCyclicSubgroupEl</a>(*m_GenSet.begin());</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;</div>
@@ -358,7 +358,7 @@ $(document).ready(function(){initNavTree('symmetric__rep_8h.html','');});
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><b>symmetric_rep.h</b></li>
-    <li class="footer">Generated on Thu Jan 10 2013 17:36:34 for SYMMETRY by
+    <li class="footer">Generated on Sat Jul 13 2013 14:47:00 for SYMMETRY by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.1 </li>
   </ul>

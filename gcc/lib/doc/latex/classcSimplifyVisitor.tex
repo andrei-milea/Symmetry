@@ -1,0 +1,66 @@
+\hypertarget{classcSimplifyVisitor}{\section{c\-Simplify\-Visitor Class Reference}
+\label{classcSimplifyVisitor}\index{c\-Simplify\-Visitor@{c\-Simplify\-Visitor}}
+}
+
+
+{\ttfamily \#include $<$func\-\_\-expr\-\_\-visitor.\-h$>$}
+
+
+
+Collaboration diagram for c\-Simplify\-Visitor\-:
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcSimplifyVisitor_a7116baf5a7e1d29b8b9e6ba209de560a}{{\bfseries c\-Simplify\-Visitor} (expr\-\_\-type \&lhs\-\_\-expr, expr\-\_\-type \&rhs\-\_\-expr, operation\-\_\-type \&operation)}\label{classcSimplifyVisitor_a7116baf5a7e1d29b8b9e6ba209de560a}
+
+\item 
+\hypertarget{classcSimplifyVisitor_ac14f64995cada27730ae8f68c1e84137}{void {\bfseries operator()} (\hyperlink{classAddition}{Addition} \&add)}\label{classcSimplifyVisitor_ac14f64995cada27730ae8f68c1e84137}
+
+\item 
+\hypertarget{classcSimplifyVisitor_a891f55777c75261a84665e7abead6933}{void {\bfseries operator()} (\hyperlink{classSubtraction}{Subtraction} \&sub)}\label{classcSimplifyVisitor_a891f55777c75261a84665e7abead6933}
+
+\item 
+\hypertarget{classcSimplifyVisitor_a0d4b5ebd33ec3b2af510b41d12d20ca7}{void {\bfseries operator()} (\hyperlink{classComposition}{Composition} \&comp)}\label{classcSimplifyVisitor_a0d4b5ebd33ec3b2af510b41d12d20ca7}
+
+\item 
+\hypertarget{classcSimplifyVisitor_a02340d55ffd3a747240161218c4e69b6}{void {\bfseries operator()} (\hyperlink{structNoOp}{No\-Op} \&no\-\_\-op)}\label{classcSimplifyVisitor_a02340d55ffd3a747240161218c4e69b6}
+
+\item 
+\hypertarget{classcSimplifyVisitor_a4c39d0f1a0978d396e066406a033a08a}{void {\bfseries operator()} (\hyperlink{classMultiplication}{Multiplication} \&mult)}\label{classcSimplifyVisitor_a4c39d0f1a0978d396e066406a033a08a}
+
+\item 
+\hypertarget{classcSimplifyVisitor_ac5366d29a76278b27b492d8c9c087af4}{void {\bfseries operator()} (\hyperlink{classDivision}{Division} \&div)}\label{classcSimplifyVisitor_ac5366d29a76278b27b492d8c9c087af4}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcSimplifyVisitor_a4c373b4b1b00b6380c486a5792842cd1}{bool {\bfseries is\-One} (const expr\-\_\-type \&fnc\-\_\-expr) const }\label{classcSimplifyVisitor_a4c373b4b1b00b6380c486a5792842cd1}
+
+\item 
+\hypertarget{classcSimplifyVisitor_a8c88b0d471d8f8f2e540065d2e62cc8b}{bool {\bfseries is\-Zero} (const expr\-\_\-type \&fnc\-\_\-expr) const }\label{classcSimplifyVisitor_a8c88b0d471d8f8f2e540065d2e62cc8b}
+
+\item 
+\hypertarget{classcSimplifyVisitor_a4ac83dddafe7cbc7036d92690d0986b4}{void {\bfseries simplify\-\_\-subtrees} ()}\label{classcSimplifyVisitor_a4ac83dddafe7cbc7036d92690d0986b4}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcSimplifyVisitor_aadc62bb5504b8b08d4322ff3275ddd56}{expr\-\_\-type \& {\bfseries m\-\_\-\-L\-H\-S\-Expr}}\label{classcSimplifyVisitor_aadc62bb5504b8b08d4322ff3275ddd56}
+
+\item 
+\hypertarget{classcSimplifyVisitor_af86b398385aec55508c1ef939a1fa164}{expr\-\_\-type \& {\bfseries m\-\_\-\-R\-H\-S\-Expr}}\label{classcSimplifyVisitor_af86b398385aec55508c1ef939a1fa164}
+
+\item 
+\hypertarget{classcSimplifyVisitor_a5bf0b8e33060abaa350d06eb3fe9e30c}{operation\-\_\-type \& {\bfseries m\-\_\-\-Operation}}\label{classcSimplifyVisitor_a5bf0b8e33060abaa350d06eb3fe9e30c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+used to apply simplification rules through boost visitor 
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+func\-\_\-expr\-\_\-visitor.\-h\end{DoxyCompactItemize}

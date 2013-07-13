@@ -1,0 +1,27 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="{engine::cGetRREFCommand\n|- m_Result\l|+ cGetRREFCommand()\l+ ~cGetRREFCommand()\l+ Execute()\l+ EstimateRunTime()\l+ GetResult()\l}",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",arrowtail="onormal"];
+  Node2 [label="{engine::cCommand\n||+ ~cCommand()\l+ Execute()\l+ EstimateRunTime()\l}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classengine_1_1cCommand.html"];
+  Node3 -> Node1 [color="grey25",fontsize="10",style="solid",label=" m_Expression" ,arrowhead="odiamond"];
+  Node3 [label="{engine::sLinExpression\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structengine_1_1sLinExpression.html"];
+  Node4 -> Node3 [color="grey25",fontsize="10",style="solid",label=" operations" ,arrowhead="odiamond"];
+  Node4 [label="{std::vector\< Operation \>\n|+ elements\l|}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node5 -> Node4 [dir="back",color="orange",fontsize="10",style="solid",label=" \< Operation \>" ];
+  Node5 [label="{std::vector\< T \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip="STL class."];
+  Node6 -> Node5 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node6 [label="{T\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node7 -> Node3 [color="grey25",fontsize="10",style="solid",label=" terms" ,arrowhead="odiamond"];
+  Node7 [label="{std::vector\< sLinTerm \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node8 -> Node7 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node8 [label="{engine::sLinTerm\n||}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structengine_1_1sLinTerm.html"];
+  Node9 -> Node8 [color="grey25",fontsize="10",style="solid",label=" factors" ,arrowhead="odiamond"];
+  Node9 [label="{std::vector\< sLinFactor \>\n||}",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node10 -> Node9 [color="grey25",fontsize="10",style="solid",label=" elements" ,arrowhead="odiamond"];
+  Node10 [label="{engine::sLinFactor\n|+ factor\l|}",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$structengine_1_1sLinFactor.html"];
+  Node5 -> Node9 [dir="back",color="orange",fontsize="10",style="solid",label=" \< sLinFactor \>" ];
+  Node4 -> Node8 [color="grey25",fontsize="10",style="solid",label=" operations" ,arrowhead="odiamond"];
+  Node5 -> Node7 [dir="back",color="orange",fontsize="10",style="solid",label=" \< sLinTerm \>" ];
+}
