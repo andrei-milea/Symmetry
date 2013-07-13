@@ -23,6 +23,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
+"functions.html",
 ];
 
 var navTreeSubIndices = new Array();

@@ -121,24 +121,20 @@ Collaboration diagram for cLinEqSys&lt; T &gt;:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ab2ca119b3532461229f9e069cda97042"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab2ca119b3532461229f9e069cda97042"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>cLinEqSys</b> (const T **elems, std::size_t rows, std::size_t cols=rows) m_Rows(rows)</td></tr>
-<tr class="memitem:a2bc3258e2a4290b3e4d4d61a3dc6e3b3"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2bc3258e2a4290b3e4d4d61a3dc6e3b3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>m_Cols</b> (cols)</td></tr>
-<tr class="memitem:a0e0446ea5f7c92f3af099f1665fed022"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0e0446ea5f7c92f3af099f1665fed022"></a>
-bool&#160;</td><td class="memItemRight" valign="bottom"><b>Solve</b> (std::vector&lt; T &gt; &amp;solution)</td></tr>
-<tr class="memitem:a5cf8e03b2a4a4526489527f7704150e6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinEqSys.html#a5cf8e03b2a4a4526489527f7704150e6">SVD</a> ()</td></tr>
+<tr class="memitem:ab80e0ee1bf57383bd6b04c8e5878eeed"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab80e0ee1bf57383bd6b04c8e5878eeed"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>cLinEqSys</b> (const T **elems, std::size_t rows, std::size_t cols)</td></tr>
+<tr class="memitem:aee02a711deb23dfd1ce69bfaa06bd257"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aee02a711deb23dfd1ce69bfaa06bd257"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>cLinEqSys</b> (bnu::matrix&lt; T &gt; &amp;mat)</td></tr>
+<tr class="memitem:a39978bcfd4366712d09e7eb54bb09cef"><td class="memItemLeft" align="right" valign="top">bnu::vector&lt; T &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinEqSys.html#a39978bcfd4366712d09e7eb54bb09cef">SolveUnique</a> ()</td></tr>
+<tr class="memitem:ad3d9edcf200c3256220054f5ee0fdaeb"><td class="memItemLeft" align="right" valign="top">bnu::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinEqSys.html#ad3d9edcf200c3256220054f5ee0fdaeb">SolveOverdetermined</a> ()</td></tr>
+<tr class="memitem:a7144d697d601517aead8642f5956a9b0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcLinEqSys.html#a7144d697d601517aead8642f5956a9b0">SolveUnderdetermined</a> (std::vector&lt; T &gt; &amp;solution)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a7ee34013a76b86aa51b4adf0d1104ff0"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7ee34013a76b86aa51b4adf0d1104ff0"></a>
-std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_Rows</b></td></tr>
-<tr class="memitem:a8a80d36df2affff15567d6cf7bc55ef9"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a80d36df2affff15567d6cf7bc55ef9"></a>
-std::size_t&#160;</td><td class="memItemRight" valign="bottom"><b>m_Cols</b></td></tr>
-<tr class="memitem:a8dd9080aae99ba00ff063ba3ba40af09"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8dd9080aae99ba00ff063ba3ba40af09"></a>
-matrix&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_CoeffMatrix</b></td></tr>
-<tr class="memitem:aa29c60ed76caca4b60af246e3cbadc9b"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aa29c60ed76caca4b60af246e3cbadc9b"></a>
-vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_ConstantTermVec</b></td></tr>
+<tr class="memitem:ac270e6753af6ee64fb101b2f487ea492"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac270e6753af6ee64fb101b2f487ea492"></a>
+bnu::matrix&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_CoeffMatrix</b></td></tr>
+<tr class="memitem:ae6d53e781615a0819bc144adb2f35d77"><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae6d53e781615a0819bc144adb2f35d77"></a>
+bnu::vector&lt; T &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>m_ConstantTermVec</b></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><h3>template&lt;typename T&gt;<br/>
@@ -146,21 +142,82 @@ class cLinEqSys&lt; T &gt;</h3>
 
 <p>solves a system of linear equations given as an augmented matrix </p>
 </div><hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a5cf8e03b2a4a4526489527f7704150e6"></a>
+<a class="anchor" id="ad3d9edcf200c3256220054f5ee0fdaeb"></a>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool <a class="el" href="classcLinEqSys.html">cLinEqSys</a>&lt; T &gt;::SVD </td>
+          <td class="memname">bnu::vector&lt;T&gt; <a class="el" href="classcLinEqSys.html">cLinEqSys</a>&lt; T &gt;::SolveOverdetermined </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
-<p>singular value decomposition </p>
+<p>solve an overdetermined linear system by solving the least squares problem we get an approximate solution x = (trans(A) * A)^-1 * A * y TODO &ndash; improve on complexity - this is overkill </p>
+
+</div>
+</div>
+<a class="anchor" id="a7144d697d601517aead8642f5956a9b0"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool <a class="el" href="classcLinEqSys.html">cLinEqSys</a>&lt; T &gt;::SolveUnderdetermined </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; T &gt; &amp;&#160;</td>
+          <td class="paramname"><em>solution</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>solve an underdetermined linear system using Singular Value Decomposition </p>
+
+</div>
+</div>
+<a class="anchor" id="a39978bcfd4366712d09e7eb54bb09cef"></a>
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename T &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bnu::vector&lt;T&gt;&amp; <a class="el" href="classcLinEqSys.html">cLinEqSys</a>&lt; T &gt;::SolveUnique </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>solve the linear system when there is a unique solution uses LUP factorization followed by back substitution </p>
 
 </div>
 </div>
@@ -173,7 +230,7 @@ template&lt;typename T &gt; </div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="classcLinEqSys.html">cLinEqSys</a></li>
-    <li class="footer">Generated on Thu Jan 10 2013 17:36:34 for SYMMETRY by
+    <li class="footer">Generated on Sat Jul 13 2013 14:47:00 for SYMMETRY by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.1.1 </li>
   </ul>

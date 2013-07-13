@@ -20,7 +20,8 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 ".html",
-"classtree_1_1btree__iterator.html#ac226882e50211134cae92e2d3a70a05a",
+"classcLogarithm.html#a0bfdb69f5e7a0c18dc5a2b4327627a14",
+"structpolynomial__traits.html",
 ];
 
 var navTreeSubIndices = new Array();

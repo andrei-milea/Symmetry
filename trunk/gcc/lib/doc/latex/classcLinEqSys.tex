@@ -11,30 +11,25 @@ Collaboration diagram for c\-Lin\-Eq\-Sys$<$ T $>$\-:
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classcLinEqSys_ab2ca119b3532461229f9e069cda97042}{{\bfseries c\-Lin\-Eq\-Sys} (const T $\ast$$\ast$elems, std\-::size\-\_\-t rows, std\-::size\-\_\-t cols=rows) m\-\_\-\-Rows(rows)}\label{classcLinEqSys_ab2ca119b3532461229f9e069cda97042}
+\hypertarget{classcLinEqSys_ab80e0ee1bf57383bd6b04c8e5878eeed}{{\bfseries c\-Lin\-Eq\-Sys} (const T $\ast$$\ast$elems, std\-::size\-\_\-t rows, std\-::size\-\_\-t cols)}\label{classcLinEqSys_ab80e0ee1bf57383bd6b04c8e5878eeed}
 
 \item 
-\hypertarget{classcLinEqSys_a2bc3258e2a4290b3e4d4d61a3dc6e3b3}{{\bfseries m\-\_\-\-Cols} (cols)}\label{classcLinEqSys_a2bc3258e2a4290b3e4d4d61a3dc6e3b3}
+\hypertarget{classcLinEqSys_aee02a711deb23dfd1ce69bfaa06bd257}{{\bfseries c\-Lin\-Eq\-Sys} (bnu\-::matrix$<$ T $>$ \&mat)}\label{classcLinEqSys_aee02a711deb23dfd1ce69bfaa06bd257}
 
 \item 
-\hypertarget{classcLinEqSys_a0e0446ea5f7c92f3af099f1665fed022}{bool {\bfseries Solve} (std\-::vector$<$ T $>$ \&solution)}\label{classcLinEqSys_a0e0446ea5f7c92f3af099f1665fed022}
-
+bnu\-::vector$<$ T $>$ \& \hyperlink{classcLinEqSys_a39978bcfd4366712d09e7eb54bb09cef}{Solve\-Unique} ()
 \item 
-bool \hyperlink{classcLinEqSys_a5cf8e03b2a4a4526489527f7704150e6}{S\-V\-D} ()
+bnu\-::vector$<$ T $>$ \hyperlink{classcLinEqSys_ad3d9edcf200c3256220054f5ee0fdaeb}{Solve\-Overdetermined} ()
+\item 
+bool \hyperlink{classcLinEqSys_a7144d697d601517aead8642f5956a9b0}{Solve\-Underdetermined} (std\-::vector$<$ T $>$ \&solution)
 \end{DoxyCompactItemize}
 \subsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-\hypertarget{classcLinEqSys_a7ee34013a76b86aa51b4adf0d1104ff0}{std\-::size\-\_\-t {\bfseries m\-\_\-\-Rows}}\label{classcLinEqSys_a7ee34013a76b86aa51b4adf0d1104ff0}
+\hypertarget{classcLinEqSys_ac270e6753af6ee64fb101b2f487ea492}{bnu\-::matrix$<$ T $>$ {\bfseries m\-\_\-\-Coeff\-Matrix}}\label{classcLinEqSys_ac270e6753af6ee64fb101b2f487ea492}
 
 \item 
-\hypertarget{classcLinEqSys_a8a80d36df2affff15567d6cf7bc55ef9}{std\-::size\-\_\-t {\bfseries m\-\_\-\-Cols}}\label{classcLinEqSys_a8a80d36df2affff15567d6cf7bc55ef9}
-
-\item 
-\hypertarget{classcLinEqSys_a8dd9080aae99ba00ff063ba3ba40af09}{matrix$<$ T $>$ {\bfseries m\-\_\-\-Coeff\-Matrix}}\label{classcLinEqSys_a8dd9080aae99ba00ff063ba3ba40af09}
-
-\item 
-\hypertarget{classcLinEqSys_aa29c60ed76caca4b60af246e3cbadc9b}{vector$<$ T $>$ {\bfseries m\-\_\-\-Constant\-Term\-Vec}}\label{classcLinEqSys_aa29c60ed76caca4b60af246e3cbadc9b}
+\hypertarget{classcLinEqSys_ae6d53e781615a0819bc144adb2f35d77}{bnu\-::vector$<$ T $>$ {\bfseries m\-\_\-\-Constant\-Term\-Vec}}\label{classcLinEqSys_ae6d53e781615a0819bc144adb2f35d77}
 
 \end{DoxyCompactItemize}
 
@@ -45,14 +40,28 @@ bool \hyperlink{classcLinEqSys_a5cf8e03b2a4a4526489527f7704150e6}{S\-V\-D} ()
 solves a system of linear equations given as an augmented matrix 
 
 \subsection{Member Function Documentation}
-\hypertarget{classcLinEqSys_a5cf8e03b2a4a4526489527f7704150e6}{\index{c\-Lin\-Eq\-Sys@{c\-Lin\-Eq\-Sys}!S\-V\-D@{S\-V\-D}}
-\index{S\-V\-D@{S\-V\-D}!cLinEqSys@{c\-Lin\-Eq\-Sys}}
-\subsubsection[{S\-V\-D}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bool {\bf c\-Lin\-Eq\-Sys}$<$ T $>$\-::S\-V\-D (
+\hypertarget{classcLinEqSys_ad3d9edcf200c3256220054f5ee0fdaeb}{\index{c\-Lin\-Eq\-Sys@{c\-Lin\-Eq\-Sys}!Solve\-Overdetermined@{Solve\-Overdetermined}}
+\index{Solve\-Overdetermined@{Solve\-Overdetermined}!cLinEqSys@{c\-Lin\-Eq\-Sys}}
+\subsubsection[{Solve\-Overdetermined}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bnu\-::vector$<$T$>$ {\bf c\-Lin\-Eq\-Sys}$<$ T $>$\-::Solve\-Overdetermined (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}\label{classcLinEqSys_a5cf8e03b2a4a4526489527f7704150e6}
-singular value decomposition 
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcLinEqSys_ad3d9edcf200c3256220054f5ee0fdaeb}
+solve an overdetermined linear system by solving the least squares problem we get an approximate solution x = (trans(\-A) $\ast$ A)$^\wedge$-\/1 $\ast$ A $\ast$ y T\-O\-D\-O -- improve on complexity -\/ this is overkill \hypertarget{classcLinEqSys_a7144d697d601517aead8642f5956a9b0}{\index{c\-Lin\-Eq\-Sys@{c\-Lin\-Eq\-Sys}!Solve\-Underdetermined@{Solve\-Underdetermined}}
+\index{Solve\-Underdetermined@{Solve\-Underdetermined}!cLinEqSys@{c\-Lin\-Eq\-Sys}}
+\subsubsection[{Solve\-Underdetermined}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bool {\bf c\-Lin\-Eq\-Sys}$<$ T $>$\-::Solve\-Underdetermined (
+\begin{DoxyParamCaption}
+\item[{std\-::vector$<$ T $>$ \&}]{solution}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcLinEqSys_a7144d697d601517aead8642f5956a9b0}
+solve an underdetermined linear system using Singular Value Decomposition \hypertarget{classcLinEqSys_a39978bcfd4366712d09e7eb54bb09cef}{\index{c\-Lin\-Eq\-Sys@{c\-Lin\-Eq\-Sys}!Solve\-Unique@{Solve\-Unique}}
+\index{Solve\-Unique@{Solve\-Unique}!cLinEqSys@{c\-Lin\-Eq\-Sys}}
+\subsubsection[{Solve\-Unique}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ bnu\-::vector$<$T$>$\& {\bf c\-Lin\-Eq\-Sys}$<$ T $>$\-::Solve\-Unique (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcLinEqSys_a39978bcfd4366712d09e7eb54bb09cef}
+solve the linear system when there is a unique solution uses L\-U\-P factorization followed by back substitution 
 
 The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
 \item 

@@ -3,14 +3,17 @@ var hierarchy =
     [ "engine::cParamGrpGenParser::AddGrpGen", "classengine_1_1cParamGrpGenParser_1_1AddGrpGen.html", null ],
     [ "resultsDB::cResultsBucket::bucket_header_entry", "structresultsDB_1_1cResultsBucket_1_1bucket__header__entry.html", null ],
     [ "engine::cCommand", "classengine_1_1cCommand.html", [
+      [ "engine::cGetDeterminantCommand", "classengine_1_1cGetDeterminantCommand.html", null ],
+      [ "engine::cGetInverseCommand", "classengine_1_1cGetInverseCommand.html", null ],
+      [ "engine::cGetLinSysSolCommand", "classengine_1_1cGetLinSysSolCommand.html", null ],
+      [ "engine::cGetMatExprCommand", "classengine_1_1cGetMatExprCommand.html", null ],
+      [ "engine::cGetNormCommand", "classengine_1_1cGetNormCommand.html", null ],
+      [ "engine::cGetRREFCommand", "classengine_1_1cGetRREFCommand.html", null ],
       [ "engine::cGroupGenCommand", "classengine_1_1cGroupGenCommand.html", [
         [ "engine::cGetCenterCommand", "classengine_1_1cGetCenterCommand.html", null ],
         [ "engine::cGetCGraphCommand", "classengine_1_1cGetCGraphCommand.html", null ],
         [ "engine::cGetElemCommand", "classengine_1_1cGetElemCommand.html", null ],
         [ "engine::cGetRelCommand", "classengine_1_1cGetRelCommand.html", null ]
-      ] ],
-      [ "engine::cLinAlgCommand", "classengine_1_1cLinAlgCommand.html", [
-        [ "engine::cGetMatExprCommand", "classengine_1_1cGetMatExprCommand.html", null ]
       ] ]
     ] ],
     [ "engine::cCommandCreator", "classengine_1_1cCommandCreator.html", null ],
