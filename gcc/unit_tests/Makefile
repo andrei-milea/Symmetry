@@ -6,7 +6,7 @@ GCC = g++
 VPATH = ../interface/http_server:../engine
 
 ##############################################
-test_func: test_func.o func_expr.o trig_funcs.o univar_polynomial.o
+test_func: test_func.o func_expr.o univar_polynomial.o
 	$(GCC) $^ -o test_func
 
 test_func.o: test_func.cpp
@@ -14,14 +14,11 @@ test_func.o: test_func.cpp
 
 func_expr.o: ../lib/func_expr.cpp ../lib/univar_polynomial.h ../lib/univar_func.h
 	$(GCC) $(CFLAGS) $<
-
-trig_funcs.o: ../lib/trig_funcs.cpp ../lib/trig_funcs.h
-	$(GCC) $(CFLAGS) $<
 ##############################################
 
 
 ##############################################
-test_poly: univar_polynomial.o func_expr.o trig_funcs.o test_poly.o
+test_poly: univar_polynomial.o func_expr.o  test_poly.o
 	$(GCC) $^ -o test_poly
 
 univar_polynomial.o: ../lib/univar_polynomial.cpp ../lib/univar_polynomial.h ../lib/univar_func.h

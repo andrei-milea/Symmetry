@@ -28,12 +28,6 @@ cUnivarPolynomial<T> cUnivarPolynomial<T>::derivative()const
 }
 
 template<typename T>
-cFuncExpr cUnivarPolynomial<T>::derivative(const cVariable &var)const
-{
-	return cFuncExpr(Composition(), derivative(), var);
-}
-
-template<typename T>
 cUnivarPolynomial<T> cUnivarPolynomial<T>::primitive()const
 {
 	assert(m_PolyImpl[degree()] != 0);
@@ -48,12 +42,6 @@ cUnivarPolynomial<T> cUnivarPolynomial<T>::primitive()const
 		poly_coefs.push_back(m_PolyImpl[idx] / (idx + 1));
 	}
 	return cUnivarPolynomial<T>(poly_coefs);
-}
-
-template<typename T>
-cFuncExpr cUnivarPolynomial<T>::primitive(const cVariable& var)const
-{
-	return cFuncExpr(Composition(), primitive(), var);
 }
 
 template<typename T>

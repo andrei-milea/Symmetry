@@ -13,7 +13,6 @@ namespace bmt = boost::math::tools;
 namespace bmp = boost::math::policies;
 namespace bm = boost::math;
 
-class cFuncExpr;
 class cVariable;
 
 /*!
@@ -26,7 +25,7 @@ template <typename T>
 class cUnivarPolynomial
 {
 public:
-	cUnivarPolynomial(std::size_t tolerance = std::numeric_limits<T>::digits)
+	explicit cUnivarPolynomial(std::size_t tolerance = std::numeric_limits<T>::digits)
 		:m_Tolerance(tolerance)
 	{}
 
@@ -68,11 +67,7 @@ public:
 	*/
 	cUnivarPolynomial<T> derivative()const;
 
-	cFuncExpr derivative(const cVariable &var)const;
-
 	cUnivarPolynomial<T> primitive()const;
-
-	cFuncExpr primitive(const cVariable& var)const;
 
 	cUnivarPolynomial<T> inverse()const;
 

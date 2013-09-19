@@ -1,43 +1,37 @@
 #ifndef _TRIG_FUNCS_H
 #define _TRIG_FUNCS_H
 
-#include "variable.h"
-
 #include <tgmath.h>
 #include <ostream>
+#include <stdexcept>
 
 //////////////////////////////////////////////////////////////
 /////////////////////trig functions///////////////////////////
 //////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////
 ////////////forward declarations////////////////
-class cFuncExpr;
-
-template<typename T>
-class cCosine;
 
 template<typename T>
 class cAsine;
-
-template<typename T>
-class cTangent;
 
 template<typename T>
 class cAcosine;
 
 template<typename T>
 class cAtangent;
+
+template<typename T>
+class cAcotangent;
 ////////////////////////////////////////////////
 
 template <typename T>
 class cSine
 {
 public:
-	cFuncExpr derivative(const cVariable &var)const;
-
-	cFuncExpr primitive(const cVariable &var)const;
-
-	cAsine<T> inverse()const;
+	cAsine<T> inverse()const
+	{
+		return cAsine<T>();
+	}
 
 	T operator()(T &value)const
 	{
@@ -54,11 +48,10 @@ template <typename T>
 class cCosine
 {
 public:
-	cFuncExpr derivative(const cVariable &var)const;
-
-	cFuncExpr primitive(const cVariable &var)const;
-
-	cAcosine<T> inverse()const;
+	cAcosine<T> inverse()const
+	{
+		return cAcosine<T>();
+	}
 
 	T operator()(T &value)const
 	{
@@ -75,16 +68,17 @@ template <typename T>
 class cTangent
 {
 public:
-	cFuncExpr derivative(const cVariable &var)const;
-
-	cFuncExpr primitive(const cVariable &var)const;
-
-	cAtangent<T> inverse()const;
+	cAtangent<T> inverse()const
+	{
+		return cAtangent<T>();
+	}
 
 	T operator()(T &value)const
 	{
-		//TODO
-		return std::sin(value);
+		if(0.0 == std::cos(value))
+			throw std::domain_error("tangent undefined for values where cos is 0");
+
+		return std::sin(value)/std::cos(value);
 	}
 
 	bool operator==(const cTangent &tangent)const
@@ -94,19 +88,44 @@ public:
 };
 
 template <typename T>
-class cAsine
+class cCotangent
 {
 public:
-	cFuncExpr derivative(const cVariable &var)const;
-
-	cFuncExpr primitive(const cVariable &var)const;
-
-	cSine<T> inverse()const;
+	cAcotangent<T> inverse()const
+	{
+		return cAcotangent<T>();
+	}
 
 	T operator()(T &value)const
 	{
-		//TODO
-		return std::sin(value);
+		T sin_val = std::sin(value);
+		if(0.0 == sin_val)
+			throw std::domain_error("tangent undefined for values where sin is 0");
+
+		return std::cos(value)/sin_val;
+	}
+
+	bool operator==(const cCotangent<T> &tangent)const
+	{
+		return true;
+	}
+};
+
+template <typename T>
+class cAsine
+{
+public:
+	cSine<T> inverse()const
+	{
+		return cSine<T>();
+	}
+
+	T operator()(T &value)const
+	{
+		if(std::abs(value) > 1.0)
+			throw std::domain_error("arcsine function is not defined outside of [-1, 1]");
+
+		return std::asin(value);
 	}
 
 	bool operator==(const cAsine &asine)const
@@ -119,16 +138,17 @@ template <typename T>
 class cAcosine
 {
 public:
-	cFuncExpr derivative(const cVariable &var)const;
-
-	cFuncExpr primitive(const cVariable &var)const;
-
-	cCosine<T> inverse()const;
+	cCosine<T> inverse()const
+	{
+		return cCosine<T>();
+	}
 
 	T operator()(T &value)const
 	{
-		//TODO
-		return std::sin(value);
+		if(std::abs(value) > 1.0)
+			throw std::domain_error("arccosine function is not defined outside of [-1, 1]");
+
+		return std::acos(value);
 	}
 	
 	bool operator==(const cAcosine &acosine)const
@@ -141,19 +161,40 @@ template <typename T>
 class cAtangent
 {
 public:
-	cFuncExpr derivative(const cVariable &var)const;
-
-	cFuncExpr primitive(const cVariable &var)const;
-
-	cTangent<T> inverse()const;
+	cTangent<T> inverse()const
+	{
+		return cTangent<T>();
+	}
 
 	T operator()(T &value)const
 	{
-		//TODO
-		return std::sin(value);
+		return std::atan(value);
 	}
 
 	bool operator==(const cAtangent &atangent)const
+	{
+		return true;
+	}
+};
+
+template <typename T>
+class cAcotangent
+{
+public:
+	cCotangent<T> inverse()const
+	{
+		return cCotangent<T>();
+	}
+
+	T operator()(T &value)const
+	{
+		if(value == 0)
+			throw std::domain_error("arccotangent function is not defined in 0");
+
+		return std::atan(1.0/value);
+	}
+
+	bool operator==(const cAcotangent &acotangent)const
 	{
 		return true;
 	}
@@ -182,23 +223,37 @@ inline std::ostream& operator<<(std::ostream& out, const cTangent<T>& tangent)
 }
 
 template <class T>
+inline std::ostream& operator<<(std::ostream& out, const cCotangent<T>& cotangent)
+{
+	out << "cotan";
+	return out;
+}
+
+template <class T>
 inline std::ostream& operator<<(std::ostream& out, const cAsine<T>& asine)
 {
-	out << "asin";
+	out << "arcsin";
 	return out;
 }
 
 template <class T>
 inline std::ostream& operator<<(std::ostream& out, const cAcosine<T>& acosine)
 {
-	out << "acos";
+	out << "arccos";
 	return out;
 }
 
 template <class T>
 inline std::ostream& operator<<(std::ostream& out, const cAtangent<T>& atangent)
 {
-	out << "atan";
+	out << "arctan";
+	return out;
+}
+
+template <class T>
+inline std::ostream& operator<<(std::ostream& out, const cAcotangent<T>& acotangent)
+{
+	out << "arccotan";
 	return out;
 }
 

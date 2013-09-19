@@ -1,6 +1,7 @@
 
 #include "func_expr.h"
 #include "func_expr_visitor.h"
+#include "func_expr_dif.h"
 
 #include <utility>
 #include <sstream>
@@ -55,21 +56,52 @@ cFuncExpr::~cFuncExpr()
 
 bool cFuncExpr::operator==(const cFuncExpr& fnc_expr)const
 {
-//	bool aaa = m_Operation == fnc_expr.m_Operation;
-//	boost::apply_visitor(cOutputVisitor(), fnc_expr.m_Operation);
-//	boost::apply_visitor(cOutputVisitor(), m_Operation);
-//	aaa = m_LHSExpr == fnc_expr.m_LHSExpr;
-//	aaa = m_RHSExpr == fnc_expr.m_RHSExpr;
-//	if(m_Operation == fnc_expr.m_Operation && m_LHSExpr == fnc_expr.m_LHSExpr && m_RHSExpr == fnc_expr.m_RHSExpr)	
-//		return true;
+	std::ostringstream stream;
+	std::streambuf* buf = std::cout.rdbuf(stream.rdbuf());
+	std::cout << *this;
+	std::string str1 = stream.str();
+	stream.str("");
+	stream.clear();
+	std::cout << fnc_expr;
+	std::string str2 = stream.str();
+	std::cout.rdbuf(buf);
+
+	std::cout << "str1 " << str1 << "str2 " << str2 << "\n";
+
+	return str1 == str2;
+}
+
+
+void cFuncExpr::printTree(const expr_type* root)const
+{
+	if(nullptr == root)
+	{
+		std::cout << "\n";
+		printTree(&m_LHSExpr);
+		std::cout << ":::::::";
+		printOp();
+		std::cout << ":::::::";
+		printTree(&m_RHSExpr);
+
+		return;
+	}
+
+	if(const cFuncExpr *fnc_expr = boost::get<cFuncExpr>(root))
+	{
+		printTree(&fnc_expr->m_LHSExpr);
+		fnc_expr->printOp();
+		printTree(&fnc_expr->m_RHSExpr);
+
+		return;
+	}
 	
-	std::stringstream ss_this;
-	std::stringstream ss_that;
-	ss_this << *this;
-	ss_that << fnc_expr;
-//	std::cout << ss_this.str();
-//	std::cout << ss_that.str();
-	return ss_this.str() == ss_that.str();
+	std::cout << root->type().name() << "-";
+
+}
+
+void cFuncExpr::printOp()const
+{
+	std::cout << m_Operation.type().name() << "-";
 }
 
 void cFuncExpr::simplify()
@@ -95,7 +127,12 @@ cFuncExpr cFuncExpr::derivative_impl()const
 
 cFuncExpr cFuncExpr::primitive()const
 {
+	return cFuncExpr();
+}
 
+int cFuncExpr::precedence(const operation_type& op)const
+{
+	return boost::apply_visitor(cPrecVisitor(), op);
 }
 
 std::ostream& operator<<(std::ostream& out, const cFuncExpr& func_expr)
@@ -108,17 +145,37 @@ std::ostream& operator<<(std::ostream& out, const cFuncExpr& func_expr)
 		out << std::make_pair(*poly, *var);
 		return out;
 	}
-	boost::apply_visitor(cOutputVisitor(), func_expr.m_LHSExpr);
-	const NoOp* no_op = boost::get<NoOp>(&func_expr.m_Operation);
-	if(no_op)
-		return out;
 
+	const NoOp* no_op = boost::get<NoOp>(&func_expr.m_Operation);
+
+	const cFuncExpr *left_expr = boost::get<cFuncExpr>(&func_expr.m_LHSExpr);
+	if(!no_op && left_expr && (func_expr.precedence(func_expr.m_Operation) > left_expr->precedence(left_expr->m_Operation)))
+	{
+		out << "(";
+		boost::apply_visitor(cOutputVisitor(), func_expr.m_LHSExpr);
+		out << ")";
+	}
+	else
+	{
+		boost::apply_visitor(cOutputVisitor(), func_expr.m_LHSExpr);
+	}
+	
 	if(composition)
 		out << "(";
 	else
 		boost::apply_visitor(cOutputVisitor(), func_expr.m_Operation);
 
-	boost::apply_visitor(cOutputVisitor(), func_expr.m_RHSExpr);
+	const cFuncExpr *right_expr = boost::get<cFuncExpr>(&func_expr.m_RHSExpr);
+	if(!no_op && right_expr && (func_expr.precedence(func_expr.m_Operation) > right_expr->precedence(right_expr->m_Operation)))
+	{
+		out << "(";
+		boost::apply_visitor(cOutputVisitor(), func_expr.m_RHSExpr);
+		out << ")";
+	}
+	else
+	{
+		boost::apply_visitor(cOutputVisitor(), func_expr.m_RHSExpr);
+	}
 
 	if(composition)
 		out << ")";
