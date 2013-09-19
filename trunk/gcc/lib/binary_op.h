@@ -29,6 +29,16 @@ public:
 		return true;
 	}
 
+	int precedence()const
+	{
+		return 0;
+	}
+
+	bool isCommutative()const
+	{
+		return true;
+	}
+
 	static const bool isAdditive = true;
 	static const bool isMultiplicative = false;
 	static const bool isComposition = false;
@@ -54,6 +64,16 @@ public:
 	}
 
 	bool operator==(const Multiplication &mult)const
+	{
+		return true;
+	}
+
+	int precedence()const
+	{
+		return 3;
+	}
+
+	bool isCommutative()const
 	{
 		return true;
 	}
@@ -87,6 +107,16 @@ public:
 		return true;
 	}
 
+	int precedence()const
+	{
+		return 5;
+	}
+
+	bool isCommutative()const
+	{
+		return false;
+	}
+
 	static const bool isAdditive = false;
 	static const bool isMultiplicative = false;
 	static const bool isComposition = true;
@@ -114,6 +144,16 @@ public:
 	{
 		return true;
 	}
+	
+	int precedence()const
+	{
+		return 1;
+	}
+
+	bool isCommutative()const
+	{
+		return false;
+	}
 };
 inline std::ostream& operator<<(std::ostream& out, const Subtraction& subtraction)
 {
@@ -138,6 +178,16 @@ public:
 	{
 		return true;
 	}
+
+	int precedence()const
+	{
+		return 2;
+	}
+
+	bool isCommutative()const
+	{
+		return false;
+	}
 };
 inline std::ostream& operator<<(std::ostream& out, const Division& division)
 {
@@ -145,9 +195,56 @@ inline std::ostream& operator<<(std::ostream& out, const Division& division)
 	return out;
 }
 
+/*!
+  class that represents the power operation
+*/
+class Power
+{
+public:
+	template<typename T>
+	T operator()(const int power, const T &ob2)const
+	{
+		T result = 1.0;
+		for(int idx = 0; idx <= power; idx++)
+			result *= ob2;
+
+		return result;
+	}
+
+	bool operator==(const Power &pow)const
+	{
+		return true;
+	}
+
+	int precedence()const
+	{
+		return 4;
+	}
+
+	bool isCommutative()const
+	{
+		return false;
+	}
+};
+inline std::ostream& operator<<(std::ostream& out, const Power& pow)
+{
+	out << " ^ ";
+	return out;
+}
+
 struct NoOp
 {
 	bool operator==(const NoOp &no_op)const
+	{
+		return true;
+	}
+
+	int precedence()const
+	{
+		return 5;
+	}
+
+	bool isCommutative()const
 	{
 		return true;
 	}

@@ -2,8 +2,8 @@
 #define _EXPONENTIAL_H
 
 #include <tgmath.h>
-
-class cFuncExpr;
+#include <boost/math/constants/constants.hpp>
+#include <stdexcept>
 
 template<typename T>
 class cLogarithm;
@@ -12,30 +12,44 @@ template <typename T>
 class cExponential
 {
 public:
+	cExponential()
+		:m_Base(boost::math::constants::e<T>())
+	{}
+
 	cExponential(const T &base)
 		:m_Base(base)
-	{}
+	{
+		if(m_Base == 0.0)
+			throw std::invalid_argument("0 not allowed as base for exponential function");
+	}
 
 	T operator()(T &value)const
 	{
 		return std::pow(m_Base, value);
 	}
 
-	bool operator==(const cExponential& exp)const;
+	bool operator==(const cExponential& exp)const
+	{
+		return m_Base == exp.m_Base;
+	}
 
-	cFuncExpr derivative(const cVariable& var)const;
+	cLogarithm<T> inverse()const
+	{
+		return cLogarithm<T>(m_Base);
+	}
 
-	cFuncExpr integral(const cVariable& var)const;
-
-	cLogarithm inverse()const;
+	T base()const
+	{	return m_Base;	}
 
 private:
 	T m_Base;
 
-friend std::ostream& operator<<(std::ostream& out, const cExponential& exp);
+template <typename Y>
+friend std::ostream& operator<<(std::ostream& out, const cExponential<Y>& exp);
 };
 
-inline std::ostream& operator<<(std::ostream& out, const cExponential& exp)
+template <typename T>
+inline std::ostream& operator<<(std::ostream& out, const cExponential<T>& exp)
 {
 	out << exp.m_Base << "^";
 	return out;
