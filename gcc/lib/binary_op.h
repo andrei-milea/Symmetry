@@ -29,11 +29,6 @@ public:
 		return true;
 	}
 
-	int precedence()const
-	{
-		return 0;
-	}
-
 	bool isCommutative()const
 	{
 		return true;
@@ -66,11 +61,6 @@ public:
 	bool operator==(const Multiplication &mult)const
 	{
 		return true;
-	}
-
-	int precedence()const
-	{
-		return 3;
 	}
 
 	bool isCommutative()const
@@ -107,11 +97,6 @@ public:
 		return true;
 	}
 
-	int precedence()const
-	{
-		return 5;
-	}
-
 	bool isCommutative()const
 	{
 		return false;
@@ -145,11 +130,6 @@ public:
 		return true;
 	}
 	
-	int precedence()const
-	{
-		return 1;
-	}
-
 	bool isCommutative()const
 	{
 		return false;
@@ -179,11 +159,6 @@ public:
 		return true;
 	}
 
-	int precedence()const
-	{
-		return 2;
-	}
-
 	bool isCommutative()const
 	{
 		return false;
@@ -205,20 +180,24 @@ public:
 	T operator()(const int power, const T &ob2)const
 	{
 		T result = 1.0;
-		for(int idx = 0; idx <= power; idx++)
-			result *= ob2;
+		if(power != 0)
+		{
+			for(int idx = 0; idx <= std::abs(power); idx++)
+				result *= ob2;
+			if(power < 0)
+				result *= -1.0; 
+		}
 
 		return result;
 	}
 
+	//hack: disable implicit conversion with linker ERROR
+	template<typename T>
+	T operator()(const double power, const T &ob2)const;
+
 	bool operator==(const Power &pow)const
 	{
 		return true;
-	}
-
-	int precedence()const
-	{
-		return 4;
 	}
 
 	bool isCommutative()const
@@ -237,11 +216,6 @@ struct NoOp
 	bool operator==(const NoOp &no_op)const
 	{
 		return true;
-	}
-
-	int precedence()const
-	{
-		return 5;
 	}
 
 	bool isCommutative()const

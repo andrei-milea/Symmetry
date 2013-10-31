@@ -59,7 +59,10 @@ friend std::ostream& operator<<(std::ostream& out, const cLogarithm<Y>& log);
 template <typename T>
 inline std::ostream& operator<<(std::ostream& out, const cLogarithm<T>& log)
 {
-	out << "log_" << log.m_Base;
+	if(log.m_Base != boost::math::constants::e<T>())
+		out << "log_" << log.m_Base;
+	else
+		out << "log";
 	return out;
 }
 

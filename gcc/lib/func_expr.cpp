@@ -112,27 +112,53 @@ void cFuncExpr::simplify()
 
 cFuncExpr cFuncExpr::derivative()const
 {
-	cFuncExpr fnc = derivative_impl();
-	fnc.simplify();
-	return fnc;
-}
-
-cFuncExpr cFuncExpr::derivative_impl()const
-{
 	cFuncExpr new_expr;
 	cExprDiffVisitor diff_visitor(new_expr, m_LHSExpr, m_RHSExpr);
 	boost::apply_visitor(diff_visitor, m_Operation);
+	new_expr.simplify();
+	return new_expr;
+}
+
+
+cFuncExpr cFuncExpr::partial_derivative(const cVariable& var)const
+{
+	cFuncExpr new_expr;
+	cExprPartDiffVisitor part_diff_visitor(new_expr, m_LHSExpr, m_RHSExpr, var);
+	boost::apply_visitor(part_diff_visitor, m_Operation);
+	new_expr.simplify();
 	return new_expr;
 }
 
 cFuncExpr cFuncExpr::primitive()const
 {
+	//TODO
 	return cFuncExpr();
 }
 
-int cFuncExpr::precedence(const operation_type& op)const
+void cFuncExpr::substitute(const cVariable& var1, const cVariable& var2)
 {
-	return boost::apply_visitor(cPrecVisitor(), op);
+	cVariable* var_left = boost::get<cVariable>(&m_LHSExpr);
+	cFuncExpr* fnc_left = boost::get<cFuncExpr>(&m_LHSExpr);
+	cVariable* var_right = boost::get<cVariable>(&m_RHSExpr);
+	cFuncExpr* fnc_right = boost::get<cFuncExpr>(&m_RHSExpr);
+	if(var_left)
+	{
+		if(*var_left == var1)
+			*var_left = var2;
+	}
+	else if(fnc_left)
+	{
+		fnc_left->substitute(var1, var2);
+	}
+	if(var_right)
+	{
+		if(*var_right == var1)
+			*var_right = var2;
+	}
+	else if(fnc_right)
+	{
+		fnc_right->substitute(var1, var2);
+	}
 }
 
 std::ostream& operator<<(std::ostream& out, const cFuncExpr& func_expr)
@@ -146,10 +172,11 @@ std::ostream& operator<<(std::ostream& out, const cFuncExpr& func_expr)
 		return out;
 	}
 
-	const NoOp* no_op = boost::get<NoOp>(&func_expr.m_Operation);
-
 	const cFuncExpr *left_expr = boost::get<cFuncExpr>(&func_expr.m_LHSExpr);
-	if(!no_op && left_expr && (func_expr.precedence(func_expr.m_Operation) > left_expr->precedence(left_expr->m_Operation)))
+	const NoOp* no_op = boost::get<NoOp>(&func_expr.m_Operation);
+	const NoOp* left_no_op = boost::get<NoOp>(&left_expr->m_Operation);
+
+	if(!no_op && !left_no_op && !composition && left_expr && !(func_expr.m_Operation == left_expr->m_Operation))
 	{
 		out << "(";
 		boost::apply_visitor(cOutputVisitor(), func_expr.m_LHSExpr);
@@ -166,7 +193,8 @@ std::ostream& operator<<(std::ostream& out, const cFuncExpr& func_expr)
 		boost::apply_visitor(cOutputVisitor(), func_expr.m_Operation);
 
 	const cFuncExpr *right_expr = boost::get<cFuncExpr>(&func_expr.m_RHSExpr);
-	if(!no_op && right_expr && (func_expr.precedence(func_expr.m_Operation) > right_expr->precedence(right_expr->m_Operation)))
+	const NoOp* right_no_op = boost::get<NoOp>(&right_expr->m_Operation);
+	if(!no_op && !right_no_op && !composition && right_expr && !(func_expr.m_Operation == right_expr->m_Operation))
 	{
 		out << "(";
 		boost::apply_visitor(cOutputVisitor(), func_expr.m_RHSExpr);

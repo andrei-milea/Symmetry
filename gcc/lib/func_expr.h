@@ -117,15 +117,20 @@ public:
 
 	cFuncExpr derivative()const;
 
+	/*!
+	 * compute the partial derivative with respect to the given variable
+	*/
+	cFuncExpr partial_derivative(const cVariable& var)const;
+
 	cFuncExpr primitive()const;
 
 	/*!
-	 * substitute var1 with var2 in expression
-	 * throws exception if var1 is not found in expression
+	 * substitute var1 with var2 in expression recursively
 	*/
 	void substitute(const cVariable& var1, const cVariable& var2);
 
 	/*!
+	 * TODO
 	 * evaluates the expression by substituting the variable with the given value
 	 * an exception is thrown if the substitution fails
 	*/
@@ -139,15 +144,12 @@ public:
 	void printOp()const;
 
 private:
-	cFuncExpr derivative_impl()const;
-	int precedence(const operation_type& op)const;
-
-private:
 	operation_type m_Operation;
-	expr_type  m_LHSExpr;
+	expr_type m_LHSExpr;
 	expr_type m_RHSExpr;
 
 friend class cExprDiffVisitor;
+friend class cExprPartDiffVisitor;
 friend class cDiffVisitor;
 friend class cSimplifyVisitor;
 friend std::ostream& operator<<(std::ostream& out, const cFuncExpr& func_expr);
