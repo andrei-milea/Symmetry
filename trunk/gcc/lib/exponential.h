@@ -51,7 +51,10 @@ friend std::ostream& operator<<(std::ostream& out, const cExponential<Y>& exp);
 template <typename T>
 inline std::ostream& operator<<(std::ostream& out, const cExponential<T>& exp)
 {
-	out << exp.m_Base << "^";
+	if(exp.m_Base != boost::math::constants::e<T>())
+		out << exp.m_Base << "^";
+	else
+		out << "e^";
 	return out;
 }
 

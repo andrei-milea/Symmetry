@@ -6,18 +6,6 @@
 #include <iostream>
 
 /*!
- * used to get precedence from operations
-*/
-struct cPrecVisitor : public boost::static_visitor<int>
-{
-	template<typename T>
-	int operator()(const T& op)const
-	{
-		return op.precedence();
-	}
-};
-
-/*!
  * used to get commutativity from operations
 */
 struct cCommuteVisitor : public boost::static_visitor<bool>
@@ -61,6 +49,12 @@ public:
 	void operator()(Subtraction& sub)
 	{
 		simplify_subtrees();
+		if(isZero(m_RHSExpr))
+		{
+			m_Operation = NoOp();
+			m_RHSExpr = cEmptyExpr();
+		}
+
 //		if(m_LHSExpr == m_RHSExpr)
 //		{
 //			m_LHSExpr = 0.0;
