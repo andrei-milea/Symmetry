@@ -41,7 +41,7 @@ std::pair<iterator, bool> get_whole_http_message(iterator begin, iterator end)
 		return std::make_pair(end, true);
 
 	return std::make_pair(begin, false);
-};
+}
 
 void cHttpConnection::HandleClient()
 {
@@ -49,7 +49,7 @@ void cHttpConnection::HandleClient()
 	boost::asio::async_read_until(m_Socket, m_RequestBuf, get_whole_http_message,
 	                              boost::bind(&cHttpConnection::HandleRequest, shared_from_this(),
 	                              boost::asio::placeholders::error));
-};
+}
 
 void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 {
@@ -78,7 +78,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				const std::string index_page=cPageBuilder::GetInstance()->GetIndexPage(ses_id);
 				response.BuildResponse(OK, index_page, "text/html");
 			}
-			else if(cPageBuilder::ResError != cPageBuilder::GetInstance()->GetPageResource(_request.GetResource()))
+			else if(cPageBuilder::s_ResError != cPageBuilder::GetInstance()->GetPageResource(_request.GetResource()))
 			{
 				cResponse response(m_ResponseBuf);
 				const std::string resource = cPageBuilder::GetInstance()->GetPageResource(
@@ -157,7 +157,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 
 		m_ConnectionManager.StopConnection(shared_from_this());
 	}
-};
+}
 
 void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest& _request, const std::size_t ses_id)
 {
@@ -196,7 +196,7 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 		log<< e.what();
 		response.BuildResponse(OK, e.what(), "text/plain");
 	}
-};
+}
 
 void cHttpConnection::HandleWriteResponse(const boost::system::error_code& error)
 {
@@ -222,8 +222,8 @@ void cHttpConnection::Stop()
 	boost::system::error_code error;
 	m_Socket.shutdown(boost::asio::ip::tcp::socket::shutdown_both, error);
 	m_Socket.close();
-};
-
 }
+
+}//namespace http_server
 
 

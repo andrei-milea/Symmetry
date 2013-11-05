@@ -16,20 +16,12 @@ public:
 	/*!
 	  initializes members and prepares for accepting connections
 	*/
-	cHttpServer(unsigned int port);
-	/*!
-	  stops the server
-	*/
+	cHttpServer(unsigned int port, const std::string&  web_pages_path, const std::string& presentations_path);
+
 	~cHttpServer();
 
-	/*!
-	  starts the server
-	*/
 	void Start();
 
-	/*!
-	  stops the server
-	*/
 	void Stop();
 
 private:
@@ -44,7 +36,7 @@ private:
 
 };
 
-}
+}//namespace http_server
 
 
 #endif

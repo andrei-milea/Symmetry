@@ -25,12 +25,12 @@ void cGetRREFCommand::Execute()
 			m_Result(rows_idx, cols_idx) = mat->elements[cols_idx + rows_idx*cols_no];
 
 	rref(m_Result);
-};
+}
 
 unsigned int cGetRREFCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 1;
-};
+}
 
 }
 

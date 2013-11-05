@@ -1,0 +1,9 @@
+<symmetry_config>
+	<address>
+		<port>80</port>
+	</address>
+	<paths>
+		<web_pages>/root/projects/symmetry/absalg/gcc/interface/pages</web_pages> 
+		<presentations>/root/projects/symmetry/absalg/gcc/interface/presentations</presentations> 
+	</paths>
+</symmetry_config>
