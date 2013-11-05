@@ -28,14 +28,11 @@ namespace fs = boost::filesystem;
 using namespace engine;
 
 cPageBuilder *cPageBuilder::s_Instance = NULL;
-std::string cPageBuilder::ResError = "Resource not available";
+std::string cPageBuilder::s_ResError = "Resource not available";
+std::string cPageBuilder::s_WebPagesPath = "../pages";
+std::string cPageBuilder::s_PresentationsPath = "../presentations";
 
 #define INDEX_PAGE	"/index.html"
-#define CSS_PAGE	"../pages/styles.css"
-#define COMPANEL_JS	"../pages/command_panel.js"
-#define WEBGL_JS	"../pages/webgl.js"
-#define MATRIX_JS	"../pages/glMatrix.js"
-#define WEGLUTILS	"../pages/webgl-utils.js"
 
 //macro for inserting HTML directly in C++
 #define HTML(...) #__VA_ARGS__
@@ -47,13 +44,20 @@ cPageBuilder* cPageBuilder::GetInstance()
 	if(NULL == s_Instance)
 		s_Instance = new cPageBuilder;
 	return s_Instance;
-};
+}
+
+
+void cPageBuilder::SetPaths(const std::string& web_pages_path, const std::string& presentations_path)
+{
+	cPageBuilder::s_WebPagesPath = web_pages_path;
+	cPageBuilder::s_PresentationsPath = presentations_path;
+}
 
 cPageBuilder::cPageBuilder()
 	:m_IdPosition(0),
 	m_IdSize(2)
 {
-	fs::path dir_path("../pages");
+	fs::path dir_path(cPageBuilder::s_WebPagesPath);
 	if(!fs::exists(dir_path))
 		throw std::runtime_error(CONTEXT_STR + "invalid resources directory");
 		
@@ -64,10 +68,10 @@ cPageBuilder::cPageBuilder()
 	{
 		if(fs::is_regular_file(dir_iter->status()))
 		{
-			std::ifstream File;
-			File.open(dir_iter->path().string(), std::ios::binary);
+			std::ifstream file;
+			file.open(dir_iter->path().string(), std::ios::binary);
 			std::string file_path = "/" + dir_iter->path().filename().string();
-			m_Resources[file_path].assign(std::istreambuf_iterator<char>(File),
+			m_Resources[file_path].assign(std::istreambuf_iterator<char>(file),
 				   	std::istreambuf_iterator<char>());
 			if(INDEX_PAGE == file_path)
 			{
@@ -76,7 +80,7 @@ cPageBuilder::cPageBuilder()
 			}
 		}
 	}
-};
+}
 
 
 const std::string& cPageBuilder::GetIndexPage(const std::size_t session_id)
@@ -87,8 +91,8 @@ const std::string& cPageBuilder::GetIndexPage(const std::size_t session_id)
 	if(map_iter != m_Resources.end())
 		return map_iter->second.replace(m_IdPosition, old_size, boost::lexical_cast<std::string>(session_id));
 	else
-		return cPageBuilder::ResError;
-};
+		return cPageBuilder::s_ResError;
+}
 
 const std::string& cPageBuilder::GetPageResource(const std::string& resource)const
 {
@@ -97,8 +101,8 @@ const std::string& cPageBuilder::GetPageResource(const std::string& resource)con
 	if(map_iter != m_Resources.end())
 		return map_iter->second;
 	else
-		return cPageBuilder::ResError;
-};
+		return cPageBuilder::s_ResError;
+}
 
 const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, const std::size_t ses_id)const
 {
@@ -241,19 +245,19 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		m_ResultStr += "</ul></br></br>";
 	}
 	return m_ResultStr;
-};
+}
 
 const std::string cPageBuilder::GetLoadingPage(const std::size_t estimation, const std::size_t ses_id)const
 {
 	//TODO
 	return "";
-};
+}
 
 const std::string& cPageBuilder::GetPlainContent(const std::string& planecontent)const
 {
 	return planecontent;
-};
-
-
 }
+
+
+}//namespace http_server
 

@@ -16,7 +16,7 @@ namespace engine
 
 #define CONTEXT_STR std::string(BOOST_CURRENT_FUNCTION + std::string(" :: thread id:: ") + boost::lexical_cast<std::string>(boost::this_thread::get_id()) + " ")
 
-#define GLOBAL_LOG_FILE "log.txt"
+#define GLOBAL_LOG_FILE "/var/log/symmetry_log.txt"
 
 #define LOG_SEV_ERROR		1
 #define LOG_SEV_WARNING		2

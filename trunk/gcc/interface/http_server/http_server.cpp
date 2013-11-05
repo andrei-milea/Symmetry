@@ -1,5 +1,6 @@
 
 #include "http_server.h"
+#include "pagebuilder.h"
 #include "../../engine/logger.h"
 #include <boost/bind.hpp>
 #include <signal.h>
@@ -10,7 +11,8 @@ namespace http_server
 using namespace boost::asio::ip;
 using namespace engine;
 
-cHttpServer::cHttpServer(unsigned int port)
+
+cHttpServer::cHttpServer(unsigned int port, const std::string&  web_pages_path, const std::string& presentations_path)
 	:m_IOService(),
 	 m_Acceptor(m_IOService, tcp::endpoint(tcp::v4(), port)),
 	 m_Signals(m_IOService)
@@ -24,13 +26,15 @@ cHttpServer::cHttpServer(unsigned int port)
 
 	m_Acceptor.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
 
+	cPageBuilder::SetPaths(web_pages_path, presentations_path);
+
 	StartAccept();
-};
+}
 
 cHttpServer::~cHttpServer()
 {
 	Stop();
-};
+}
 
 void cHttpServer::StartAccept()
 {
@@ -39,7 +43,7 @@ void cHttpServer::StartAccept()
 	m_Acceptor.async_accept(new_connection->GetSocket(),
 	                        boost::bind(&cHttpServer::HandleConnection, this, new_connection,
 	                                    boost::asio::placeholders::error));
-};
+}
 
 void cHttpServer::HandleConnection(connection_ptr new_connection,
                                    const boost::system::error_code& error)
@@ -54,14 +58,14 @@ void cHttpServer::HandleConnection(connection_ptr new_connection,
 		cLogger log(LOG_SEV_ERROR);
 		log<< CONTEXT_STR + error.message();
 	}
-};
+}
 
 void cHttpServer::Start()
 {
 	cLogger log(LOG_SEV_INFO);
 	log<< CONTEXT_STR + "SYMMETRY server starting ... ";
 	m_IOService.run();
-};
+}
 
 void cHttpServer::Stop()
 {
@@ -69,10 +73,9 @@ void cHttpServer::Stop()
 	log<< CONTEXT_STR + "Server is stopping...ignore further errors";
 	m_Acceptor.close();
 	m_ConnectionManager.StopAllConnections();
-};
-
-
-
 }
+
+
+}//namespace http_server
 
 

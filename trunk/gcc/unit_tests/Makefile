@@ -1,7 +1,7 @@
 all: test_tree test_perm test_group_el test_symmetric test_std_ex test_cayley_grf test_group test_engine_main test_server_main test_results_db test_matrix test_poly test_func
 CFLAGS = -c -std=c++0x -g -Wall -I /usr/include/boost 
 BFLAGS = -std=c++0x -g -Wall -I /usr/include/boost 
-LFLAGS =-lboost_system -pthread -lboost_thread-mt -lboost_date_time -lboost_iostreams -lboost_filesystem -lboost_random
+LFLAGS =-lboost_system -pthread -lboost_thread -lboost_date_time -lboost_iostreams -lboost_filesystem -lboost_random
 GCC = g++
 VPATH = ../interface/http_server:../engine
 
@@ -59,7 +59,7 @@ test_lattice: test_lattice.cpp
 	#test_engine compilation
 	########################
 
-test_engine_main: test_engine.o estimate.o getelem_command.o getcenter_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o session.o logger.o command_queue.o thread_pool.o
+test_engine_main: test_engine.o estimate.o getelem_command.o getcenter_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o getrref_command.o getlinsyssol_command.o session.o logger.o command_queue.o thread_pool.o
 	$(GCC) $^ $(LFLAGS) -o test_engine_main
 
 test_engine.o: test_engine.cpp
@@ -90,6 +90,12 @@ getinverse_command.o: ../engine/getinverse_command.cpp
 	$(GCC) $(CFLAGS) $<
 
 getrel_command.o: ../engine/getrel_command.cpp
+	$(GCC) $(CFLAGS) $<
+
+getrref_command.o: ../engine/getrref_command.cpp
+	$(GCC) $(CFLAGS) $<
+
+getlinsyssol_command.o: ../engine/getlinsyssol_command.cpp
 	$(GCC) $(CFLAGS) $<
 
 session.o: ../engine/session.cpp

@@ -81,19 +81,19 @@ private:
 	};
 
 private:
-	boost::asio::ip::tcp::socket			m_Socket;
-	boost::asio::streambuf					m_RequestBuf;
-	boost::asio::streambuf					m_ResponseBuf;
-	cConnectionManager						&m_ConnectionManager;
-	bool									m_HttpVersion;
+	boost::asio::ip::tcp::socket m_Socket;
+	boost::asio::streambuf m_RequestBuf;
+	boost::asio::streambuf m_ResponseBuf;
+	cConnectionManager &m_ConnectionManager;
+	bool m_HttpVersion;
 
-	static sessions_map						s_Sessions;
-	static engine::cEstimator				s_Estimator;
+	static sessions_map s_Sessions;
+	static engine::cEstimator s_Estimator;
 };
 
 typedef boost::shared_ptr<cHttpConnection> connection_ptr;
 
-}
+}//namespace http_server
 
 
 #endif

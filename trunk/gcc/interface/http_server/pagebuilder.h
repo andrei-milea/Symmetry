@@ -26,7 +26,9 @@ public:
 
 	static cPageBuilder* GetInstance();
 
-	static std::string ResError;
+	static std::string s_ResError;
+
+	static void SetPaths(const std::string& web_pages_path, const std::string& presentations_path);
 
 	const std::string& GetIndexPage(const std::size_t session_id);
 
@@ -45,6 +47,8 @@ protected:
 
 private:
 	static cPageBuilder *s_Instance;
+	static std::string s_WebPagesPath;
+	static std::string s_PresentationsPath;
 	std::size_t m_IdPosition;
 	std::size_t m_IdSize;
 	std::map<std::string, std::string> m_Resources;
@@ -52,7 +56,7 @@ private:
 };
 
 
-}
+}//namespace http_server
 
 #endif
 
