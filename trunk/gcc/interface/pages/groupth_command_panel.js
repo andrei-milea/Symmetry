@@ -7,16 +7,12 @@ var GrpPanel = function () {
 	var group_commands_active = false;	
     
 	function show() {
-        var groupcommand_panelDiv = document.getElementById("group_commands_panel");
         var group_panelDiv = document.getElementById("grp_div_id");
-		groupcommand_panelDiv.style.display = "block";
 		group_panelDiv.style.display = "block";
 	}
 
 	function hide() {
-        var groupcommand_panelDiv = document.getElementById("group_commands_panel");
         var group_panelDiv = document.getElementById("grp_div_id");
-		groupcommand_panelDiv.style.display = "none";
 		group_panelDiv.style.display = "none";
 	}
 

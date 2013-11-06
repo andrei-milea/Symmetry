@@ -5,16 +5,12 @@ var PolyPanel = function () {
 	var command_input_str = "";
 
 	function show() {
-        var poly_command_panelDiv = document.getElementById("poly_panel");
         var polyDiv = document.getElementById("poly_div_id");
-		poly_command_panelDiv.style.display = "block";
 		polyDiv.style.display = "block";
 	}
 
 	function hide() {
-		var poly_command_panelDiv = document.getElementById("poly_panel");
         var polyDiv = document.getElementById("poly_div_id");
-		poly_command_panelDiv.style.display = "none";
 		polyDiv.style.display = "none";
 	}
 

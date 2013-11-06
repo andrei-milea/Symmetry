@@ -1,29 +1,41 @@
 
 .swholepage{
-margin-left: 100;
+margin-left: 50;
+margin-right: 50;
 box-shadow: 9px 9px 9px rgba(0,0,0,0.20);
 border:1px solid #aaa;
-width: 1045;
 min-height: 95%;
-background-image: url(bkg.jpg)
+/*background-image: url(bkg.jpg);*/
+background-color: #F2F2F2;
 }
 
+.sbanner{
+margin-left: 150;
+margin-right: auto;
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+border: 1px solid #aaa;
+}
 
 del{text-decoration:line-through;}
 
-/* navigation menu style*/
-
-nav ul ul {
-	display: none;
-	z-index:1;
+.smainmenu{
+	margin-left: 170;
+	margin-right: auto;
+	font-size: 18px;
 }
 
-nav ul li:hover > ul {
+/* navigation menu style*/
+.smainmenu nav ul ul {
+		display: none;
+		z-index:1;
+}
+
+.smainmenu nav ul li:hover > ul {
 	display: block;
 	z-index:1;
 }
 
-nav ul {
+.smainmenu nav ul {
 	background: #efefef; 
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
@@ -37,15 +49,17 @@ nav ul {
 	display: inline-table;
 	z-index:1;
 }
-nav ul:after {
+
+.smainmenu nav ul:after {
 	content: ""; clear: both; display: block;
 }
 
-nav ul li {
+.smainmenu nav ul li {
 	float: left;
-	color: #fff;
+	color: #000;
 }
-nav ul li:hover {
+
+.smainmenu nav ul li:hover {
 	background: #efefef;
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
@@ -53,17 +67,18 @@ nav ul li:hover {
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 	color: #000;
 }
-nav ul li:hover a {
-	color: #757575;
+
+.smainmenu nav ul li:hover a {
+	color: #000;
 }
 
-nav ul li a {
+.smainmenu nav ul li a {
 	display: block; padding: 4px 14px;
-	color: #757575; text-decoration: none;
+	color: #000; text-decoration: none;
 }
-	
+		
 
-nav ul ul {
+.smainmenu nav ul ul {
 	padding: 0;
 	background: #efefef;
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
@@ -71,20 +86,22 @@ nav ul ul {
 	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
 	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
 	position: absolute; top: 100%;
-	color: #fff;
+	color: #000;
 }
 
-nav ul ul li {
+.smainmenu nav ul ul li {
 	float: none; 
 	border-top: 1px solid #6b727c;
 	position: relative;
-	color: #fff;
+	color: #000;
 }
-nav ul ul li a {
+
+.smainmenu nav ul ul li a {
 	padding: 4px 14px;
-	color: #fff;
+	color: #000;
 }	
-nav ul ul li a:hover {
+
+.smainmenu nav ul ul li a:hover {
 	background: #efefef;
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
@@ -93,20 +110,115 @@ nav ul ul li a:hover {
 	color: #000;
 }
 
-nav ul ul ul {
+.smainmenu nav ul ul ul {
 	position: absolute; left: 100%; top:0;
 	white-space:nowrap;
 }
 
 
-/* button style*/
+/*tabs*/
+.scomputations_panel {
+clear: both;
+width: auto;
+background-color: #F2F2F2;
+}
+.scomputations_panel ul {
+list-style: none;
+padding:0;
+margin:0;
+}
+.scomputations_panel li {
+float: left;
+border: 1px solid #bbb;
+border-bottom-width: 0;
+margin: 0;
+color: #000;
+font-size: 17px;
+}
+.scomputations_panel li a{
+background: #eee;
+color: #757575;
+width: 8em;
+text-align: center;
+text-decoration: none;
+padding: 0 1em;
+border-bottom-width: 0;
+}
+.scomputations_panel li a:hover {
+background: #ddf;
+}
+.scomputations_panel li a:active {
+border: 1px solid #000;
+border-bottom-width: 0;
+position: relative;
+top: 1px;
+background: white;
+color: black;
+font-weight: bold; 
+}
+.scomputations_panel li a:focus {
+border: 1px solid #000;
+border-bottom-width: 0;
+position: relative;
+top: 1px;
+background: white;
+color: black;
+font-weight: bold; 
+}
+.scomputations_panel li a.selected {
+border-bottom-width: 0;
+position: relative;
+top: 1px;
+background: white;
+color: black;
+font-weight: bold; 
+}
+.scomputations_panel li.selected {
+border: 1px solid #000;
+border-bottom-width: 0;
+position: relative;
+top: 1px;
+background: white;
+color: black;
+font-weight: bold; 
+}
+
+.scommand_panel {
+border: 1px solid black;
+clear: both;
+padding: 0 1em;
+margin-top: 15;
+margin-left: 0;
+background: white;
+}
+
+.sinput_div_id
+{
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+border-radius: 3px;  
+border:1px solid #aaa;
+text-align: center;
+background: white;
+margin-left: 10;
+width: 750; height: auto;
+margin-top: 20;
+position: relative;
+padding-bottom: 0.1cm;
+}
+.stoggle_button
+{
+background: white;
+margin-left: 350;
+}
+
+/*commands button style*/
 .sbutton{
 padding: 0px;
 margin: 0px;
 margin-left: 27;
 border-right-style:solid;
 border-right-color:#FFF;
-border-right-width:3px;;
+border-right-width:3px;
 }
 
 .sbutton a {
@@ -121,7 +233,7 @@ border-left-color:#FFF;
 border-left-width:3px;
 border-right-style:solid;
 border-right-color:#FFF;
-border-right-width:3px;;
+border-right-width:3px;
 }
 
 .sbutton a:hover {
@@ -133,24 +245,6 @@ border-left-width:3px;
 border-right-style:solid;
 border-right-color:#808080;
 border-right-width:3px;
-}
-
-.scommand_panel
-{
-margin-top: 15;
-margin-left: 0;
-position: relative;
-}
-
-.swiki_panel
-{
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
-text-align: center;
-margin-left: 800;
-width: auto;
-border:1px solid #aaa;
-position: absolute;
-background-color: #FFFFFF;
 }
 
 /*canvas style*/
@@ -166,7 +260,7 @@ margin-left: auto;
 position: relative;
 width: 800px; 
 min-height: 630px;
-background-color: #F2F2F2;
+background: white;
 }
 .scanvas
 {
@@ -183,7 +277,7 @@ text-align: center;
 overflow: auto;
 clear: both;
 border:1px solid #aaa;
-background-color: #F2F2F2;
+background: white;
 margin-top: 50;
 margin-right: auto;
 margin-left: auto;
@@ -193,25 +287,12 @@ min-height: 200;
 max-height: 500;
 }
 
-.sinput_div_id
-{
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
-border-radius: 3px;  
-border:1px solid #aaa;
-text-align: center;
-background-color: #F2F2F2;
-margin-right: auto;
-margin-left: auto;
-width: 800; height: auto;
-margin-top: 50;
-position: relative;
-padding-bottom: 0.1cm;
-}
+
 
 #group_property_div_id
 {
 box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
-background-color: #F2F2F2;
+background: white;
 border-radius: 3px;  
 text-align: center;
 position: relative;
@@ -230,16 +311,11 @@ border-radius:2px;
 box-shadow: 0px 0px 8px 4px #666;
 font-size:14px;
 position: absolute;
-top: 20;
-margin-left: 300;
+top: 370;
+margin-left: 780;
 display:block;
 width: 25em;
 padding:2% 2% 2% 2%;
-/*background:#666;
-background: linear-gradient(top, #666 50%, #670 50%);  
-background: -moz-linear-gradient(top, #666 50%, #670 50%); 
-background: -webkit-linear-gradient(top, #666 50%,#670 50%);
-*/
 background: rgb(14,14,14); /* Old browsers */
 background: -moz-linear-gradient(-45deg,  rgba(14,14,14,1) 33%, rgba(125,126,125,1) 95%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, right bottom, color-stop(33%,rgba(14,14,14,1)), color-stop(95%,rgba(125,126,125,1))); /* Chrome,Safari4+ */
