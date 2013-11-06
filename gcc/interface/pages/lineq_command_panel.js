@@ -5,16 +5,12 @@ var LinEqPanel = function () {
 	var sys_matrix;
 
 	function show() {
-        var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
         var lineqDiv = document.getElementById("lineq_div_id");
-		lineqcommand_panelDiv.style.display = "block";
 		lineqDiv.style.display = "block";
 	}
 
 	function hide() {
-		var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
         var lineqDiv = document.getElementById("lineq_div_id");
-		lineqcommand_panelDiv.style.display = "none";
 		lineqDiv.style.display = "none";
 	}
 

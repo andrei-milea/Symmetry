@@ -5,16 +5,12 @@ var VecMatPanel = function () {
 	var command_input_str = "";
 
 	function show() {
-        var vecmat_command_panelDiv = document.getElementById("vecmat_commands_panel");
         var vecmatDiv = document.getElementById("vecmat_div_id");
-		vecmat_command_panelDiv.style.display = "block";
 		vecmatDiv.style.display = "block";
 	}
 
 	function hide() {
-		var vecmat_command_panelDiv = document.getElementById("vecmat_commands_panel");
         var vecmatDiv = document.getElementById("vecmat_div_id");
-		vecmat_command_panelDiv.style.display = "none";
 		vecmatDiv.style.display = "none";
 	}
 

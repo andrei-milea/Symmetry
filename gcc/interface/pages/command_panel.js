@@ -75,10 +75,6 @@ var MainMenu = function () {
 		var button_div = document.getElementById("button_div_id");
 		button_div.style.display = "block";
 
-		//add wiki link
-		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Group_(mathematics)' target='_blank'>Group Theory(Wikipedia)</br><img src='Rubiks_cube.jpg' alt='Rubik cube(picture from wikipedia)' height='160' width='170' style='opacity:1;filter:alpha(opacity=100);'><\a>";
-		
 		GrpPanel.show();
 		current_panel = GrpPanel;
 		show_input_box();
@@ -92,10 +88,6 @@ var MainMenu = function () {
 		var button_div = document.getElementById("button_div_id");
 		button_div.style.display = "block";
 
-		//add wiki link
-		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Matrix_(mathematics)' target='_blank'>Vectors and Matrices(Wikipedia)</br><img src='linear_spaces.jpg' alt='Linear Spaces(picture from wikipedia)' height='160' width='170' style='opacity:1;filter:alpha(opacity=100);'><\a>";
-		
 		VecMatPanel.show();
 		current_panel = VecMatPanel;
 		show_input_box();
@@ -109,10 +101,6 @@ var MainMenu = function () {
 		var button_div = document.getElementById("button_div_id");
 		button_div.style.display = "block";
 
-		//add wiki link
-		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/Polynomial' target='_blank'>Polynomials(Wikipedia)</br><img src='poly.jpg' alt='polynomial of degree 5(picture from wikipedia)' height='160' width='170' style='opacity:1;filter:alpha(opacity=100);'><\a>";
-		
 		PolyPanel.show();
 		current_panel = PolyPanel;
 		show_input_box();
@@ -128,10 +116,6 @@ var MainMenu = function () {
 		}
 		var button_div = document.getElementById("button_div_id");
 		button_div.style.display = "block";
-
-		//add wiki link
-		var wiki_panel_div = document.getElementById("wiki_panel_id");
-		wiki_panel_div.innerHTML = "<a href='http://en.wikipedia.org/wiki/System_of_linear_equations' target='_blank'>Linear Systems(Wikipedia)</br><img src='lineareq.jpg' alt='Linear Equations(picture from wikipedia)' height='160' width='170' style='opacity:1;filter:alpha(opacity=100);'><\a>";
 
 		LinEqPanel.show();
 		current_panel = LinEqPanel;
