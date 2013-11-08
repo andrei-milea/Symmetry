@@ -4,13 +4,13 @@ margin-left: 50;
 margin-right: 50;
 box-shadow: 9px 9px 9px rgba(0,0,0,0.20);
 border:1px solid #aaa;
-min-height: 95%;
+min-height: 98%;
 /*background-image: url(bkg.jpg);*/
-background-color: #F2F2F2;
+background-color: #FFFFFF;
 }
 
 .sbanner{
-margin-left: 150;
+margin-left: 20;
 margin-right: auto;
 box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border: 1px solid #aaa;
@@ -19,7 +19,7 @@ border: 1px solid #aaa;
 del{text-decoration:line-through;}
 
 .smainmenu{
-	margin-left: 170;
+	margin-left: 30;
 	margin-right: auto;
 	font-size: 18px;
 }
@@ -205,17 +205,29 @@ margin-top: 20;
 position: relative;
 padding-bottom: 0.1cm;
 }
-.stoggle_button
+
+.saddedinput_div_id
 {
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+border-radius: 3px;  
+border:1px solid #aaa;
+text-align: center;
 background: white;
-margin-left: 350;
+margin-left: 30;
+width: 600; height: auto;
+margin-top: 20;
+position: relative;
+padding-bottom: 0.1cm;
 }
 
 /*commands button style*/
 .sbutton{
+width: 750;
 padding: 0px;
 margin: 0px;
-margin-left: 27;
+margin-left: 10;
+margin-top: 10;
+min-height: 60;
 border-right-style:solid;
 border-right-color:#FFF;
 border-right-width:3px;
@@ -227,7 +239,6 @@ color: #757575;
 text-decoration: none;
 padding-left: 2px;
 padding-right: 2px;
-width: 100%;
 border-left-style:solid;
 border-left-color:#FFF;
 border-left-width:3px;
@@ -247,28 +258,6 @@ border-right-color:#808080;
 border-right-width:3px;
 }
 
-/*canvas style*/
-.scanvasdiv
-{
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
-border-radius: 3px;  
-text-align: center;
-border:1px solid #aaa;
-margin-top: 20;
-margin-right: auto;
-margin-left: auto;
-position: relative;
-width: 800px; 
-min-height: 630px;
-background: white;
-}
-.scanvas
-{
-margin-top: auto;
-margin-left: auto;
-margin-right: auto;
-}
-
 .smain_view
 {
 box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
@@ -278,16 +267,36 @@ overflow: auto;
 clear: both;
 border:1px solid #aaa;
 background: white;
-margin-top: 50;
-margin-right: auto;
-margin-left: auto;
+margin-left: 10;
 position: relative;
-width: 800;
+width: 750;
 min-height: 200;
 max-height: 500;
+resize: both;
 }
 
-
+/*canvas style*/
+.scanvasdiv
+{
+box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+border-radius: 3px;  
+text-align: center;
+margin-left: 10;
+border:1px solid #aaa;
+margin-top: 20;
+position: relative;
+width: 750px; 
+min-height: 600px;
+background: white;
+overflow: hidden;
+resize: both;
+}
+.scanvas
+{
+margin-top: auto;
+margin-left: auto;
+margin-right: auto;
+}
 
 #group_property_div_id
 {

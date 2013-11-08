@@ -45,6 +45,8 @@ protected:
 	cPageBuilder(const cPageBuilder &page_bld)
 	{};
 
+	void LoadWebPages(const std::string& pages);
+
 private:
 	static cPageBuilder *s_Instance;
 	static std::string s_WebPagesPath;

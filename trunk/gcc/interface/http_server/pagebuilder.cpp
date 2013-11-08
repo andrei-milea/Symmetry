@@ -57,20 +57,29 @@ cPageBuilder::cPageBuilder()
 	:m_IdPosition(0),
 	m_IdSize(2)
 {
-	fs::path dir_path(cPageBuilder::s_WebPagesPath);
+	LoadWebPages(cPageBuilder::s_WebPagesPath);
+}
+
+void cPageBuilder::LoadWebPages(const std::string &path)
+{
+	fs::path dir_path(path);
 	if(!fs::exists(dir_path))
 		throw std::runtime_error(CONTEXT_STR + "invalid resources directory");
 		
 	fs::directory_iterator end_iter;
 
-	cLogger log(LOG_SEV_INFO);
 	for(fs::directory_iterator dir_iter(dir_path); dir_iter != end_iter; ++dir_iter)
 	{
-		if(fs::is_regular_file(dir_iter->status()))
+		if(fs::is_directory(dir_iter->status()))
+		{
+			LoadWebPages(dir_iter->path().string());
+		}
+		else if(fs::is_regular_file(dir_iter->status()))
 		{
 			std::ifstream file;
 			file.open(dir_iter->path().string(), std::ios::binary);
-			std::string file_path = "/" + dir_iter->path().filename().string();
+			std::string dir_path = dir_iter->path().string();
+			std::string file_path = "/" + dir_path.substr(dir_path.find("pages/") + 6);
 			m_Resources[file_path].assign(std::istreambuf_iterator<char>(file),
 				   	std::istreambuf_iterator<char>());
 			if(INDEX_PAGE == file_path)

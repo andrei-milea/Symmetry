@@ -7,12 +7,16 @@ var GrpPanel = function () {
 	var group_commands_active = false;	
     
 	function show() {
+		var groupcommand_panelDiv = document.getElementById("group_commands_panel");
         var group_panelDiv = document.getElementById("grp_div_id");
+		groupcommand_panelDiv.style.display = "block";
 		group_panelDiv.style.display = "block";
 	}
 
 	function hide() {
+		var groupcommand_panelDiv = document.getElementById("group_commands_panel");
         var group_panelDiv = document.getElementById("grp_div_id");
+		groupcommand_panelDiv.style.display = "none";
 		group_panelDiv.style.display = "none";
 	}
 
@@ -150,13 +154,11 @@ var GrpPanel = function () {
 		static_vars.group_type = group_selTag.options[group_selTag.selectedIndex].value;
 
 		//add to the main div
-		var added_input_div = document.getElementById("added_input_id");
+		var added_input_div = document.getElementById("added_input_id1");
 		added_input_div.innerHTML = "";
 		added_input_div.style.display = "block";
-		added_input_div.innerHTML = "</br> <b>The group provided as input is:</b> </br> </br>" + "Group Type: &nbsp;" +
-			static_vars.group_type + "</br>" + "Group Generators: &nbsp;" + static_vars.generators + "</br></br>";
+		added_input_div.innerHTML = "</br> <b>The group provided as input is:</b> </br> </br>" + "Group Type: &nbsp;" 			+ static_vars.group_type + "</br>" + "Group Generators: &nbsp;" + static_vars.generators + "</br></br>";
 		group_commands_active = true;
-		MainMenu.hide_input_box();
 		return false;
 	}
 
