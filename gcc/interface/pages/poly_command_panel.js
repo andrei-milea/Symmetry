@@ -5,12 +5,16 @@ var PolyPanel = function () {
 	var command_input_str = "";
 
 	function show() {
+		var poly_command_panelDiv = document.getElementById("poly_panel");
         var polyDiv = document.getElementById("poly_div_id");
+		poly_command_panelDiv.style.display = "block";
 		polyDiv.style.display = "block";
 	}
 
 	function hide() {
+		var poly_command_panelDiv = document.getElementById("poly_panel");
         var polyDiv = document.getElementById("poly_div_id");
+		poly_command_panelDiv.style.display = "none";
 		polyDiv.style.display = "none";
 	}
 
@@ -73,14 +77,13 @@ var PolyPanel = function () {
 				}
 			}
 			command_input_str+="\\end{bmatrix}$";
-			var added_input_div = document.getElementById("added_input_id");
+			var added_input_div = document.getElementById("added_input_id4");
 			added_input_div.innerHTML = "</br><b>The matrix you provided as input is:</b> </br></br>" + command_input_str + "</br></br>";
 			added_input_div.style.display = "block";
-			MainMenu.hide_input_box();
 		}
 		else {
 			var mat_expr = document.getElementById("mat_expr_text_id");
-			var added_input_div = document.getElementById("added_input_id");
+			var added_input_div = document.getElementById("added_input_id4");
 			command_input_str = mat_expr.value;
 			var result = submit_command('GET_MAT_EXPR');
 			if(result.indexOf("$") === -1) {
@@ -90,7 +93,6 @@ var PolyPanel = function () {
 			command_input_str = result;
 			added_input_div.innerHTML = "</br><b>The matrix expression you provided as input is:</b> </br></br>" + mat_expr.value + "</br></br> <b>with the result: </b></br></br>" + result + "</br></br>";
 			added_input_div.style.display = "block";
-			MainMenu.hide_input_box();
 			mat_expr_computed = false;
 		}
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);

@@ -65,6 +65,16 @@
   src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
 </script>
 
+<link type="text/css" rel="stylesheet" href="openid/css/openid.css" />
+	<script type="text/javascript" src="openid/js/jquery-1.2.6.min.js"></script>
+	<script type="text/javascript" src="openid/js/openid-jquery.js"></script>
+	<script type="text/javascript" src="openid/js/openid-en.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			openid.init('openid_identifier');
+		});
+</script>
+
 </head>
 
 <body id="body_id" onload="WebGlContext.initWebGL()" bgcolor="#DCE2E7">
@@ -75,6 +85,23 @@
 </br>
 <img src="symmetry.jpg" class="sbanner">
 </br>
+<form action="examples/consumer/try_auth.php" method="get" id="openid_form">
+		<input type="hidden" name="action" value="verify" />
+		<fieldset class='sfieldset'>
+			<legend>Sign-in or Create New Account</legend>
+			<div id="openid_choice">
+				<div id="openid_btns"></div>
+			</div>
+			<div id="openid_input_area">
+				<input id="openid_identifier" name="openid_identifier" type="text" value="http://" />
+				<input id="openid_submit" type="submit" value="Sign-In"/>
+			</div>
+			<noscript>
+				<p>OpenID is service that allows you to log-on to many different websites using a single indentity.
+				Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
+			</noscript>
+		</fieldset>
+	</form>
 <div id="general_commands_panel" class="smainmenu">
 <nav>
 	<ul>
@@ -97,198 +124,228 @@
 </nav>
 </br>
 </div>
+</br>
 
 <div id="computations_panel" class="scomputations_panel">
 	<ul>
-	<li class="selected"><a class="selected" href="#">Plotting & Graphics</a></li>
-	<li><a href="#">Differentiation</a></li>
-	<li><a href="#" onclick="MainMenu.add_poly_div()">Polynomials</a></li>
-	<li><a href="#" onclick="MainMenu.add_vecmat_div()">Vectors & Matrices</a></li>
-	<li><a href="#" onclick="MainMenu.add_lineq_div()">Systems of linear equations</a></li>
-	<li><a href="#" onclick="MainMenu.add_feature_div()">Linear Optimizations</a></li>
-	<li><a href="#" onclick="MainMenu.add_grp_div()">Group Theory</a></li>
+	<li id='li_plot_id' class="selected"><a id='a_plot_id' class="selected" href="#">Plotting & Graphics</a></li>
+	<li id='li_dif_id'><a id='a_dif_id' href="#">Differentiation</a></li>
+	<li id='li_poly_id'><a id='a_poly_id' href="#" onclick="MainMenu.add_poly_div()">Polynomials</a></li>
+	<li id='li_mat_id'><a id='a_mat_id' href="#" onclick="MainMenu.add_vecmat_div()">Vectors & Matrices</a></li>
+	<li id='li_lineq_id'><a id='a_lineq_id' href="#" onclick="MainMenu.add_lineq_div()">Systems of linear equations</a></li>
+	<li id='li_grp_id'><a id='a_grp_id' href="#" onclick="MainMenu.add_grp_div()">Group Theory</a></li>
 	</ul>
 
 	<div id="command_panel" class="scommand_panel">
 
-	<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
-			<div id='input_div_contents1_id'>
-			&nbsp;&nbsp;&nbsp;
-			<form onSubmit='return GrpPanel.submit_grp()'>
-			<select id='grptype_sel_id' name='Group Type' onchange=''>
-				<option>Small Permutation Groups</option>
-				<option><del>Large Permutation Groups(not implemented)</del></option>
-				<option><del>Linear Groups(not implemented)</del></option>
-				<option><del>Quotient Groups(not implemented)</del></option>
-				<option><del>Topological Groups(not implemented)</del></option>
-			</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			Select a small permutation group type: &nbsp;&nbsp;&nbsp;
-			<select id='grp_sel_id' name='Group' onchange='GrpPanel.changeGrpType(this)'>
-				<option>Symmetric Group</option>
-				<option>Cyclic Group</option>
-				<option>Dihedral Group</option>
-			</select>
-			</br></br><hr /></br>
-			<div id='generators_div_id'>
-			Enter generator: &nbsp;&nbsp;&nbsp;
-			<input type='text' id='generator_id'>
-			&nbsp;&nbsp;&nbsp;
-			<input type='button' value='Add' onclick='GrpPanel.add_generator()'>
-			&nbsp;&nbsp;&nbsp;
-			<-OR->&nbsp;
-			Add a predefined group: &nbsp;&nbsp;&nbsp;
-			<select id='Groups' size='1' onchange='GrpPanel.add_generators(this)'>
-				<option value=''></option>
-				<option value='S3'>S3</option>
-				<option value='S4'>S4</option>
-				<option value='D8'>D8</option>
-			</select></br></br>
+		<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+				<div id='input_div_contents1_id'>
+				&nbsp;&nbsp;&nbsp;
+				<form onSubmit='return GrpPanel.submit_grp()'>
+				<select id='grptype_sel_id' name='Group Type' onchange=''>
+					<option>Small Permutation Groups</option>
+					<option><del>Large Permutation Groups(not implemented)</del></option>
+					<option><del>Linear Groups(not implemented)</del></option>
+					<option><del>Quotient Groups(not implemented)</del></option>
+					<option><del>Topological Groups(not implemented)</del></option>
+				</select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Select a small permutation group type: &nbsp;&nbsp;&nbsp;
+				<select id='grp_sel_id' name='Group' onchange='GrpPanel.changeGrpType(this)'>
+					<option>Symmetric Group</option>
+					<option>Cyclic Group</option>
+					<option>Dihedral Group</option>
+				</select>
+				</br></br><hr /></br>
+				<div id='generators_div_id'>
+				Enter generator: &nbsp;&nbsp;&nbsp;
+				<input type='text' id='generator_id'>
+				&nbsp;&nbsp;&nbsp;
+				<input type='button' value='Add' onclick='GrpPanel.add_generator()'>
+				&nbsp;&nbsp;&nbsp;
+				<-OR->&nbsp;
+				Add a predefined group: &nbsp;&nbsp;&nbsp;
+				<select id='Groups' size='1' onchange='GrpPanel.add_generators(this)'>
+					<option value=''></option>
+					<option value='S3'>S3</option>
+					<option value='S4'>S4</option>
+					<option value='D8'>D8</option>
+				</select></br></br>
+				</div>
+				Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				<select id='generators_id' size='5' style='Width:200' ></select>
+				&nbsp;&nbsp;&nbsp;
+				<input type='button' value='Clear' onclick='GrpPanel.clear_generators()'>
+				<input type='submit' value='Ok'></form>
+				</br>
+				<div id='added_input_id1' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
+				</br>
+				</div>
 			</div>
-			Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<select id='generators_id' size='5' style='Width:200' ></select>
-			&nbsp;&nbsp;&nbsp;
-			<input type='button' value='Clear' onclick='GrpPanel.clear_generators()'>
-			</br></br>After adding the generators press &nbsp;&nbsp;&nbsp;
-			<input type='submit' value='Ok'></form>
-			</br>
+			
+			<div id="group_commands_panel" class="sbutton" style= "display: none; ">
+				<fieldset class='sfieldset'>
+				<legend>Available commands</legend>
+				<a id="command_get_elements" href="#" onmouseover="Tooltip.show('get_elem')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_ELEMENTS'); return false;">Group Elements</a> 
+				<a id="command_get_cgraph" href="#" onmouseover="Tooltip.show('get_cgraph')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_CGRAPH'); return false;">Cayley Graph</a> 
+				<a id="command_get_relations" href="#" onmouseover="Tooltip.show('get_rel')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_RELATIONS'); return false;">Group Relations</a> 
+				<a id="command_get_center" href="#" onmouseover="Tooltip.show('get_center')" onmouseout="Tooltip.hide()" onclick="GrpPanel.submit_command('GET_CENTER'); return false;">Center Subgroup Elements</a> 
+				</fieldset>
 			</div>
-		</div>
 
-		<div id='lineq_div_id' onmouseover="Tooltip.show('lineq')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
-			<div id='input_div_contents_id'>
-			</br>
-			Number of equations: &nbsp;&nbsp;&nbsp;
-			<input type='text' id='lineq_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.lineq_num_changed(this)">
-			&nbsp;&nbsp;&nbsp;
-			&nbsp;&nbsp;&nbsp;
-			Number of unknowns: &nbsp;&nbsp;&nbsp;
-			<input type='text' id='unknowns_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.unknowns_num_changed(this)">
-			</br></br>
-			<table id="lineq_table_id" border="1" cellspacing="10" align="center">
-			<tr>
-			<td><input type='text' id='unknown11' size='5' maxlength='15'> $x_1$</td>
-			<td><input type='text' id='unknown12' size='5' maxlength='15'> $x_2$</td>
-			<td><input type='text' id='unknown13' size='5' maxlength='15'> $x_3$</td>
-			<td><input type='text' id='result1' size='5' maxlength='15'> $b_1$</td>
-			</tr>
-			<tr>
-			<td><input type='text' id='unknown21' size='5' maxlength='15'> $x_1$</td>
-			<td><input type='text' id='unknown22' size='5' maxlength='15'> $x_2$</td>
-			<td><input type='text' id='unknown23' size='5' maxlength='15'> $x_3$</td>
-			<td><input type='text' id='result2' size='5' maxlength='15'> $b_2$</td>
-			</tr>
-			<tr>
-			<td><input type='text' id='unknown31' size='5' maxlength='15'> $x_1$</td>
-			<td><input type='text' id='unknown32' size='5' maxlength='15'> $x_2$</td>
-			<td><input type='text' id='unknown33' size='5' maxlength='15'> $x_3$</td>
-			<td><input type='text' id='result3' size='5' maxlength='15'> $b_3$</td>
-			</tr>
-			</table>
-			</br></br>After adding the system press &nbsp;&nbsp;&nbsp;
-			<input type='submit' value='Ok' onclick="LinEqPanel.submitSystem()"></form>
-			</br>
-			</div>
-		</div>
-
-		<div id='vecmat_div_id' onmouseover="Tooltip.show('vecmat')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
-			<div id='input_div_contents_id'>
-
-			</br>
-			<select id='matrix_select_id' name='Select matrix input' style='font-size:16px; border: 2px solid; background: #FBFDFB' onchange='VecMatPanel.matrixSelection(this)'>
-				<option>Input a matrix</option>
-				<option>Input a vector (column matrix)</option>
-				<option>Input a matrix expression - linear combination (using latex)</option>
-			</select>
-
-			</br>
-			</br>
-			<div id='insert_matrix_id'>
-				Number of rows: &nbsp;&nbsp;&nbsp;
-				<input type='text' id='rows_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.rows_num_changed(this)">
+			<div id='lineq_div_id' onmouseover="Tooltip.show('lineq')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+				<div id='input_div_contents_id'>
+				</br>
+				Number of equations: &nbsp;&nbsp;&nbsp;
+				<input type='text' id='lineq_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.lineq_num_changed(this)">
 				&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;
-				Number of columns: &nbsp;&nbsp;&nbsp;
-				<input type='text' id='cols_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.cols_num_changed(this)">
+				Number of unknowns: &nbsp;&nbsp;&nbsp;
+				<input type='text' id='unknowns_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.unknowns_num_changed(this)">
 				</br></br>
-				<table id="mat_table_id" border="1" cellspacing="10" align="center">
+				<table id="lineq_table_id" border="1" cellspacing="10" align="center">
 				<tr>
-				<td><input type='text' id='entry11' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry12' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry13' size='8' maxlength='15'></td>
+				<td><input type='text' id='unknown11' size='5' maxlength='15'> $x_1$</td>
+				<td><input type='text' id='unknown12' size='5' maxlength='15'> $x_2$</td>
+				<td><input type='text' id='unknown13' size='5' maxlength='15'> $x_3$</td>
+				<td><input type='text' id='result1' size='5' maxlength='15'> $b_1$</td>
 				</tr>
 				<tr>
-				<td><input type='text' id='entry21' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry22' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry23' size='8' maxlength='15'></td>
+				<td><input type='text' id='unknown21' size='5' maxlength='15'> $x_1$</td>
+				<td><input type='text' id='unknown22' size='5' maxlength='15'> $x_2$</td>
+				<td><input type='text' id='unknown23' size='5' maxlength='15'> $x_3$</td>
+				<td><input type='text' id='result2' size='5' maxlength='15'> $b_2$</td>
 				</tr>
 				<tr>
-				<td><input type='text' id='entry31' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry32' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry33' size='8' maxlength='15'></td>
+				<td><input type='text' id='unknown31' size='5' maxlength='15'> $x_1$</td>
+				<td><input type='text' id='unknown32' size='5' maxlength='15'> $x_2$</td>
+				<td><input type='text' id='unknown33' size='5' maxlength='15'> $x_3$</td>
+				<td><input type='text' id='result3' size='5' maxlength='15'> $b_3$</td>
 				</tr>
 				</table>
+				<input type='submit' value='Ok' onclick="LinEqPanel.submitSystem()"></form>
+				</br>
+				<div id='added_input_id2' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
+				</br>
 				</div>
-
-				<div id='insert_matrix_expr_id' style="display: none;">
-				<textarea id='mat_expr_text_id' cols='40' rows='10'>$\left( \begin{bmatrix} 3 & 9 & 8 \\ 4 & 6 & 2 \\ 0.5 & 1 & 9\end{bmatrix} + \begin{bmatrix} 1 & 2 & 5 \\ 4 & 5 & 6 \\ -1 & 0.5 & -1 \end{bmatrix} \right) * \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix}$</textarea>
-				</div>
-			</br></br>After adding the input press &nbsp;&nbsp;&nbsp;
-			<input type='submit' value='Ok' onclick="VecMatPanel.submitMat()"></form>
-			</br>
+			</div>
+			<div id="lineq_commands_panel" class="sbutton" style= "display: none; ">
+				<fieldset class='sfieldset'>
+				<legend>Available commands</legend>
+				<a id="command_solve_lineq_system" href="#" onmouseover="Tooltip.show('solve_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('SOLVE_LINEQ_SYS'); return false;">Solve system</a> 
+				<a id="command_approx_lineq_system" href="#" onmouseover="Tooltip.show('approx_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('APPROX_LINEQ_SYS'); return false;">Least Squares Approximation</a> 
+				<a id="command_solveg_lineq_system" href="#" onmouseover="Tooltip.show('solveg_lineq')" onmouseout="Tooltip.hide()" onclick="LinEqPanel.submit_command('SOLVEG_LINEQ_SYS'); return false;">General solution</a> 
+				</fieldset>
 			</div>
 
-		</div>
+			<div id='vecmat_div_id' onmouseover="Tooltip.show('vecmat')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+				<div id='input_div_contents_id'>
 
-		<div id='poly_div_id' onmouseover="Tooltip.show('poly')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
-			<div id='input_div_contents_id'>
+				</br>
+				<select id='matrix_select_id' name='Select matrix input' style='border: 2px solid; background: #FBFDFB' onchange='VecMatPanel.matrixSelection(this)'>
+					<option>Input a matrix</option>
+					<option>Input a vector (column matrix)</option>
+					<option>Input a matrix expression - linear combination (using latex)</option>
+				</select>
 
-			</br>
-			<select id='poly_select_id' name='Select polynomial type' style='font-size:16px; border: 2px solid; background: #FBFDFB' onchange='PolyPanel.polySelection(this)'>
-				<option>Single Variable Polynomial</option>
-				<option>Multivariable Polynomial(not implemented)</option>
-			</select>
-			</br>
-			</br>
-			<div id='insert_poly_id'>
-				Degree: &nbsp;&nbsp;&nbsp;
-				<input type='text' id='degree_id' value='3' size='2' maxlength='2' onkeyup="PolyPanel.degreeChanged(this)">
-				</br></br>
-				<table id="poly_table_id" border="1" cellspacing="10" align="center">
-				<tr>
-				<td><input type='text' id='entry1' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry2' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry3' size='8' maxlength='15'></td>
-				<td><input type='text' id='entry4' size='8' maxlength='15'></td>
-				</tr>
-				</table>
+				</br>
+				</br>
+				<div id='insert_matrix_id'>
+					Number of rows: &nbsp;&nbsp;&nbsp;
+					<input type='text' id='rows_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.rows_num_changed(this)">
+					&nbsp;&nbsp;&nbsp;
+					&nbsp;&nbsp;&nbsp;
+					Number of columns: &nbsp;&nbsp;&nbsp;
+					<input type='text' id='cols_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.cols_num_changed(this)">
+					</br></br>
+					<table id="mat_table_id" border="1" cellspacing="10" align="center">
+					<tr>
+					<td><input type='text' id='entry11' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry12' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry13' size='8' maxlength='15'></td>
+					</tr>
+					<tr>
+					<td><input type='text' id='entry21' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry22' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry23' size='8' maxlength='15'></td>
+					</tr>
+					<tr>
+					<td><input type='text' id='entry31' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry32' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry33' size='8' maxlength='15'></td>
+					</tr>
+					</table>
+					</div>
+
+					<div id='insert_matrix_expr_id' style="display: none;">
+					<textarea id='mat_expr_text_id' cols='40' rows='10'>$\left( \begin{bmatrix} 3 & 9 & 8 \\ 4 & 6 & 2 \\ 0.5 & 1 & 9\end{bmatrix} + \begin{bmatrix} 1 & 2 & 5 \\ 4 & 5 & 6 \\ -1 & 0.5 & -1 \end{bmatrix} \right) * \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix}$</textarea>
+					</div>
+				<input type='submit' value='Ok' onclick="VecMatPanel.submitMat()"></form>
+				</br>
+				<div id='added_input_id3' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
+				</br>
 				</div>
-
-			</br></br>After adding the input press &nbsp;&nbsp;&nbsp;
-			<input type='submit' value='Ok' onclick="PolyPanel.submitPoly()"></form>
-			</br>
 			</div>
-		</div>
+			<div id="vecmat_commands_panel" class="sbutton" style= "display: none; ">
+				<fieldset class='sfieldset'>
+				<legend>Available commands</legend>
+				<a id="command_get_norm" href="#" onmouseover="Tooltip.show('norm')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_NORM'); return false;">Euclidean Norm</a>
+				<a id="command_get_inverse" href="#" onmouseover="Tooltip.show('mat_inverse')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_INVERSE'); return false;">Inverse Matrix</a> 
+				<a id="command_determinant" href="#" onmouseover="Tooltip.show('mat_determinant')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_DETERMINANT'); return false;">Determinant and Trace</a> 
+				<a id="command_rref" href="#" onmouseover="Tooltip.show('mat_rref')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_RREF'); return false;">Reduced Echelon Form</a> 
+				<a id="command_gramsch" href="#" onmouseover="Tooltip.show('gramsch')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_QR'); return false;"><del>Orthogonalization</del></a> 
+				<a id="command_eigenvalues" href="#" onmouseover="Tooltip.show('eigenvalues')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_MAT_EIGENVALUES'); return false;"><del>Eigenvalues</del></a> 
+				</fieldset>
+			</div>
 
-		<div id='button_div_id' class="stoggle_button">
-		&diams;
-		<input id='inputbox_button' type='submit' value='Hide Input Box' onclick='MainMenu.toggle_input_box()'>
-		&diams;
-		</div>
+			<div id='poly_div_id' onmouseover="Tooltip.show('poly')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+				<div id='input_div_contents_id'>
 
-		<div id='added_input_id' class='sinput_div_id' style='text-align:center; display:none;'>
-		</div>
-		</br>
+				</br>
+				<select id='poly_select_id' name='Select polynomial type' style='border: 2px solid; background: #FBFDFB' onchange='PolyPanel.polySelection(this)'>
+					<option>Single Variable Polynomial</option>
+					<option>Multivariable Polynomial(not implemented)</option>
+				</select>
+				</br>
+				</br>
+				<div id='insert_poly_id'>
+					Degree: &nbsp;&nbsp;&nbsp;
+					<input type='text' id='degree_id' value='3' size='2' maxlength='2' onkeyup="PolyPanel.degreeChanged(this)">
+					</br></br>
+					<table id="poly_table_id" border="1" cellspacing="10" align="center">
+					<tr>
+					<td><input type='text' id='entry1' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry2' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry3' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry4' size='8' maxlength='15'></td>
+					</tr>
+					</table>
+					</div>
+				<input type='submit' value='Ok' onclick="PolyPanel.submitPoly()"></form>
+				</br>
+				<div id='added_input_id4' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
+				</br>
+				</div>
+			</div>
+			<div id="poly_panel" class="sbutton" style= "display: none; ">
+				<fieldset class='sfieldset'>
+				<legend>Available commands</legend>
+				<a id="command_get_roots" href="#" onmouseover="Tooltip.show('roots')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_ROOTS'); return false;">Roots</a>
+				<a id="command_factorization" href="#" onmouseover="Tooltip.show('factorization')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_FACTORIZATION'); return false;">Factorization</a> 
+				<a id="command_discriminant" href="#" onmouseover="Tooltip.show('discriminant')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_DISCRIMINANT'); return false;">Discriminant</a> 
+				</fieldset>
+			</div>
+
+			</br>
+
+	<div id="main_view_id" class ="smain_view" style= "display: none;"></div>
+	<div id="canvas_id" class="scanvasdiv" style="display: none;">
+	<canvas id="main_canvas" class="scanvas" width='512' height='512'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>
+	</div>
+	<canvas id ='textCanvas' style="border: 1px solid #aaa; visibility: hidden;" width="512" height="64"></canvas>
 
 	</div>
 
-</div>
-
-<div id="main_view_id" class ="smain_view" style= "display: none;"></div>
-<div id="canvas_id" class="scanvasdiv" style="display: none;">
-<canvas id="main_canvas" class="scanvas" width='512' height='512'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>
-</div>
-<canvas id ='textCanvas' style="border: 1px solid #aaa; visibility: hidden;" width="512" height="64"></canvas>
-
+	</div>
 </div>
 
 <div align="center" id="final" style="text-align:center; position: fixed; bottom: 0;">

@@ -36,17 +36,9 @@ var MainMenu = function () {
 	var current_panel = null;
 	var input_box_state = "hidden";
 
-	function toggle_input_box() {
-		if(input_box_state === "hidden")
-			show_input_box();
-		else
-			hide_input_box();
-	}
 
 	function show_input_box() {
 		input_box_state = "shown";
-		var input_box_button = document.getElementById("inputbox_button");
-		input_box_button.value='Hide Input Box';
 		var all_divs = document.getElementsByTagName('div');
 		for(var i = 0; i < all_divs.length; i++) {
 			if(all_divs[i].id.indexOf("input_div_contents") !== -1)
@@ -57,13 +49,44 @@ var MainMenu = function () {
 
 	function hide_input_box() {
 		input_box_state = "hidden";
-		var input_box_button = document.getElementById("inputbox_button");
-		input_box_button.value="Show Input Box";
 		var all_divs = document.getElementsByTagName('div');
 		for(var i = 0; i < all_divs.length; i++) {
 			if(all_divs[i].id.indexOf("input_div_contents") !== -1)
 				all_divs[i].style.display = "none"
 		}
+	}
+	
+	function reset_tabs() {
+
+		var plot_li = document.getElementById("li_plot_id");
+		var plot_a = document.getElementById("a_plot_id");
+		plot_li.className = "";
+		plot_a.className = "";
+
+		var poly_li = document.getElementById("li_poly_id");
+		var poly_a = document.getElementById("a_poly_id");
+		poly_li.className = "";
+		poly_a.className = "";
+
+		var lineq_li = document.getElementById("li_lineq_id");
+		var lineq_a = document.getElementById("a_lineq_id");
+		lineq_li.className = "";
+		lineq_a.className = "";
+
+		var dif_li = document.getElementById("li_dif_id");
+		var dif_a = document.getElementById("a_dif_id");
+		dif_li.className = "";
+		dif_a.className = "";
+
+		var grp_li = document.getElementById("li_grp_id");
+		var grp_a = document.getElementById("a_grp_id");
+		grp_li.className = "";
+		grp_a.className = "";
+
+		var mat_li = document.getElementById("li_mat_id");
+		var mat_a = document.getElementById("a_mat_id");
+		mat_li.className = "";
+		mat_a.className = "";
 	}
 
 	function add_grp_div() {
@@ -72,8 +95,12 @@ var MainMenu = function () {
 			current_panel.hide();
 			reset_mainview_canvas();
 		}
-		var button_div = document.getElementById("button_div_id");
-		button_div.style.display = "block";
+
+		reset_tabs();
+		var grp_li = document.getElementById("li_grp_id");
+		var grp_a = document.getElementById("a_grp_id");
+		grp_li.className = "selected";
+		grp_a.className = "selected";
 
 		GrpPanel.show();
 		current_panel = GrpPanel;
@@ -85,8 +112,12 @@ var MainMenu = function () {
 			current_panel.hide();
 			reset_mainview_canvas();
 		}
-		var button_div = document.getElementById("button_div_id");
-		button_div.style.display = "block";
+
+		reset_tabs();
+		var mat_li = document.getElementById("li_mat_id");
+		var mat_a = document.getElementById("a_mat_id");
+		mat_li.className = "selected";
+		mat_a.className = "selected";
 
 		VecMatPanel.show();
 		current_panel = VecMatPanel;
@@ -98,8 +129,12 @@ var MainMenu = function () {
 			current_panel.hide();
 			reset_mainview_canvas();
 		}
-		var button_div = document.getElementById("button_div_id");
-		button_div.style.display = "block";
+
+		reset_tabs();
+		var poly_li = document.getElementById("li_poly_id");
+		var poly_a = document.getElementById("a_poly_id");
+		poly_li.className = "selected";
+		poly_a.className = "selected";
 
 		PolyPanel.show();
 		current_panel = PolyPanel;
@@ -114,8 +149,12 @@ var MainMenu = function () {
 			current_panel.hide();
 			reset_mainview_canvas();
 		}
-		var button_div = document.getElementById("button_div_id");
-		button_div.style.display = "block";
+
+		reset_tabs();
+		var lineq_li = document.getElementById("li_lineq_id");
+		var lineq_a = document.getElementById("a_lineq_id");
+		lineq_li.className = "selected";
+		lineq_a.className = "selected";
 
 		LinEqPanel.show();
 		current_panel = LinEqPanel;
@@ -126,9 +165,19 @@ var MainMenu = function () {
 	}
 
 	function reset_mainview_canvas() {
-		var added_input_div = document.getElementById("added_input_id");
-		added_input_div.innerHTML="";
-		added_input_div.style.display="none";
+		var added_input_div1 = document.getElementById("added_input_id1");
+		var added_input_div2 = document.getElementById("added_input_id2");
+		var added_input_div3 = document.getElementById("added_input_id3");
+		var added_input_div4 = document.getElementById("added_input_id4");
+		added_input_div1.innerHTML="";
+		added_input_div1.style.display="none";
+		added_input_div2.innerHTML="";
+		added_input_div2.style.display="none";
+		added_input_div3.innerHTML="";
+		added_input_div3.style.display="none";
+		added_input_div4.innerHTML="";
+		added_input_div4.style.display="none";
+
 		var main_view = document.getElementById("main_view_id");
 		main_view.innerHTML="";
 		main_view.style.display = "none";
@@ -142,7 +191,6 @@ var MainMenu = function () {
 
 	//public methods
 	return {
-		toggle_input_box : toggle_input_box,
 		hide_input_box : hide_input_box,
 		add_grp_div : add_grp_div,
 		add_vecmat_div : add_vecmat_div,
@@ -190,6 +238,15 @@ return{
 			command_panelDiv.appendChild(tooltip);
 			tooltip.style.opacity = 0;
 			tooltip.style.filter = 'alpha(opacity=0)';
+		}
+		
+		if(tooltip.offsetTop < window.scrollY)
+		{
+			tooltip.style.top=window.scrollY + 370;
+		}
+		if(tooltip.offsetTop + tooltip.offsetHeight > window.scrollY + 650)
+		{
+			tooltip.style.top=window.scrollY + 370;
 		}
 
 		tooltip.style.display = "block";

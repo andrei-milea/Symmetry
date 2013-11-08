@@ -5,12 +5,16 @@ var VecMatPanel = function () {
 	var command_input_str = "";
 
 	function show() {
+		var vecmat_command_panelDiv = document.getElementById("vecmat_commands_panel");
         var vecmatDiv = document.getElementById("vecmat_div_id");
+		vecmat_command_panelDiv.style.display = "block";
 		vecmatDiv.style.display = "block";
 	}
 
 	function hide() {
+		var vecmat_command_panelDiv = document.getElementById("vecmat_commands_panel");
         var vecmatDiv = document.getElementById("vecmat_div_id");
+		vecmat_command_panelDiv.style.display = "none";
 		vecmatDiv.style.display = "none";
 	}
 
@@ -129,14 +133,13 @@ var VecMatPanel = function () {
 				}
 			}
 			command_input_str+="\\end{bmatrix}$";
-			var added_input_div = document.getElementById("added_input_id");
+			var added_input_div = document.getElementById("added_input_id3");
 			added_input_div.innerHTML = "</br><b>The matrix you provided as input is:</b> </br></br>" + command_input_str + "</br></br>";
 			added_input_div.style.display = "block";
-			MainMenu.hide_input_box();
 		}
 		else {
 			var mat_expr = document.getElementById("mat_expr_text_id");
-			var added_input_div = document.getElementById("added_input_id");
+			var added_input_div = document.getElementById("added_input_id3");
 			command_input_str = mat_expr.value;
 			var result = submit_command('GET_MAT_EXPR');
 			if(result.indexOf("$") === -1) {
@@ -146,7 +149,6 @@ var VecMatPanel = function () {
 			command_input_str = result;
 			added_input_div.innerHTML = "</br><b>The matrix expression you provided as input is:</b> </br></br>" + mat_expr.value + "</br></br> <b>with the result: </b></br></br>" + result + "</br></br>";
 			added_input_div.style.display = "block";
-			MainMenu.hide_input_box();
 			mat_expr_computed = false;
 		}
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);

@@ -5,12 +5,16 @@ var LinEqPanel = function () {
 	var sys_matrix;
 
 	function show() {
+		var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
         var lineqDiv = document.getElementById("lineq_div_id");
+		lineqcommand_panelDiv.style.display = "block";
 		lineqDiv.style.display = "block";
 	}
 
 	function hide() {
+		var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
         var lineqDiv = document.getElementById("lineq_div_id");
+		lineqcommand_panelDiv.style.display = "none";
 		lineqDiv.style.display = "none";
 	}
 
@@ -131,10 +135,9 @@ var LinEqPanel = function () {
 		system_str+="\\end{cases}$";
 		command_input_str+="\\end{bmatrix}$";
 
-		var added_input_div = document.getElementById("added_input_id");
+		var added_input_div = document.getElementById("added_input_id2");
 		added_input_div.innerHTML = "</br><b>The linear system you provided as input is:</b> </br></br>" + system_str + "<br></br><b>with the associated matrix:</b></br></br>" + command_input_str + "</br></br>";
 		added_input_div.style.display = "block";
-		MainMenu.hide_input_box();
 		if(lineq_size < 4)
 			addGeometry(sys_matrix);
 		else
