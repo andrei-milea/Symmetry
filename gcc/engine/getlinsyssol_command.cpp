@@ -40,12 +40,12 @@ void cGetLinSysSolCommand::Execute()
 	m_Result.resize(result.size(),1);
 	for(std::size_t idx = 0; idx < result.size(); idx++)
 		m_Result(idx,0) = result(idx);
-};
+}
 
 unsigned int cGetLinSysSolCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 1;
-};
+}
 
 }
 

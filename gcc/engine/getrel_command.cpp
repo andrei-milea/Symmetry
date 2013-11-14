@@ -8,11 +8,11 @@ namespace engine
 cGetRelCommand::cGetRelCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators)
 	:cGroupGenCommand(group_type, generators)
 {
-};
+}
 
 cGetRelCommand::~cGetRelCommand()
 {
-};
+}
 
 void cGetRelCommand::Execute()
 {
@@ -33,11 +33,11 @@ void cGetRelCommand::Execute()
 		for(auto it = m_Result.begin(); it != m_Result.end(); it++)
 			it->Simplify();
 	}
-};
+}
 
 unsigned int cGetRelCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return estimator.Estimate(*this);
-};
+}
 
 }

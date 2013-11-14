@@ -14,7 +14,7 @@ static cGroupFactory& cGroupFactory::GetInstance()
 			s_Instance = new cGroupFactory;
 	}
 	return (*s_Instance);
-};
+}
 
 
 SymmGrp* cGroupFactory::GetSymmGrp(SymmGrpGenerators &generators)
@@ -36,7 +36,7 @@ SymmGrp* cGroupFactory::GetSymmGrp(SymmGrpGenerators &generators)
 	grp_entry->first = symm_grp;
 	grp_entry->second = m_SymmGrps.size() + 1;
 	m_SymmGrps.push_back(grp_entry);
-};
+}
 
 
 
@@ -52,13 +52,13 @@ void cGroupFactory::ReleaseSymmGrp(SymmGrp *group)
 			(*it)->second = false;
 		}
 	}
-};
+}
 
 void cGroupFactory::CleanUp()
 {
 	boost::mutex::scoped_lock lock(cGroupFactory::s_Mutex);
 	m_SymmGrps.clear();
-};
+}
 
 }
 

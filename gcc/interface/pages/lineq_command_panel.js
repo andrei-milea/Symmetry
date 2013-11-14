@@ -153,17 +153,15 @@ var LinEqPanel = function () {
 			return;
 		}
 		request += "param=" + _command_input_str;
-		if(command === 'SOLVE_LINEQ_SYS' || command === 'APPROX_LINEQ_SYS' || command === 'SOLVEG_LINEQ_SYS') {
-			var main_view = document.getElementById("main_view_id");
-			var result = submitCommand(request);
-			if(-1 === result.indexOf("$")) {
-				alert("error : " + result);
-				return;
-			}
-			main_view.innerHTML = "</br></br><b>vector solution: " + result + "</b></br></br>";
-			main_view.style.display = "block";
-			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+		var main_view = document.getElementById("main_view_id");
+		var result = submitCommand(request);
+		if(-1 === result.indexOf("$")) {
+			alert("error : " + result);
+			return;
 		}
+		main_view.innerHTML = "</br></br><b>vector solution: " + result + "</b></br></br>";
+		main_view.style.display = "block";
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
 
 

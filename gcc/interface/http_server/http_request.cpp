@@ -62,7 +62,8 @@ struct command_: symbols<char, short>
 		("GET_MAT_EXPR", GET_MAT_EXPR)
 		("SOLVE_LINEQ_SYS", SOLVE_LINEQ_SYS)
 		("APPROX_LINEQ_SYS", APPROX_LINEQ_SYS)
-		("SOLVEG_LINEQ_SYS", SOLVEG_LINEQ_SYS);
+		("SOLVEG_LINEQ_SYS", SOLVEG_LINEQ_SYS)
+		("GET_POLY_ZEROS", GET_POLY_ZEROS);
 	}
 } command;
 /************************************************************/

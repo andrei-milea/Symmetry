@@ -10,11 +10,11 @@ namespace engine
 cGetElemCommand::cGetElemCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators)
 	:cGroupGenCommand(group_type, generators)
 {
-};
+}
 
 cGetElemCommand::~cGetElemCommand()
 {
-};
+}
 
 void cGetElemCommand::Execute()
 {
@@ -41,12 +41,12 @@ void cGetElemCommand::Execute()
 		SymmGrpElem generator = boost::any_cast<SymmGrpElem>(m_Generators[0]);
 		m_Result = symmetric_group.GetDihedralSubgroupEl(generator.GetSize());
 	}
-};
+}
 
 unsigned int cGetElemCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return estimator.Estimate(*this);
-};
+}
 
 }
 

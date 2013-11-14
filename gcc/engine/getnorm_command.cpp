@@ -21,12 +21,12 @@ void cGetNormCommand::Execute()
 	for(std::size_t idx = 0; idx < mat->rows_no; idx++)
 		vec(idx) = mat->elements[idx];
 	m_Result = norm_2(vec);
-};
+}
 
 unsigned int cGetNormCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 1;
-};
+}
 
 
 

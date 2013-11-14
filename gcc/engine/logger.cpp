@@ -15,37 +15,37 @@ public:
 	cVariantVisitor(std::string *str)
 		:m_pStr(str)
 	{
-	};
+	}
 
 	cVariantVisitor(const cVariantVisitor& var_vis)
 		:boost::static_visitor<>(var_vis)
 	{
 		m_pStr = new std::string(*var_vis.m_pStr);
-	};
+	}
 
 	~cVariantVisitor()
-	{};
+	{}
 
 	void operator()(const int &integer)
 	{
 		(*m_pStr) += boost::lexical_cast<std::string>(integer);
-	};
+	}
 
 	void operator()(const double &real_num)
 	{
 
 		(*m_pStr) += boost::lexical_cast<std::string>(real_num);
-	};
+	}
 
 	void operator()(const std::exception &exception)
 	{
 		(*m_pStr) += exception.what();
-	};
+	}
 
 	void operator()(const std::string &message)
 	{
 		(*m_pStr) += message;
-	};
+	}
 
 private:
 	std::string *m_pStr;
@@ -64,16 +64,16 @@ cLogger::cLogger(int severity = LOG_SEV_ERROR)
 	{
 		m_Severity = (LOG_SEV_ERROR == severity) ? "ERROR" : "WARNING";
 	}
-};
+}
 
 
 cLogger::~cLogger()
-{};
+{}
 
 const std::string& cLogger::GetSeverity()const
 {
 	return m_Severity;
-};
+}
 
 cLogger& cLogger::operator<<(SupportedTypes type_variant)
 {
@@ -89,13 +89,13 @@ cLogger& cLogger::operator<<(SupportedTypes type_variant)
 	file<<final_message;
 	file.close();
 	return *this;
-};
+}
 
 std::string cLogger::GetCurrentDate()const
 {
 	boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
 	return boost::posix_time::to_simple_string(now);
-};
+}
 
 
 

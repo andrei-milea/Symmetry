@@ -12,7 +12,7 @@ using namespace boost::numeric::ublas;
 void cGetMatExprCommand::Execute()
 {
 	m_MatrixResult = ComputeExpression(m_Expression);
-};
+}
 
 matrix<double> cGetMatExprCommand::ComputeExpression(const sLinExpression &expression)
 {
@@ -37,7 +37,7 @@ matrix<double> cGetMatExprCommand::ComputeExpression(const sLinExpression &expre
 		}
 	}
 	return MatrixResult;
-};
+}
 
 matrix<double> cGetMatExprCommand::EvalTerm(const sLinTerm& term)
 {
@@ -84,7 +84,7 @@ matrix<double> cGetMatExprCommand::EvalTerm(const sLinTerm& term)
 	}
 
 	return *MatrixResult;
-};
+}
 
 boost::variant<matrix<double>, double> cGetMatExprCommand::EvalFactor(const sLinFactor& factor)
 {
@@ -113,12 +113,12 @@ boost::variant<matrix<double>, double> cGetMatExprCommand::EvalFactor(const sLin
 		assert(expression);
 		return ComputeExpression(*expression);
 	}
-};
+}
 
 unsigned int cGetMatExprCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 0;
-};
+}
 
 }
 

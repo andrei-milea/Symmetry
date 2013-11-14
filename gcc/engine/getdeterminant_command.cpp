@@ -27,12 +27,12 @@ void cGetDeterminantCommand::Execute()
 	for(std::size_t cols_idx = 0; cols_idx < cols_no; cols_idx++)
 		m_Trace += matrix(cols_idx, cols_idx);
 	m_Result = get_determinant(matrix);
-};
+}
 
 unsigned int cGetDeterminantCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 1;
-};
+}
 
 }
 

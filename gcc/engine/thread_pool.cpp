@@ -13,12 +13,12 @@ cThreadPool::cThreadPool(unsigned int num_threads)
 	 m_Started(false)
 {
 	assert(num_threads <= MAX_THREADS_NUM);
-};
+}
 
 cThreadPool::~cThreadPool()
 {
 	assert(false == m_Started);
-};
+}
 
 void cThreadPool::StartPool()
 {
@@ -35,19 +35,19 @@ void cThreadPool::StartPool()
 		cLogger log(LOG_SEV_ERROR);
 		log<<CONTEXT_STR << ex.what();
 	}
-};
+}
 
 void cThreadPool::StopPool()
 {
 	m_ThreadPool.interrupt_all();
 	m_ThreadPool.join_all();
 	m_Started = false;
-};
+}
 
 void cThreadPool::AddToCommandQueue(boost::shared_ptr<cCommand>& command)
 {
 	m_CommandQueue.Put(command);
-};
+}
 
 
 void cThreadPool::Run()
@@ -74,7 +74,7 @@ void cThreadPool::Run()
 		cLogger log(LOG_SEV_INFO);
 		log<<CONTEXT_STR<<"Thread interrupted";
 	}
-};
+}
 
 
 }
