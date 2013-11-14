@@ -207,8 +207,8 @@ var Tooltip = function () {
 	var tooltip_map = new Object();
 	tooltip_map.discriminant = "Compute the discriminant: $\\Delta = a_n^{2n-2}\\prod_{i < j}(r_i - r_j)^2$, where $r_1, ... r_n$ are the roots(counting multiplicity).";
 	tooltip_map.poly = "Insert a polynomial with real or integer coefficients by specifying the degree and adding coefficients starting with the leading term (on the leftmost input field).";
-	tooltip_map.factorization = "Compute the decomposition of the polynomial into irreducible factors(over the field of real numbers $\\mathbb{R}$ or integers $\\mathbb{Z}$).";
 	tooltip_map.roots = "Compute solutions to P(x) = 0.";
+	tooltip_map.plot = "Plot the graph of the polynomial.";
 	tooltip_map.solveg_lineq = "Solve an underdetermined system (obtain the general solution - $x_{particular}$ + nullspace).";
 	tooltip_map.gramsch = "Compute an orthonormal basis given a matrix with linearly independent columns (the Q matrix from the $A = Q R$ factorization using Gram-Schmidt).";
 	tooltip_map.mat_rref = "Compute the Row Reduced Echelon Form for the given matrix(Gaussian-Jordan elimination).";

@@ -9,11 +9,11 @@ namespace engine
 cGetCenterCommand::cGetCenterCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators)
 	:cGroupGenCommand(group_type, generators)
 {
-};
+}
 
 cGetCenterCommand::~cGetCenterCommand()
 {
-};
+}
 
 void cGetCenterCommand::Execute()
 {
@@ -42,12 +42,12 @@ void cGetCenterCommand::Execute()
 		std::vector<SymmGrpElem> group_elements = symmetric_group.GetDihedralSubgroupEl(generator.GetSize());
 		m_Result = symmetric_group.GetCenterEl(group_elements);
 	}
-};
+}
 
 unsigned int cGetCenterCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return estimator.Estimate(*this);
-};
+}
 
 }
 

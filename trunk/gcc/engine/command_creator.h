@@ -7,12 +7,14 @@
 #include "getcgraph_command.h"
 #include "getrel_command.h"
 #include "linalg_parser.h"
+#include "poly_parser.h"
 #include "getmatexpr_command.h"
 #include "getnorm_command.h"
 #include "getdeterminant_command.h"
 #include "getinverse_command.h"
 #include "getrref_command.h"
 #include "getlinsyssol_command.h"
+#include "getpolyzeros_command.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -58,11 +60,22 @@ public:
 			else if(SOLVE_LINEQ_SYS == command || APPROX_LINEQ_SYS == command || SOLVEG_LINEQ_SYS == command)
 				pcommand = new cGetLinSysSolCommand(LinAlgParamParser.GetLinExpression(), command);
 		}
+		else if(command <= GET_POLY_PLOT)
+		{
+			cPolyParser PolyParamParser(param);
+			PolyParamParser.ParseParams();
+			if(GET_POLY_ZEROS == command)
+				pcommand = new cGetPolyZerosCommand(PolyParamParser.GetPolynomial());
+//			else if(GET_POLY_DISCRIMINANT == command)
+//				pcommand = new cGetPolyDiscriminantCommand(PolyParamParser.GetPolynomial());
+//			else if(GET_POLY_PLOT == command)
+//				pcommand = new cGetPolyPlotCommand(PolyParamParser.GetPolynomial());
+		}
 		else
 			throw std::invalid_argument(CONTEXT_STR + "invalid command received :" + param);
 
 		return pcommand;
-	};
+	}
 };
 
 }

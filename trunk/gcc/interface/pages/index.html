@@ -313,10 +313,10 @@
 					</br></br>
 					<table id="poly_table_id" border="1" cellspacing="10" align="center">
 					<tr>
-					<td><input type='text' id='entry1' size='8' maxlength='15'></td>
-					<td><input type='text' id='entry2' size='8' maxlength='15'></td>
-					<td><input type='text' id='entry3' size='8' maxlength='15'></td>
-					<td><input type='text' id='entry4' size='8' maxlength='15'></td>
+					<td><input type='text' id='entry1' size='8' maxlength='15'>$x^0$</td>
+					<td><input type='text' id='entry2' size='8' maxlength='15'>$x^1$</td>
+					<td><input type='text' id='entry3' size='8' maxlength='15'>$x^2$</td>
+					<td><input type='text' id='entry4' size='8' maxlength='15'>$x^3$</td>
 					</tr>
 					</table>
 					</div>
@@ -329,9 +329,9 @@
 			<div id="poly_panel" class="sbutton" style= "display: none; ">
 				<fieldset class='sfieldset'>
 				<legend>Available commands</legend>
-				<a id="command_get_roots" href="#" onmouseover="Tooltip.show('roots')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_ROOTS'); return false;">Roots</a>
-				<a id="command_factorization" href="#" onmouseover="Tooltip.show('factorization')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_FACTORIZATION'); return false;">Factorization</a> 
-				<a id="command_discriminant" href="#" onmouseover="Tooltip.show('discriminant')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_DISCRIMINANT'); return false;">Discriminant</a> 
+				<a id="command_get_roots" href="#" onmouseover="Tooltip.show('roots')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_POLY_ZEROS'); return false;">Roots</a>
+				<a id="command_discriminant" href="#" onmouseover="Tooltip.show('discriminant')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_POLY_DISCRIMINANT'); return false;">Discriminant</a> 
+				<a id="command_plot" href="#" onmouseover="Tooltip.show('plot')" onmouseout="Tooltip.hide()" onclick="PolyPanel.submit_command('GET_POLY_PLOT'); return false;">Plot</a> 
 				</fieldset>
 			</div>
 
@@ -350,7 +350,7 @@
 
 <div align="center" id="final" style="text-align:center; position: fixed; bottom: 0;">
 
-Copyright © Andrei Milea 2011
+© Andrei Milea 2013
 </div>
 
 </body>

@@ -27,11 +27,11 @@ void cGetInverseCommand::Execute()
 	bool res = get_inverse(input_matrix, m_Result);
 	if(false == res)
 		throw std::runtime_error("Invalid input. Matrix not invertible.");
-};
+}
 
 unsigned int cGetInverseCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 1;
-};
+}
 
 }

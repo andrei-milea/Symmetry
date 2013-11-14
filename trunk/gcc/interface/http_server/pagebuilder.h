@@ -17,7 +17,7 @@ namespace http_server
 {
 
 /*!
-  builds the html pages and the html content server to the browser -- singleton
+  builds the html pages and the html content served to the browser -- singleton
 */
 class cPageBuilder
 {
@@ -43,7 +43,7 @@ public:
 protected:
 	cPageBuilder();
 	cPageBuilder(const cPageBuilder &page_bld)
-	{};
+	{}
 
 	void LoadWebPages(const std::string& pages);
 

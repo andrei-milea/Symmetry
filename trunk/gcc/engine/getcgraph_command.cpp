@@ -8,11 +8,11 @@ namespace engine
 cGetCGraphCommand::cGetCGraphCommand(GROUP_TYPE group_type, const std::vector<boost::any> &generators)
 	:cGroupGenCommand(group_type, generators)
 {
-};
+}
 
 cGetCGraphCommand::~cGetCGraphCommand()
 {
-};
+}
 
 void cGetCGraphCommand::Execute()
 {
@@ -29,11 +29,11 @@ void cGetCGraphCommand::Execute()
 		m_Result.initGraph(group_elements, symmetric_group.GetGeneratorsSet());
 		m_Result.BuildGraph();
 	}
-};
+}
 
 unsigned int cGetCGraphCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return estimator.Estimate(*this);
-};
+}
 
 }

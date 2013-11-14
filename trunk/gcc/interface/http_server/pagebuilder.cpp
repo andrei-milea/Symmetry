@@ -9,6 +9,7 @@
 #include "../../engine/getinverse_command.h"
 #include "../../engine/getrref_command.h"
 #include "../../engine/getlinsyssol_command.h"
+#include "../../engine/getpolyzeros_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -129,6 +130,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	boost::shared_ptr<cGetInverseCommand> command_inverse = boost::dynamic_pointer_cast<cGetInverseCommand>(pCommand);
 	boost::shared_ptr<cGetRREFCommand> command_rref = boost::dynamic_pointer_cast<cGetRREFCommand>(pCommand);
 	boost::shared_ptr<cGetLinSysSolCommand> command_lineq = boost::dynamic_pointer_cast<cGetLinSysSolCommand>(pCommand);
+	boost::shared_ptr<cGetPolyZerosCommand> command_polyzeros = boost::dynamic_pointer_cast<cGetPolyZerosCommand>(pCommand);
 
 	if(command_rref || command_lineq)
 	{
@@ -151,6 +153,24 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 				m_ResultStr += " \\\\ ";
 		}
 		m_ResultStr += " \\end{bmatrix}$";
+	}
+	else if(command_polyzeros)
+	{
+		if(command_polyzeros->GetResult().size() == 0)
+		{
+			m_ResultStr = "no real solution exists";
+		}
+		else
+		{
+			m_ResultStr = "$";
+			for(auto root : command_polyzeros->GetResult())
+			{
+				ss.str("");
+				ss<<root;
+				m_ResultStr += ss.str() + "; ";
+			}
+			m_ResultStr += "$";
+		}
 	}
 	else if(command_norm || command_determinant)
 	{

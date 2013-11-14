@@ -25,6 +25,11 @@ var PolyPanel = function () {
 			degreeChanged(elem);
 			return;
 		}
+		if(number > 10) {
+			elem.value = 10;
+			degreeChanged(elem);
+			return;
+		}
 		number++;
 
 		var polyTable = document.getElementById("poly_table_id");
@@ -33,7 +38,8 @@ var PolyPanel = function () {
 		if(coef_no < number) {
 			for(var i = coef_no; i < number; i++) {
 				var newcoef = row.insertCell(-1);
-				newcoef.innerHTML = "<input type='text' id='entry" + i.toString() + "' size='5' maxlength='15'>";
+				newcoef.innerHTML = "<input type='text' id='entry" + (i+1).toString() + "' size='5' maxlength='15'>$x^" +
+				   	i.toString() + "$";
 			}
 		}
 		else if(coef_no > number) {
@@ -56,59 +62,49 @@ var PolyPanel = function () {
 	}
 
 	function submitPoly() {
-		var insert_matrix_expr_div = document.getElementById("insert_matrix_expr_id");
-		if(insert_matrix_expr_div.style.display === "none") {
-			command_input_str="$\\begin{bmatrix}"; 
-			var matTable = document.getElementById("mat_table_id");
-			var rows = matTable.getElementsByTagName("tr");
-			for(var i = 0; i < rows.length; i++) {
-				var cols = rows[i].getElementsByTagName("td");
-				if(i != 0)
-					command_input_str+= "\\\\";
-				for(var j = 0; j < cols.length; j++) {
-					if(j != 0)
-						command_input_str+= " & ";
-					var val_str = document.getElementById("entry" + (i+1).toString() + (j+1).toString()).value;
-					if(isNaN(val_str) || (val_str == "")) {
-						window.alert("Invalid input. Please enter valid coefficients and constant terms!")
-						return;
-					}
-					command_input_str += val_str;
-				}
+		var _tex_input_str = "$";
+		command_input_str = "";
+		var polyTable = document.getElementById("poly_table_id");
+		var rows = polyTable.getElementsByTagName("tr");
+		var cols = rows[0].getElementsByTagName("td");
+		for(var j = 0; j < cols.length; j++) {
+			if(j != 0) {
+				_tex_input_str += " + ";
+				command_input_str += ",";
 			}
-			command_input_str+="\\end{bmatrix}$";
-			var added_input_div = document.getElementById("added_input_id4");
-			added_input_div.innerHTML = "</br><b>The matrix you provided as input is:</b> </br></br>" + command_input_str + "</br></br>";
-			added_input_div.style.display = "block";
-		}
-		else {
-			var mat_expr = document.getElementById("mat_expr_text_id");
-			var added_input_div = document.getElementById("added_input_id4");
-			command_input_str = mat_expr.value;
-			var result = submit_command('GET_MAT_EXPR');
-			if(result.indexOf("$") === -1) {
-				alert("Invalid input: " + result + ".Please enter valid (la)tex code for a linear combination.");
+			var val_str = document.getElementById("entry" + (j+1).toString()).value;
+			if(isNaN(val_str) || (val_str == "")) {
+				window.alert("Invalid input. Please enter valid coefficients and constant terms!")
 				return;
 			}
-			command_input_str = result;
-			added_input_div.innerHTML = "</br><b>The matrix expression you provided as input is:</b> </br></br>" + mat_expr.value + "</br></br> <b>with the result: </b></br></br>" + result + "</br></br>";
-			added_input_div.style.display = "block";
-			mat_expr_computed = false;
+			_tex_input_str += val_str + " x^" + (j).toString();
+			command_input_str += val_str;
 		}
+		_tex_input_str += "$";
+		var added_input_div = document.getElementById("added_input_id4");
+		added_input_div.innerHTML = "</br><b>The polynomial you provided as input is:</b> </br></br> $p(x) =$ " + 
+							_tex_input_str + "</br></br>";
+		added_input_div.style.display = "block";
+
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
 
 	function submit_command(command) {
 		var request = "command=" + command;
-		var _command_input_str = command_input_str.substr(1,command_input_str.length-1);
-		if(0 === _command_input_str.length) {
-			alert("Please provide the input first(matrix, vector, linear combination).")
+		if(0 === command_input_str.length) {
+			alert("Please provide the polynomial first.")
 			return;
 		}
-		request += "param=" + _command_input_str;
-		if(command === 'GET_MAT_EXPR') {
-			return submitCommand(request);
+		request += "param=" + command_input_str;
+		var main_view = document.getElementById("main_view_id");
+		var result = submitCommand(request);
+		if(-1 === result.indexOf("$")) {
+			alert("error : " + result);
+			return;
 		}
+		main_view.innerHTML = "</br></br><b>" + result + "</b></br></br>";
+		main_view.style.display = "block";
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
 
 	return {
