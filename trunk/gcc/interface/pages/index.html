@@ -12,6 +12,8 @@
 <script src="scene.js" type="text/javascript"></script>
 <script src="linear_geometry.js" type="text/javascript"></script>
 <script src="dihedral.js" type="text/javascript"></script>
+<script src="curve.js" type="text/javascript"></script>
+<script src="plotting.js" type="text/javascript"></script>
 
 <script src="command_panel.js" type="text/javascript"></script>
 <script src="vecmat_command_panel.js" type="text/javascript"></script>
@@ -172,10 +174,10 @@
 				</select></br></br>
 				</div>
 				Generators:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<select id='generators_id' size='5' style='Width:200' ></select>
+				<select id='generators_id' size='5' style='background: #FBFDFB; width: 200;' ></select>
 				&nbsp;&nbsp;&nbsp;
 				<input type='button' value='Clear' onclick='GrpPanel.clear_generators()'>
-				<input type='submit' value='Ok'></form>
+				<input type='submit' value='Submit'></form>
 				</br>
 				<div id='added_input_id1' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
 				</br>
@@ -222,7 +224,8 @@
 				<td><input type='text' id='result3' size='5' maxlength='15'> $b_3$</td>
 				</tr>
 				</table>
-				<input type='submit' value='Ok' onclick="LinEqPanel.submitSystem()"></form>
+				</br>
+				<input type='submit' value='Submit' onclick="LinEqPanel.submitSystem()"></form>
 				</br>
 				<div id='added_input_id2' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
 				</br>
@@ -241,7 +244,7 @@
 				<div id='input_div_contents_id'>
 
 				</br>
-				<select id='matrix_select_id' name='Select matrix input' style='border: 2px solid; background: #FBFDFB' onchange='VecMatPanel.matrixSelection(this)'>
+				<select id='matrix_select_id' name='Select matrix input' onchange='VecMatPanel.matrixSelection(this)'>
 					<option>Input a matrix</option>
 					<option>Input a vector (column matrix)</option>
 					<option>Input a matrix expression - linear combination (using latex)</option>
@@ -279,7 +282,9 @@
 					<div id='insert_matrix_expr_id' style="display: none;">
 					<textarea id='mat_expr_text_id' cols='40' rows='10'>$\left( \begin{bmatrix} 3 & 9 & 8 \\ 4 & 6 & 2 \\ 0.5 & 1 & 9\end{bmatrix} + \begin{bmatrix} 1 & 2 & 5 \\ 4 & 5 & 6 \\ -1 & 0.5 & -1 \end{bmatrix} \right) * \begin{bmatrix} 7 \\ 8 \\ 9 \end{bmatrix}$</textarea>
 					</div>
-				<input type='submit' value='Ok' onclick="VecMatPanel.submitMat()"></form>
+
+				</br>
+				<input type='submit' value='Submit' onclick="VecMatPanel.submitMat()"></form>
 				</br>
 				<div id='added_input_id3' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
 				</br>
@@ -301,7 +306,7 @@
 				<div id='input_div_contents_id'>
 
 				</br>
-				<select id='poly_select_id' name='Select polynomial type' style='border: 2px solid; background: #FBFDFB' onchange='PolyPanel.polySelection(this)'>
+				<select id='poly_select_id' name='Select polynomial type' onchange='PolyPanel.polySelection(this)'>
 					<option>Single Variable Polynomial</option>
 					<option>Multivariable Polynomial(not implemented)</option>
 				</select>
@@ -320,7 +325,8 @@
 					</tr>
 					</table>
 					</div>
-				<input type='submit' value='Ok' onclick="PolyPanel.submitPoly()"></form>
+				</br>
+				<input type='submit' value='Submit' onclick="PolyPanel.submitPoly()"></form>
 				</br>
 				<div id='added_input_id4' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
 				</br>

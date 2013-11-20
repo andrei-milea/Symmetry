@@ -3,12 +3,16 @@
 var LinEqPanel = function () {
 	var command_input_str = "";
 	var sys_matrix;
+	var prev_mouse_pt = [];
 
 	function show() {
 		var lineqcommand_panelDiv = document.getElementById("lineq_commands_panel");
         var lineqDiv = document.getElementById("lineq_div_id");
 		lineqcommand_panelDiv.style.display = "block";
 		lineqDiv.style.display = "block";
+		//initialize mouse position
+		prev_mouse_pt[0] = 0;
+		prev_mouse_pt[1] = 0;
 	}
 
 	function hide() {
@@ -164,6 +168,20 @@ var LinEqPanel = function () {
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
 
+	function trackmouse(evt) {
+		if(evt.which == 1) {
+			//compute rotation axis
+			var main_canvas = document.getElementById("main_canvas");
+			var vec = vec3.create();
+			vec[0] = - (prev_mouse_pt[1] - (evt.clientY / main_canvas.clientHeight));
+			vec[1] = - (prev_mouse_pt[0] - (evt.clientX / main_canvas.clientWidth));
+			vec[2] = 0;
+			prev_mouse_pt[0] = (evt.clientX / main_canvas.clientWidth);
+			prev_mouse_pt[1] = (evt.clientY / main_canvas.clientHeight);
+			LinGeometry.rotateScene(vec, vec3.length(vec));
+		}
+	}
+
 
 	function addGeometry(sys_matrix) {
 		var canvasDiv = document.getElementById("canvas_id");
@@ -214,6 +232,8 @@ var LinEqPanel = function () {
 			for(var idx = 0; idx < sys_matrix.length; idx++)
 				LinGeometry.add3DEquation(sys_matrix[idx][0], sys_matrix[idx][1], sys_matrix[idx][2], sys_matrix[idx][3]);
 
+			//add mouse tracking rotation
+			main_canvas.addEventListener('mousemove', trackmouse);
 		}
 		else {
 			LinGeometry.addAxes(false);
@@ -222,6 +242,7 @@ var LinEqPanel = function () {
 			for(var idx = 0; idx < sys_matrix.length; idx++)
 				LinGeometry.add2DEquation(sys_matrix[idx][0], sys_matrix[idx][1], sys_matrix[idx][2]);
 		}
+		
 
 		canvasDiv.appendChild(document.createElement("br"));
 		canvasDiv.appendChild(document.createElement("br"));

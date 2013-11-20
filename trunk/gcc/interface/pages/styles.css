@@ -212,12 +212,12 @@ box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
 border:1px solid #aaa;
 text-align: center;
-background: white;
 margin-left: 30;
 width: 600; height: auto;
 margin-top: 20;
 position: relative;
 padding-bottom: 0.1cm;
+background: #FBFDFB
 }
 
 /*commands button style*/
@@ -250,6 +250,7 @@ border-right-width:3px;
 .sbutton a:hover {
 text-decoration: none;
 color: #000; 
+background: #ddf;
 border-left-style:solid;
 border-left-color:#808080;
 border-left-width:3px;
@@ -296,6 +297,7 @@ resize: both;
 margin-top: auto;
 margin-left: auto;
 margin-right: auto;
+cursor: pointer; cursor: hand; 
 }
 
 #group_property_div_id
@@ -340,22 +342,70 @@ color:#fff;
 /*input buttons customization*/
 input[type="button"], input[type="submit"]
 {
-	border-top:		2px solid #4b545f;
-	border-left:		2px solid #4b545f;
-	border-right:		2px solid #4f6267;
-	border-bottom:		2px solid #4f6267;
-	border-radius:		5px;
-	padding:		2px 7px;
-	font-size:		12px;
+	border:2px groove #b8b8b8;
+	cursor:pointer;
+	font-size:		14px;
 	background-color:	#efefef;
-	font-weight:		bold;
+	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#b8b8b8));
+	background: -webkit-linear-gradient(top, #efefef, #b8b8b8);
+	background: -moz-linear-gradient(top, #efefef, #b8b8b8);
+	background: -o-linear-gradient(top, #efefef, #b8b8b8);
+	background: linear-gradient(top, #efefef, #b8b8b8);
+	-webkit-border-radius: 0 15px 15px 0;
+	-moz-border-radius: 0 15px 15px 0;
+	border-radius: 0 15px 15px 0;
+	-webkit-box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+	-moz-box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
+	box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
 	color:			#000000;
 }
-
 input[type="button"]:hover, input[type="submit"]:hover
 {
 	background-color:	#4b545f;
+	-webkit-box-shadow: rgba(0, 0, 0, .25) 0 1px 0px;
+	-moz-box-shadow: rgba(0, 0, 0, .25) 0 1px 0px;
+	box-shadow: rgba(0, 0, 0, .25) 0 1px 0px;
 }
+
+/*text field customization*/
+
+input[type="text"]
+{
+	border: 1px solid #b7bbbd;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background: #FBFDFB
+}
+input[type="text"]:hover
+{
+	background: #FBFDBB
+}
+table, th
+{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+tr
+{
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+	background-color: #F0F0F0;
+}
+td
+{
+border: 0px;
+}
+select, textarea, select option
+{
+	background-color: #FBFDFB;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
 
 /*list group elements style*/
 #list-elem ul
@@ -405,20 +455,8 @@ input[type="button"]:hover, input[type="submit"]:hover
 	border: 1px Solid black;
  }
 
- #list_elem_perm li
- {
- 	display: block;
-	height: 2.5em;
-	width: auto;
-	margin: 3px 3px;
-	padding: 3px 7px;
-	background: #b8b8b8;
-	vertical-align: middle;
-	border: 1px Solid black;
- }
-
- #list_elem_perm li a
- {
+#list_elem_perm li
+{
 	display: block;
 	height: 2.5em;
 	width: auto;
@@ -427,5 +465,17 @@ input[type="button"]:hover, input[type="submit"]:hover
 	background: #b8b8b8;
 	vertical-align: middle;
 	border: 1px Solid black;
- }
+}
+
+#list_elem_perm li a
+{
+	display: block;
+	height: 2.5em;
+	width: auto;
+	margin: 3px 3px;
+	padding: 3px 7px;
+	background: #b8b8b8;
+	vertical-align: middle;
+	border: 1px Solid black;
+}
 

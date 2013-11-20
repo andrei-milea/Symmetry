@@ -89,6 +89,36 @@ var PolyPanel = function () {
 		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
 
+	function addPlot(points) {
+	var canvasDiv = document.getElementById("canvas_id");
+		if(canvasDiv.style.display === "block") {
+			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='700' height='700'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
+			WebGlContext.initWebGL();
+			canvasDiv.style.display = "none";
+		}
+		canvasDiv.style.display = "block";
+
+		var main_canvas = document.getElementById("main_canvas");
+		main_canvas.width = 700;
+		main_canvas.height = 700;
+		WebGlContext.initWebGL();
+		Plotting.clear();
+		Plotting.addAxes(false);
+		Plotting.addCurve(points);
+	}
+
+	function get_points(points_str) {
+		var points = [];
+		points_pairs = points_str.split(";");
+
+		for(var i=0; i < points_pairs.length; i++) {
+			pair = points_pairs[i].split(",");
+			points.push([parseFloat(pair[0]), parseFloat(pair[1])]);
+		}
+		
+		return points;
+	}
+
 	function submit_command(command) {
 		var request = "command=" + command;
 		if(0 === command_input_str.length) {
@@ -98,9 +128,12 @@ var PolyPanel = function () {
 		request += "param=" + command_input_str;
 		var main_view = document.getElementById("main_view_id");
 		var result = submitCommand(request);
-		if(-1 === result.indexOf("$")) {
+		if(-1 != result.indexOf("Error")) {
 			alert("error : " + result);
 			return;
+		}
+		if(command === "GET_POLY_PLOT") {
+			addPlot(get_points(result.substr(6)));
 		}
 		main_view.innerHTML = "</br></br><b>" + result + "</b></br></br>";
 		main_view.style.display = "block";

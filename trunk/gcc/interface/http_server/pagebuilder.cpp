@@ -10,6 +10,7 @@
 #include "../../engine/getrref_command.h"
 #include "../../engine/getlinsyssol_command.h"
 #include "../../engine/getpolyzeros_command.h"
+#include "../../engine/getpolyplot_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -131,6 +132,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	boost::shared_ptr<cGetRREFCommand> command_rref = boost::dynamic_pointer_cast<cGetRREFCommand>(pCommand);
 	boost::shared_ptr<cGetLinSysSolCommand> command_lineq = boost::dynamic_pointer_cast<cGetLinSysSolCommand>(pCommand);
 	boost::shared_ptr<cGetPolyZerosCommand> command_polyzeros = boost::dynamic_pointer_cast<cGetPolyZerosCommand>(pCommand);
+	boost::shared_ptr<cGetPolyPlotCommand> command_polyplot = boost::dynamic_pointer_cast<cGetPolyPlotCommand>(pCommand);
 
 	if(command_rref || command_lineq)
 	{
@@ -142,7 +144,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 			for(std::size_t cols_idx = 0; cols_idx < mat.size2(); cols_idx++)
 			{
 				ss.str("");
-				ss<<mat(rows_idx, cols_idx);
+				ss << mat(rows_idx, cols_idx);
 				m_ResultStr += ss.str(); 
 
 				if(cols_idx < mat.size2() - 1)
@@ -162,14 +164,24 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		}
 		else
 		{
-			m_ResultStr = "$";
+			m_ResultStr = "roots: $";
 			for(auto root : command_polyzeros->GetResult())
 			{
 				ss.str("");
-				ss<<root;
+				ss << root;
 				m_ResultStr += ss.str() + "; ";
 			}
 			m_ResultStr += "$";
+		}
+	}
+	else if(command_polyplot)
+	{
+		m_ResultStr = "plot: ";
+		for(auto points : command_polyplot->GetResult())
+		{
+			ss.str("");
+			ss << std::fixed << std::setprecision(2) << points.first << "," << points.second;
+			m_ResultStr += ss.str() + ";";
 		}
 	}
 	else if(command_norm || command_determinant)
@@ -177,15 +189,15 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		ss.str("");
 		if(command_norm)
 		{
-			ss<<command_norm->GetResult();
+			ss << command_norm->GetResult();
 			m_ResultStr = "$ " + ss.str() + " $";
 		}
 		else if(command_determinant)
 		{
-			ss<<command_determinant->GetResult();
+			ss << command_determinant->GetResult();
 			m_ResultStr = "$ " + ss.str() + " ; ";
 			ss.str("");
-			ss<<command_determinant->GetTrace();
+			ss << command_determinant->GetTrace();
 			m_ResultStr += ss.str() + " $";
 		}
 	}
@@ -203,7 +215,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 			for(std::size_t cols_idx = 0; cols_idx < mat.size2(); cols_idx++)
 			{
 				ss.str("");
-				ss<<mat(rows_idx, cols_idx);
+				ss << mat(rows_idx, cols_idx);
 				m_ResultStr += ss.str(); 
 
 				if(cols_idx < mat.size2() - 1)
@@ -228,7 +240,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		std::cout<<command_cgraph->GetResult();
 		while(std::getline(redirectstream, str))
 		{
-			ss<<str<<"</br>";
+			ss << str << "</br>";
 		}
 		//put back the old stream buffer
 		std::cout.rdbuf(oldbuf);
@@ -249,7 +261,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		std::size_t index = 1;
 		for(auto rel_iter = relations.begin(); rel_iter != relations.end(); rel_iter++)
 		{
-			ss<<index<<". $"<<*rel_iter<<"$</br>";
+			ss << index << ". $" << *rel_iter << "$</br>";
 			index++;
 		}	
 		m_ResultStr += ss.str();
@@ -266,7 +278,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		for(std::size_t index = 0; index < elements.size(); index++)
 		{
 			ss.str("");
-			ss<<elements[index];
+			ss << elements[index];
 			perm_str = ss.str();
 			perm_str.replace(perm_str.find("\n"), 1, "</br>");
 			m_ResultStr += "<li>" + perm_str + "</li>";
