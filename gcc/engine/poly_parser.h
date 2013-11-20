@@ -56,7 +56,7 @@ public:
 			throw std::runtime_error(CONTEXT_STR + " Failed to parse polynomial.");
 
 		//remove trailing zeros
-		size_t idx = m_Polynomial.size() - 1;
+		int idx = m_Polynomial.size() - 1;
 		while((idx >= 0) && (m_Polynomial[idx] == 0))
 		{
 			idx--;

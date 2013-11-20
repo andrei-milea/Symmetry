@@ -54,12 +54,12 @@ cUnivarPolynomial<T> cUnivarPolynomial<T>::inverse()const
 template<typename T>
 std::vector<double> cUnivarPolynomial<T>::realZeros()const
 {
-	assert(m_PolyImpl[degree()] != 0);
-
 	std::vector<double> zeros;
-	if(0 == m_PolyImpl.size())
+	if((0 == m_PolyImpl.size()) || (1 == m_PolyImpl.size()))
 		return zeros;
 	zeros.reserve(degree());
+
+	assert(m_PolyImpl[degree()] != 0);
 
 	//TODO - add preprocessing to remove trivial zeros
 
@@ -133,8 +133,8 @@ std::vector<std::pair<double, double> > cUnivarPolynomial<T>::plotPoints()const
 	std::vector<std::pair<double, double> > points;
 
 	//add bounds
-	points.push_back(std::make_pair(std::numeric_limits<double>::min(), operator()(std::numeric_limits<double>::min())));
-	points.push_back(std::make_pair(std::numeric_limits<double>::max(), operator()(std::numeric_limits<double>::max())));
+	points.push_back(std::make_pair(std::numeric_limits<short>::lowest(), operator()(std::numeric_limits<short>::lowest())));
+	points.push_back(std::make_pair(std::numeric_limits<short>::max(), operator()(std::numeric_limits<short>::max())));
 
 	//add roots
 	auto zeros = realZeros();
@@ -152,7 +152,10 @@ std::vector<std::pair<double, double> > cUnivarPolynomial<T>::plotPoints()const
 	std::for_each(inflection_pts.begin(), inflection_pts.end(), [&] (double zero)
 			{	points.push_back(std::make_pair(zero, operator()(zero)));	});
 
-	std::sort(points.begin(), points.end());
+	std::sort(points.begin(), points.end(), [](const std::pair<double,double>& lhs, const std::pair<double,double>& rhs)
+			{
+            	return lhs.first < rhs.first;
+			});
 
 	return points;
 }

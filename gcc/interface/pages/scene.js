@@ -23,6 +23,10 @@ var Scene = function() {
 			rotateCamera();
 	}
 
+	function rotateScene(direction, length) {
+		mat4.rotate(mvMatrix, degToRad(1), direction);
+	}
+
 	function rotateCamera() {
 		rotate = true;	
 	}
@@ -88,13 +92,13 @@ var Scene = function() {
 				scene_graph[obj].animate(elapsed);
 			}
 
-			setDefaultCamera();
 			if(rotate === true) {
+				setDefaultCamera();
 				angle += rotationSpeed * elapsed / 1000.0;
 				if(angle > 360.0)
 					angle = 0.0
+				mat4.rotate(mvMatrix, degToRad(angle), [0, 1, 0]);
 			}
-			mat4.rotate(mvMatrix, degToRad(angle), [0, 1, 0]);
 		}
 		animLastTime = timeNow;
 	}
@@ -111,6 +115,7 @@ var Scene = function() {
 		setGl : setGl,
 		clearScene : clearScene,
 		rotateCamera : rotateCamera,
+		rotateScene : rotateScene,
 		toggleCameraRotation : toggleCameraRotation,
 		zoom_in : zoom_in,
 		zoom_out : zoom_out,

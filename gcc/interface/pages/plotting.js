@@ -1,11 +1,11 @@
-var LinGeometry = function() {
+var Plotting = function() {
 	var _scene = null;
 	var _axes = null;
-	var _linear_equations = [];
+	var _points = [];
 	var _is3d;
 
 	function clear() {
-		_linear_equations = [];
+		_points = [];
 		_axes = null;
 	}
 
@@ -46,32 +46,18 @@ var LinGeometry = function() {
 		_scene.zoom_out();
 	}
 
-	function add2DEquation(x, y, r) {
-		lin_eq = new LinEq();
-		lin_eq.set2DEquation(x, y, r);
-		_linear_equations.push(lin_eq);
-		_scene.addModel(lin_eq);
+	function addCurve(points) {
+		curve = new Curve();
+		curve.setPoints(points);
+		_scene.addModel(curve);
 	}
 
-	function add3DEquation(x, y, z, r) {
-		lin_eq = new LinEq();
-		lin_eq.set3DEquation(x, y, z, r);
-		_linear_equations.push(lin_eq);
-		_scene.addModel(lin_eq);
-	}
-
-	function highlightEquation(no) {
-		var index = parseInt(no);
-		for(var idx = 0; idx < _linear_equations.length; idx++)
-			_linear_equations[idx].unhighlight();
-
-		_linear_equations[index].highlight();
+	function highlightPlot(no) {
 	}
 
 	return {
-		highlightEquation : highlightEquation,
-		add2DEquation : add2DEquation,
-		add3DEquation : add3DEquation,
+		highlightPlot : highlightPlot,
+		addCurve : addCurve,
 		addAxes : addAxes,
 		clear : clear,
 		toggleCameraRotation : toggleCameraRotation,
