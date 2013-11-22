@@ -3,6 +3,12 @@
 
 <!-- external files -->
 <link rel="stylesheet" type="text/css" href="styles.css" />
+<link type="text/css" rel="StyleSheet" href="slider/slider.css" />
+
+<script type="text/javascript" src="slider/range.js"></script>
+<script type="text/javascript" src="slider/timer.js"></script>
+<script type="text/javascript" src="slider/slider.js"></script>
+
 <script src="glMatrix.js" type="text/javascript"></script>
 <script src="webgl-utils.js" type="text/javascript"></script>
 <script src="webgl.js" type="text/javascript"></script>
@@ -81,7 +87,6 @@
 
 <body id="body_id" onload="WebGlContext.initWebGL()" bgcolor="#DCE2E7">
 <input id="session_key_id" type="hidden" name="hidden" value="00">
-</br>
 
 <div id="whole_page_id" class="swholepage">
 </br>
@@ -126,6 +131,23 @@
 </nav>
 </br>
 </div>
+
+</br>
+
+<div class="sradio">  
+	<input id="calculus" type="radio" value="calculus" name="category">  
+	<label for="calculus">Calculus</label>  
+	<input id="linalg" type="radio" value="linalg" name="category">  
+	<label for="linalg">Linear Algebra</label>  
+	<input id="prob" type="radio" value="prob" name="category">  
+	<label for="prob">Probabilities & Statistics</label>
+	<input id="complex" type="radio" value="complex" name="category">  
+	<label for="complex">Complex Variables</label>
+	<input id="absalg" type="radio" value="absalg" name="category">  
+	<label for="absalg">Abstract Algebra</label>
+</div>
+
+</br>
 </br>
 
 <div id="computations_panel" class="scomputations_panel">

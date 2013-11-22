@@ -21,10 +21,9 @@ var Plotting = function() {
 		}
 		_is3d = is3d;
 
-		_scene.setZoom(-15);
-
 		_scene.setGl(WebGlContext.getGl());
 		_scene.addModel(_axes);
+		_scene.setZoom(-15);
 		_scene.anim_loop();
 	}
 
@@ -38,8 +37,8 @@ var Plotting = function() {
 			_scene.rotateScene(direction, length);
 	}
 
-	function zoom_in() {
-		_scene.zoom_in();
+	function setZoom(zoom) {
+		_scene.setZoom(zoom);
 	}
 
 	function zoom_out() {
@@ -62,8 +61,7 @@ var Plotting = function() {
 		clear : clear,
 		toggleCameraRotation : toggleCameraRotation,
 		rotateScene : rotateScene,
-		zoom_in : zoom_in,
-		zoom_out : zoom_out
+		setZoom : setZoom
 	}
 }();
 

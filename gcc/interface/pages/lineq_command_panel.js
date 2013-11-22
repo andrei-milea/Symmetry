@@ -198,30 +198,32 @@ var LinEqPanel = function () {
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 		canvasDiv.insertBefore(document.createTextNode('Geometric Interpretation(right-hand coordinate system):'), main_canvas);
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
-		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 
 		var toggleTag = document.createElement("input");
 		toggleTag.setAttribute("type","button");
 		toggleTag.setAttribute("value","Toggle Camera Rotation");
 		toggleTag.setAttribute("onclick","LinGeometry.toggleCameraRotation()"); 
 
-		var zoom_inTag = document.createElement("input");
-		zoom_inTag.setAttribute("type","button");
-		zoom_inTag.setAttribute("value","Zoom in");
-		zoom_inTag.setAttribute("onclick","LinGeometry.zoom_in()"); 
+		//create new slider
+		var sliderTag = document.createElement("div");
+		sliderTag.innerHTML = "<input class='slider-input' id='slider-input-2' name='slider-input-2'/>";
+		sliderTag.setAttribute("class","slider");
+		sliderTag.setAttribute("id","slider-2");
 
-		var zoom_outTag = document.createElement("input");
-		zoom_outTag.setAttribute("type","button");
-		zoom_outTag.setAttribute("value","Zoom out");
-		zoom_outTag.setAttribute("onclick","LinGeometry.zoom_out()"); 
-
-
-		canvasDiv.insertBefore(zoom_inTag, main_canvas);
-		canvasDiv.insertBefore(zoom_outTag, main_canvas);
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 		canvasDiv.insertBefore(toggleTag, main_canvas);
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
 		canvasDiv.insertBefore(document.createElement("br"), main_canvas);
+		main_canvas.parentNode.insertBefore(sliderTag, main_canvas.nextSibling);
+		sliderTag.parentNode.insertBefore(document.createElement("br"), sliderTag.nextSibling);
+		sliderTag.parentNode.insertBefore(document.createElement("br"), sliderTag.nextSibling);
+		var s = new Slider(document.getElementById("slider-2"), document.getElementById("slider-input-2"), "vertical");
+		s.setMinimum(-29);
+		s.setMaximum(-1);
+		s.setValue(-16);
+		s.onchange = function () {
+			LinGeometry.setZoom(s.getValue());
+		}
 
 		WebGlContext.initWebGL();
 		LinGeometry.clear();
@@ -242,10 +244,6 @@ var LinEqPanel = function () {
 			for(var idx = 0; idx < sys_matrix.length; idx++)
 				LinGeometry.add2DEquation(sys_matrix[idx][0], sys_matrix[idx][1], sys_matrix[idx][2]);
 		}
-		
-
-		canvasDiv.appendChild(document.createElement("br"));
-		canvasDiv.appendChild(document.createElement("br"));
 	}
 
 	function removeGeometry() {
