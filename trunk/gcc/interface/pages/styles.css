@@ -4,7 +4,7 @@ margin-left: 50;
 margin-right: 50;
 box-shadow: 9px 9px 9px rgba(0,0,0,0.20);
 border:1px solid #aaa;
-min-height: 98%;
+min-height: 100%;
 /*background-image: url(bkg.jpg);*/
 background-color: #FFFFFF;
 }
@@ -115,6 +115,46 @@ del{text-decoration:line-through;}
 	white-space:nowrap;
 }
 
+/*radio buttons*/
+.sradio {
+	text-align: center;  
+}
+.sradio label {  
+	display: inline-block;  
+	cursor: pointer;  
+	position: relative;  
+	padding-left: 23px;  
+	margin-right: 40px;  
+	font-size: 19px;  
+	height: 19px;  
+}
+.sradio input[type=radio] {  
+	display: none;  
+}
+.sradio label:before {  
+	content: "";  
+	display: inline-block;  
+
+	width: 17px;  
+	height: 17px;  
+
+	margin-right: 10px;  
+	position: absolute;  
+	left: 0;  
+	bottom: 1px;  
+	background-color: #ddf;  
+	box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);  
+}
+.sradio label:before {  
+	border-radius: 8px;  
+}
+.sradio input[type=radio]:checked + label:before {  
+	content: "\2022";  
+	color: #404040;  
+	font-size: 30px;  
+	text-align: center;  
+	line-height: 18px;  
+}
 
 /*tabs*/
 .scomputations_panel {
@@ -282,6 +322,7 @@ resize: both;
 box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
 text-align: center;
+float: left;
 margin-left: 10;
 border:1px solid #aaa;
 margin-top: 20;
@@ -290,14 +331,15 @@ width: 750px;
 min-height: 600px;
 background: white;
 overflow: hidden;
-resize: both;
 }
 .scanvas
 {
 margin-top: auto;
 margin-left: auto;
 margin-right: auto;
+display: inline-block;
 cursor: pointer; cursor: hand; 
+resize: both;
 }
 
 #group_property_div_id

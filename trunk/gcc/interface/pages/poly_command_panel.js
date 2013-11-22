@@ -77,7 +77,14 @@ var PolyPanel = function () {
 				window.alert("Invalid input. Please enter valid coefficients and constant terms!")
 				return;
 			}
-			_tex_input_str += val_str + " x^" + (j).toString();
+			if(j === 0)
+				_tex_input_str += val_str;
+			else if(j == 1)
+				_tex_input_str += val_str + " x";
+			else
+				_tex_input_str += val_str + " x^" + (j).toString();
+	
+
 			command_input_str += val_str;
 		}
 		_tex_input_str += "$";
@@ -98,6 +105,25 @@ var PolyPanel = function () {
 		}
 		canvasDiv.style.display = "block";
 
+		var sliderTag = document.createElement("div");
+		sliderTag.innerHTML = "<input class='slider-input' id='slider-input-2' name='slider-input-2'/>";
+		sliderTag.setAttribute("class","slider");
+		sliderTag.setAttribute("id","slider-2");
+
+		var main_canvas = document.getElementById("main_canvas");
+		main_canvas.parentNode.insertBefore(sliderTag, main_canvas.nextSibling);
+		sliderTag.parentNode.insertBefore(document.createElement("br"), sliderTag.nextSibling);
+		sliderTag.parentNode.insertBefore(document.createElement("br"), sliderTag.nextSibling);
+		var s = new Slider(document.getElementById("slider-2"), document.getElementById("slider-input-2"), "vertical");
+		s.setMinimum(-29);
+		s.setMaximum(-1);
+		s.setValue(-15);
+		s.onchange = function () {
+			Plotting.setZoom(s.getValue());
+		}
+
+
+
 		var main_canvas = document.getElementById("main_canvas");
 		main_canvas.width = 700;
 		main_canvas.height = 700;
@@ -111,7 +137,7 @@ var PolyPanel = function () {
 		var points = [];
 		points_pairs = points_str.split(";");
 
-		for(var i=0; i < points_pairs.length; i++) {
+		for(var i=0; i < points_pairs.length - 1; i++) {
 			pair = points_pairs[i].split(",");
 			points.push([parseFloat(pair[0]), parseFloat(pair[1])]);
 		}
@@ -134,6 +160,7 @@ var PolyPanel = function () {
 		}
 		if(command === "GET_POLY_PLOT") {
 			addPlot(get_points(result.substr(6)));
+			return;
 		}
 		main_view.innerHTML = "</br></br><b>" + result + "</b></br></br>";
 		main_view.style.display = "block";

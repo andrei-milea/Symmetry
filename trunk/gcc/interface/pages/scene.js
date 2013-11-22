@@ -31,16 +31,9 @@ var Scene = function() {
 		rotate = true;	
 	}
 
-	function zoom_in() {
-		zdist += 0.1;
-	}
-
-	function zoom_out() {
-		zdist -= 0.1;
-	}
-
 	function setZoom(zoom) {
 		zdist = zoom;
+		setDefaultCamera();
 	}
 
 	function stopCameraRotation() {
@@ -117,8 +110,6 @@ var Scene = function() {
 		rotateCamera : rotateCamera,
 		rotateScene : rotateScene,
 		toggleCameraRotation : toggleCameraRotation,
-		zoom_in : zoom_in,
-		zoom_out : zoom_out,
 		setZoom : setZoom
 	}
 

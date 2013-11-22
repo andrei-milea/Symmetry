@@ -132,9 +132,21 @@ std::vector<std::pair<double, double> > cUnivarPolynomial<T>::plotPoints()const
 {
 	std::vector<std::pair<double, double> > points;
 
+	double min = -100.0;
+	const double max = 100.0;
+	const double increment = 0.2;
+
 	//add bounds
-	points.push_back(std::make_pair(std::numeric_limits<short>::lowest(), operator()(std::numeric_limits<short>::lowest())));
-	points.push_back(std::make_pair(std::numeric_limits<short>::max(), operator()(std::numeric_limits<short>::max())));
+	points.push_back(std::make_pair(min, operator()(min)));
+	points.push_back(std::make_pair(max, operator()(max)));
+
+	//add rest of the points
+	while(min < max)
+	{
+		min += increment;
+		points.push_back(std::make_pair(min, operator()(min)));
+	}
+
 
 	//add roots
 	auto zeros = realZeros();
@@ -145,17 +157,17 @@ std::vector<std::pair<double, double> > cUnivarPolynomial<T>::plotPoints()const
 	auto _derivative = derivative();
 	auto critical_pts = _derivative.realZeros();
 	std::for_each(critical_pts.begin(), critical_pts.end(), [&] (double zero)
-			{	points.push_back(std::make_pair(zero, operator()(zero)));	});
+					{	points.push_back(std::make_pair(zero, operator()(zero)));	});
 
 	//add inflection points
 	auto inflection_pts = _derivative.derivative().realZeros();
 	std::for_each(inflection_pts.begin(), inflection_pts.end(), [&] (double zero)
-			{	points.push_back(std::make_pair(zero, operator()(zero)));	});
+					{	points.push_back(std::make_pair(zero, operator()(zero)));	});
 
 	std::sort(points.begin(), points.end(), [](const std::pair<double,double>& lhs, const std::pair<double,double>& rhs)
-			{
-            	return lhs.first < rhs.first;
-			});
+				{
+					return lhs.first < rhs.first;
+				});
 
 	return points;
 }

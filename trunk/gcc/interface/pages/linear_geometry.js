@@ -21,10 +21,10 @@ var LinGeometry = function() {
 		}
 		_is3d = is3d;
 
-		_scene.setZoom(-15);
 
 		_scene.setGl(WebGlContext.getGl());
 		_scene.addModel(_axes);
+		_scene.setZoom(-16);
 		_scene.anim_loop();
 	}
 
@@ -38,12 +38,8 @@ var LinGeometry = function() {
 			_scene.rotateScene(direction, length);
 	}
 
-	function zoom_in() {
-		_scene.zoom_in();
-	}
-
-	function zoom_out() {
-		_scene.zoom_out();
+	function setZoom(zoom) {
+		_scene.setZoom(zoom);
 	}
 
 	function add2DEquation(x, y, r) {
@@ -76,8 +72,7 @@ var LinGeometry = function() {
 		clear : clear,
 		toggleCameraRotation : toggleCameraRotation,
 		rotateScene : rotateScene,
-		zoom_in : zoom_in,
-		zoom_out : zoom_out
+		setZoom : setZoom
 	}
 }();
 
