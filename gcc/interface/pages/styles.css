@@ -1,41 +1,43 @@
+body, html {
+  height: 95%;
+}
 
 .swholepage{
-margin-left: 50;
-margin-right: 50;
+margin-top: 30px;
+margin-left: 100px;
+margin-right: 100px;
 box-shadow: 9px 9px 9px rgba(0,0,0,0.20);
-border:1px solid #aaa;
-min-height: 100%;
+min-height: 95%;
 /*background-image: url(bkg.jpg);*/
 background-color: #FFFFFF;
 }
 
 .sbanner{
-margin-left: 20;
+margin-left: 20px;
 margin-right: auto;
 box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
-border: 1px solid #aaa;
 }
 
 del{text-decoration:line-through;}
 
 .smainmenu{
-	margin-left: 30;
+	margin-left: 30px;
 	margin-right: auto;
 	font-size: 18px;
 }
 
 /* navigation menu style*/
-.smainmenu nav ul ul {
+.smainmenu ul ul {
 		display: none;
 		z-index:1;
 }
 
-.smainmenu nav ul li:hover > ul {
+.smainmenu ul li:hover > ul {
 	display: block;
 	z-index:1;
 }
 
-.smainmenu nav ul {
+.smainmenu ul {
 	background: #efefef; 
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
@@ -50,16 +52,16 @@ del{text-decoration:line-through;}
 	z-index:1;
 }
 
-.smainmenu nav ul:after {
+.smainmenu ul:after {
 	content: ""; clear: both; display: block;
 }
 
-.smainmenu nav ul li {
+.smainmenu ul li {
 	float: left;
 	color: #000;
 }
 
-.smainmenu nav ul li:hover {
+.smainmenu ul li:hover {
 	background: #efefef;
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
@@ -68,17 +70,17 @@ del{text-decoration:line-through;}
 	color: #000;
 }
 
-.smainmenu nav ul li:hover a {
+.smainmenu ul li:hover a {
 	color: #000;
 }
 
-.smainmenu nav ul li a {
+.smainmenu ul li a {
 	display: block; padding: 4px 14px;
 	color: #000; text-decoration: none;
 }
 		
 
-.smainmenu nav ul ul {
+.smainmenu ul ul {
 	padding: 0;
 	background: #efefef;
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
@@ -89,19 +91,19 @@ del{text-decoration:line-through;}
 	color: #000;
 }
 
-.smainmenu nav ul ul li {
+.smainmenu ul ul li {
 	float: none; 
 	border-top: 1px solid #6b727c;
 	position: relative;
 	color: #000;
 }
 
-.smainmenu nav ul ul li a {
+.smainmenu ul ul li a {
 	padding: 4px 14px;
 	color: #000;
 }	
 
-.smainmenu nav ul ul li a:hover {
+.smainmenu ul ul li a:hover {
 	background: #efefef;
 	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
 	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
@@ -110,7 +112,7 @@ del{text-decoration:line-through;}
 	color: #000;
 }
 
-.smainmenu nav ul ul ul {
+.smainmenu ul ul ul {
 	position: absolute; left: 100%; top:0;
 	white-space:nowrap;
 }
@@ -142,7 +144,7 @@ del{text-decoration:line-through;}
 	position: absolute;  
 	left: 0;  
 	bottom: 1px;  
-	background-color: #ddf;  
+	background-color: #bbbbbb;  
 	box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);  
 }
 .sradio label:before {  
@@ -150,7 +152,7 @@ del{text-decoration:line-through;}
 }
 .sradio input[type=radio]:checked + label:before {  
 	content: "\2022";  
-	color: #404040;  
+	color: #332266;  
 	font-size: 30px;  
 	text-align: center;  
 	line-height: 18px;  
@@ -166,6 +168,7 @@ background-color: #F2F2F2;
 list-style: none;
 padding:0;
 margin:0;
+margin-left: 30px;
 }
 .scomputations_panel li {
 float: left;
@@ -186,24 +189,6 @@ border-bottom-width: 0;
 }
 .scomputations_panel li a:hover {
 background: #ddf;
-}
-.scomputations_panel li a:active {
-border: 1px solid #000;
-border-bottom-width: 0;
-position: relative;
-top: 1px;
-background: white;
-color: black;
-font-weight: bold; 
-}
-.scomputations_panel li a:focus {
-border: 1px solid #000;
-border-bottom-width: 0;
-position: relative;
-top: 1px;
-background: white;
-color: black;
-font-weight: bold; 
 }
 .scomputations_panel li a.selected {
 border-bottom-width: 0;
@@ -226,10 +211,12 @@ font-weight: bold;
 .scommand_panel {
 border: 1px solid black;
 clear: both;
-padding: 0 1em;
-margin-top: 15;
+margin-top: 15px;
 margin-left: 0;
 background: white;
+border-bottom-width: 0;
+border-left-width: 0;
+border-right-width: 0;
 }
 
 .sinput_div_id
@@ -239,9 +226,9 @@ border-radius: 3px;
 border:1px solid #aaa;
 text-align: center;
 background: white;
-margin-left: 10;
-width: 750; height: auto;
-margin-top: 20;
+width: 750px; height: auto;
+margin-top: 20px;
+margin-left: 10px;
 position: relative;
 padding-bottom: 0.1cm;
 }
@@ -252,9 +239,9 @@ box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
 border:1px solid #aaa;
 text-align: center;
-margin-left: 30;
-width: 600; height: auto;
-margin-top: 20;
+margin-left: 30px;
+width: 600px; height: auto;
+margin-top: 20px;
 position: relative;
 padding-bottom: 0.1cm;
 background: #FBFDFB
@@ -262,12 +249,12 @@ background: #FBFDFB
 
 /*commands button style*/
 .sbutton{
-width: 750;
+width: 750px;
 padding: 0px;
 margin: 0px;
-margin-left: 10;
-margin-top: 10;
-min-height: 60;
+margin-left: 10px;
+margin-top: 10px;
+min-height: 60px;
 border-right-style:solid;
 border-right-color:#FFF;
 border-right-width:3px;
@@ -308,11 +295,11 @@ overflow: auto;
 clear: both;
 border:1px solid #aaa;
 background: white;
-margin-left: 10;
+margin-left: 10px;
 position: relative;
-width: 750;
-min-height: 200;
-max-height: 500;
+width: 750px;
+min-height: 200px;
+max-height: 500px;
 resize: both;
 }
 
@@ -323,9 +310,9 @@ box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
 text-align: center;
 float: left;
-margin-left: 10;
+margin-left: 10px;
 border:1px solid #aaa;
-margin-top: 20;
+margin-top: 20px;
 position: relative;
 width: 750px; 
 min-height: 600px;
@@ -364,10 +351,10 @@ border-radius:2px;
 box-shadow: 0px 0px 8px 4px #666;
 font-size:14px;
 position: absolute;
-top: 370;
-margin-left: 780;
+top: 370px;
+margin-left: 780px;
 display:block;
-width: 25em;
+width: 20em;
 padding:2% 2% 2% 2%;
 background: rgb(14,14,14); /* Old browsers */
 background: -moz-linear-gradient(-45deg,  rgba(14,14,14,1) 33%, rgba(125,126,125,1) 95%); /* FF3.6+ */
