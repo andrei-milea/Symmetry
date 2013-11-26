@@ -33,7 +33,7 @@ function submitCommand (request) {
 
 //main panel logic
 var MainMenu = function () {
-	var current_panel = null;
+	var current_panel = PlottingPanel;
 
 	function showIntCompdiv() {
 		var intcompDiv = document.getElementById("interactive_comp");
@@ -83,17 +83,16 @@ var MainMenu = function () {
 
 	function showDiv(panel) {
 		var calculusDiv = document.getElementById("calculus_panel");
-		var polydiv = document.getElementById("poly_panel");
 		var linalgDiv = document.getElementById("linear_algebra_panel");
 		var probDiv = document.getElementById("probabilities_panel");
 		var absalgDiv = document.getElementById("absalg_panel");
 		calculusDiv.style.display="none";
-		polydiv.style.display="none";
 		linalgDiv.style.display="none";
 		probDiv.style.display="none";
 		absalgDiv.style.display="none";
 		if(panel === "calculus") {
 			calculusDiv.style.display="block";
+			add_plotting_div();
 		}
 		else if(panel === "linalg")	{
 			linalgDiv.style.display="block";
@@ -157,7 +156,20 @@ var MainMenu = function () {
 		current_panel = PolyPanel;
 	}
 
-	function add_feature_div() {
+	function add_plotting_div() {
+		if((current_panel !== null) && (current_panel !== PlottingPanel)) {
+			current_panel.hide();
+			reset_mainview_canvas();
+		}
+
+		reset_tabs();
+		var plot_li = document.getElementById("li_plot_id");
+		var plot_a = document.getElementById("a_plot_id");
+		plot_li.className = "selected";
+		plot_a.className = "selected";
+
+		PlottingPanel.show();
+		current_panel = PlottingPanel;
 	}
 
 	function add_lineq_div() {
@@ -184,6 +196,7 @@ var MainMenu = function () {
 		var added_input_div2 = document.getElementById("added_input_id2");
 		var added_input_div3 = document.getElementById("added_input_id3");
 		var added_input_div4 = document.getElementById("added_input_id4");
+		var added_input_div5 = document.getElementById("added_input_id5");
 		added_input_div1.innerHTML="";
 		added_input_div1.style.display="none";
 		added_input_div2.innerHTML="";
@@ -192,6 +205,8 @@ var MainMenu = function () {
 		added_input_div3.style.display="none";
 		added_input_div4.innerHTML="";
 		added_input_div4.style.display="none";
+		added_input_div5.innerHTML="";
+		added_input_div5.style.display="none";
 
 		var main_view = document.getElementById("main_view_id");
 		main_view.innerHTML="";
@@ -211,7 +226,7 @@ var MainMenu = function () {
 		add_lineq_div : add_lineq_div,
 		add_calculus_div : add_calculus_div,
 		add_poly_div : add_poly_div,
-		add_feature_div : add_feature_div,
+		add_plotting_div : add_plotting_div,
 		showIntCompdiv : showIntCompdiv,
 		showScriptingDiv : showScriptingDiv,
 		showDiv : showDiv
