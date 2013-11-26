@@ -36,19 +36,19 @@ var GrpPanel = function () {
 				"<option value='S3'>S3</option>"+
 				"<option value='S4'>S4</option>"+
 				"<option value='D8'>D8</option>"+
-				"</select></br></br>";
+				"</select><br/><br/>";
 		}
 		else if(type.value === "Cyclic Group") {
 			generators_div.innerHTML =
 				"Enter group order: &nbsp;&nbsp;&nbsp;"+
 				"<input type='text' id='group_size_id' size='2' maxlength='2'>&nbsp;&nbsp;&nbsp;"+
-				"<input type='button' value='Set generator' onclick='GrpPanel.add_generator()'></br></br>";
+				"<input type='button' value='Set generator' onclick='GrpPanel.add_generator()'><br/><br/>";
 		}
 		else {//Dihedral Group 
 		generators_div.innerHTML =
 				"Enter number of sides for the regular polygon: &nbsp;&nbsp;&nbsp;"+
 				"<input type='text' id='group_size_id' size='2' maxlength='2'>&nbsp;&nbsp;&nbsp;"+
-				"<input type='button' value='Set generator' onclick='GrpPanel.add_generator()'></br></br>";
+				"<input type='button' value='Set generator' onclick='GrpPanel.add_generator()'><br/><br/>";
 		}
 	}
 
@@ -157,7 +157,7 @@ var GrpPanel = function () {
 		var added_input_div = document.getElementById("added_input_id1");
 		added_input_div.innerHTML = "";
 		added_input_div.style.display = "block";
-		added_input_div.innerHTML = "</br> <b>The group provided as input is:</b> </br> </br>" + "Group Type: &nbsp;" 			+ static_vars.group_type + "</br>" + "Group Generators: &nbsp;" + static_vars.generators + "</br></br>";
+		added_input_div.innerHTML = "<br/> <b>The group provided as input is:</b> <br/> <br/>" + "Group Type: &nbsp;" 			+ static_vars.group_type + "<br/>" + "Group Generators: &nbsp;" + static_vars.generators + "<br/><br/>";
 		group_commands_active = true;
 		return false;
 	}
@@ -213,7 +213,7 @@ var GrpPanel = function () {
 					for(i = 1; i <= size; i++) {
 						permutation += i.toString() + " ";
 					}
-					permutation += "<br>" + permutation;
+					permutation += "<br/>" + permutation;
 
 					permuTag.innerHTML = "<li>" + permutation + "</li>";
 					permuTag.style.width = (size * 20).toString() + "px";
@@ -241,7 +241,7 @@ var GrpPanel = function () {
 		}
 		var permuTag = document.getElementById("list_elem_perm");
 		var permutation = permuTag.innerHTML.slice(4, permuTag.innerHTML.length - 5);
-		var pos = permutation.indexOf("<br>") + 5;
+		var pos = permutation.indexOf("<br/>") + 5;
 		permutation = permutation.substr(0, pos - 1) + permutation.charAt(permutation.length-2) +  " " + 
 			permutation.substr(pos-1,permutation.length - 2 - pos) + " ";
 		permuTag.innerHTML = "<li>" + permutation + "</li>";
@@ -254,7 +254,7 @@ var GrpPanel = function () {
 			return;
 		var permuTag = document.getElementById("list_elem_perm");
 		var permutation = permuTag.innerHTML.slice(4, permuTag.innerHTML.length - 5);
-		var pos = permutation.indexOf("<br>") + 5;
+		var pos = permutation.indexOf("<br/>") + 5;
 		var size = Math.floor((permutation.length - pos + 1) / 2);
 
 		var index_begin = pos + 1;

@@ -6,156 +6,172 @@ body, html {
 margin-top: 30px;
 margin-left: 100px;
 margin-right: 100px;
-box-shadow: 9px 9px 9px rgba(0,0,0,0.20);
+box-shadow: 5px 5px 5px rgba(0,0,0,0.20);
 min-height: 95%;
-/*background-image: url(bkg.jpg);*/
-background-color: #FFFFFF;
+background-image: url(bkg.jpg);
 }
 
-.sbanner{
-margin-left: 20px;
-margin-right: auto;
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
+.sbanner nav {
+width:580px;
+-moz-box-sizing: border-box; 
+-webkit-box-sizing: border-box; 
+box-sizing: border-box;
+width: 600px;
+padding: 0px 40px;
+margin-left: -14px;
+
+background: rgba(192,192,192,0.7);
+filter: alpha(opacity=80); /* IE6-IE8 */
+position: relative;
+
+border-top-left-radius: 10px 5px;
+border-top-right-radius: 10px 5px;
+border-bottom-right-radius: 10px 5px;
+}
+
+.nav-left {
+position: absolute;
+left:0;
+bottom:-14px;
+width:14px;
+height:14px;
+background: rgba(192,192,192,0.7);
+border-bottom-left-radius: 100% 50%;
+}
+
+.nav-left:after {
+content: '';
+position: absolute;
+right:0;
+width:66%;
+height:66%;
+background: #000;
+border-top-left-radius:100% 50%;
+border-bottom-left-radius:100% 50%;
 }
 
 del{text-decoration:line-through;}
 
-.smainmenu{
-	margin-left: 30px;
-	margin-right: auto;
-	font-size: 18px;
-}
-
 /* navigation menu style*/
-.smainmenu ul ul {
-		display: none;
-		z-index:1;
+.sbanner nav ul {
+font-size: 18px;
+background: #efefef; 
+background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
+background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
+background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
+box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+color: #fff;
+padding: 0 5px;
+border-radius: 3px;  
+list-style: none;
+position: relative;
+display: inline-table;
+z-index:1;
+}
+.sbanner nav ul ul {
+display: none;
+z-index:1;
+}
+.sbanner nav ul li:hover > ul {
+display: block;
+z-index:1;
+}
+.sbanner nav ul:after {
+content: ""; clear: both; display: block;
 }
 
-.smainmenu ul li:hover > ul {
-	display: block;
-	z-index:1;
+.sbanner nav ul li {
+float: left;
+color: #000;
+}
+.sbanner nav ul li:hover {
+background: #efefef;
+background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
+box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+color: #000;
+}
+.sbanner nav ul li:hover a {
+color: #000;
 }
 
-.smainmenu ul {
-	background: #efefef; 
-	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);  
-	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%); 
-	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%); 
-	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-	color: #fff;
-	padding: 0 5px;
-	border-radius: 3px;  
-	list-style: none;
-	position: relative;
-	display: inline-table;
-	z-index:1;
+.sbanner nav ul li a {
+display: block; padding: 4px 14px;
+color: #000; text-decoration: none;
 }
-
-.smainmenu ul:after {
-	content: ""; clear: both; display: block;
+.sbanner nav ul ul {
+padding: 0;
+background: #efefef;
+background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
+box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+position: absolute; top: 100%;
+color: #000;
 }
-
-.smainmenu ul li {
-	float: left;
-	color: #000;
+.sbanner nav ul ul li {
+float: none; 
+border-top: 1px solid #6b727c;
+position: relative;
+color: #000;
 }
-
-.smainmenu ul li:hover {
-	background: #efefef;
-	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
-	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-	color: #000;
-}
-
-.smainmenu ul li:hover a {
-	color: #000;
-}
-
-.smainmenu ul li a {
-	display: block; padding: 4px 14px;
-	color: #000; text-decoration: none;
-}
-		
-
-.smainmenu ul ul {
-	padding: 0;
-	background: #efefef;
-	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
-	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-	position: absolute; top: 100%;
-	color: #000;
-}
-
-.smainmenu ul ul li {
-	float: none; 
-	border-top: 1px solid #6b727c;
-	position: relative;
-	color: #000;
-}
-
-.smainmenu ul ul li a {
-	padding: 4px 14px;
-	color: #000;
+.sbanner nav ul ul li a {
+padding: 4px 14px;
+color: #000;
 }	
-
-.smainmenu ul ul li a:hover {
-	background: #efefef;
-	background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-	background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
-	background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
-	box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
-	color: #000;
+.sbanner nav ul ul li a:hover {
+background: #efefef;
+background: linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+background: -moz-linear-gradient(top, #efefef 0%, #bbbbbb 100%);
+background: -webkit-linear-gradient(top, #efefef 0%,#bbbbbb 100%);
+box-shadow: 0px 0px 9px rgba(0,0,0,0.15);
+color: #000;
 }
-
-.smainmenu ul ul ul {
+.sbanner nav ul ul ul {
 	position: absolute; left: 100%; top:0;
 	white-space:nowrap;
 }
 
 /*radio buttons*/
 .sradio {
-	text-align: center;  
+text-align: center;  
 }
 .sradio label {  
-	display: inline-block;  
-	cursor: pointer;  
-	position: relative;  
-	padding-left: 23px;  
-	margin-right: 40px;  
-	font-size: 19px;  
-	height: 19px;  
+display: inline-block;  
+cursor: pointer;  
+position: relative;  
+padding-left: 23px;  
+margin-right: 40px;  
+font-size: 19px;  
+height: 19px;  
 }
 .sradio input[type=radio] {  
-	display: none;  
+display: none;  
 }
 .sradio label:before {  
-	content: "";  
-	display: inline-block;  
+content: "";  
+display: inline-block;  
 
-	width: 17px;  
-	height: 17px;  
+width: 17px;  
+height: 17px;  
 
-	margin-right: 10px;  
-	position: absolute;  
-	left: 0;  
-	bottom: 1px;  
-	background-color: #bbbbbb;  
-	box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);  
+margin-right: 10px;  
+position: absolute;  
+left: 0;  
+bottom: 1px;  
+background-color: #bbbbbb;  
+box-shadow: inset 0px 2px 3px 0px rgba(0, 0, 0, .3), 0px 1px 0px 0px rgba(255, 255, 255, .8);  
 }
 .sradio label:before {  
-	border-radius: 8px;  
+border-radius: 8px;  
 }
 .sradio input[type=radio]:checked + label:before {  
-	content: "\2022";  
-	color: #332266;  
-	font-size: 30px;  
-	text-align: center;  
-	line-height: 18px;  
+content: "\2022";  
+color: #332266;  
+font-size: 30px;  
+text-align: center;  
+line-height: 18px;  
 }
 
 /*tabs*/
@@ -194,7 +210,7 @@ background: #ddf;
 border-bottom-width: 0;
 position: relative;
 top: 1px;
-background: white;
+background-image: url(bkg.jpg);
 color: black;
 font-weight: bold; 
 }
@@ -208,12 +224,35 @@ color: black;
 font-weight: bold; 
 }
 
+
+.sfieldset1 {
+text-align: center;
+background: #F0F0F0;
+background: linear-gradient(top, #fff 0%, #F0F0F0 80%);
+background: -moz-linear-gradient(top, #fff 0%, #F0F0F0 80%);
+background: -webkit-linear-gradient(top, #fff 0%,#F0F0F0 80%);
+border: 2px solid #aaa;
+border-top-left-radius: 10px 10px;
+border-top-right-radius: 10px 10px;
+border-bottom-right-radius: 10px 10px;
+border-bottom-left-radius: 10px 10px;
+}
+.sfieldset {
+text-align: center;
+background: #F0F0F0;
+border: 2px solid #aaa;
+border-top-left-radius: 10px 10px;
+border-top-right-radius: 10px 10px;
+border-bottom-right-radius: 10px 10px;
+border-bottom-left-radius: 10px 10px;
+}
+
 .scommand_panel {
 border: 1px solid black;
 clear: both;
 margin-top: 15px;
 margin-left: 0;
-background: white;
+background-image: url(bkg.jpg);
 border-bottom-width: 0;
 border-left-width: 0;
 border-right-width: 0;
@@ -221,7 +260,6 @@ border-right-width: 0;
 
 .sinput_div_id
 {
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
 border:1px solid #aaa;
 text-align: center;
@@ -235,31 +273,22 @@ padding-bottom: 0.1cm;
 
 .saddedinput_div_id
 {
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
-border:1px solid #aaa;
 text-align: center;
 margin-left: 30px;
 width: 600px; height: auto;
 margin-top: 20px;
 position: relative;
 padding-bottom: 0.1cm;
-background: #FBFDFB
+background: #F0F0F0;
 }
 
 /*commands button style*/
 .sbutton{
 width: 750px;
-padding: 0px;
-margin: 0px;
 margin-left: 10px;
 margin-top: 10px;
-min-height: 60px;
-border-right-style:solid;
-border-right-color:#FFF;
-border-right-width:3px;
 }
-
 .sbutton a {
 background-color: #F2F2F2;
 color: #757575;
@@ -267,13 +296,12 @@ text-decoration: none;
 padding-left: 2px;
 padding-right: 2px;
 border-left-style:solid;
-border-left-color:#FFF;
+border-left-color:#F0F0F0;
 border-left-width:3px;
 border-right-style:solid;
-border-right-color:#FFF;
+border-right-color:#F0F0F0;
 border-right-width:3px;
 }
-
 .sbutton a:hover {
 text-decoration: none;
 color: #000; 
@@ -288,12 +316,11 @@ border-right-width:3px;
 
 .smain_view
 {
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
+border:1px solid #aaa;
 text-align: center;
 overflow: auto;
 clear: both;
-border:1px solid #aaa;
 background: white;
 margin-left: 10px;
 position: relative;
@@ -306,7 +333,6 @@ resize: both;
 /*canvas style*/
 .scanvasdiv
 {
-box-shadow: 6px 6px 6px rgba(0,0,0,0.15);
 border-radius: 3px;  
 text-align: center;
 float: left;
@@ -404,7 +430,7 @@ input[type="text"]
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
-	background: #FBFDFB
+	background: white;
 }
 input[type="text"]:hover
 {
@@ -415,6 +441,7 @@ table, th
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+	background: white;
 }
 tr
 {
@@ -426,10 +453,11 @@ tr
 td
 {
 border: 0px;
+background: #F8F8F8;
 }
 select, textarea, select option
 {
-	background-color: #FBFDFB;
+	background: white;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;

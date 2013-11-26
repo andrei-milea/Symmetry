@@ -24,12 +24,13 @@
 <script src="curve.js" type="text/javascript"></script>
 <script src="plotting.js" type="text/javascript"></script>
 
-<script src="command_panel.js" type="text/javascript"></script>
 <script src="tooltip.js" type="text/javascript"></script>
 <script src="vecmat_command_panel.js" type="text/javascript"></script>
 <script src="lineq_command_panel.js" type="text/javascript"></script>
 <script src="groupth_command_panel.js" type="text/javascript"></script>
 <script src="poly_command_panel.js" type="text/javascript"></script>
+<script src="plotting_command_panel.js" type="text/javascript"></script>
+<script src="command_panel.js" type="text/javascript"></script>
 
 
 <!-- shaders -->
@@ -92,11 +93,34 @@
 <input id="session_key_id" type="hidden" name="hidden" value="00"></input>
 <div id="whole_page_id" class="swholepage">
 <br/>
-<img src="symmetry.jpg" class="sbanner" alt="SYMMETRY" />
-<br/>
+<div class="sbanner">
+	<nav>
+		<div style="font-family:'Arial', Helvetica, sans-serif; font-size:70px;">SYMMETRY</div>
+		<div>Online framework for scientific computation, simulation and collaboration.</div>
+		<ul>
+			<li><a href="#">Computations</a>
+				<ul>
+					<li><a href="#" onclick="MainMenu.showIntCompdiv()">Interactive</a></li>
+					<li><a href="#" onclick="MainMenu.showScriptingDiv()">Scripting</a></li>
+				</ul>
+			</li>
+			<li><a href="#">Simulations</a></li>
+			<li><a href="#">Presentations</a>
+				<ul>
+					<li><a href="#">Create</a></li>
+					<li><a href="#">Browse</a></li>
+				</ul>
+			</li>
+			<li><a href="http://code.google.com/p/absalg/" target="_blank">About</a></li>
+		</ul>
+
+		<div class="nav-left"></div>
+		<div class="nav-right"></div>
+	</nav>
+</div>
 <form action="examples/consumer/try_auth.php" method="get" id="openid_form">
 		<input type="hidden" name="action" value="verify" />
-		<fieldset class='sfieldset'>
+		<fieldset class="sfieldset1">
 			<legend>Sign-in or Create New Account</legend>
 			<div id="openid_choice">
 				<div id="openid_btns"></div>
@@ -110,34 +134,15 @@
 				Find out <a href="http://openid.net/what/">more about OpenID</a> and <a href="http://openid.net/get/">how to get an OpenID enabled account</a>.</p>
 			</noscript>
 		</fieldset>
-	</form>
-<div id="general_commands_panel" class="smainmenu">
-	<ul>
-		<li><a href="#">Computations</a>
-			<ul>
-				<li><a href="#" onclick="MainMenu.showIntCompdiv()">Interactive</a></li>
-				<li><a href="#" onclick="MainMenu.showScriptingDiv()">Scripting</a></li>
-			</ul>
-		</li>
-		<li><a href="#">Simulations</a></li>
-		<li><a href="#">Presentations</a>
-			<ul>
-				<li><a href="#">Create</a></li>
-				<li><a href="#">Browse</a></li>
-			</ul>
-		</li>
-		<li><a href="http://code.google.com/p/absalg/" target="_blank">About</a></li>
-	</ul>
+</form>
 <br/>
-</div>
-
 <br/>
 
 <div id="interactive_comp" style="display: none;">
 <!--///////////////////////////////////////////////////////////////////// -->
 
 <div class="sradio">  
-	<input id="calculus" type="radio" value="calculus" name="category" onclick="MainMenu.showDiv('calculus')" />
+	<input id="calculus" type="radio" value="calculus" checked="checked" name="category" onclick="MainMenu.showDiv('calculus')" />
 	<label for="calculus">Calculus</label>  
 	<input id="linalg" type="radio" value="linalg" name="category" onclick="MainMenu.showDiv('linalg')" />  
 	<label for="linalg">Linear Algebra</label>  
@@ -155,13 +160,17 @@
 <div id="computations_panel">
 	<div id="calculus_panel" class="scomputations_panel">
 		<ul>
-		<li id='li_plot_id' class="selected"><a id='a_plot_id' class="selected" href="#">Plotting &amp Graphics</a></li>
+		<li id='li_plot_id' class="selected"><a id='a_plot_id' class="selected" onclick="MainMenu.add_plotting_div()" href="#">Plotting &amp Graphics</a></li>
 		<li id='li_dif_id'><a id='a_dif_id' href="#">Differentiation</a></li>
 		<li id='li_int_id'><a id='a_int_id' href="#">Integration</a></li>
 		<li id='li_dif_eq_id'><a id='a_dif_eq_id' href="#">Differential equations</a></li>
 		<li id='li_poly_id'><a id='a_poly_id' href="#" onclick="MainMenu.add_poly_div()">Polynomials</a></li>
 		</ul>
-		<div id="poly_command_panel" class="scommand_panel">
+		<div id="calculus_command_panel" class="scommand_panel">
+			<div id='plotting_div_id' onmouseover="Tooltip.show('plotting')" onmouseout="Tooltip.hide()" class="sinput_div_id">
+				test1
+				<div id='added_input_id5' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
+			</div>
 			<div id='poly_div_id' onmouseover="Tooltip.show('poly')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
 				<div id='input_div_contents_id1'>
 
@@ -208,7 +217,7 @@
 		<li id='li_lineq_id'><a id='a_lineq_id' href="#" class="selected" onclick="MainMenu.add_lineq_div()">Systems of linear equations</a></li>
 		<li id='li_mat_id'><a id='a_mat_id' href="#" onclick="MainMenu.add_vecmat_div()">Vectors & Matrices</a></li>
 		</ul>
-		<div id="lineq_command_panel" class="scommand_panel">
+		<div id="linalg_command_panel" class="scommand_panel">
 			<div id='lineq_div_id' onmouseover="Tooltip.show('lineq')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
 				<div id='input_div_contents_id2'>
 				<br/>
@@ -305,7 +314,7 @@
 				<br/>
 				</div>
 			</div>
-			<div id="vecmat_commands_panel" class="sbutton" style= "display: none; ">
+			<div id="vecmat_commands_panel" class="sbutton" style="display: none;">
 				<fieldset class='sfieldset'>
 				<legend>Available commands</legend>
 				<a id="command_get_norm" href="#" onmouseover="Tooltip.show('norm')" onmouseout="Tooltip.hide()" onclick="VecMatPanel.submit_command('GET_NORM'); return false;">Euclidean Norm</a>
@@ -365,7 +374,7 @@
 					</select><br/><br/>
 					</div>
 				Generators:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-				<select id='generators_id' size='5' style='background: #FBFDFB; width: 200;'></select>
+				<select id='generators_id' size='5' style='background: #FBFDFB; width: 200px;'></select>
 				&nbsp;&nbsp;&nbsp;
 				<input type='button' value='Clear' onclick='GrpPanel.clear_generators()' />
 				<input type='submit' value='Submit' /></form>
