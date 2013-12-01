@@ -15,7 +15,7 @@ public:
 	cAbsVal()
 	{}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		return std::abs(value);
 	}

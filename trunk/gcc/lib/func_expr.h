@@ -17,7 +17,7 @@
 class cVariable
 {
 public:
-	cVariable(const std::string& str)
+	cVariable(const std::string& str = "")
 		:m_Str(str)
 	{}
 	
@@ -29,6 +29,11 @@ public:
 	bool operator==(const cVariable& var)const
 	{
 		return m_Str == var.m_Str;
+	}
+
+	bool operator==(const std::string& var_str)const
+	{
+		return m_Str == var_str;
 	}
 
 private:
@@ -130,12 +135,10 @@ public:
 	void substitute(const cVariable& var1, const cVariable& var2);
 
 	/*!
-	 * TODO
 	 * evaluates the expression by substituting the variable with the given value
 	 * an exception is thrown if the substitution fails
 	*/
-	template <typename T>
-	expr_type eval(const cVariable &var, T& arg)const;
+	expr_type operator()(const cVariable &var, const double arg)const;
 
 	/*!
 	 * prints func expr as tree structure --for debugging purposes
@@ -152,6 +155,8 @@ friend class cExprDiffVisitor;
 friend class cExprPartDiffVisitor;
 friend class cDiffVisitor;
 friend class cSimplifyVisitor;
+template <typename T> friend class cEvalExprlVisitor;
+template <typename T> friend class cEvalVisitor;
 friend std::ostream& operator<<(std::ostream& out, const cFuncExpr& func_expr);
 };
 

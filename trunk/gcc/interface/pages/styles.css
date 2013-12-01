@@ -8,7 +8,7 @@ margin-left: 100px;
 margin-right: 100px;
 box-shadow: 5px 5px 5px rgba(0,0,0,0.20);
 min-height: 95%;
-background-image: url(bkg.jpg);
+background: #F8FAFB;
 }
 
 .sbanner nav {
@@ -135,7 +135,9 @@ color: #000;
 
 /*radio buttons*/
 .sradio {
-text-align: center;  
+background-image: url(bkg.jpg);
+text-align: center;
+width: 100%;
 }
 .sradio label {  
 display: inline-block;  
@@ -210,7 +212,7 @@ background: #ddf;
 border-bottom-width: 0;
 position: relative;
 top: 1px;
-background-image: url(bkg.jpg);
+background: #F8FAFB;
 color: black;
 font-weight: bold; 
 }
@@ -232,19 +234,14 @@ background: linear-gradient(top, #fff 0%, #F0F0F0 80%);
 background: -moz-linear-gradient(top, #fff 0%, #F0F0F0 80%);
 background: -webkit-linear-gradient(top, #fff 0%,#F0F0F0 80%);
 border: 2px solid #aaa;
-border-top-left-radius: 10px 10px;
-border-top-right-radius: 10px 10px;
-border-bottom-right-radius: 10px 10px;
-border-bottom-left-radius: 10px 10px;
+border-radius: 10px;
 }
 .sfieldset {
+border: 2px solid #ddf;
 text-align: center;
-background: #F0F0F0;
-border: 2px solid #aaa;
-border-top-left-radius: 10px 10px;
-border-top-right-radius: 10px 10px;
-border-bottom-right-radius: 10px 10px;
-border-bottom-left-radius: 10px 10px;
+background: white;
+border: 2px solid #ddf;
+border-radius: 10px;
 }
 
 .scommand_panel {
@@ -252,7 +249,7 @@ border: 1px solid black;
 clear: both;
 margin-top: 15px;
 margin-left: 0;
-background-image: url(bkg.jpg);
+background: #F8FAFB;
 border-bottom-width: 0;
 border-left-width: 0;
 border-right-width: 0;
@@ -260,19 +257,23 @@ border-right-width: 0;
 
 .sinput_div_id
 {
+border: 2px solid #ddf;
 border-radius: 3px;  
-border:1px solid #aaa;
 text-align: center;
 background: white;
 width: 750px; height: auto;
-margin-top: 20px;
-margin-left: 10px;
+border-radius: 10px;
+margin-top: 30px;
+margin-left: 30px;
 position: relative;
 padding-bottom: 0.1cm;
 }
 
 .saddedinput_div_id
 {
+-moz-box-shadow:    inset 0px 0px 15px 2px #ddf;
+-webkit-box-shadow: inset 0px 0px 15px 2px #ddf;
+box-shadow:         inset 0px 0px 15px 2px #ddf;
 border-radius: 3px;  
 text-align: center;
 margin-left: 30px;
@@ -280,21 +281,26 @@ width: 600px; height: auto;
 margin-top: 20px;
 position: relative;
 padding-bottom: 0.1cm;
-background: #F0F0F0;
+background: white;
 }
 
 /*commands button style*/
 .sbutton{
 width: 750px;
-margin-left: 10px;
-margin-top: 10px;
+margin-left: 30px;
+margin-top: 30px;
 }
 .sbutton a {
+display: inline-block;
 background-color: #F2F2F2;
 color: #757575;
 text-decoration: none;
-padding-left: 2px;
-padding-right: 2px;
+margin-left: 30px;
+margin-top: 10px;
+padding-left: 20px;
+padding-right: 20px;
+padding-right: 20px;
+border-radius: 10px;  
 border-left-style:solid;
 border-left-color:#F0F0F0;
 border-left-width:3px;
@@ -316,13 +322,14 @@ border-right-width:3px;
 
 .smain_view
 {
-border-radius: 3px;  
-border:1px solid #aaa;
+border: 2px solid #ddf;
+border-radius: 10px;
 text-align: center;
 overflow: auto;
 clear: both;
 background: white;
-margin-left: 10px;
+margin-top: 30px;
+margin-left: 30px;
 position: relative;
 width: 750px;
 min-height: 200px;
@@ -333,12 +340,12 @@ resize: both;
 /*canvas style*/
 .scanvasdiv
 {
-border-radius: 3px;  
+border: 2px solid #ddf;
+border-radius: 10px;
 text-align: center;
 float: left;
-margin-left: 10px;
-border:1px solid #aaa;
-margin-top: 20px;
+margin-left: 30px;
+margin-top: 30px;
 position: relative;
 width: 750px; 
 min-height: 600px;
@@ -369,18 +376,18 @@ margin: 0px auto;
 /*tooltip style*/
 #tooltip_id
 {
-border-radius:2px;
--moz-border-radius: 2px;
--webkit-border-radius: 2px;
+border-radius:10px;
+-moz-border-radius: 10px;
+-webkit-border-radius: 10px;
 -moz-box-shadow: 0px 0px 8px 4px #666;
 -webkit-box-shadow: 0px 0px 8px 4px #666;
 box-shadow: 0px 0px 8px 4px #666;
 font-size:14px;
 position: absolute;
 top: 370px;
-margin-left: 780px;
+margin-left: 820px;
 display:block;
-width: 20em;
+width: 230px;
 padding:2% 2% 2% 2%;
 background: rgb(14,14,14); /* Old browsers */
 background: -moz-linear-gradient(-45deg,  rgba(14,14,14,1) 33%, rgba(125,126,125,1) 95%); /* FF3.6+ */
@@ -390,7 +397,6 @@ background: -o-linear-gradient(-45deg,  rgba(14,14,14,1) 33%,rgba(125,126,125,1)
 background: -ms-linear-gradient(-45deg,  rgba(14,14,14,1) 33%,rgba(125,126,125,1) 95%); /* IE10+ */
 background: linear-gradient(135deg,  rgba(14,14,14,1) 33%,rgba(125,126,125,1) 95%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0e0e0e', endColorstr='#7d7e7d',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
-
 color:#fff;
 }
 
@@ -426,7 +432,7 @@ input[type="button"]:hover, input[type="submit"]:hover
 
 input[type="text"]
 {
-	border: 1px solid #b7bbbd;
+	border: 1px solid #ddf;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
@@ -442,6 +448,7 @@ table, th
 	-moz-border-radius: 5px;
 	border-radius: 5px;
 	background: white;
+	border: 2px solid #ddf;
 }
 tr
 {
@@ -453,7 +460,7 @@ tr
 td
 {
 border: 0px;
-background: #F8F8F8;
+background: white;
 }
 select, textarea, select option
 {
@@ -461,6 +468,7 @@ select, textarea, select option
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 	border-radius: 5px;
+	border: 1px solid #ddf;
 }
 
 
@@ -534,5 +542,43 @@ select, textarea, select option
 	background: #b8b8b8;
 	vertical-align: middle;
 	border: 1px Solid black;
+}
+
+.plotbutton {
+	-moz-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	box-shadow:inset 0px 1px 0px 0px #dcecfb;
+	background-color:#bddbfa;
+	-webkit-border-top-left-radius:0px;
+	-moz-border-radius-topleft:0px;
+	border-top-left-radius:0px;
+	-webkit-border-top-right-radius:0px;
+	-moz-border-radius-topright:0px;
+	border-top-right-radius:0px;
+	-webkit-border-bottom-right-radius:0px;
+	-moz-border-radius-bottomright:0px;
+	border-bottom-right-radius:0px;
+	-webkit-border-bottom-left-radius:0px;
+	-moz-border-radius-bottomleft:0px;
+	border-bottom-left-radius:0px;
+	text-indent:0;
+	border:1px solid #84bbf3;
+	display:inline-block;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	height:40px;
+	line-height:40px;
+	width:100px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #528ecc;
+}.plotbutton:hover {
+	background-color:#80b5ea;
+}.plotbutton:active {
+	position:relative;
+	top:1px;
 }
 

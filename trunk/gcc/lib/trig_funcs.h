@@ -33,7 +33,7 @@ public:
 		return cAsine<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		return std::sin(value);
 	}
@@ -53,7 +53,7 @@ public:
 		return cAcosine<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		return std::cos(value);
 	}
@@ -73,7 +73,7 @@ public:
 		return cAtangent<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		if(0.0 == std::cos(value))
 			throw std::domain_error("tangent undefined for values where cos is 0");
@@ -96,7 +96,7 @@ public:
 		return cAcotangent<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		T sin_val = std::sin(value);
 		if(0.0 == sin_val)
@@ -120,7 +120,7 @@ public:
 		return cSine<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		if(std::abs(value) > 1.0)
 			throw std::domain_error("arcsine function is not defined outside of [-1, 1]");
@@ -143,7 +143,7 @@ public:
 		return cCosine<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		if(std::abs(value) > 1.0)
 			throw std::domain_error("arccosine function is not defined outside of [-1, 1]");
@@ -166,7 +166,7 @@ public:
 		return cTangent<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		return std::atan(value);
 	}
@@ -186,7 +186,7 @@ public:
 		return cCotangent<T>();
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		if(value == 0)
 			throw std::domain_error("arccotangent function is not defined in 0");

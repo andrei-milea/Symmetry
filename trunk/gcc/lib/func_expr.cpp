@@ -2,6 +2,7 @@
 #include "func_expr.h"
 #include "func_expr_visitor.h"
 #include "func_expr_dif.h"
+#include "func_expr_eval.h"
 
 #include <utility>
 #include <sstream>
@@ -71,6 +72,11 @@ bool cFuncExpr::operator==(const cFuncExpr& fnc_expr)const
 	return str1 == str2;
 }
 
+expr_type cFuncExpr::operator()(const cVariable &var, const double arg)const
+{
+	cEvalExprlVisitor<double> eval_vis(m_LHSExpr, m_RHSExpr, var, arg);
+	return boost::apply_visitor(eval_vis, m_Operation);
+}
 
 void cFuncExpr::printTree(const expr_type* root)const
 {

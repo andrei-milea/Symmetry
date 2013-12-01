@@ -108,7 +108,7 @@ public:
 	 *overload operator () to evaluate the polynomial
 	*/
 	template <typename Y>
-	T operator()(Y value)const
+	T operator()(const Y& value)const
 	{
 		if(0 == size())
 			return 0;

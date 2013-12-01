@@ -95,7 +95,7 @@
 <br/>
 <div class="sbanner">
 	<nav>
-		<div style="font-family:'Arial', Helvetica, sans-serif; font-size:70px;">SYMMETRY</div>
+		<div style="font-family:'Arial', Helvetica, sans-serif; font-size:70px; text-shadow: 3px 4px 5px #000">SYMMETRY</div>
 		<div>Online framework for scientific computation, simulation and collaboration.</div>
 		<ul>
 			<li><a href="#">Computations</a>
@@ -142,6 +142,7 @@
 <!--///////////////////////////////////////////////////////////////////// -->
 
 <div class="sradio">  
+<hr width="100%">
 	<input id="calculus" type="radio" value="calculus" checked="checked" name="category" onclick="MainMenu.showDiv('calculus')" />
 	<label for="calculus">Calculus</label>  
 	<input id="linalg" type="radio" value="linalg" name="category" onclick="MainMenu.showDiv('linalg')" />  
@@ -152,9 +153,9 @@
 	<label for="complex">Complex Variables</label>
 	<input id="absalg" type="radio" value="absalg" name="category" onclick="MainMenu.showDiv('absalg')" />  
 	<label for="absalg">Abstract Algebra</label>
+<hr width="100%">
 </div>
 
-<br/>
 <br/>
 
 <div id="computations_panel">
@@ -168,7 +169,13 @@
 		</ul>
 		<div id="calculus_command_panel" class="scommand_panel">
 			<div id='plotting_div_id' onmouseover="Tooltip.show('plotting')" onmouseout="Tooltip.hide()" class="sinput_div_id">
-				test1
+				<br/>
+				<textarea rows="3" cols="60">
+				</textarea>
+				<br/>
+				<a href="#" class="plotbutton">Plot</a>
+				<br/>
+				<br/>
 				<div id='added_input_id5' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
 			</div>
 			<div id='poly_div_id' onmouseover="Tooltip.show('poly')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">

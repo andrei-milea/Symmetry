@@ -233,14 +233,14 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		if(SYMMETRIC_GROUP != group_type && CYCLIC_GROUP != group_type && DIHEDRAL_GROUP != group_type)
 			throw std::runtime_error(CONTEXT_STR + "invalid group type");
 
-		m_ResultStr = "</br>Cayley Graph representation as adjacency list:</br>";
+		m_ResultStr = "<br/>Cayley Graph representation as adjacency list:<br/>";
 		std::stringstream redirectstream;
 		std::streambuf* oldbuf = std::cout.rdbuf(redirectstream.rdbuf());
 		std::string str;
 		std::cout<<command_cgraph->GetResult();
 		while(std::getline(redirectstream, str))
 		{
-			ss << str << "</br>";
+			ss << str << "<br/>";
 		}
 		//put back the old stream buffer
 		std::cout.rdbuf(oldbuf);
@@ -253,7 +253,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		if(SYMMETRIC_GROUP != group_type && CYCLIC_GROUP != group_type && DIHEDRAL_GROUP != group_type)
 			throw std::runtime_error(CONTEXT_STR + "invalid group type");
 
-		m_ResultStr = "</br>Defining Relations:</br></br>";
+		m_ResultStr = "<br/>Defining Relations:</br></br>";
 		std::string str;
 		const std::vector<cGroupRelation> &relations = command_rel->GetResult();
 
@@ -261,7 +261,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		std::size_t index = 1;
 		for(auto rel_iter = relations.begin(); rel_iter != relations.end(); rel_iter++)
 		{
-			ss << index << ". $" << *rel_iter << "$</br>";
+			ss << index << ". $" << *rel_iter << "$<br/>";
 			index++;
 		}	
 		m_ResultStr += ss.str();
@@ -272,7 +272,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		if(SYMMETRIC_GROUP != group_type && CYCLIC_GROUP != group_type && DIHEDRAL_GROUP != group_type)
 			throw std::runtime_error(CONTEXT_STR + "invalid group type");
 
-		m_ResultStr = "</br>Elements: </br></br><ul id='list-elem'>";
+		m_ResultStr = "<br/>Elements: <br/><br/><ul id='list-elem'>";
 		std::string perm_str;
 		const std::vector<SymmGrpElem> &elements = command_groupgen->GetResult();
 		for(std::size_t index = 0; index < elements.size(); index++)
@@ -280,10 +280,10 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 			ss.str("");
 			ss << elements[index];
 			perm_str = ss.str();
-			perm_str.replace(perm_str.find("\n"), 1, "</br>");
+			perm_str.replace(perm_str.find("\n"), 1, "<br/>");
 			m_ResultStr += "<li>" + perm_str + "</li>";
 		}
-		m_ResultStr += "</ul></br></br>";
+		m_ResultStr += "</ul><br/><br/>";
 	}
 	return m_ResultStr;
 }

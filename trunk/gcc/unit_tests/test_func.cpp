@@ -92,9 +92,29 @@ BOOST_AUTO_TEST_CASE(test_func_expr_derivative_multi_var)
 	//e^x * syn(y)
 	cFuncExpr exp(Multiplication(), cFuncExpr(Composition(), cExponential<double>(), x), 
 					cFuncExpr(Composition(), cSine<double>(), y));
-	BOOST_CHECK(exp.partial_derivative(x) == cFuncExpr(Multiplication(), cFuncExpr(Composition(), cSine<double>(), y), 
-					cFuncExpr(Composition(), cExponential<double>(), x)));
+	BOOST_CHECK(exp.partial_derivative(x) == cFuncExpr(Multiplication(), cFuncExpr(Composition(), cSine<double>(), y), 					cFuncExpr(Composition(), cExponential<double>(), x)));
 
+}
+
+
+BOOST_AUTO_TEST_CASE(test_func_eval)
+{
+	cVariable x("x");
+	cFuncExpr sine(Composition(), cSine<double>(), x);
+	auto res = sine(x, 0.0);
+	BOOST_CHECK(*boost::get<double>(&res) == 0.0);
+
+	cFuncExpr cosine(Composition(), cCosine<double>(), x);
+	res = cosine(x, 0.0);
+	BOOST_CHECK(*boost::get<double>(&res) == 1.0);
+
+	cFuncExpr tan(Division(), sine, cosine);
+	res = tan(x, boost::math::constants::pi<double>() / 4.0);
+	BOOST_CHECK_CLOSE(*boost::get<double>(&res), 1.0, 0.000001);
+
+	cFuncExpr expf(Addition(), cFuncExpr(Composition(), cExponential<double>(), x), x);
+	res = expf(x, 1);
+	BOOST_CHECK(*boost::get<double>(&res) == (boost::math::constants::e<double>() + 1.0));
 }
 
 

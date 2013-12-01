@@ -23,7 +23,7 @@ public:
 			throw std::invalid_argument("0 not allowed as base for exponential function");
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		return std::pow(m_Base, value);
 	}
