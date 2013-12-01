@@ -12,7 +12,7 @@ test_func: test_func.o func_expr.o univar_polynomial.o
 test_func.o: test_func.cpp
 	$(GCC) $(CFLAGS) $<
 
-func_expr.o: ../lib/func_expr.cpp ../lib/univar_polynomial.h ../lib/univar_func.h
+func_expr.o: ../lib/func_expr.cpp ../lib/univar_polynomial.h ../lib/univar_func.h ../lib/func_expr_dif.h ../lib/func_expr_eval.h
 	$(GCC) $(CFLAGS) $<
 ##############################################
 
@@ -59,7 +59,7 @@ test_lattice: test_lattice.cpp
 	#test_engine compilation
 	########################
 
-test_engine_main: test_engine.o estimate.o getelem_command.o getcenter_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o getrref_command.o getlinsyssol_command.o session.o logger.o command_queue.o thread_pool.o
+test_engine_main: test_engine.o estimate.o getelem_command.o getcenter_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o getrref_command.o getlinsyssol_command.o univar_polynomial.o getpolyzeros_command.o getpolyplot_command.o session.o logger.o command_queue.o thread_pool.o
 	$(GCC) $^ $(LFLAGS) -o test_engine_main
 
 test_engine.o: test_engine.cpp
@@ -96,6 +96,12 @@ getrref_command.o: ../engine/getrref_command.cpp
 	$(GCC) $(CFLAGS) $<
 
 getlinsyssol_command.o: ../engine/getlinsyssol_command.cpp
+	$(GCC) $(CFLAGS) $<
+
+getpolyzeros_command.o: getpolyzeros_command.cpp command.h
+	$(GCC) $(CFLAGS) $<
+
+getpolyplot_command.o: getpolyplot_command.cpp command.h
 	$(GCC) $(CFLAGS) $<
 
 session.o: ../engine/session.cpp

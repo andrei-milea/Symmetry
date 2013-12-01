@@ -25,7 +25,7 @@ public:
 			throw std::invalid_argument("base for the logarithm should be greater than 0 and not 1");
 	}
 
-	T operator()(T &value)const
+	T operator()(const T &value)const
 	{
 		if(value <= 0)
 			throw std::domain_error("domain of logarithms is (0, +inf)");
