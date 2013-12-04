@@ -7,6 +7,22 @@
 
 using namespace boost::unit_test;
 
+BOOST_AUTO_TEST_CASE(test_func_expr_variables)
+{
+	cVariable x("x");
+	cVariable y("y");
+
+	cFuncExpr sine(Composition(), cSine<double>(), cFuncExpr(Division(), x, cFuncExpr(Addition(), 1.0, y)));
+
+	BOOST_CHECK(2 == sine.getVariables().size());
+
+	cFuncExpr exp(Multiplication(), cFuncExpr(Composition(), cExponential<double>(), x), 
+					cFuncExpr(Composition(), cSine<double>(), y));
+
+	BOOST_CHECK(2 == exp.getVariables().size());
+
+}
+
 BOOST_AUTO_TEST_CASE(test_func_expr_derivative_single_var)
 {
 	cVariable x("x");
