@@ -78,8 +78,9 @@ public:
 
 	/*!
 	 * returns a list of points used to plot a graph of the polynomial
+	 * uses adaptive sampling to compute more points near high curvature areas
 	*/
-	std::vector<std::pair<double, double> > plotPoints()const;
+	std::vector<std::pair<double, double> > plotPoints(double min, double max, double increment)const;
 
 	std::vector<std::complex<T> > complexZeroes()const;
 

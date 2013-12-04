@@ -5,6 +5,7 @@
 #include "func_expr_eval.h"
 
 #include <utility>
+#include <tuple>
 #include <sstream>
 
 static struct NoOp no_op;
@@ -55,6 +56,45 @@ cFuncExpr& cFuncExpr::operator=(const cFuncExpr& func_expr)
 cFuncExpr::~cFuncExpr()
 {}
 
+	
+std::vector<cVariable> cFuncExpr::getVariables()const
+{
+	static int levels = 0;
+	levels++;
+	std::vector<cVariable> vars;
+	const cVariable *var_left = boost::get<cVariable>(&m_LHSExpr);
+	const cVariable *var_right = boost::get<cVariable>(&m_RHSExpr);
+	const cFuncExpr *fnc_left = boost::get<cFuncExpr>(&m_LHSExpr);
+	const cFuncExpr *fnc_right = boost::get<cFuncExpr>(&m_RHSExpr);
+	if(var_left)
+	{
+		vars.push_back(*var_left);
+	}
+	else if(fnc_left)
+	{
+		auto newvars = fnc_left->getVariables();
+		vars.insert(vars.end(), newvars.begin(), newvars.end());
+	}
+	if(var_right)
+	{
+		vars.push_back(*var_right);
+	}
+	else if(fnc_right)
+	{
+		auto newvars = fnc_right->getVariables();
+		vars.insert(vars.end(), newvars.begin(), newvars.end());
+	}
+
+	levels--;
+	if(levels == 0)
+	{
+		//remove duplicates
+		std::sort(vars.begin(), vars.end());
+		vars.erase(std::unique(vars.begin(), vars.end()), vars.end());
+	}
+	return vars;
+}
+
 bool cFuncExpr::operator==(const cFuncExpr& fnc_expr)const
 {
 	std::ostringstream stream;
@@ -72,10 +112,98 @@ bool cFuncExpr::operator==(const cFuncExpr& fnc_expr)const
 	return str1 == str2;
 }
 
-expr_type cFuncExpr::operator()(const cVariable &var, const double arg)const
+expr_type cFuncExpr::operator()(const cVariable &var, double arg)const
 {
 	cEvalExprlVisitor<double> eval_vis(m_LHSExpr, m_RHSExpr, var, arg);
 	return boost::apply_visitor(eval_vis, m_Operation);
+}
+
+std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t pos, double var, double min, double max,
+	   																	double increment)const
+{
+	const double max_angle =  boost::math::constants::pi<double>() / 12.0;
+
+	auto vars = getVariables();
+	assert(vars.size() == 1);
+
+	std::vector<std::tuple<double, double, double> > points;
+	double val_iter = min;
+	while(val_iter <= max)
+	{
+		double x1 = val_iter;
+		double y1 = getValue(operator()(vars[0], x1));
+
+		double x2 = x1 + increment;
+		double y2 = getValue(operator()(vars[0], x2));
+
+		double x3 = x2 + increment;
+		double y3 = getValue(operator()(vars[0], x3));
+
+		double angle = std::atan2((y1-y2) - (y3-y2), (x1-x2) - (x3-x2));
+		if(std::abs(angle) > max_angle)
+		{
+			auto line = plotLine(pos, var, x1, x3, 0.1);
+			points.insert(points.end(), line.begin(), line.end());
+		}
+		else
+		{
+			if(pos == 1)
+			{
+				points.push_back(std::tie(var, x1, y1));
+				points.push_back(std::tie(var, x2, y2));
+				points.push_back(std::tie(var, x3, y3));
+			}
+			if(pos == 2)
+			{
+				points.push_back(std::tie(x1, var, y1));
+				points.push_back(std::tie(x2, var, y2));
+				points.push_back(std::tie(x3, var, y3));
+			}
+			if(pos == 3)
+			{
+				points.push_back(std::tie(x1, y1, var));
+				points.push_back(std::tie(x2, y2, var));
+				points.push_back(std::tie(x3, y3, var));
+			}
+		}
+		val_iter += 3.0 * increment;
+	}
+
+	return points;
+}
+	
+std::vector<std::tuple<double, double, double> > cFuncExpr::plotPoints(double min, double max, double increment)const
+{
+	auto vars = getVariables();
+	std::vector<std::tuple<double, double, double> > points;
+	if(vars.size() == 1)
+	{
+		return plotLine(3, 0, min, max, increment);
+	}
+	else if(vars.size() == 2)
+	{
+		for(auto val_iter = min; val_iter < max; val_iter += increment)
+		{
+			auto temp_expr = operator()(vars[0], val_iter);
+			cFuncExpr *temp_fnc = boost::get<cFuncExpr>(&temp_expr);
+			assert(temp_fnc);
+			auto line = temp_fnc->plotLine(1, val_iter, min, max, increment);
+			points.insert(points.end(), line.begin(), line.end());
+		}
+		for(auto val_iter = min; val_iter < max; val_iter += increment)
+		{
+			auto temp_expr = operator()(vars[1], val_iter);
+			cFuncExpr *temp_fnc = boost::get<cFuncExpr>(&temp_expr);
+			assert(temp_fnc);
+			auto line = temp_fnc->plotLine(2, val_iter, min, max, increment);
+			points.insert(points.end(), line.begin(), line.end());
+		}
+	}
+	else
+	{
+		throw std::runtime_error("can only provide graph for functions with 1 or 2 variables");
+	}
+	return points;
 }
 
 void cFuncExpr::printTree(const expr_type* root)const

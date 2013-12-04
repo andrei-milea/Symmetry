@@ -8,43 +8,10 @@
 #include "univar_polynomial.h"
 #include "univar_func.h"
 #include "binary_op.h"
+#include "variable.h"
 
 #include <boost/variant.hpp>
 #include <boost/variant/recursive_wrapper.hpp>
-#include <string>
-#include <ostream>
-
-class cVariable
-{
-public:
-	cVariable(const std::string& str = "")
-		:m_Str(str)
-	{}
-	
-	const std::string getStr()const
-	{
-		return m_Str;
-	}
-
-	bool operator==(const cVariable& var)const
-	{
-		return m_Str == var.m_Str;
-	}
-
-	bool operator==(const std::string& var_str)const
-	{
-		return m_Str == var_str;
-	}
-
-private:
-	std::string m_Str;
-};
-
-inline std::ostream& operator<<(std::ostream& out, const cVariable& var)
-{
-	out << var.getStr();
-	return out;
-}
 
 struct cEmptyExpr
 {
@@ -79,6 +46,7 @@ typedef boost::variant< Addition,
 					Power,
 					NoOp > operation_type;
 
+
 /*!
  * holds a compound function expression (i.e. (sin(x) + e^x)*cos(x))
  * implements the 'symbolic' functionality
@@ -99,6 +67,11 @@ public:
 	bool operator==(const cFuncExpr& fnc_expr)const;
 
 	~cFuncExpr();
+
+	/*!
+	 * returns a vector containing all the variables used in expression
+	*/
+	std::vector<cVariable> getVariables()const;
 
 	/*!
 	 * siplifies the expression by partially evaluating subexpressions
@@ -138,7 +111,30 @@ public:
 	 * evaluates the expression by substituting the variable with the given value
 	 * an exception is thrown if the substitution fails
 	*/
-	expr_type operator()(const cVariable &var, const double arg)const;
+	expr_type operator()(const cVariable &var,double arg)const;
+
+	/*!
+	 * plots the functional expression using the plotLine function
+	 * can be used only for expressions with one or two variables
+	*/
+	std::vector<std::tuple<double, double, double> > plotPoints(double min, double max, double increment)const;
+
+private:
+	/*!
+	 * returns the graph if the function has only 1 variable
+	 * the first and second argument specify which variable 
+	 * is already computed and its value -- used in plotPoints
+	*/
+	std::vector<std::tuple<double, double, double> > plotLine(std::size_t pos, double var, double min, double max,
+		   															double increment)const;
+
+	double getValue(const expr_type &expr)const
+	{
+		const double *val = boost::get<double>(&expr);
+		if(val == nullptr)
+			throw std::runtime_error("failed to get value, the expression doesn't contain a value");
+		return *val;
+	};
 
 	/*!
 	 * prints func expr as tree structure --for debugging purposes
