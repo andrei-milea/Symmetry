@@ -64,7 +64,8 @@ struct command_: symbols<char, short>
 		("APPROX_LINEQ_SYS", APPROX_LINEQ_SYS)
 		("SOLVEG_LINEQ_SYS", SOLVEG_LINEQ_SYS)
 		("GET_POLY_PLOT", GET_POLY_PLOT)
-		("GET_POLY_ZEROS", GET_POLY_ZEROS);
+		("GET_POLY_ZEROS", GET_POLY_ZEROS)
+		("GET_FNC_PLOT", GET_FNC_PLOT);
 	}
 } command;
 /************************************************************/

@@ -16,6 +16,7 @@
 #include "getlinsyssol_command.h"
 #include "getpolyzeros_command.h"
 #include "getpolyplot_command.h"
+#include "getfuncplot_command.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -71,6 +72,12 @@ public:
 //				pcommand = new cGetPolyDiscriminantCommand(PolyParamParser.GetPolynomial());
 			else if(GET_POLY_PLOT == command)
 				pcommand = new cGetPolyPlotCommand(PolyParamParser.GetPolynomial());
+		}
+		else if(command == GET_FNC_PLOT)
+		{
+			cFuncExprParser fnc_parser(param);
+			fnc_parser.ParseParams();
+			pcommand = new cGetFuncPlotCommand(fnc_parser.GetFuncExpr());
 		}
 		else
 			throw std::invalid_argument(CONTEXT_STR + "invalid command received :" + param);

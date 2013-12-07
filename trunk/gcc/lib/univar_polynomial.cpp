@@ -79,8 +79,8 @@ std::vector<double> cUnivarPolynomial<T>::realZeros()const
 	//holds the number of iterations - abort search when MAX_ITERATIONS is reached
 	size_t idx = 0;
 	
-	const size_t MAX_ITERATIONS = std::numeric_limits<size_t>::max();
-	while(degree() > zeros.size() || idx > MAX_ITERATIONS)
+	const size_t MAX_ITERATIONS = 90000;
+	while(degree() > zeros.size() && idx < MAX_ITERATIONS)
 	{
 		double c = (a + b) / 2;
 		int sa = sturmSignsNo(a);
@@ -123,7 +123,8 @@ std::vector<double> cUnivarPolynomial<T>::realZeros()const
 		{
 			a = c;
 		}
-		
+
+		idx++;
 	}
 	return zeros;
 }
@@ -154,7 +155,7 @@ std::vector<std::pair<double, double> > cUnivarPolynomial<T>::plotPoints(double 
 
 		if(std::abs(angle) < min_angle)
 		{
-			auto additional_points = plotPoints(x1, x3, increment/100);
+			auto additional_points = plotPoints(x1, x3, increment/2.0);
 			points.insert(points.end(), additional_points.begin(), additional_points.end());
 		}
 		else

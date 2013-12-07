@@ -69,6 +69,23 @@ public:
 	~cFuncExpr();
 
 	/*!
+	 * setters and getters
+	*/
+	operation_type getOperation()const
+	{	return m_Operation;		}
+	expr_type getLHSExpression()const
+	{	return m_LHSExpr;		}
+	expr_type getRHSExpression()const
+	{	return m_RHSExpr;		}
+	void setOperation(const operation_type &op)
+	{	m_Operation = op;		}
+	void setLHSExpression(const expr_type &expr)
+	{	m_LHSExpr = expr;		}
+	void setRHSExpression(const expr_type &expr)
+	{	m_RHSExpr = expr;		}
+	
+
+	/*!
 	 * returns a vector containing all the variables used in expression
 	*/
 	std::vector<cVariable> getVariables()const;
@@ -147,6 +164,7 @@ private:
 	expr_type m_LHSExpr;
 	expr_type m_RHSExpr;
 
+//friend classes
 friend class cExprDiffVisitor;
 friend class cExprPartDiffVisitor;
 friend class cDiffVisitor;

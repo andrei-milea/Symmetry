@@ -160,7 +160,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	{
 		if(command_polyzeros->GetResult().size() == 0)
 		{
-			m_ResultStr = "no real solution exists";
+			m_ResultStr = "no real solution found";
 		}
 		else
 		{
