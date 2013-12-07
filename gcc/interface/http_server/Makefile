@@ -4,7 +4,7 @@ CFLAGS =-c -std=c++0x -g -Wall -I /usr/include/boost
 LFLAGS =-lboost_system -pthread -lboost_thread -lboost_date_time -lboost_filesystem
 GCC = g++
 
-main:	main.o http_server.o http_connection.o http_request.o http_response.o connection_manager.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o getrref_command.o getlinsyssol_command.o univar_polynomial.o getpolyzeros_command.o getpolyplot_command.o session.o logger.o command_queue.o thread_pool.o pagebuilder.o
+main:	main.o http_server.o http_connection.o http_request.o http_response.o connection_manager.o estimate.o getcenter_command.o getelem_command.o getcgraph_command.o getrel_command.o getmatexpr_command.o getnorm_command.o getdeterminant_command.o getinverse_command.o getrref_command.o getlinsyssol_command.o univar_polynomial.o getpolyzeros_command.o getpolyplot_command.o getfuncplot_command.o session.o logger.o command_queue.o thread_pool.o pagebuilder.o
 	$(GCC) $^ $(LFLAGS) -o run 
 
 
@@ -14,7 +14,7 @@ main.o: main.cpp
 http_server.o: http_server.cpp
 	$(GCC) $(CFLAGS) $<
 
-http_connection.o: http_connection.cpp http_connection.h command_creator.h poly_parser.h
+http_connection.o: http_connection.cpp http_connection.h command_creator.h poly_parser.h func_parser.h linalg_parser.h
 	$(GCC) $(CFLAGS) $<
 
 http_request.o: http_request.cpp http_request.h
@@ -63,6 +63,9 @@ getpolyzeros_command.o: getpolyzeros_command.cpp command.h
 	$(GCC) $(CFLAGS) $<
 
 getpolyplot_command.o: getpolyplot_command.cpp command.h
+	$(GCC) $(CFLAGS) $<
+
+getfuncplot_command.o: getfuncplot_command.cpp command.h
 	$(GCC) $(CFLAGS) $<
 
 univar_polynomial.o: univar_polynomial.cpp univar_polynomial.h
