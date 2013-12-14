@@ -100,12 +100,12 @@ public:
 	{
 		T sin_val = std::sin(value);
 		if(0.0 == sin_val)
-			throw std::domain_error("tangent undefined for values where sin is 0");
+			throw std::domain_error("cotangent undefined for values where sin is 0");
 
 		return std::cos(value)/sin_val;
 	}
 
-	bool operator==(const cCotangent<T> &tangent)const
+	bool operator==(const cCotangent &cotangent)const
 	{
 		return true;
 	}

@@ -223,6 +223,9 @@ struct NoOp
 		return true;
 	}
 };
-
+inline std::ostream& operator<<(std::ostream& out, const NoOp& noop)
+{
+	return out;
+}
 
 #endif /* BINARY_OP_H_ */

@@ -16,8 +16,8 @@ namespace engine
 class cGetFuncPlotCommand : public cCommand
 {
 public:
-	cGetFuncPlotCommand(const std::vector<double> &poly)
-		:m_Poly(poly)
+	cGetFuncPlotCommand(const cFuncExpr &fnc_expr)
+		:m_FuncExpr(fnc_expr)
 	{
 	}
 	~cGetFuncPlotCommand(){}
@@ -26,13 +26,13 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	std::vector<std::tuple<double, double, double> >& GetResult()const
+	const std::vector<std::tuple<double, double, double> >& GetResult()const
 	{
 		return m_Result;
 	}
 
 private:
-	cFuncExpr m_Func;
+	cFuncExpr m_FuncExpr;
 	std::vector<std::tuple<double, double, double> > m_Result;
 };
 

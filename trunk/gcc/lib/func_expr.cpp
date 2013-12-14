@@ -7,6 +7,9 @@
 #include <utility>
 #include <tuple>
 #include <sstream>
+#include <boost/numeric/ublas/vector.hpp>
+
+using namespace boost::numeric;
 
 static struct NoOp no_op;
 static struct cEmptyExpr empty_expr;
@@ -121,7 +124,7 @@ expr_type cFuncExpr::operator()(const cVariable &var, double arg)const
 std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t pos, double var, double min, double max,
 	   																	double increment)const
 {
-	const double max_angle =  boost::math::constants::pi<double>() / 12.0;
+	const double min_angle =  boost::math::constants::pi<double>() / 1.005;
 
 	auto vars = getVariables();
 	assert(vars.size() == 1);
@@ -139,10 +142,14 @@ std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t
 		double x3 = x2 + increment;
 		double y3 = getValue(operator()(vars[0], x3));
 
-		double angle = std::atan2((y1-y2) - (y3-y2), (x1-x2) - (x3-x2));
-		if(std::abs(angle) > max_angle)
+		ublas::vector<double> ba(2);	ba(0) = x1-x2;	ba(1) = y1 - y2;
+		ublas::vector<double> bc(2);	bc(0) = x3-x2;	bc(1) = y3 - y2;
+
+		double angle = std::acos(ublas::inner_prod(ba, bc) / (ublas::norm_2(ba) * ublas::norm_2(bc)));
+
+		if(std::abs(angle) < min_angle)
 		{
-			auto line = plotLine(pos, var, x1, x3, 0.1);
+			auto line = plotLine(pos, var, x1, x3, increment/2.0);
 			points.insert(points.end(), line.begin(), line.end());
 		}
 		else
@@ -166,7 +173,7 @@ std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t
 				points.push_back(std::tie(x3, y3, var));
 			}
 		}
-		val_iter += 3.0 * increment;
+		val_iter = x3 + increment;
 	}
 
 	return points;
@@ -208,6 +215,8 @@ std::vector<std::tuple<double, double, double> > cFuncExpr::plotPoints(double mi
 
 void cFuncExpr::printTree(const expr_type* root)const
 {
+	static int idx = 0;
+	idx++;
 	if(nullptr == root)
 	{
 		std::cout << "\n";
@@ -216,21 +225,18 @@ void cFuncExpr::printTree(const expr_type* root)const
 		printOp();
 		std::cout << ":::::::";
 		printTree(&m_RHSExpr);
-
-		return;
 	}
-
-	if(const cFuncExpr *fnc_expr = boost::get<cFuncExpr>(root))
+	else if(const cFuncExpr *fnc_expr = boost::get<cFuncExpr>(root))
 	{
 		printTree(&fnc_expr->m_LHSExpr);
 		fnc_expr->printOp();
 		printTree(&fnc_expr->m_RHSExpr);
-
-		return;
 	}
-	
-	std::cout << root->type().name() << "-";
-
+	else
+	{
+		std::cout << root->type().name() << "--level:" << idx << "--";
+	}
+	idx--;
 }
 
 void cFuncExpr::printOp()const

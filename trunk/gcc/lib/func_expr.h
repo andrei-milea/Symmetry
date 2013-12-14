@@ -19,12 +19,21 @@ struct cEmptyExpr
 	{
 		return true;
 	}
+
 };
+
+inline std::ostream& operator<<(std::ostream& out, const cEmptyExpr& expr)
+{
+	out << "empty_expr";
+	return out;
+}
 
 //suppported functions
 typedef boost::variant<cSine<double>,
 					cCosine<double>,
 					cTangent<double>,
+					cCotangent<double>,
+					cAcotangent<double>,
 					cAsine<double>,
 					cAcosine<double>,
 					cAtangent<double>,
@@ -136,6 +145,12 @@ public:
 	*/
 	std::vector<std::tuple<double, double, double> > plotPoints(double min, double max, double increment)const;
 
+	/*!
+	 * prints func expr as tree structure --for debugging purposes
+	*/
+	void printTree(const expr_type* root = nullptr)const;
+	void printOp()const;
+
 private:
 	/*!
 	 * returns the graph if the function has only 1 variable
@@ -144,25 +159,18 @@ private:
 	*/
 	std::vector<std::tuple<double, double, double> > plotLine(std::size_t pos, double var, double min, double max,
 		   															double increment)const;
-
 	double getValue(const expr_type &expr)const
 	{
 		const double *val = boost::get<double>(&expr);
 		if(val == nullptr)
 			throw std::runtime_error("failed to get value, the expression doesn't contain a value");
 		return *val;
-	};
-
-	/*!
-	 * prints func expr as tree structure --for debugging purposes
-	*/
-	void printTree(const expr_type* root = nullptr)const;
-	void printOp()const;
+	}
 
 private:
-	operation_type m_Operation;
-	expr_type m_LHSExpr;
-	expr_type m_RHSExpr;
+operation_type m_Operation;
+expr_type m_LHSExpr;
+expr_type m_RHSExpr;
 
 //friend classes
 friend class cExprDiffVisitor;
