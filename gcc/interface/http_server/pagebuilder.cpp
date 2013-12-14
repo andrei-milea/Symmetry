@@ -11,6 +11,7 @@
 #include "../../engine/getlinsyssol_command.h"
 #include "../../engine/getpolyzeros_command.h"
 #include "../../engine/getpolyplot_command.h"
+#include "../../engine/getfuncplot_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -133,6 +134,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	boost::shared_ptr<cGetLinSysSolCommand> command_lineq = boost::dynamic_pointer_cast<cGetLinSysSolCommand>(pCommand);
 	boost::shared_ptr<cGetPolyZerosCommand> command_polyzeros = boost::dynamic_pointer_cast<cGetPolyZerosCommand>(pCommand);
 	boost::shared_ptr<cGetPolyPlotCommand> command_polyplot = boost::dynamic_pointer_cast<cGetPolyPlotCommand>(pCommand);
+	boost::shared_ptr<cGetFuncPlotCommand> command_funcplot = boost::dynamic_pointer_cast<cGetFuncPlotCommand>(pCommand);
 
 	if(command_rref || command_lineq)
 	{
@@ -181,6 +183,16 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 		{
 			ss.str("");
 			ss << std::fixed << std::setprecision(2) << points.first << "," << points.second;
+			m_ResultStr += ss.str() + ";";
+		}
+	}
+	else if(command_funcplot)
+	{
+		m_ResultStr = "plot: ";
+		for(auto points : command_funcplot->GetResult())
+		{
+			ss.str("");
+			ss << std::fixed << std::setprecision(2) << std::get<0>(points) << "," << std::get<0>(points) << "," << std::get<0>(points);
 			m_ResultStr += ss.str() + ";";
 		}
 	}

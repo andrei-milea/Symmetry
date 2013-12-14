@@ -14,7 +14,7 @@ var PlottingPanel = function () {
 	function submitFct() {
 		var fct_area = document.getElementById("fct_area_id");
 		var command_input_str = fct_area.value.trim();
-		var request = "command=GET_FCT_PLOT";
+		var request = "command=GET_FNC_PLOT";
 		if(0 === command_input_str.length) {
 			alert("Please provide the function first.")
 			return;

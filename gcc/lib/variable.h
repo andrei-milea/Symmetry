@@ -10,6 +10,15 @@ public:
 	cVariable(const std::string& str = "")
 		:m_Str(str)
 	{}
+	cVariable(char var)
+		:m_Str(1, var)
+	{}
+
+	const cVariable& operator=(char var)
+	{
+		m_Str = std::string(1, var);
+		return *this;
+	}
 	
 	const std::string getStr()const
 	{
