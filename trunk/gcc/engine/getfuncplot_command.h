@@ -31,6 +31,9 @@ public:
 		return m_Result;
 	}
 
+	bool isSurface()
+	{	return	(m_FuncExpr.getVariables().size() == 2);	}
+
 private:
 	cFuncExpr m_FuncExpr;
 	std::vector<std::tuple<double, double, double> > m_Result;

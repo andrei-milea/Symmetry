@@ -189,11 +189,24 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	else if(command_funcplot)
 	{
 		m_ResultStr = "plot: ";
-		for(auto points : command_funcplot->GetResult())
+		auto plot = command_funcplot->GetResult();
+		if(command_funcplot->isSurface())
 		{
-			ss.str("");
-			ss << std::fixed << std::setprecision(2) << std::get<0>(points) << "," << std::get<0>(points) << "," << std::get<0>(points);
-			m_ResultStr += ss.str() + ";";
+			for(auto points : plot)
+			{
+				ss.str("");
+				ss << std::fixed << std::setprecision(2) << std::get<0>(points) << "," << std::get<1>(points) << "," << std::get<2>(points);
+				m_ResultStr += ss.str() + ";";
+			}
+		}
+		else
+		{
+			for(auto points : plot)
+			{
+				ss.str("");
+				ss << std::fixed << std::setprecision(2) << std::get<0>(points) << "," << std::get<1>(points);
+				m_ResultStr += ss.str() + ";";
+			}
 		}
 	}
 	else if(command_norm || command_determinant)

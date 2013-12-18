@@ -122,7 +122,7 @@ expr_type cFuncExpr::operator()(const cVariable &var, double arg)const
 }
 
 std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t pos, double var, double min, double max,
-	   																	double increment)const
+	   																	double increment, bool fixed)const
 {
 	const double min_angle =  boost::math::constants::pi<double>() / 1.005;
 
@@ -130,6 +130,7 @@ std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t
 	assert(vars.size() == 1);
 
 	std::vector<std::tuple<double, double, double> > points;
+	points.reserve(1000);
 	double val_iter = min;
 	while(val_iter <= max)
 	{
@@ -147,7 +148,7 @@ std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t
 
 		double angle = std::acos(ublas::inner_prod(ba, bc) / (ublas::norm_2(ba) * ublas::norm_2(bc)));
 
-		if(std::abs(angle) < min_angle)
+		if(std::abs(angle) < min_angle && !fixed)
 		{
 			auto line = plotLine(pos, var, x1, x3, increment/2.0);
 			points.insert(points.end(), line.begin(), line.end());
@@ -181,6 +182,7 @@ std::vector<std::tuple<double, double, double> > cFuncExpr::plotLine(std::size_t
 	
 std::vector<std::tuple<double, double, double> > cFuncExpr::plotPoints(double min, double max, double increment)const
 {
+	const double grid_space = 0.5;
 	auto vars = getVariables();
 	std::vector<std::tuple<double, double, double> > points;
 	if(vars.size() == 1)
@@ -189,20 +191,21 @@ std::vector<std::tuple<double, double, double> > cFuncExpr::plotPoints(double mi
 	}
 	else if(vars.size() == 2)
 	{
-		for(auto val_iter = min; val_iter < max; val_iter += increment)
+		points.reserve(10000);
+		for(auto val_iter = min; val_iter <= max; val_iter += grid_space)
 		{
 			auto temp_expr = operator()(vars[0], val_iter);
 			cFuncExpr *temp_fnc = boost::get<cFuncExpr>(&temp_expr);
 			assert(temp_fnc);
-			auto line = temp_fnc->plotLine(1, val_iter, min, max, increment);
+			auto line = temp_fnc->plotLine(1, val_iter, min, max, increment, true);
 			points.insert(points.end(), line.begin(), line.end());
 		}
-		for(auto val_iter = min; val_iter < max; val_iter += increment)
+		for(auto val_iter = min; val_iter <= max; val_iter += grid_space)
 		{
 			auto temp_expr = operator()(vars[1], val_iter);
 			cFuncExpr *temp_fnc = boost::get<cFuncExpr>(&temp_expr);
 			assert(temp_fnc);
-			auto line = temp_fnc->plotLine(2, val_iter, min, max, increment);
+			auto line = temp_fnc->plotLine(2, val_iter, min, max, increment, true);
 			points.insert(points.end(), line.begin(), line.end());
 		}
 	}

@@ -3,7 +3,7 @@ var Tooltip = function () {
 	var endalpha = 70, alpha = 0, timer = 20, speed = 5;
 	var tooltip;
 	var tooltip_map = new Object();
-	tooltip_map.plotting = "Provide a function or parametric equations separated by comma to obtain a plot.";
+	tooltip_map.plotting = "Provide a function or parametric equations separated by comma to obtain a plot. Use small letters(a-z) for the variables. Examples: sin(x)+cos(y); a^2+2*a*b+c; x=t*cos(t), y=t, z=t*sin(t).";
 	tooltip_map.discriminant = "Compute the discriminant: $\\Delta = a_n^{2n-2}\\prod_{i < j}(r_i - r_j)^2$, where $r_1, ... r_n$ are the roots(counting multiplicity).";
 	tooltip_map.poly = "Insert a polynomial with real or integer coefficients by specifying the degree and adding coefficients starting with the leading term (on the leftmost input field).";
 	tooltip_map.roots = "Compute solutions to P(x) = 0.";
