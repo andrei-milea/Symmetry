@@ -158,7 +158,7 @@ private:
 	 * is already computed and its value -- used in plotPoints
 	*/
 	std::vector<std::tuple<double, double, double> > plotLine(std::size_t pos, double var, double min, double max,
-		   															double increment)const;
+		   															double increment, bool fixed = false)const;
 	double getValue(const expr_type &expr)const
 	{
 		const double *val = boost::get<double>(&expr);

@@ -17,8 +17,6 @@
 #include <boost/fusion/adapted/adt/adapt_adt.hpp>
 #include <boost/fusion/include/adapt_adt.hpp>
 #include <boost/spirit/include/qi_char_.hpp>
-#include <boost/lambda/construct.hpp>
-#include <boost/lambda/bind.hpp>
 
 #include <exception>
 
@@ -40,11 +38,6 @@ namespace ascii = boost::spirit::ascii;
 namespace phoenix = boost::phoenix;
 using qi::debug;
 
-cFuncExpr make_fnc_expr(operation_type op, cFuncExpr fnc1, cFuncExpr fnc2)
-{
-	return cFuncExpr(op, fnc1, fnc2);
-}
-
 
 /*!
  * grammar for parsing a functional expression 
@@ -64,13 +57,10 @@ struct func_expr_grammar : qi::grammar<Iterator, cFuncExpr(), ascii::space_type>
 		using namespace qi::labels;
 
 		expression = 	term						[_val = _1] >>		
-						*((lit('+') > term			[_val = phoenix::bind(make_fnc_expr, Addition(), _val, _1)]) |
-						(lit('-') > term			[_val = phoenix::bind(make_fnc_expr, Subtraction(), _val, _1)]));
+						*((char_("+-") > term)		[_val = phoenix::bind(make_fnc_expr, _1, _val, _2)]);
 
 		term = 			factor						[_val = _1] >>		
-						*((lit('*') > factor)		[_val = phoenix::bind(make_fnc_expr, Multiplication(), _val, _1)] |
-						(lit('/') > factor)			[_val = phoenix::bind(make_fnc_expr, Division(), _val, _1)] |
-						(lit('^') > factor)			[_val = phoenix::bind(make_fnc_expr, Power(), _val, _1)]);
+						*((char_("*/^") > factor)	[_val = phoenix::bind(make_fnc_expr, _1, _val, _2)]);
 
 
 		factor =		function 					[_val = _1]
@@ -95,7 +85,26 @@ struct func_expr_grammar : qi::grammar<Iterator, cFuncExpr(), ascii::space_type>
 						|lit("abs")					[_val = cFuncExpr(Composition(), cAbsVal<double>(), cEmptyExpr())]) >
 						char_('(') > expression	[at_c<2>(_val) = _1] >> char_(')');
 
-	};
+	}
+
+	static cFuncExpr make_fnc_expr(char op, cFuncExpr fnc1, cFuncExpr fnc2)
+	{
+		switch(op)
+		{
+			case '+':
+				return cFuncExpr(Addition(), fnc1, fnc2);
+			case '-':
+				return cFuncExpr(Subtraction(), fnc1, fnc2);
+			case '*':
+				return cFuncExpr(Multiplication(), fnc1, fnc2);
+			case '/':
+				return cFuncExpr(Division(), fnc1, fnc2);
+			case '^':
+				return cFuncExpr(Power(), fnc1, fnc2);
+			default:
+				assert(false);
+		}
+	}
 
 	qi::rule<Iterator, cFuncExpr(), ascii::space_type> expression;
 	qi::rule<Iterator, cFuncExpr(), ascii::space_type> term;

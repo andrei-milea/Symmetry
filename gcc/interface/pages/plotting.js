@@ -7,6 +7,9 @@ var Plotting = function() {
 	function clear() {
 		_points = [];
 		_axes = null;
+		if(_scene !== null) {
+			_scene.clearScene();
+		}
 	}
 
 	function addAxes(is3d) {
@@ -23,7 +26,6 @@ var Plotting = function() {
 
 		_scene.setGl(WebGlContext.getGl());
 		_scene.addModel(_axes);
-		_scene.setZoom(-15);
 		_scene.anim_loop();
 	}
 
@@ -51,12 +53,20 @@ var Plotting = function() {
 		_scene.addModel(curve);
 	}
 
+	function addSurface(points) {
+		surface = new Surface();
+		surface.setPoints(points);
+		_scene.addModel(surface);
+	}
+
+
 	function highlightPlot(no) {
 	}
 
 	return {
 		highlightPlot : highlightPlot,
 		addCurve : addCurve,
+		addSurface : addSurface,
 		addAxes : addAxes,
 		clear : clear,
 		toggleCameraRotation : toggleCameraRotation,

@@ -278,8 +278,8 @@ var CoordAxes = function() {
 		gl.enable(gl.BLEND);
 
 		gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-		gl.drawArrays(gl.TRIANGLE_STRIP, 4, 4);
-		gl.drawArrays(gl.TRIANGLE_STRIP, 8, 4);
+		//gl.drawArrays(gl.TRIANGLE_STRIP, 4, 4);
+		//gl.drawArrays(gl.TRIANGLE_STRIP, 8, 4);
 	}
 
 	function initBuffers(gl) {

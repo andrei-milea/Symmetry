@@ -9,6 +9,10 @@ margin-right: 100px;
 box-shadow: 5px 5px 5px rgba(0,0,0,0.20);
 min-height: 95%;
 background: #F8FAFB;
+-moz-user-select: none; 
+-khtml-user-select: none; 
+-webkit-user-select: none; 
+-o-user-select: none;
 }
 
 .sbanner nav {
@@ -253,6 +257,10 @@ background: #F8FAFB;
 border-bottom-width: 0;
 border-left-width: 0;
 border-right-width: 0;
+-moz-user-select: none; 
+-khtml-user-select: none; 
+-webkit-user-select: none; 
+-o-user-select: none;
 }
 
 .sinput_div_id
@@ -267,6 +275,10 @@ margin-top: 30px;
 margin-left: 30px;
 position: relative;
 padding-bottom: 0.1cm;
+-moz-user-select: none; 
+-khtml-user-select: none; 
+-webkit-user-select: none; 
+-o-user-select: none;
 }
 
 .saddedinput_div_id
@@ -351,6 +363,10 @@ width: 750px;
 min-height: 600px;
 background: white;
 overflow: hidden;
+-moz-user-select: none; 
+-khtml-user-select: none; 
+-webkit-user-select: none; 
+-o-user-select: none;
 }
 .scanvas
 {
