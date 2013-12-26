@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<title>Symmetry: Online framework for scientific computations</title>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+
+<script type="text/javascript" src="/toolbox.js"></script>
+<script type="text/javascript" src="/context_menu.js"></script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+</head>
+
+<body id="body_pres_id" bgcolor="#DCE2E7">
+
+<a id="back_id" href="/index.html" class="back_button">Go back to computations</a>
+
+<fieldset class='toolbox'>
+<a href="#" class="toolbox_button add" onclick="ToolBox.addSlide()">Add New Slide</a>
+<a href="#" class="toolbox_button delete" onclick="ToolBox.deleteSlide()">Delete Slide</a>
+<hr width="100%">
+Theme:
+<label class="boxlabel">
+	<select class="boxselect">
+		<option selected="selected">Theme1</option>
+		<option>Theme2</option>
+	</select>
+</label>
+<a href="" class="toolbox_button preview">Preview</a>
+<a href="" class="toolbox_button save">Save</a>
+<hr width="100%">
+Cursor:
+<label class="boxlabel">
+	<select class="boxselect" onchange="ToolBox.onCursorChange(this)">
+		<option selected="selected">Move</option>
+		<option>Insert</option>
+	</select>
+</label>
+<hr width="100%">
+<a href="#" class="toolbox_button undo">Undo</a>
+<a href="#" class="toolbox_button redo">Redo</a>
+</fieldset>
+<div id="slide_id" class="slide_div" onclick="ContextMenu.show(event)">
+</div>
+<div id="context_menu_id" class="context_menu">
+	<ul class="list" data-header="Insert">
+		<li id="text" onclick="ContextMenu.selection(this.id)">Text</li>
+		
+		<li id="math" onclick="ContextMenu.selection(this.id)">Math Object</li>
+
+		<li id="sketch" onclick="ContextMenu.selection(this.id)">3D Sketch</li>
+
+		<li id="chart" onclick="ContextMenu.selection(this.id)">Chart</li>
+		
+		<li id="simulation" onclick="ContextMenu.selection(this.id)">Simulation</li>
+	</ul>
+</div>
+<div class="slidenav">
+	<a href="#" onclick="ToolBox.prevSlide()">&#171;&nbsp;Previous</a>
+	<input readonly type="text" id='slide_no_id' size="3" value="1/1"></input>
+	<a href="#" onclick="ToolBox.nextSlide()">Next&nbsp;&#187;</a>
+</div>
+
+<div align="center" id="final" style="text-align:center; position: fixed; bottom: 0;">Andrei Milea 2013</div>
+</body>
+
+</html>
+
+

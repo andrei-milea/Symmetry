@@ -65,8 +65,8 @@ var MainMenu = function () {
 		lineq_li.className = "";
 		lineq_a.className = "";
 
-		var dif_li = document.getElementById("li_dif_id");
-		var dif_a = document.getElementById("a_dif_id");
+		var dif_li = document.getElementById("li_diff_id");
+		var dif_a = document.getElementById("a_diff_id");
 		dif_li.className = "";
 		dif_a.className = "";
 
@@ -188,7 +188,20 @@ var MainMenu = function () {
 		current_panel = LinEqPanel;
 	}
 
-	function add_calculus_div() {
+	function add_diff_div() {
+		if((current_panel !== null) && (current_panel !== DiffPanel)) {
+			current_panel.hide();
+			reset_mainview_canvas();
+		}
+
+		reset_tabs();
+		var diff_li = document.getElementById("li_diff_id");
+		var diff_a = document.getElementById("a_diff_id");
+		diff_li.className = "selected";
+		diff_a.className = "selected";
+
+		DiffPanel.show();
+		current_panel = DiffPanel;
 	}
 
 	function reset_mainview_canvas() {
@@ -224,7 +237,7 @@ var MainMenu = function () {
 		add_grp_div : add_grp_div,
 		add_vecmat_div : add_vecmat_div,
 		add_lineq_div : add_lineq_div,
-		add_calculus_div : add_calculus_div,
+		add_diff_div : add_diff_div,
 		add_poly_div : add_poly_div,
 		add_plotting_div : add_plotting_div,
 		showIntCompdiv : showIntCompdiv,

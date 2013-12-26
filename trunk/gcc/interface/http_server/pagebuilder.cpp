@@ -12,6 +12,7 @@
 #include "../../engine/getpolyzeros_command.h"
 #include "../../engine/getpolyplot_command.h"
 #include "../../engine/getfuncplot_command.h"
+#include "../../engine/getfuncdiff_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -135,6 +136,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	boost::shared_ptr<cGetPolyZerosCommand> command_polyzeros = boost::dynamic_pointer_cast<cGetPolyZerosCommand>(pCommand);
 	boost::shared_ptr<cGetPolyPlotCommand> command_polyplot = boost::dynamic_pointer_cast<cGetPolyPlotCommand>(pCommand);
 	boost::shared_ptr<cGetFuncPlotCommand> command_funcplot = boost::dynamic_pointer_cast<cGetFuncPlotCommand>(pCommand);
+	boost::shared_ptr<cGetFuncDiffCommand> command_funcdiff = boost::dynamic_pointer_cast<cGetFuncDiffCommand>(pCommand);
 
 	if(command_rref || command_lineq)
 	{
@@ -208,6 +210,10 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 				m_ResultStr += ss.str() + ";";
 			}
 		}
+	}
+	else if(command_funcdiff)
+	{
+		m_ResultStr = command_funcdiff->GetResult();
 	}
 	else if(command_norm || command_determinant)
 	{
