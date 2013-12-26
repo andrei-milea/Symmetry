@@ -66,9 +66,9 @@ var PlottingPanel = function () {
 			//add mouse tracking rotation
 			var main_canvas = document.getElementById("main_canvas");
 			main_canvas.addEventListener('mousemove', trackmouse);
-			s.setMinimum(-110);
+			s.setMinimum(-50);
 			s.setMaximum(-10);
-			s.setValue(-60);
+			s.setValue(-30);
 			s.onchange = function () {
 				Plotting.setZoom(s.getValue());
 			}

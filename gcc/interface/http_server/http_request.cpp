@@ -65,7 +65,8 @@ struct command_: symbols<char, short>
 		("SOLVEG_LINEQ_SYS", SOLVEG_LINEQ_SYS)
 		("GET_POLY_PLOT", GET_POLY_PLOT)
 		("GET_POLY_ZEROS", GET_POLY_ZEROS)
-		("GET_FNC_PLOT", GET_FNC_PLOT);
+		("GET_FNC_PLOT", GET_FNC_PLOT)
+		("GET_FNC_DIFF", GET_FNC_DIFF);
 	}
 } command;
 /************************************************************/

@@ -31,6 +31,7 @@
 <script src="groupth_command_panel.js" type="text/javascript"></script>
 <script src="poly_command_panel.js" type="text/javascript"></script>
 <script src="plotting_command_panel.js" type="text/javascript"></script>
+<script src="diff_command_panel.js" type="text/javascript"></script>
 <script src="command_panel.js" type="text/javascript"></script>
 
 
@@ -108,7 +109,7 @@
 			<li><a href="#">Simulations</a></li>
 			<li><a href="#">Presentations</a>
 				<ul>
-					<li><a href="#">Create</a></li>
+					<li><a href="/pres.html" target="_self">Create</a></li>
 					<li><a href="#">Browse</a></li>
 				</ul>
 			</li>
@@ -145,15 +146,19 @@
 <div class="sradio">  
 <hr width="100%">
 	<input id="calculus" type="radio" value="calculus" checked="checked" name="category" onclick="MainMenu.showDiv('calculus')" />
-	<label for="calculus">Calculus</label>  
+	<label for="calculus"><span><span></span></span>Calculus</label>  
+	&nbsp;&nbsp;&nbsp;&nbsp;
 	<input id="linalg" type="radio" value="linalg" name="category" onclick="MainMenu.showDiv('linalg')" />  
-	<label for="linalg">Linear Algebra</label>  
+	<label for="linalg"><span><span></span></span>Linear Algebra</label>  
+	&nbsp;&nbsp;&nbsp;&nbsp;
 	<input id="prob" type="radio" value="prob" name="category" onclick="MainMenu.showDiv('prob')" />  
-	<label for="prob">Probabilities &amp Statistics</label>
+	<label for="prob"><span><span></span></span>Probabilities &amp Statistics</label>
+	&nbsp;&nbsp;&nbsp;&nbsp;
 	<input id="complex" type="radio" value="complex" name="category" onclick="MainMenu.showDiv('complex')" />
-	<label for="complex">Complex Variables</label>
+	<label for="complex"><span><span></span></span>Complex Variables</label>
+	&nbsp;&nbsp;&nbsp;&nbsp;
 	<input id="absalg" type="radio" value="absalg" name="category" onclick="MainMenu.showDiv('absalg')" />  
-	<label for="absalg">Abstract Algebra</label>
+	<label for="absalg"><span><span></span></span>Abstract Algebra</label>
 <hr width="100%">
 </div>
 
@@ -163,7 +168,7 @@
 	<div id="calculus_panel" class="scomputations_panel">
 		<ul>
 		<li id='li_plot_id' class="selected"><a id='a_plot_id' class="selected" onclick="MainMenu.add_plotting_div()" href="#">Plotting &amp Graphics</a></li>
-		<li id='li_dif_id'><a id='a_dif_id' href="#">Differentiation</a></li>
+		<li id='li_diff_id'><a id='a_diff_id' onclick="MainMenu.add_diff_div()" href="#">Differentiation</a></li>
 		<li id='li_int_id'><a id='a_int_id' href="#">Integration</a></li>
 		<li id='li_dif_eq_id'><a id='a_dif_eq_id' href="#">Differential equations</a></li>
 		<li id='li_poly_id'><a id='a_poly_id' href="#" onclick="MainMenu.add_poly_div()">Polynomials</a></li>
@@ -178,6 +183,16 @@
 				<br/>
 				<br/>
 				<div id='added_input_id5' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
+			</div>
+			<div id='diff_div_id' onmouseover="Tooltip.show('differentiation')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
+				<br/>
+				<textarea id='fct_area_id1' rows="3" cols="60">
+				</textarea>
+				<br/>
+				<a href="#" class="plotbutton" onclick="DiffPanel.submitFct()">Differentiate</a>
+				<br/>
+				<br/>
+				<div id='added_input_id6' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
 			</div>
 			<div id='poly_div_id' onmouseover="Tooltip.show('poly')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
 				<div id='input_div_contents_id1'>

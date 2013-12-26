@@ -11,7 +11,7 @@ var Surface = function() {
 	var pMatrix;
 
 	var line_color = [0.0, 0.8, 0.1, 1.0];
-	var plane_color = [0.0, 0.5, 0.0, 0.5];
+	var plane_color = [0.0, 0.5, 0.0, 0.6];
 
 	function highlight() {
 		line_color = [0.8, 0.0, 0.1, 1.0];
@@ -100,6 +100,7 @@ var Surface = function() {
 		gl.vertexAttrib4f(gl.ShaderProgram.vertexColorAttribute, plane_color[0], plane_color[1], plane_color[2], plane_color[3]);
 
 		gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, vertexIndexBuffer);
+		gl.depthMask(false);
 
 		gl.drawElements(gl.TRIANGLE_STRIP, indices.number, gl.UNSIGNED_SHORT, 0);
 

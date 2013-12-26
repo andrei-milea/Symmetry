@@ -33,7 +33,13 @@ var Scene = function() {
 
 	function setZoom(zoom) {
 		zdist = zoom;
-		setDefaultCamera();
+		var newMatrix = mat4.create();
+		mat4.identity(newMatrix);
+		mat4.translate(newMatrix, [0.0, 0.0, zdist]);
+		mvMatrix[12] = newMatrix[12];
+		mvMatrix[13] = newMatrix[13];
+		mvMatrix[14] = newMatrix[14];
+		mvMatrix[15] = newMatrix[15];
 	}
 
 	function stopCameraRotation() {
@@ -42,7 +48,6 @@ var Scene = function() {
 
 	function initViewport() {
 		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
-		//gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 		gl.clearColor(242, 242, 242, 250);
 	}
 
