@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body style="background-color:#DCE2E7">
+<div class="paragraph">
+	<h1>Paragraph configuration</h1>
+	Paragraph type: &nbsp;&nbsp;&nbsp;
+	<select id='paragraph_select_id' name='Select paragraph type'>
+		<option>Definition</option>
+		<option>Remark</option>
+		<option>Theorem</option>
+		<option>Corollary</option>
+	</select>
+	</br>
+	</br>
+
+	<textarea id='paragraph_text_id' rows="10" cols="60"></textarea>
+
+	</br>
+	</br>
+
+	<a id="done_button_id" href="#" class="fwd_button" onclick="ToolBox.addParagraph(); TINY.box.hide()">Insert paragraph</a>
+</div>
+
+</body>
+</html>
+

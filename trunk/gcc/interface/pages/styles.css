@@ -614,7 +614,7 @@ select, textarea, select option
 .slide_div {
 margin-left: auto;
 margin-right: auto;
-cursor: pointer;
+cursor: default;
 width: 800px; 
 box-shadow: 5px 5px 5px rgba(0,0,0,0.20);
 min-height: 600px;
@@ -666,12 +666,12 @@ background: #F8FAFB;
 	color:			#000000;
 	text-decoration : none;
 	padding: 2px 5px;
-	float: right;
 }
 .fwd_button:hover {
 	background:	#ddf;
 }
 
+/***********toolbox**********/
 .toolbox {
 	width: 200px;
 	margin-top: 70px;
@@ -679,8 +679,11 @@ background: #F8FAFB;
 	position: absolute;
 	color:#888;
 	font-weight: bold;
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none;
 }
-
 .toolbox_button {
 	display: inline-block;
 	white-space: nowrap;
@@ -706,7 +709,6 @@ background: #F8FAFB;
 	-webkit-box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
 	box-shadow: 0 0 1px 1px rgba(255,255,255,.8) inset, 0 1px 0 rgba(0,0,0,.3);
 }
-
 .toolbox_button:hover {
 	background-color: #ddd;        
 	background-image: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ddd));
@@ -717,7 +719,6 @@ background: #F8FAFB;
 	background-image: linear-gradient(top, #fafafa, #ddd);
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fafafa', EndColorStr='#dddddd');        
 }
-
 .toolbox_button:active {
 	-moz-box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
 	-webkit-box-shadow: 0 0 4px 2px rgba(0,0,0,.3) inset;
@@ -725,12 +726,10 @@ background: #F8FAFB;
 	position: relative;
 	top: 1px;
 }
-
 .toolbox_button:focus {
 	outline: 0;
 	background: #fafafa;
 }    
-
 .toolbox_button:before {
 	text-shadow: 0 1px 0 rgba(255,255,255,.1);
 	color: #728FCE;
@@ -769,7 +768,6 @@ background: #F8FAFB;
 .preview:before {
 	content: "\25B6";
 }
-
 .boxselect {
 	width: 90px;
 	padding:1px;
@@ -787,7 +785,6 @@ background: #F8FAFB;
 	/*appearance:none;*/
 	cursor:pointer;
 }
-
 .boxlabel {
 	position:relative
 }
@@ -815,6 +812,7 @@ background: #F8FAFB;
 	display:block;
 }
 
+/*********slides navigation**************/
 .slidenav {
 	-moz-user-select: none; 
 	-khtml-user-select: none; 
@@ -848,6 +846,7 @@ background: #F8FAFB;
     color:#444;
 }
 
+/*******context menu**********/
 .context_menu {
 	display:none;
 	-moz-user-select: none; 
@@ -878,5 +877,51 @@ background: #F8FAFB;
 }
 .context_menu > ul.list li:last-child { border:none }
 
+/***dragable div*****/
+.draggable {
+	width: 750px;
+	min-height: 100px;
+	max-width: 800px;
+	max-height: 600px;
+	resize: both;
+	font-family: "Arial Narrow", Arial, sans-serif;
+	background: rgba(255, 255, 255, 0.0);
+	z-index: 1;
+}
+.boxText {
+	width: 100%;
+	height: 100%;
+	background: rgba(255, 255, 255, 0.0);
+} 
+.paragraph {
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none;
+	background: white;
+	border: 2px solid #6b727c;
+	border-radius: 7px;
+	text-align: center;
+	height: 370px;
+}
+h1 {
+	font-family:"Times New Roman", Times, serif;
+	font-weight: bold;
+	color: #6b727c;
+	font-size: 26px;
+}
+.sinsert_div_id {
+	border: 2px solid #ddf;
+	border-radius: 3px;  
+	margin-left: 20px;
+	text-align: center;
+	background: white;
+	width: 550px; height: auto;
+	border-radius: 10px;
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none;
+}
 
 

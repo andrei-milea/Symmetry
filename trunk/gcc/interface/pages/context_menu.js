@@ -19,7 +19,7 @@ var ContextMenu = function () {
 	function selection(id) {
 		if("text" === id) {
 			var slide = document.getElementById("slide_id");
-			slide.innerHTML += "<textarea rows='10' cols='30'></textarea>";
+			slide.innerHTML += "<textarea class='draggable' draggable='true' rows='10' cols='30'></textarea>";
 		}
 		hide();
 	}
@@ -27,6 +27,7 @@ var ContextMenu = function () {
 	//public methods
 	return {
 		show : show,
+		hide : hide,
 		selection : selection
 	};
 }();
