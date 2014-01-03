@@ -1,0 +1,124 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body style="background-color:#DCE2E7">
+<div class="paragraph">
+	<h1>Math element</h1>
+	Element type: &nbsp;&nbsp;&nbsp;
+	<select id='paragraph_select_id' name='Select paragraph type' onchange="ToolBox.onElementChange(this)">
+		<option>Function plot</option>
+		<option>Polynomial</option>
+		<option>Matrix</option>
+		<option>Permutation</option>
+		<option>System of linear equations</option>
+		<option>Distribution</option>
+		<option>Fractal</option>
+		<option>Graph</option>
+	</select>
+	</br>
+	</br>
+	<div id='plotting_div_id' class="sinsert_div_id">
+		<br/>
+		<b>Input function:</b>
+		<br/>
+		<br/>
+		<textarea id='fct_area_id' rows="3" cols="60">
+		</textarea>
+		<br/>
+		<br/>
+		<div style="color: #6b727c;">
+			Provide a function by using small letters(a-z) for the variables. Examples: sin(x)+cos(y); a^2+2*a*b+c.
+		</div>
+		<br/>
+	</div>
+	<div id='insert_poly_id' class="sinsert_div_id" style="display: none;">
+		Degree: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='degree_id' value='3' size='2' maxlength='2' onkeyup="PolyPanel.degreeChanged(this)"/>
+		<br/><br/>
+		<table id="poly_table_id" border="1" cellspacing="10" align="center">
+		<tr>
+		<td><input type='text' id='entry1' size='8' maxlength='15' />$x^0$</td>
+		<td><input type='text' id='entry2' size='8' maxlength='15' />$x^1$</td>
+		<td><input type='text' id='entry3' size='8' maxlength='15' />$x^2$</td>
+		<td><input type='text' id='entry4' size='8' maxlength='15' />$x^3$</td>
+		</tr>
+		</table>
+		</br>
+		<div style="color: #6b727c;">
+			Insert a polynomial with real or integer coefficients by specifying the degree and adding
+			coefficients starting with the leading term (on the leftmost input field).
+		</div>
+		</br>
+	</div>
+	<div id='insert_matrix_id' class="sinsert_div_id" style="display: none;">
+		</br>
+		Number of rows: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='rows_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.rows_num_changed(this)" />
+		&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;
+		Number of columns: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='cols_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.cols_num_changed(this)" />
+		<br/><br/>
+		<table id="mat_table_id" border="1" cellspacing="10" align="center">
+		<tr>
+		<td><input type='text' id='entry11' size='8' maxlength='15' /></td>
+		<td><input type='text' id='entry12' size='8' maxlength='15' /></td>
+		<td><input type='text' id='entry13' size='8' maxlength='15' /></td>
+		</tr>
+		<tr>
+		<td><input type='text' id='entry21' size='8' maxlength='15' /></td>
+		<td><input type='text' id='entry22' size='8' maxlength='15' /></td>
+		<td><input type='text' id='entry23' size='8' maxlength='15' /></td>
+		</tr>
+		<tr>
+		<td><input type='text' id='entry31' size='8' maxlength='15' /></td>
+		<td><input type='text' id='entry32' size='8' maxlength='15' /></td>
+		<td><input type='text' id='entry33' size='8' maxlength='15' /></td>
+		</tr>
+		</table>
+		</br>
+	</div>
+	<div id='insert_lineq_id' class="sinsert_div_id" style="display: none;">
+		<br/>
+		Number of equations: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='lineq_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.lineq_num_changed(this)" />
+		&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp;
+		Number of unknowns: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='unknowns_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.unknowns_num_changed(this)" />
+		<br/><br/>
+		<table id="lineq_table_id" border="1" cellspacing="10" align="center">
+		<tr>
+		<td><input type='text' id='unknown11' size='5' maxlength='15' /> $x_1$</td>
+		<td><input type='text' id='unknown12' size='5' maxlength='15' /> $x_2$</td>
+		<td><input type='text' id='unknown13' size='5' maxlength='15' /> $x_3$</td>
+		<td><input type='text' id='result1' size='5' maxlength='15' /> $b_1$</td>
+		</tr>
+		<tr>
+		<td><input type='text' id='unknown21' size='5' maxlength='15' /> $x_1$</td>
+		<td><input type='text' id='unknown22' size='5' maxlength='15' /> $x_2$</td>
+		<td><input type='text' id='unknown23' size='5' maxlength='15' /> $x_3$</td>
+		<td><input type='text' id='result2' size='5' maxlength='15' /> $b_2$</td>
+		</tr>
+		<tr>
+		<td><input type='text' id='unknown31' size='5' maxlength='15' /> $x_1$</td>
+		<td><input type='text' id='unknown32' size='5' maxlength='15' /> $x_2$</td>
+		<td><input type='text' id='unknown33' size='5' maxlength='15' /> $x_3$</td>
+		<td><input type='text' id='result3' size='5' maxlength='15' /> $b_3$</td>
+		</tr>
+		</table>
+		<br/>
+	</div>
+
+	</br>
+
+	<a id="done_button_id" href="#" class="fwd_button" onclick="ToolBox.addMathElem(); TINY.box.hide()">Insert element</a>
+</div>
+
+</body>
+</html>
+
