@@ -34,6 +34,9 @@ std::pair<iterator, bool> get_whole_http_message(iterator begin, iterator end)
 	std::size_t delim_iter = bufstr.find("\r\n\r\n");
 	if(std::string::npos ==	len_iter  && std::string::npos != delim_iter)
 		return std::make_pair(end, true);
+	if(std::string::npos ==	len_iter  && std::string::npos == delim_iter)
+		return std::make_pair(begin, false);
+
 	std::string lenpart = bufstr.substr(len_iter);
 	std::string lenstr = bufstr.substr(len_iter + 16, lenpart.find("\r\n"));
 	int body_sz = atoi(lenstr.c_str());
@@ -67,7 +70,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 		switch(_request.GetMethod())
 		{
 		case GET_M:
-			if(_request.GetResource() == "/" || _request.GetResource() == "/index.html")
+			if(_request.GetResource() == "/" || _request.GetResource() == "/index.html" || _request.GetResource() == "/pres.html")
 			{
 				//add new session
 				unsigned int ses_id = cHttpConnection::GetRandUniqueId();
@@ -75,7 +78,12 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 
 				//build response
 				cResponse response(m_ResponseBuf);
-				const std::string index_page=cPageBuilder::GetInstance()->GetIndexPage(ses_id);
+				std::string index_page;
+				if(_request.GetResource() == "/" || _request.GetResource() == "/index.html")
+					index_page = cPageBuilder::GetInstance()->GetIndexPage(ses_id);
+				else
+					index_page = cPageBuilder::GetInstance()->GetPresPage(ses_id);
+
 				response.BuildResponse(OK, index_page, "text/html");
 			}
 			else if(cPageBuilder::s_ResError != cPageBuilder::GetInstance()->GetPageResource(_request.GetResource()))

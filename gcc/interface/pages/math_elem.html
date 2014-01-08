@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-<link rel="stylesheet" type="text/css" href="styles.css" />
+	<link rel="stylesheet" type="text/css" href="styles.css" />
 </head>
 
 <body style="background-color:#DCE2E7">
@@ -15,13 +15,14 @@
 		<option>Matrix</option>
 		<option>Permutation</option>
 		<option>System of linear equations</option>
+		<option>Chart</option>
 		<option>Distribution</option>
 		<option>Fractal</option>
 		<option>Graph</option>
 	</select>
 	</br>
 	</br>
-	<div id='plotting_div_id' class="sinsert_div_id">
+	<div id='plotting_div_id' class="sinsert_div">
 		<br/>
 		<b>Input function:</b>
 		<br/>
@@ -35,7 +36,7 @@
 		</div>
 		<br/>
 	</div>
-	<div id='insert_poly_id' class="sinsert_div_id" style="display: none;">
+	<div id='insert_poly_id' class="sinsert_div" style="display: none;">
 		Degree: &nbsp;&nbsp;&nbsp;
 		<input type='text' id='degree_id' value='3' size='2' maxlength='2' onkeyup="PolyPanel.degreeChanged(this)"/>
 		<br/><br/>
@@ -54,7 +55,7 @@
 		</div>
 		</br>
 	</div>
-	<div id='insert_matrix_id' class="sinsert_div_id" style="display: none;">
+	<div id='insert_matrix_id' class="sinsert_div" style="display: none;">
 		</br>
 		Number of rows: &nbsp;&nbsp;&nbsp;
 		<input type='text' id='rows_number_id' value='3' size='2' maxlength='2' onkeyup="VecMatPanel.rows_num_changed(this)" />
@@ -82,7 +83,7 @@
 		</table>
 		</br>
 	</div>
-	<div id='insert_lineq_id' class="sinsert_div_id" style="display: none;">
+	<div id='insert_lineq_id' class="sinsert_div" style="display: none;">
 		<br/>
 		Number of equations: &nbsp;&nbsp;&nbsp;
 		<input type='text' id='lineq_number' value='3' size='2' maxlength='2' onkeyup="LinEqPanel.lineq_num_changed(this)" />
@@ -114,7 +115,34 @@
 		<br/>
 	</div>
 
-	</br>
+
+	<div id='insert_chart_id' class="sinsert_div" style="display: none;">
+		<br/>
+		Chart Type: &nbsp;&nbsp;&nbsp;
+		<select id='chart_select_id' name='Select chart type' onchange="ToolBox.onElementChange(this)">
+			<option>Pie chart</option>
+			<option>Line chart</option>
+			<option>Bar chart</option>
+			<option>Radar chart</option>
+			<option>Doughnut chart</option>
+		</select>
+		<br/>
+		<br/>
+		Labels: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='labels_id' size='50' maxlength='500' />
+		<br/>
+		<br/>
+		Data: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='data_id' size='50' maxlength='500' />
+		<br/>
+		<br/>
+		<div style="color: #6b727c;">
+			Input labels and numerical data. Values must be comma separated.
+		</div>
+		<br/>
+	</div>
+
+	<br/>
 
 	<a id="done_button_id" href="#" class="fwd_button" onclick="ToolBox.addMathElem(); TINY.box.hide()">Insert element</a>
 </div>

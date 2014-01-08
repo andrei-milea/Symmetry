@@ -32,6 +32,8 @@ public:
 
 	const std::string& GetIndexPage(const std::size_t session_id);
 
+	const std::string& GetPresPage(const std::size_t session_id);
+
 	const std::string& GetPageResource(const std::string& resource)const;
 
 	const std::string& GetPage(boost::shared_ptr<engine::cCommand> pCommand, const std::size_t ses_id)const;
@@ -51,8 +53,6 @@ private:
 	static cPageBuilder *s_Instance;
 	static std::string s_WebPagesPath;
 	static std::string s_PresentationsPath;
-	std::size_t m_IdPosition;
-	std::size_t m_IdSize;
 	std::map<std::string, std::string> m_Resources;
 	mutable std::string m_ResultStr;
 };

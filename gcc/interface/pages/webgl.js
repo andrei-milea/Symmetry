@@ -1,5 +1,5 @@
 var WebGlContext = function() {
-	var gl,
+	var gl = null,
 		shaderProgram;
 
 	function buildFontTexture() {
@@ -134,21 +134,28 @@ var WebGlContext = function() {
 			gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
 	}
 
-    function initWebGL() {
-        var canvas = document.getElementById("main_canvas");
+    function initWebGL(canvas_id) {
+        var canvas = document.getElementById(canvas_id);
+		//clear previous scenes
+		if(gl !== null && gl.scenes !== null) {
+		for(i = 0; i < gl.scenes.length; i++)
+			gl.scenes[i].clearScene();
+		}
+
         try {
 			gl = WebGLUtils.setupWebGL(canvas);
 			if(null != gl) {
-				gl.viewportWidth = canvas.width;
-				gl.viewportHeight = canvas.height;
+				gl.canvas = canvas;
 				if(!gl) {
 					alert("Could not initialise WebGL, please update your browser!");
 				}
+
 				initShaders();
 				clearContext();
 				buildFontTexture();
 				buildBlackTexture();
 				gl.ShaderProgram = shaderProgram;
+				gl.scenes = new Array();
 			}
          }
         catch(e) {

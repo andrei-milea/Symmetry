@@ -11,7 +11,7 @@ var Scene = function() {
 	var zdist = -9.0;
 
 	function setDefaultCamera() {
-		mat4.perspective(45, gl.viewportWidth / gl.viewportHeight, 0.1, 100.0, pMatrix);
+		mat4.perspective(45, 1, 0.1, 100.0, pMatrix);
 		mat4.identity(mvMatrix);
 		mat4.translate(mvMatrix, [0.0, 0.0, zdist]);
 	}
@@ -47,12 +47,13 @@ var Scene = function() {
 	}
 
 	function initViewport() {
-		gl.viewport(0, 0, gl.viewportWidth, gl.viewportHeight);
+		gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
 		gl.clearColor(242, 242, 242, 250);
 	}
 
 	function setGl(_gl) {
 		gl = _gl;
+		gl.scenes.push(this);
 	}
 
 	function addModel(model) {

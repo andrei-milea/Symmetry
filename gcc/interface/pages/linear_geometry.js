@@ -5,6 +5,9 @@ var LinGeometry = function() {
 	var _is3d;
 
 	function clear() {
+		if(_scene !== null) {
+			_scene.clearScene();
+		}
 		_linear_equations = [];
 		_axes = null;
 	}

@@ -12,7 +12,7 @@ void cGetFuncDiffCommand::Execute()
 	{
 		m_Result = "derivative: <br/>";
 		cFuncExpr derivative = m_FuncExpr.derivative();
-		std::cout << derivative;
+		std::cout << "$ " << derivative << " $";
 		m_Result += redirectstream.str();
 	}
 	else
@@ -21,7 +21,7 @@ void cGetFuncDiffCommand::Execute()
 		for(auto var : vars)
 		{
 			cFuncExpr part_deriv = m_FuncExpr.partial_derivative(var);
-			std::cout << "\\frac{\\partial f}{\\partial " << var <<"} = " << part_deriv << "<br/>";
+			std::cout << "$ \\frac{\\partial f}{\\partial " << var <<"} = " << part_deriv << " $" << "<br/>";
 		}
 		m_Result += redirectstream.str();
 	}
