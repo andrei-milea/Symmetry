@@ -36,7 +36,6 @@ std::string cPageBuilder::s_ResError = "Resource not available";
 std::string cPageBuilder::s_WebPagesPath = "../pages";
 std::string cPageBuilder::s_PresentationsPath = "../presentations";
 
-#define INDEX_PAGE	"/index.html"
 
 //macro for inserting HTML directly in C++
 #define HTML(...) #__VA_ARGS__
@@ -58,8 +57,6 @@ void cPageBuilder::SetPaths(const std::string& web_pages_path, const std::string
 }
 
 cPageBuilder::cPageBuilder()
-	:m_IdPosition(0),
-	m_IdSize(2)
 {
 	LoadWebPages(cPageBuilder::s_WebPagesPath);
 }
@@ -86,11 +83,6 @@ void cPageBuilder::LoadWebPages(const std::string &path)
 			std::string file_path = "/" + dir_path.substr(dir_path.find("pages/") + 6);
 			m_Resources[file_path].assign(std::istreambuf_iterator<char>(file),
 				   	std::istreambuf_iterator<char>());
-			if(INDEX_PAGE == file_path)
-			{
-				m_IdPosition = m_Resources[file_path].find("00");
-				assert(m_IdPosition != std::string::npos);
-			}
 		}
 	}
 }
@@ -98,13 +90,34 @@ void cPageBuilder::LoadWebPages(const std::string &path)
 
 const std::string& cPageBuilder::GetIndexPage(const std::size_t session_id)
 {
-	std::size_t old_size = m_IdSize;
-	m_IdSize = std_ex::numDigits<std::size_t>(session_id);
-	auto map_iter = m_Resources.find(INDEX_PAGE);
-	if(map_iter != m_Resources.end())
-		return map_iter->second.replace(m_IdPosition, old_size, boost::lexical_cast<std::string>(session_id));
-	else
+	auto map_iter = m_Resources.find("/index.html");
+	if(map_iter == m_Resources.end())
 		return cPageBuilder::s_ResError;
+
+	static size_t IdPosition = map_iter->second.find("00");
+	static size_t IdSize = 2;
+	assert(IdPosition != std::string::npos);
+
+	std::size_t old_size = IdSize;
+	IdSize = std_ex::numDigits<std::size_t>(session_id);
+
+	return map_iter->second.replace(IdPosition, old_size, boost::lexical_cast<std::string>(session_id));
+}
+
+const std::string& cPageBuilder::GetPresPage(const std::size_t session_id)
+{
+	auto map_iter = m_Resources.find("/pres.html");
+	if(map_iter == m_Resources.end())
+		return cPageBuilder::s_ResError;
+
+	static size_t IdPosition = map_iter->second.find("00");
+	static size_t IdSize = 2;
+	assert(IdPosition != std::string::npos);
+
+	std::size_t old_size = IdSize;
+	IdSize = std_ex::numDigits<std::size_t>(session_id);
+
+	return map_iter->second.replace(IdPosition, old_size, boost::lexical_cast<std::string>(session_id));
 }
 
 const std::string& cPageBuilder::GetPageResource(const std::string& resource)const

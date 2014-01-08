@@ -2,7 +2,7 @@ body, html {
   height: 95%;
 }
 
-.swholepage{
+.swholepage {
 width: 85%;
 margin-top: 20px;
 margin-left: auto;
@@ -285,8 +285,7 @@ padding-bottom: 0.1cm;
 -o-user-select: none;
 }
 
-.saddedinput_div_id
-{
+.saddedinput_div_id {
 -moz-box-shadow:    inset 0px 0px 15px 2px #ddf;
 -webkit-box-shadow: inset 0px 0px 15px 2px #ddf;
 box-shadow:         inset 0px 0px 15px 2px #ddf;
@@ -301,7 +300,7 @@ background: white;
 }
 
 /*commands button style*/
-.sbutton{
+.sbutton {
 width: 750px;
 margin-left: 30px;
 margin-top: 30px;
@@ -336,8 +335,8 @@ border-right-color:#808080;
 border-right-width:3px;
 }
 
-.smain_view
-{
+.smain_view {
+font-family: Arial, Helvetica, sans-serif;
 border: 2px solid #ddf;
 border-radius: 10px;
 text-align: center;
@@ -354,8 +353,7 @@ resize: both;
 }
 
 /*canvas style*/
-.scanvasdiv
-{
+.scanvasdiv {
 border: 2px solid #ddf;
 border-radius: 10px;
 text-align: center;
@@ -374,12 +372,9 @@ overflow: hidden;
 }
 .scanvas
 {
-margin-top: auto;
-margin-left: auto;
-margin-right: auto;
-display: inline-block;
 cursor: pointer; 
 resize: both;
+overflow: auto;
 }
 
 #group_property_div_id
@@ -614,6 +609,7 @@ select, textarea, select option
 .slide_div {
 margin-left: auto;
 margin-right: auto;
+margin-top: 20px;
 cursor: default;
 width: 800px; 
 box-shadow: 5px 5px 5px rgba(0,0,0,0.20);
@@ -879,11 +875,11 @@ background: #F8FAFB;
 
 /***dragable div*****/
 .draggable {
-	width: 750px;
-	min-height: 100px;
-	max-width: 800px;
+	min-width: 50px;
+	min-height: 20px;
+	max-width: 750px;
 	max-height: 600px;
-	resize: both;
+	overflow: auto;
 	font-family: "Arial Narrow", Arial, sans-serif;
 	background: rgba(255, 255, 255, 0.0);
 	z-index: 1;
@@ -891,6 +887,7 @@ background: #F8FAFB;
 .boxText {
 	width: 100%;
 	height: 100%;
+	overflow: auto;
 	background: rgba(255, 255, 255, 0.0);
 } 
 .paragraph {
@@ -902,7 +899,9 @@ background: #F8FAFB;
 	border: 2px solid #6b727c;
 	border-radius: 7px;
 	text-align: center;
-	height: 370px;
+	min-height: 370px;
+	max-width: 750px;
+	overflow: auto;
 }
 h1 {
 	font-family:"Times New Roman", Times, serif;
@@ -910,7 +909,7 @@ h1 {
 	color: #6b727c;
 	font-size: 26px;
 }
-.sinsert_div_id {
+.sinsert_div {
 	border: 2px solid #ddf;
 	border-radius: 3px;  
 	margin-left: 20px;

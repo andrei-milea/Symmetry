@@ -177,11 +177,9 @@ var GrpPanel = function () {
 			main_view.innerHTML = submitCommand(request);
 			main_view.style.display = "block";
 			var canvasDiv = document.getElementById("canvas_id");
-			if(canvasDiv.style.display === "block") {
-				canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
-				WebGlContext.initWebGL();
-				canvasDiv.style.display = "none";
-			}
+			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'></canvas>";
+			WebGlContext.initWebGL("main_canvas");
+
 			if(command === "GET_ELEMENTS") {
 				if(static_vars.group_type === "Dihedral Group")	{
 					var generatorsTag = document.getElementById("generators_id");
@@ -241,7 +239,7 @@ var GrpPanel = function () {
 		}
 		var permuTag = document.getElementById("list_elem_perm");
 		var permutation = permuTag.innerHTML.slice(4, permuTag.innerHTML.length - 5);
-		var pos = permutation.indexOf("<br/>") + 5;
+		var pos = permutation.indexOf("<br>") + 5;
 		permutation = permutation.substr(0, pos - 1) + permutation.charAt(permutation.length-2) +  " " + 
 			permutation.substr(pos-1,permutation.length - 2 - pos) + " ";
 		permuTag.innerHTML = "<li>" + permutation + "</li>";
@@ -254,7 +252,7 @@ var GrpPanel = function () {
 			return;
 		var permuTag = document.getElementById("list_elem_perm");
 		var permutation = permuTag.innerHTML.slice(4, permuTag.innerHTML.length - 5);
-		var pos = permutation.indexOf("<br/>") + 5;
+		var pos = permutation.indexOf("<br>") + 5;
 		var size = Math.floor((permutation.length - pos + 1) / 2);
 
 		var index_begin = pos + 1;

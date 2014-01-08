@@ -2,24 +2,88 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 
 <head>
-<title>Symmetry: Online framework for scientific computations</title>
-<link rel="stylesheet" type="text/css" href="styles.css" />
-<link rel="stylesheet" type="text/css" href="tinybox2/style.css" />
-<script src="poly_command_panel.js" type="text/javascript"></script>
-<script src="vecmat_command_panel.js" type="text/javascript"></script>
-<script src="lineq_command_panel.js" type="text/javascript"></script>
-<script src="toolbox.js" type="text/javascript"></script>
-<script src="tinybox2/tinybox.js" type="text/javascript"></script>
+	<title>Symmetry: Online framework for scientific computations</title>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+	<link rel="stylesheet" type="text/css" href="tinybox2/style.css" />
+	<link type="text/css" rel="StyleSheet" href="slider/slider.css" />
 
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
-</script>
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+	<script type="text/x-mathjax-config">
+	  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+	</script>
+	<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
+
+	<script src="tinybox2/tinybox.js" type="text/javascript"></script>
+	<script type="text/javascript" src="slider/range.js"></script>
+	<script type="text/javascript" src="slider/timer.js"></script>
+	<script type="text/javascript" src="slider/slider.js"></script>
+
+	<script type="text/javascript" src="Chart.js"></script>
+
+	<script src="glMatrix.js" type="text/javascript"></script>
+	<script src="webgl-utils.js" type="text/javascript"></script>
+	<script src="webgl.js" type="text/javascript"></script>
+	<script src="polygon.js" type="text/javascript"></script>
+	<script src="coord_axes.js" type="text/javascript"></script>
+	<script src="lin_eq.js" type="text/javascript"></script>
+	<script src="scene.js" type="text/javascript"></script>
+	<script src="linear_geometry.js" type="text/javascript"></script>
+	<script src="dihedral.js" type="text/javascript"></script>
+	<script src="curve.js" type="text/javascript"></script>
+	<script src="surface.js" type="text/javascript"></script>
+	<script src="plotting.js" type="text/javascript"></script>
+
+
+
+	<script src="poly_command_panel.js" type="text/javascript"></script>
+	<script src="plotting_command_panel.js" type="text/javascript"></script>
+	<script src="vecmat_command_panel.js" type="text/javascript"></script>
+	<script src="lineq_command_panel.js" type="text/javascript"></script>
+	<script src="command_panel.js" type="text/javascript"></script>
+	<script src="toolbox.js" type="text/javascript"></script>
+	
+	<!-- shaders -->
+	<script id="shader-fs" type="x-shader/x-fragment"> 
+		#ifdef GL_ES
+		precision mediump float;
+		#endif
+
+		uniform float uUseTexture;
+		varying vec4 vColor;
+
+		varying vec2 vTextureCoord;
+		uniform sampler2D uSampler;
+
+		void main(void) 
+		{
+			vec4 texColor = texture2D(uSampler, vTextureCoord) * uUseTexture;
+			vec4 vertColor = vColor * (1.0 - uUseTexture);
+			gl_FragColor = texColor + vertColor;
+		}
+	</script> 
+	<script id="shader-vs" type="x-shader/x-vertex"> 
+		attribute vec3 aVertexPosition;
+		attribute vec2 aTextureCoord;
+		attribute vec4 aVertexColor;
+
+		varying vec4 vColor;
+		varying vec2 vTextureCoord;
+
+		uniform mat4 uMVMatrix;
+		uniform mat4 uPMatrix;
+
+		void main(void)
+		{
+			gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition, 1.0);
+			vTextureCoord = aTextureCoord;
+			vColor = aVertexColor;
+		}
+	</script> 
 
 </head>
 
 <body id="body_pres_id" bgcolor="#DCE2E7" onmouseup="ToolBox.hideContextMenu()">
+<input id="session_key_id" type="hidden" name="hidden" value="00"></input>
 
 <a id="back_id" href="/index.html" class="back_button">Go back to computations</a>
 
@@ -42,7 +106,7 @@ Cursor:
 	<select class="boxselect" onchange="ToolBox.onCursorChange(this)">
 		<option selected="selected">Select</option>
 		<option>Insert</option>
-		<option>Move</option>
+		<option>Move & Resize</option>
 	</select>
 </label>
 <hr width="100%">
@@ -74,6 +138,7 @@ Cursor:
 </div>
 
 <div align="center" id="final" style="text-align:center; position: fixed; bottom: 0;">Andrei Milea 2013</div>
+<canvas id ='textCanvas' style="border: 1px solid #aaa; display: none;" width="512" height="64"></canvas>
 </body>
 
 </html>

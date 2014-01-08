@@ -1,4 +1,4 @@
-//command panel  logic for vector and matrix computations
+//command panel  logic for differentiation panel
 var DiffPanel = function () {
 
 	function show() {

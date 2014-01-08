@@ -50,6 +50,8 @@ var PolyPanel = function () {
 				coef_no--;
 			}
 		}
+
+		MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 	}
 
 	function polySelection(select) {
@@ -100,7 +102,7 @@ var PolyPanel = function () {
 	var canvasDiv = document.getElementById("canvas_id");
 		if(canvasDiv.style.display === "block") {
 			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='700' height='700'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
-			WebGlContext.initWebGL();
+			WebGlContext.initWebGL("main_canvas");
 			canvasDiv.style.display = "none";
 		}
 		canvasDiv.style.display = "block";
@@ -127,7 +129,7 @@ var PolyPanel = function () {
 		var main_canvas = document.getElementById("main_canvas");
 		main_canvas.width = 700;
 		main_canvas.height = 700;
-		WebGlContext.initWebGL();
+		WebGlContext.initWebGL("main_canvas");
 		Plotting.clear();
 		Plotting.addAxes(false);
 		Plotting.addCurve(points);

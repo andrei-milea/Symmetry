@@ -11,6 +11,7 @@
 <script type="text/javascript">var switchTo5x=true;</script>
 <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 <script type="text/javascript" src="http://s.sharethis.com/loader.js"></script>
+
 <script type="text/javascript" src="slider/range.js"></script>
 <script type="text/javascript" src="slider/timer.js"></script>
 <script type="text/javascript" src="slider/slider.js"></script>
@@ -94,7 +95,7 @@
 
 </head>
 
-<body id="body_id" onload="WebGlContext.initWebGL()" bgcolor="#DCE2E7">
+<body id="body_id" bgcolor="#DCE2E7">
 <input id="session_key_id" type="hidden" name="hidden" value="00"></input>
 <div id="whole_page_id" class="swholepage">
 <br/>
@@ -369,7 +370,7 @@
 			<div id='grp_div_id' onmouseover="Tooltip.show('generator')" onmouseout="Tooltip.hide()" class="sinput_div_id" style="display: none;">
 				<div id='input_div_contents1_id'>
 				&nbsp;&nbsp;&nbsp;
-				<form action='http://example.com/processform/' onsubmit='return GrpPanel.submit_grp()'>
+				<form action='' onsubmit='return GrpPanel.submit_grp()'>
 				<select id='grptype_sel_id' name='Group Type' onchange=''>
 					<option>Small Permutation Groups</option>
 					<option><del>Large Permutation Groups(not implemented)</del></option>
@@ -402,8 +403,11 @@
 				Generators:<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<select id='generators_id' size='5' style='background: #FBFDFB; width: 200px;'></select>
 				&nbsp;&nbsp;&nbsp;
-				<input type='button' value='Clear' onclick='GrpPanel.clear_generators()' />
-				<input type='submit' value='Submit' /></form>
+				<div>
+					<input type='button' value='Clear' onclick='GrpPanel.clear_generators()' />
+					<input type='submit' value='Submit' />
+				</div>
+				</form>
 				<br/>
 				<div id='added_input_id1' class='saddedinput_div_id' style='text-align:center; display:none;'></div>
 				<br/>
