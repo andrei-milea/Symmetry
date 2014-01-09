@@ -25,7 +25,7 @@ var PlottingPanel = function () {
 		var command_input_str = fct_area.value.trim();
 		var request = "command=GET_FNC_PLOT";
 		if(0 === command_input_str.length) {
-			alert("Please provide the function first.")
+			alert("Please provide the function first.");
 			return;
 		}
 		request += "param=" + command_input_str;
