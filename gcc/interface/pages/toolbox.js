@@ -1,7 +1,3 @@
-//global helper function
-function insertAfter(referenceNode, newNode) {
-	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-}
 
 //toolbox
 var ToolBox = function () {
@@ -24,7 +20,7 @@ var ToolBox = function () {
 		new_div.className = "slide_div";
 		new_div.onclick = ToolBox.showContextMenu;
 		new_div.style.display = "none";
-		insertAfter(document.getElementById("slide_id_1"), new_div);
+		document.getElementById("slides_id").appendChild(new_div);
 	}
 
 	function deleteLastSlide() {
@@ -185,12 +181,10 @@ var ToolBox = function () {
 		var poly_div = document.getElementById("insert_poly_id");
 		var matrix_div = document.getElementById("insert_matrix_id");
 		var lineq_div = document.getElementById("insert_lineq_id");
-		var chart_div = document.getElementById("insert_chart_id");
 		plot_div.style.display = "none";
 		poly_div.style.display = "none";
 		matrix_div.style.display = "none";
 		lineq_div.style.display = "none";
-		chart_div.style.display = "none";
 
 		if(0 === sel.selectedIndex)
 			plot_div.style.display = "block";
@@ -250,8 +244,83 @@ var ToolBox = function () {
 	}
 
 	function addChart(new_div, type, labels, data) {
+		var chart = document.getElementById("chart_select_id");
+		var labels = document.getElementById("chart_labels_id").value.split(",");
+		var datasets = document.getElementById("chart_data_id").value.split(";");
+		var title = document.getElementById("chart_title_id").value;
 		
-		new_div.innerHTML =	<canvas id="" width="400" height="400"></canvas>;
+
+		new_div = document.createElement("div");
+		new_div.style.border = "2px solid #6b727c";
+
+		addedDivzIndex++;
+		var id = "canvas_chart_" + addedDivzIndex.toString();
+		new_div.innerHTML =	"<p style='color: #6b727c;'>" + title +
+							"</p><canvas id='" + id + "' width='200' height='200' class='scanvas'></canvas>";
+	
+		addDraggableDiv(new_div);
+		var ctx = document.getElementById(id).getContext("2d");
+
+		if(chart.selectedIndex == 0) {
+		var legend_div = document.createElement("div");
+			var data = datasets[0].split(",");
+			if(labels.length !== data.length) {
+				alert("For each label a numerical value must be provided in the data field.");
+				return;
+			}
+			legend_div.innerHTML = "Legend: <br/>";
+			legend_div.style.fontSize = "10px";
+			var input = new Array();
+			for(i = 0; i < labels.length; i++) {
+				input[i] = new Object();
+				input[i].value = parseInt(data[i]);
+				input[i].color = CSS_COLORS[i % CSS_COLORS.length];
+				legend_div.innerHTML += "<p style='margin-top:1px; margin-bottom:1px; background: " + CSS_COLORS[i] + ";'>" + labels[i] + "</p>";
+			}
+
+			new_div.appendChild(legend_div);
+			var new_chart = new Chart(ctx).Pie(input);
+		}	
+		else if(chart.selectedIndex == 1) {
+			var input = new Object();
+			input.labels = labels;
+			input.datasets = new Array();
+			for(i = 0; i < datasets.length; i++) {
+				var data = datasets[i].split(",");
+				if(labels.length !== data.length) {
+					alert("For each label a numerical value must be provided in the data field.");
+					return;
+				}
+				input.datasets[i] = new Object();
+				input.datasets[i].fillColor = CSS_COLORS[i % CSS_COLORS.length];
+				input.datasets[i].strokeColor = CSS_COLORS[i % CSS_COLORS.length]; 
+				input.datasets[i].data = new Array();
+				for(j = 0; j < data.length; j++)
+					input.datasets[i].data[j] = data[j];
+			}
+			var new_chart = new Chart(ctx).Bar(input);
+		}
+		else if(chart.selectedIndex == 2) {
+			var input = new Object();
+			input.labels = labels;
+			input.datasets = new Array();
+			for(i = 0; i < datasets.length; i++) {
+				var data = datasets[i].split(",");
+				if(labels.length !== data.length) {
+					alert("For each label a numerical value must be provided in the data field.");
+					return;
+				}
+				input.datasets[i] = new Object();
+				input.datasets[i].fillColor = CSS_COLORS[i % CSS_COLORS.length];
+				input.datasets[i].strokeColor = CSS_COLORS[i % CSS_COLORS.length]; 
+				input.datasets[i].pointColor = CSS_COLORS[i % CSS_COLORS.length]; 
+				input.datasets[i].pointStrokeColor = "#fff"; 
+				input.datasets[i].data = new Array();
+				for(j = 0; j < data.length; j++)
+					input.datasets[i].data[j] = data[j];
+			}
+			var new_chart = new Chart(ctx).Line(input);
+		}
 	}
 
 	function addMathElem() {
@@ -261,6 +330,7 @@ var ToolBox = function () {
 
 		if(0 === sel.selectedIndex) {
 			var canvasDiv = document.createElement("div");
+			addedDivzIndex++;
 			var idNoStr = addedDivzIndex.toString();
 			canvasDiv.setAttribute("id", "canvas_id_" + idNoStr);
 			canvasDiv.style.width = "100%";
@@ -371,15 +441,8 @@ var ToolBox = function () {
 			new_div.innerHTML =	system_str;
 			addDraggableDiv(new_div);
 		}
-		else if(4 === sel.selectedIndex) {
-			var chart = document.getElementById("chart_select_id");
-			var labels = document.getElementById("labels_id");
-			var data = document.getElementById("data_id");
-
-			addChart(new_div, chart.selectedIndex, labels.value, data.value);
-			addDraggableDiv(new_div);
-		}
 	}
+
 	///////////////////////////////////////////////////////////////
 
 	//public methods
@@ -399,6 +462,7 @@ var ToolBox = function () {
 		onElementChange : onElementChange,
 		addTextArea : addTextArea,
 		addParagraph : addParagraph,
+		addChart : addChart,
 		addMathElem : addMathElem
 	};
 }();

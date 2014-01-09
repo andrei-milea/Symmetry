@@ -750,6 +750,9 @@ background: #F8FAFB;
 	content: "\271A";
 }
 .delete:before {
+	content: "-";        
+}
+.delete_current:before {
 	content: "\2718";        
 }
 .save:before {
@@ -763,6 +766,9 @@ background: #F8FAFB;
 }
 .preview:before {
 	content: "\25B6";
+}
+.download:before {
+	content: "\25BC";
 }
 .boxselect {
 	width: 90px;
