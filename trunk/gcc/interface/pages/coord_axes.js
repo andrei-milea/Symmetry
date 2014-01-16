@@ -190,12 +190,12 @@ var CoordAxes = function() {
 
 	function draw(gl) {
 		if(axes_3D)
-			draw3d();
+			draw3d(gl);
 		else
-			draw2d();
+			draw2d(gl);
 	}
 
-	function draw3d() {
+	function draw3d(gl) {
 
 		//rotate to view the z-axes
 		mvPushMatrix();
@@ -223,13 +223,13 @@ var CoordAxes = function() {
 
 		gl.drawArrays(gl.TRIANGLES, 0, 9);
 
-		drawXYZ();
+		drawXYZ(gl);
 
 		//restore the model view matrix
 		mvPopMatrix();
 	}
 
-	function draw2d() {
+	function draw2d(gl) {
 		setMatrixUniforms(gl);
 
 		//prepare position buffer for drawing
@@ -252,7 +252,7 @@ var CoordAxes = function() {
 		gl.drawArrays(gl.TRIANGLES, 0, 6);
 	}
 
-	function drawXYZ() {
+	function drawXYZ(gl) {
 
 		setMatrixUniforms(gl);
 
@@ -305,7 +305,7 @@ var CoordAxes = function() {
 
 	}
 
-	function releaseBuffers() {
+	function releaseBuffers(gl) {
 		gl.deleteBuffer(vertexPositionBuffer);
 		gl.deleteBuffer(arrowPositionBuffer);
 		gl.deleteBuffer(xyzPositionBuffer);

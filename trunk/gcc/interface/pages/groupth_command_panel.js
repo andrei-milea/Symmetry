@@ -178,7 +178,10 @@ var GrpPanel = function () {
 			main_view.style.display = "block";
 			var canvasDiv = document.getElementById("canvas_id");
 			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'></canvas>";
-			WebGlContext.initWebGL("main_canvas");
+
+			var webgl_context = new WebGlContext();
+			webgl_context.initWebGL("main_canvas");
+			DihedralRep.setGlContext(webgl_context);
 
 			if(command === "GET_ELEMENTS") {
 				if(static_vars.group_type === "Dihedral Group")	{

@@ -187,10 +187,13 @@ var LinEqPanel = function () {
 		var canvasDiv = document.getElementById("canvas_id");
 		if(canvasDiv.style.display === "block") {
 			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='700' height='700'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
-			WebGlContext.initWebGL("main_canvas");
 			canvasDiv.style.display = "none";
 		}
 		canvasDiv.style.display = "block";
+
+		var webgl_context = new WebGlContext();
+		webgl_context.initWebGL("main_canvas");
+		LinGeometry.setGlContext(webgl_context);
 
 		var main_canvas = document.getElementById("main_canvas");
 		main_canvas.width = 700;
@@ -225,7 +228,6 @@ var LinEqPanel = function () {
 			LinGeometry.setZoom(s.getValue());
 		}
 
-		WebGlContext.initWebGL("main_canvas");
 		LinGeometry.clear();
 		if(sys_matrix[0].length === 4) {
 			addGeometryRadioB(sys_matrix);

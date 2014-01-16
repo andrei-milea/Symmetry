@@ -1,3 +1,7 @@
+//global helper function
+function insertAfter(referenceNode, newNode) {
+	referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+}
 
 //toolbox
 var ToolBox = function () {
@@ -6,12 +10,17 @@ var ToolBox = function () {
 	var addedDivzIndex = 1;
 	var insertTop = 0;
 	var insertLeft = 0;
+	var slidesOldHtml;
 	var offY = 0;
 	var offX = 0;
+	var startY = 0;
+	var startX = 0;
 	var dragg_width = 0;
 	var dragg_height = 0;
 
 	function addSlide() {
+		PresCmdMng.addCommand(this.addSlide);
+
 		var slideNoTxt = document.getElementById("slide_no_id");
 		slideNo++;
 		slideNoTxt.defaultValue = currentSlide.toString() + "/" + slideNo.toString();
@@ -20,10 +29,12 @@ var ToolBox = function () {
 		new_div.className = "slide_div";
 		new_div.onclick = ToolBox.showContextMenu;
 		new_div.style.display = "none";
-		document.getElementById("slides_id").appendChild(new_div);
+		insertAfter(document.getElementById("slide_id_1"), new_div);
 	}
 
 	function deleteLastSlide() {
+		PresCmdMng.addCommand(this.deleteLastSlide);
+
 		if(slideNo === 1)
 			return;
 
@@ -41,7 +52,46 @@ var ToolBox = function () {
 		slideNoTxt.defaultValue = currentSlide.toString() + "/" + slideNo.toString();
 	}
 
+	function editTitle() {
+		var title_div = document.getElementById("title_id" + currentSlide.toString());
+		if(title_div === undefined || title_div === null) {
+			var new_title = document.createElement("div");
+			new_title.id = "title_id" + currentSlide.toString();
+			new_title.innerHTML = "<div class='title_div'><h1>Edit Slide Title</h1>" +
+				"<input type='text' id='title_input_id' size='50' maxlength='100'/> <br/><br/>" +
+				"<a href='#' class='fwd_button' onclick='ToolBox.setTitle(); TINY.box.hide()'>Set title</a> </div>";
+
+			TINY.box.show({html:new_title.innerHTML, width:650, height:150, closejs:ToolBox.setTitle});
+		}
+		else {
+			var new_title = document.createElement("div");
+			new_title.id = "title_id" + currentSlide.toString();
+			var title_text = document.getElementById("title_txt_id_" + currentSlide.toString()).innerText;
+	
+			new_title.innerHTML = "<div class='title_div'><h1>Edit Slide Title</h1>" +
+				"<input type='text' id='title_input_id' size='50' maxlength='100' value='" + title_text + "' /> <br/><br/>" +
+				"<a href='#' class='fwd_button' onclick='ToolBox.setTitle(); TINY.box.hide()'>Set title</a> </div>";
+			TINY.box.show({html:new_title.innerHTML, width:650, height:150, closejs:ToolBox.setTitle});
+		}
+
+	}
+
+	function setTitle() {
+		var title_div = document.getElementById("title_id" + currentSlide.toString());
+		if(title_div === undefined || title_div === null) {
+			title_div = document.createElement("div");
+			title_div.id = "title_id" + currentSlide.toString();
+			title_div.className = "slide_title";
+		}
+		var title = document.getElementById("title_input_id").value;
+		title_div.innerHTML = "<h1 style='color: white;' id='title_txt_id_" + currentSlide.toString() + "'>" + title + "</h1>";
+		var slide = document.getElementById("slide_id_" + currentSlide.toString());
+		slide.appendChild(title_div);
+	}
+
 	function prevSlide() {
+		PresCmdMng.addCommand(this.prevSlide);
+
 		if(currentSlide === 1)
 			return;
 
@@ -53,6 +103,8 @@ var ToolBox = function () {
 	}
 
 	function nextSlide() {
+		PresCmdMng.addCommand(this.prevSlide);
+
 		if(currentSlide === slideNo)
 			return;
 
@@ -82,17 +134,19 @@ var ToolBox = function () {
 		}
 	}
 
-	function divMove(e){
+	function divMove(e) {
 		var div = e.target;
 		if(div.className !== "draggable") {
 			div = e.target.parentNode;
 			if(div.className !== "draggable")
 				return;
 		}
+
+		PresCmdMng.addCommand(divMove, e);
 		
 		div.style.position = 'absolute';
-		div.style.top = (e.clientY - offY) + 'px';
-		div.style.left = (e.clientX - offX) + 'px';
+		div.style.top = (offY + e.clientY - startY) + 'px';
+		div.style.left = (offX + e.clientX - startX) + 'px';
 	}
 
 	function mouseDown(e){
@@ -102,8 +156,12 @@ var ToolBox = function () {
 			if(div.className !== "draggable")
 				return;
 		}
-		offY = e.clientY - parseInt(div.offsetTop);
-		offX = e.clientX - parseInt(div.offsetLeft);
+
+		startY = e.clientY;
+		startX = e.clientX;
+		offY = parseInt(div.style.top);
+		offX = parseInt(div.style.left);
+
 		window.addEventListener('mousemove', ToolBox.divMove, true);
 
 		dragg_width = div.clientWidth;
@@ -124,14 +182,22 @@ var ToolBox = function () {
 		}
 		if(dragg_width !== div.clientWidth || dragg_height !== div.clientHeight) {
 			if(div.childNodes[0].id.indexOf("canvas_id_") === 0) {
-				div.childNodes[0].childNodes[0].width = Math.min(div.childNodes[0].clientWidth, div.childNodes[0].clientHeight) - 20;
-				div.childNodes[0].childNodes[0].height = div.childNodes[0].childNodes[0].width;
-
-				div.childNodes[0].childNodes[0].clientWidth = div.childNodes[0].childNodes[0].width;
-				div.childNodes[0].childNodes[0].clientHeight = div.childNodes[0].childNodes[0].width;
+				var arg = new Object();
+				arg.id = div.childNodes[0].id;
+				arg.size = Math.min(div.childNodes[0].clientWidth, div.childNodes[0].clientHeight) - 20;
+				resizeCanvas(arg);
+				PresCmdMng.addDrawCommand(resizeCanvas, arg);
 			}
 		}	
 		
+	}
+
+	function resizeCanvas(arg) {
+		var div = document.getElementById(arg.id);
+		div.childNodes[0].width = arg.size;
+		div.childNodes[0].height = arg.size;
+		div.childNodes[0].clientWidth = arg.size;
+		div.childNodes[0].clientHeight = arg.size;
 	}
 
 	function addListeners(){
@@ -152,10 +218,80 @@ var ToolBox = function () {
 		window.removeEventListener('mouseup', ToolBox.mouseUp, false);
 	}
 
-	function preview() {
+	function addTheme() {
+		var math_elems = document.getElementsByClassName("math_elem");
+		for(i = 0; i < math_elems.length; i++) {
+			math_elems[i].style.background = "#E8E8E8";
+		}
+
+		var parag_titles = document.getElementsByClassName("parag_title");
+		for(i = 0; i < parag_titles.length; i++) {
+			parag_titles[i].style.color = "white";
+			parag_titles[i].style.background = "#3333CC";
+		}
+		var parag_texts = document.getElementsByClassName("parag_text");
+		for(i = 0; i < parag_texts.length; i++) {
+			parag_texts[i].style.color = "black";
+			parag_texts[i].style.background = "#E8E8E8";
+		}
+
+		var title_txt = document.getElementById("title_txt_id")
+		if(title_txt !== null && title_txt !== undefined) {
+			title_txt.style.color = "white";
+		}
+
+		var divs = document.getElementsByClassName("draggable");
+		for(i = 0; i < divs.length; i++) {
+			divs[i].style.border = "none";;
+		}
 	}
 
-	function save() {
+	function preview() {
+		var slides_div = document.getElementById("slides_id");
+		slidesOldHtml = slides_div.innerHTML;
+
+		addTheme();
+		var slides = document.getElementsByClassName("slide_div");
+		for(i = 0; i < slides.length; i++) {
+			slides[i].style.marginLeft = "20px";
+			slides[i].style.marginTop = "1px";
+			slides[i].style.border = "1px solid #bbb"
+		}
+		
+		var slidenav = document.getElementById("slidenav_id");
+		slidenav.style.marginLeft = "300px";
+		slidenav.style.marginTop = "585px";
+
+		var slidesHtml =  slides_div.innerHTML;
+		slides_div.innerHTML = "";
+		TINY.box.show({html:slidesHtml, animate:true, width:850, height:610, top:1, maskid:'bluemask', opacity: 80,
+			   	closejs:ToolBox.restoreSlides});
+		setTimeout(PresCmdMng.redoDrawCommands, 800);
+	}
+
+	function restoreSlides() {
+		var slides = document.getElementById("slides_id");
+		slides.innerHTML = slidesOldHtml;
+		setTimeout(PresCmdMng.redoDrawCommands, 500);
+	}
+
+	function submitPresCommand(command) {
+		var slides_div = document.getElementById("slides_id");
+		var pres_name = document.getElementById("pres_name_id").value;
+		if(pres_name.length === 0) {
+			TINY.box.show({html:'Please enter presentation name!',animate:false,close:false,mask:false,
+					boxid:'error',autohide:2,top:-10,left:350})
+				return;
+		}
+		var request = "command=PRESENTATION";
+		request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"), 
+				slides_div.innerHTML.indexOf("<div id=\"slidenav_id\"") - 2);
+		var result = submitCommand(request);
+		if(-1 !== result.indexOf("Error")) {
+			TINY.box.show({html:'Saving Failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
+			return;
+		}
+		TINY.box.show({html:result,animate:false,close:false,mask:false,boxid:'success',autohide:2,top:-14,left:-17})
 	}
 
 	/////////////////context menu functionality//////////////////////
@@ -164,8 +300,8 @@ var ToolBox = function () {
 		if("cell" !== slideDiv.style.cursor)
 			return;
 		var menu = document.getElementById("context_menu_id");
-		insertTop = event.clientY;
-		insertLeft = event.clientX - 50;
+		insertTop = event.clientY - parseInt(slideDiv.offsetTop);
+		insertLeft = event.clientX - 50 - parseInt(slideDiv.offsetLeft);
 		menu.style.top = event.clientY.toString() + "px";
 		menu.style.left = (event.clientX - 50).toString() + "px";
 		menu.style.display = "block";
@@ -211,13 +347,14 @@ var ToolBox = function () {
 
 		var slide = document.getElementById("slide_id_" + currentSlide.toString());
 		new_div.className = "draggable";
-		new_div.style.position = "absolute";
 		new_div.style.top = insertTop.toString() + "px";
 		new_div.style.left = insertLeft.toString() + "px";
 
 		new_div.style.zIndex = addedDivzIndex;
 
 		addedDivzIndex++;
+
+		PresCmdMng.addCommand(slide.appendChild, new_div);
 
 		slide.appendChild(new_div);
 
@@ -232,15 +369,35 @@ var ToolBox = function () {
 
 		new_div = document.createElement("div");
 		h1 = document.createElement("h1");
+		h1.className = "parag_title";
 		txt_div = document.createElement("div");
+		txt_div.className = "parag_text";
 		h1.innerHTML = parag_title;
 		txt_div.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + parag_txt + "</br></br>";
 
-		new_div.style.border = "2px solid #6b727c";
+		new_div.style.border = "2px groove #6b727c";
 
 		new_div.appendChild(h1);
 		new_div.appendChild(txt_div);
 		addDraggableDiv(new_div);
+	}
+
+	function insertChart(arg) {
+		if(arg.type == 0) {
+			var ctx = document.getElementById(arg.id).getContext("2d");
+			var new_chart = new Chart(ctx);
+			new_chart.Pie(arg.data);
+		}
+		else if(arg.type == 1) {
+			var ctx = document.getElementById(arg.id).getContext("2d");
+			var new_chart = new Chart(ctx);
+			new_chart.Bar(arg.data);
+		}
+		else if(arg.type == 2) {
+			var ctx = document.getElementById(arg.id).getContext("2d");
+			var new_chart = new Chart(ctx);
+			new_chart.Line(arg.data);
+		}
 	}
 
 	function addChart(new_div, type, labels, data) {
@@ -251,18 +408,16 @@ var ToolBox = function () {
 		
 
 		new_div = document.createElement("div");
-		new_div.style.border = "2px solid #6b727c";
+		new_div.style.border = "2px groove #6b727c";
 
 		addedDivzIndex++;
 		var id = "canvas_chart_" + addedDivzIndex.toString();
 		new_div.innerHTML =	"<p style='color: #6b727c;'>" + title +
 							"</p><canvas id='" + id + "' width='200' height='200' class='scanvas'></canvas>";
-	
-		addDraggableDiv(new_div);
-		var ctx = document.getElementById(id).getContext("2d");
 
 		if(chart.selectedIndex == 0) {
-		var legend_div = document.createElement("div");
+			var legend_div = document.createElement("div");
+			legend_div.style.width = "200px";
 			var data = datasets[0].split(",");
 			if(labels.length !== data.length) {
 				alert("For each label a numerical value must be provided in the data field.");
@@ -279,7 +434,12 @@ var ToolBox = function () {
 			}
 
 			new_div.appendChild(legend_div);
-			var new_chart = new Chart(ctx).Pie(input);
+
+			addDraggableDiv(new_div);
+			var arg = new Object();
+			arg.type = 0;	arg.id = id; arg.data = input;
+			insertChart(arg);
+			PresCmdMng.addDrawCommand(insertChart, arg);
 		}	
 		else if(chart.selectedIndex == 1) {
 			var input = new Object();
@@ -298,7 +458,12 @@ var ToolBox = function () {
 				for(j = 0; j < data.length; j++)
 					input.datasets[i].data[j] = data[j];
 			}
-			var new_chart = new Chart(ctx).Bar(input);
+			
+			addDraggableDiv(new_div);
+			var arg = new Object();
+			arg.type = 1;	arg.id = id; arg.data = input;
+			insertChart(arg);
+			PresCmdMng.addDrawCommand(insertChart, arg);
 		}
 		else if(chart.selectedIndex == 2) {
 			var input = new Object();
@@ -319,14 +484,20 @@ var ToolBox = function () {
 				for(j = 0; j < data.length; j++)
 					input.datasets[i].data[j] = data[j];
 			}
-			var new_chart = new Chart(ctx).Line(input);
+
+			addDraggableDiv(new_div);
+			var arg = new Object();
+			arg.type = 2;	arg.id = id; arg.data = input;
+			insertChart(arg);
+			PresCmdMng.addDrawCommand(insertChart, arg);
 		}
 	}
 
 	function addMathElem() {
 		var sel = document.getElementById("paragraph_select_id");
 		new_div = document.createElement("div");
-		new_div.style.border = "2px solid #6b727c";
+		new_div.className = "math_elem";
+		new_div.style.border = "2px groove #6b727c";
 
 		if(0 === sel.selectedIndex) {
 			var canvasDiv = document.createElement("div");
@@ -337,7 +508,27 @@ var ToolBox = function () {
 			canvasDiv.style.height = "100%";
 			new_div.appendChild(canvasDiv);
 			addDraggableDiv(new_div);
-			PlottingPanel.submitFct("canvas_id_" + idNoStr, "main_canvas_" + idNoStr);
+
+			var fct_area = document.getElementById("fct_area_id");
+			var command_input_str = fct_area.value.trim();
+			var request = "command=GET_FNC_PLOT";
+			if(0 === command_input_str.length) {
+				alert("Please provide the function first.");
+				return;
+			}
+			request += "param=" + command_input_str;
+			var result = submitCommand(request);
+			if(-1 !== result.indexOf("Error")) {
+				alert("error : " + result);
+				return;
+			}
+
+			var arg = new Object();
+			arg.points_str = result.substr(6);
+			arg.div_id = "canvas_id_" + idNoStr;
+			arg.canvas_id = "main_canvas_" + idNoStr;
+			PlottingPanel.addPlot(arg);
+			PresCmdMng.addDrawCommand(PlottingPanel.addPlot, arg);
 		}
 		else if(1 === sel.selectedIndex) {
 			var _tex_input_str = "$p(x) = ";
@@ -449,8 +640,11 @@ var ToolBox = function () {
 	return {
 		addSlide : addSlide,
 		deleteLastSlide : deleteLastSlide,
+		editTitle : editTitle,
+		setTitle : setTitle,
 		preview : preview,
-		save : save,
+		submitPresCommand : submitPresCommand,
+		restoreSlides : restoreSlides,
 		prevSlide : prevSlide,
 		nextSlide : nextSlide,
 		onCursorChange : onCursorChange,
@@ -462,6 +656,7 @@ var ToolBox = function () {
 		onElementChange : onElementChange,
 		addTextArea : addTextArea,
 		addParagraph : addParagraph,
+		insertChart : insertChart,
 		addChart : addChart,
 		addMathElem : addMathElem
 	};

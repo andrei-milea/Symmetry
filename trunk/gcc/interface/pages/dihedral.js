@@ -2,13 +2,19 @@ var DihedralRep = function() {
 	var _scene = null;
 	var _polygon = null;
 
+	var webgl_context;
+	
+	function setGlContext(context) {
+		webgl_context = context;
+	}
+
 	function startAnim(size) {
 		if(_scene !== null) {
 			_scene.clearScene();
 		}
 		_scene = new Scene();
 		_polygon = new Polygon();
-		_scene.setGl(WebGlContext.getGl());
+		_scene.setGl(webgl_context.getGl());
 		addPolygonToScene(size);
 		_scene.anim_loop();
 	}	
@@ -88,7 +94,8 @@ var DihedralRep = function() {
 		startAnim : startAnim,
 		rotatePolygon : rotatePolygon,
 		reflectPolygon : reflectPolygon,
-		isPendingMove : isPendingMove
+		isPendingMove : isPendingMove,
+		setGlContext : setGlContext
 	}
 }();
 

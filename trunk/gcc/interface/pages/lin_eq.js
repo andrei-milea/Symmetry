@@ -99,12 +99,12 @@ var LinEq = function() {
 
 	function draw(gl) {
 		if(isPlane)
-			draw3d();
+			draw3d(gl);
 		else
-			draw2d();
+			draw2d(gl);
 	}
 
-	function draw3d() {
+	function draw3d(gl) {
 		//rotate to view the z-axes
 		mvPushMatrix();
 		mat4.rotate(mvMatrix, degToRad(30), [1, 0, 0]);
@@ -142,7 +142,7 @@ var LinEq = function() {
 		mvPopMatrix();
 	}
 
-	function draw2d() {
+	function draw2d(gl) {
 		setMatrixUniforms(gl);
 
 		//prepare position buffer for drawing
@@ -170,7 +170,7 @@ var LinEq = function() {
 		gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), gl.STATIC_DRAW);
 	}
 
-	function releaseBuffers() {
+	function releaseBuffers(gl) {
 		gl.deleteBuffer(vertexPositionBuffer);
 	}
 

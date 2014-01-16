@@ -63,8 +63,18 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 		if(false == _request.ParseRequest())
 		{
 			std::string request_str;
-			is>>request_str;
-			throw std::runtime_error(CONTEXT_STR + "failed to parse request :" + request_str);
+			is >> request_str;
+
+			cLogger log(LOG_SEV_INFO);
+			log << CONTEXT_STR + "failed to parse request :" + request_str;
+
+			cResponse response(m_ResponseBuf);
+			response.BuildResponse(OK, std::string("Error: ") + "invalid request", "text/plain");
+
+			boost::asio::async_write(m_Socket, m_ResponseBuf,
+									 boost::bind(&cHttpConnection::HandleWriteResponse, shared_from_this(),
+									 boost::asio::placeholders::error));
+			return;
 		}
 		m_HttpVersion = (_request.GetVersion() == HTTP_VER1)? 1 : 0;
 		switch(_request.GetMethod())
@@ -137,7 +147,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 				}
 				else
 				{
-					response.BuildResponse(NOT_FOUND, "", "text/plain");
+					response.BuildResponse(NOT_FOUND, "invalid request: no session id", "text/plain");
 				}
 
 				boost::asio::async_write(m_Socket, m_ResponseBuf,
@@ -204,7 +214,7 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 	{
 		cLogger log(LOG_SEV_INFO);
 		log<< e.what();
-		response.BuildResponse(OK, e.what(), "text/plain");
+		response.BuildResponse(OK, std::string("Error: ") + e.what(), "text/plain");
 	}
 }
 
