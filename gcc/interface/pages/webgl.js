@@ -137,10 +137,8 @@ var WebGlContext = function() {
     function initWebGL(canvas_id) {
         var canvas = document.getElementById(canvas_id);
 		//clear previous scenes
-		if(gl !== null && gl.scenes !== null) {
-		for(i = 0; i < gl.scenes.length; i++)
-			gl.scenes[i].clearScene();
-		}
+		if(gl !== null && gl.scene !== null)
+			gl.scene.clearScene();
 
         try {
 			gl = WebGLUtils.setupWebGL(canvas);
@@ -155,7 +153,6 @@ var WebGlContext = function() {
 				buildFontTexture();
 				buildBlackTexture();
 				gl.ShaderProgram = shaderProgram;
-				gl.scenes = new Array();
 			}
          }
         catch(e) {
@@ -172,4 +169,4 @@ var WebGlContext = function() {
 		getGl : getGl
 	};
 
-}();
+};

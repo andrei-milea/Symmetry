@@ -51,6 +51,7 @@ struct command_: symbols<char, short>
 	command_()
 	{
 		add
+		("PRESENTATION", PRESENTATION)
 		("GET_ELEMENTS", GET_ELEMENTS)
 		("GET_CENTER", GET_CENTER)
 		("GET_CGRAPH", GET_CGRAPH)

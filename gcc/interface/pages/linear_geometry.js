@@ -3,6 +3,12 @@ var LinGeometry = function() {
 	var _axes = null;
 	var _linear_equations = [];
 	var _is3d;
+	var webgl_context;
+
+	
+	function setGlContext(context) {
+		webgl_context = context;
+	}
 
 	function clear() {
 		if(_scene !== null) {
@@ -25,7 +31,7 @@ var LinGeometry = function() {
 		_is3d = is3d;
 
 
-		_scene.setGl(WebGlContext.getGl());
+		_scene.setGl(webgl_context.getGl());
 		_scene.addModel(_axes);
 		_scene.setZoom(-16);
 		_scene.anim_loop();
@@ -68,6 +74,7 @@ var LinGeometry = function() {
 	}
 
 	return {
+		setGlContext : setGlContext,
 		highlightEquation : highlightEquation,
 		add2DEquation : add2DEquation,
 		add3DEquation : add3DEquation,

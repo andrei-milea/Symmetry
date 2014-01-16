@@ -171,7 +171,7 @@ var Polygon = function() {
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(blacktextureCoords), gl.STATIC_DRAW);
 	}
 
-	function releaseBuffers() {
+	function releaseBuffers(gl) {
 		gl.deleteBuffer(vertexPositionBuffer);
 		gl.deleteBuffer(vertexTextureBuffer);
 		gl.deleteBuffer(blackTextureBuffer);

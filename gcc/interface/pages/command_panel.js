@@ -227,7 +227,6 @@ var MainMenu = function () {
 		var canvasDiv = document.getElementById("canvas_id");
 		if(canvasDiv.style.display === "block") {
 			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
-			WebGlContext.initWebGL("main_canvas");
 			canvasDiv.style.display = "none";
 		}
 	}

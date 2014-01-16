@@ -3,6 +3,13 @@ var Plotting = function() {
 	var _axes = null;
 	var _points = [];
 	var _is3d;
+	var webgl_context;
+
+	var prev_mouse_pt = [];
+
+	function setGlContext(context) {
+		webgl_context = context;
+	}
 
 	function clear() {
 		_points = [];
@@ -24,9 +31,13 @@ var Plotting = function() {
 		}
 		_is3d = is3d;
 
-		_scene.setGl(WebGlContext.getGl());
+		_scene.setGl(webgl_context.getGl());
 		_scene.addModel(_axes);
 		_scene.anim_loop();
+
+		//initialize mouse position
+		prev_mouse_pt[0] = 0;
+		prev_mouse_pt[1] = 0;
 	}
 
 	function toggleCameraRotation() {
@@ -59,11 +70,26 @@ var Plotting = function() {
 		_scene.addModel(surface);
 	}
 
+	function trackmouse(evt) {
+		if(evt.which == 1) {
+			//compute rotation axis
+			var main_canvas = evt.target;
+			var vec = vec3.create();
+			vec[0] = - (prev_mouse_pt[1] - (evt.clientY / main_canvas.clientHeight));
+			vec[1] = - (prev_mouse_pt[0] - (evt.clientX / main_canvas.clientWidth));
+			vec[2] = 0;
+			prev_mouse_pt[0] = (evt.clientX / main_canvas.clientWidth);
+			prev_mouse_pt[1] = (evt.clientY / main_canvas.clientHeight);
+			rotateScene(vec, vec3.length(vec));
+		}
+	}
+
 
 	function highlightPlot(no) {
 	}
 
 	return {
+		setGlContext : setGlContext,
 		highlightPlot : highlightPlot,
 		addCurve : addCurve,
 		addSurface : addSurface,
@@ -71,7 +97,8 @@ var Plotting = function() {
 		clear : clear,
 		toggleCameraRotation : toggleCameraRotation,
 		rotateScene : rotateScene,
-		setZoom : setZoom
+		setZoom : setZoom,
+		trackmouse : trackmouse
 	}
-}();
+};
 

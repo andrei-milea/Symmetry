@@ -14,6 +14,7 @@ namespace engine
 enum COMMAND_TYPE
 {
     NULL_COMMAND = 0,
+	PRESENTATION,
     GET_ELEMENTS,
     GET_CENTER,
     GET_CGRAPH,

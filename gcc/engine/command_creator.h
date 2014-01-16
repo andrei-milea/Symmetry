@@ -18,6 +18,7 @@
 #include "getpolyplot_command.h"
 #include "getfuncplot_command.h"
 #include "getfuncdiff_command.h"
+#include "pres_command.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -32,8 +33,12 @@ class cCommandCreator
 public:
 	static cCommand *GetCommand(COMMAND_TYPE command, const std::string& param)
 	{
-		cCommand *pcommand;
-		if(command <= GET_RELATIONS)	//is group command
+		cCommand *pcommand = nullptr;
+		if(command == PRESENTATION)
+		{
+			pcommand = new cPresCommand(param);
+		}
+		else if(command <= GET_RELATIONS)	//is group command
 		{
 			cParamGrpGenParser GenParamParser(param);
 			GenParamParser.ParseParams();

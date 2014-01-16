@@ -41,6 +41,7 @@
 	<script src="vecmat_command_panel.js" type="text/javascript"></script>
 	<script src="lineq_command_panel.js" type="text/javascript"></script>
 	<script src="command_panel.js" type="text/javascript"></script>
+	<script src="pres_cmd_mng.js" type="text/javascript"></script>
 	<script src="toolbox.js" type="text/javascript"></script>
 	
 	<!-- shaders -->
@@ -90,17 +91,17 @@
 
 <fieldset class='toolbox'>
 <a href="#" class="toolbox_button add" onclick="ToolBox.addSlide()">Add New Slide</a>
-<a href="#" class="toolbox_button delete" onclick="ToolBox.deleteLastSlide()">Remove Last Slide</a>
+<a href="#" class="toolbox_button copy" onclick="ToolBox.addSlide()">Duplicate Slide</a>
 <a href="#" class="toolbox_button delete_current" onclick="ToolBox.deleteLastSlide()">Delete Slide</a>
+<a href="#" class="toolbox_button delete" onclick="ToolBox.deleteLastSlide()">Remove Last Slide</a>
 <hr width="100%">
 Theme:
 <label class="boxlabel">
 	<select class="boxselect">
-		<option selected="selected">Theme1</option>
-		<option>Theme2</option>
+		<option selected="selected">Berlin</option>
 	</select>
 </label>
-Visualization:
+Transition:
 <label class="boxlabel">
 	<select class="boxselect">
 		<option selected="selected">Simple</option>
@@ -108,9 +109,12 @@ Visualization:
 		<option>Universe(3d accelerated)</option>
 	</select>
 </label>
-<a href="" class="toolbox_button preview">Preview</a>
-<a href="" class="toolbox_button save">Save</a>
-<a href="" class="toolbox_button download">Download as PDF</a>
+<a href="#" onclick="ToolBox.preview()" class="toolbox_button preview">Play</a>
+<a href="#" onclick="ToolBox.preview()" class="toolbox_button slideshow">Slide Show</a>
+<a href="#" onclick="ToolBox.submitPresCommand('save')" class="toolbox_button save">Save</a>
+<br/>
+Name: <input type="text" id='pres_name_id' size="18"></input>
+<a href="#" class="toolbox_button download">Download as PDF</a>
 <hr width="100%">
 Cursor:
 <label class="boxlabel">
@@ -120,20 +124,35 @@ Cursor:
 		<option>Move & Resize</option>
 	</select>
 </label>
+<a href="#" onclick="ToolBox.editTitle()" class="toolbox_button title">Slide Title...</a>
+<a href="#" onclick="" class="toolbox_button pagesz">Slide Size</a>
 <hr width="100%">
 <a href="#" class="toolbox_button undo">Undo</a>
 <a href="#" class="toolbox_button redo">Redo</a>
 </fieldset>
+
 <div id = "slides_id">
 	<div id="slide_id_1" class="slide_div" onclick="ToolBox.showContextMenu(event)">
 	</div>
+	<div id="slidenav_id" class="slidenav">
+		<a href="#" onclick="ToolBox.prevSlide()">&#171;&nbsp;Previous</a>
+		<input readonly type="text" id='slide_no_id' size="3" value="1/1"></input>
+		<a href="#" onclick="ToolBox.nextSlide()">Next&nbsp;&#187;</a>
+	</div>
 </div>
+
 <div id="context_menu_id" class="context_menu">
 	<ul class="list" data-header="Insert">
 	
 		<li id="text" onclick="ToolBox.addTextArea()">Text Area</li>
 
 		<li id="paragraph" onclick="TINY.box.show({url:'paragraph.html',width:600,height:380})">Paragraph</li>
+
+		<li id="bullets" onclick="ToolBox.cmenuSelection(this.id)">Bullets</li>
+
+		<li id="image" onclick="ToolBox.cmenuSelection(this.id)">Image</li>
+
+		<li id="code_box" onclick="ToolBox.cmenuSelection(this.id)">Code Box</li>
 		
 		<li id="math" onclick="TINY.box.show({url:'math_elem.html',width:600,height:380})">Math Element</li>
 
@@ -144,11 +163,15 @@ Cursor:
 		<li id="simulation" onclick="ToolBox.cmenuSelection(this.id)">Simulation</li>
 	</ul>
 </div>
-<div class="slidenav">
-	<a href="#" onclick="ToolBox.prevSlide()">&#171;&nbsp;Previous</a>
-	<input readonly type="text" id='slide_no_id' size="3" value="1/1"></input>
-	<a href="#" onclick="ToolBox.nextSlide()">Next&nbsp;&#187;</a>
-</div>
+
+<div class="right_menu">
+	<br/><br/><br/><br/>
+	<li><a href='#' onclick="window.location.reload()"><span>Create new</span></a></li>
+	<li><a href='#'><span>Open</span></a></li>
+	<li><a href='#'><span>Upload ...</span></a></li>
+	<li><a href='#'><span>Help</span></a></li>
+	<br/><br/><br/><br/>
+</div> 
 
 <div align="center" id="final" style="text-align:center; position: fixed; bottom: 0;">Andrei Milea 2013</div>
 <canvas id ='textCanvas' style="border: 1px solid #aaa; display: none;" width="512" height="64"></canvas>

@@ -1,122 +1,112 @@
 var Scene = function() {
-	var scene_graph = new Array();
-	var animLastTime = 0;
-	var mvMatrix = mat4.create();
-	var pMatrix = mat4.create();
+	this.scene_graph = new Array();
+	this.animLastTime = 0;
+	this.mvMatrix = mat4.create();
+	this.pMatrix = mat4.create();
+	this.gl = null;
 
-	var rotate = false;
-	var angle = 0.0;
-	var rotationSpeed = 10;
+	this.rotate = false;
+	this.angle = 0.0;
+	this.rotationSpeed = 10;
 
-	var zdist = -9.0;
+	this.zdist = -9.0;
 
-	function setDefaultCamera() {
-		mat4.perspective(45, 1, 0.1, 100.0, pMatrix);
-		mat4.identity(mvMatrix);
-		mat4.translate(mvMatrix, [0.0, 0.0, zdist]);
+	this.setDefaultCamera = function() {
+		mat4.perspective(45, 1, 0.1, 100.0, this.pMatrix);
+		mat4.identity(this.mvMatrix);
+		mat4.translate(this.mvMatrix, [0.0, 0.0, this.zdist]);
 	}
 
-	function toggleCameraRotation() {
-		if(rotate === true)
-			stopCameraRotation();
+	this.toggleCameraRotation = function() {
+		if(this.rotate === true)
+			this.stopCameraRotation();
 		else
-			rotateCamera();
+			this.rotateCamera();
 	}
 
-	function rotateScene(direction, length) {
-		mat4.rotate(mvMatrix, degToRad(1), direction);
+	this.rotateScene = function(direction, length) {
+		mat4.rotate(this.mvMatrix, this.degToRad(1), direction);
 	}
 
-	function rotateCamera() {
-		rotate = true;	
+	this.rotateCamera = function() {
+		this.rotate = true;	
 	}
 
-	function setZoom(zoom) {
-		zdist = zoom;
+	this.setZoom = function(zoom) {
+		this.zdist = zoom;
 		var newMatrix = mat4.create();
 		mat4.identity(newMatrix);
-		mat4.translate(newMatrix, [0.0, 0.0, zdist]);
-		mvMatrix[12] = newMatrix[12];
-		mvMatrix[13] = newMatrix[13];
-		mvMatrix[14] = newMatrix[14];
-		mvMatrix[15] = newMatrix[15];
+		mat4.translate(newMatrix, [0.0, 0.0, this.zdist]);
+		this.mvMatrix[12] = newMatrix[12];
+		this.mvMatrix[13] = newMatrix[13];
+		this.mvMatrix[14] = newMatrix[14];
+		this.mvMatrix[15] = newMatrix[15];
 	}
 
-	function stopCameraRotation() {
-		rotate = false;	
+	this.stopCameraRotation = function() {
+		this.rotate = false;	
 	}
 
-	function initViewport() {
-		gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-		gl.clearColor(242, 242, 242, 250);
+	this.initViewport = function() {
+		this.gl.viewport(0, 0, this.gl.drawingBufferWidth, this.gl.drawingBufferHeight);
+		this.gl.clearColor(242, 242, 242, 250);
 	}
 
-	function setGl(_gl) {
-		gl = _gl;
-		gl.scenes.push(this);
+	this.setGl = function(_gl) {
+		this.gl = _gl;
+		this.gl.scene = this;
 	}
 
-	function addModel(model) {
-		model.initBuffers(gl);
-		scene_graph.push(model);
-		setDefaultCamera();
+	this.addModel = function(model) {
+		model.initBuffers(this.gl);
+		this.scene_graph.push(model);
+		this.setDefaultCamera();
 	}
 
-	function clearScene() {
-		cancelRequestAnimFrame(anim_loop);
-		for(var obj in scene_graph)
-			scene_graph[obj].releaseBuffers();
-		scene_graph = [];
-		setDefaultCamera();
+	this.clearScene = function() {
+		cancelRequestAnimFrame(this.anim_loop);
+		for(var obj in this.scene_graph)
+			this.scene_graph[obj].releaseBuffers(this.gl);
+		this.scene_graph = [];
+		this.setDefaultCamera();
 	}
 
-	function drawScene() {
-		initViewport();
-		for(var obj in scene_graph)	{
-			scene_graph[obj].setCamera(mvMatrix, pMatrix);
-			scene_graph[obj].draw(gl);
+	this.drawScene = function() {
+		this.initViewport();
+		for(var obj in this.scene_graph)	{
+			this.scene_graph[obj].setCamera(this.mvMatrix, this.pMatrix);
+			this.scene_graph[obj].draw(this.gl);
 		}
 	}
 
-	function degToRad(degrees) {
+	this.degToRad = function(degrees) {
 		return degrees * Math.PI / 180;
 	}
 
-	function animateScene() {
+	this.animateScene = function() {
 
 		var timeNow = new Date().getTime();
-		if (animLastTime != 0) {
-			var elapsed = timeNow - animLastTime;
-			for(var obj in scene_graph) {
-				scene_graph[obj].animate(elapsed);
+		if (this.animLastTime != 0) {
+			var elapsed = timeNow - this.animLastTime;
+			for(var obj in this.scene_graph) {
+				this.scene_graph[obj].animate(elapsed);
 			}
 
-			if(rotate === true) {
-				setDefaultCamera();
-				angle += rotationSpeed * elapsed / 1000.0;
-				if(angle > 360.0)
-					angle = 0.0
-				mat4.rotate(mvMatrix, degToRad(angle), [0, 1, 0]);
+			if(this.rotate === true) {
+				this.setDefaultCamera();
+				this.angle += this.rotationSpeed * elapsed / 1000.0;
+				if(this.angle > 360.0)
+					this.angle = 0.0
+				mat4.rotate(this.mvMatrix, this.degToRad(angle), [0, 1, 0]);
 			}
 		}
-		animLastTime = timeNow;
+		this.animLastTime = timeNow;
 	}
 
-	function anim_loop() {
-		requestAnimFrame(anim_loop);
-		drawScene();
-		animateScene();
+	this.anim_loop = function() {
+		requestAnimFrame(this.anim_loop.bind(this));
+		this.drawScene();
+		this.animateScene();
 	}
-	
-	return {
-		addModel : addModel,
-		anim_loop : anim_loop,
-		setGl : setGl,
-		clearScene : clearScene,
-		rotateCamera : rotateCamera,
-		rotateScene : rotateScene,
-		toggleCameraRotation : toggleCameraRotation,
-		setZoom : setZoom
-	}
+}
 
-};

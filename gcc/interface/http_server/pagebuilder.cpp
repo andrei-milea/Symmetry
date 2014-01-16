@@ -13,6 +13,7 @@
 #include "../../engine/getpolyplot_command.h"
 #include "../../engine/getfuncplot_command.h"
 #include "../../engine/getfuncdiff_command.h"
+#include "../../engine/pres_command.h"
 #include <cassert>
 #include "../../lib/std_ex.h"
 #include <sstream>
@@ -136,7 +137,7 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	std::stringstream ss;
 	ss.precision(std::numeric_limits<double>::digits10);
 
-	//TODO --  change this
+	//TODO --  change this: move result processing in each command
 	boost::shared_ptr<cGetCGraphCommand> command_cgraph = boost::dynamic_pointer_cast<cGetCGraphCommand>(pCommand);
 	boost::shared_ptr<cGroupGenCommand> command_groupgen = boost::dynamic_pointer_cast<cGroupGenCommand>(pCommand);
 	boost::shared_ptr<cGetRelCommand> command_rel = boost::dynamic_pointer_cast<cGetRelCommand>(pCommand);
@@ -150,8 +151,13 @@ const std::string &cPageBuilder::GetPage(boost::shared_ptr<cCommand> pCommand, c
 	boost::shared_ptr<cGetPolyPlotCommand> command_polyplot = boost::dynamic_pointer_cast<cGetPolyPlotCommand>(pCommand);
 	boost::shared_ptr<cGetFuncPlotCommand> command_funcplot = boost::dynamic_pointer_cast<cGetFuncPlotCommand>(pCommand);
 	boost::shared_ptr<cGetFuncDiffCommand> command_funcdiff = boost::dynamic_pointer_cast<cGetFuncDiffCommand>(pCommand);
+	boost::shared_ptr<cPresCommand> command_pres = boost::dynamic_pointer_cast<cPresCommand>(pCommand);
 
-	if(command_rref || command_lineq)
+	if(command_pres)
+	{
+		m_ResultStr = command_pres->GetResult();
+	}
+	else if(command_rref || command_lineq)
 	{
 		boost::numeric::ublas::matrix<double> mat;
 		mat = (command_rref ? command_rref->GetResult() : command_lineq->GetResult());

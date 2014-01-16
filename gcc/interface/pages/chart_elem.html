@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+
+<head>
+	<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+
+<body style="background-color:#DCE2E7">
+<div class="paragraph">
+	<h1>Chart</h1>
+	<div id='insert_chart_id' class="sinsert_div">
+		<br/>
+		Chart Type: &nbsp;&nbsp;&nbsp;
+		<select id='chart_select_id' name='Select chart type'>
+			<option>Pie chart</option>
+			<option>Bar chart</option>
+			<option>Line chart</option>
+		</select>
+		<br/>
+		<br/>
+		Title: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='chart_title_id' size='50' maxlength='500' value='US Political Parties' /> 
+		<br/>
+		<br/>
+		Labels: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='chart_labels_id' size='50' maxlength='500' value='Democrat, Republican, Liberal, Other' />
+		<br/>
+		<br/>
+		Datasets: &nbsp;&nbsp;&nbsp;
+		<input type='text' id='chart_data_id' size='50' maxlength='500' value='60,35,3,2' />
+		<br/>
+		<br/>
+		<div style="color: #6b727c;">
+			Labels and numerical values must be comma-separated, while multiple datasets
+			must be separated by a semicolon. Follow the syntax provided in the example input.
+		</div>
+		<br/>
+	</div>
+
+	<br/>
+
+	<a id="done_button_id" href="#" class="fwd_button" onclick="ToolBox.addChart(); TINY.box.hide()">Insert element</a>
+</div>
+
+</body>
+</html>
+
