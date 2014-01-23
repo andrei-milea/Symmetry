@@ -276,22 +276,35 @@ var ToolBox = function () {
 	}
 
 	function submitPresCommand(command) {
-		var slides_div = document.getElementById("slides_id");
-		var pres_name = document.getElementById("pres_name_id").value;
-		if(pres_name.length === 0) {
-			TINY.box.show({html:'Please enter presentation name!',animate:false,close:false,mask:false,
-					boxid:'error',autohide:2,top:-10,left:350})
+		if(command === "save") {
+			var slides_div = document.getElementById("slides_id");
+			var pres_name = document.getElementById("pres_name_id").value;
+			if(pres_name.length === 0) {
+				TINY.box.show({html:'Please enter presentation name!',animate:false,close:false,mask:false,
+						boxid:'error',autohide:2,top:-10,left:350});
+					return;
+			}
+			var request = "command=PRESENTATION";
+			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"), 
+					slides_div.innerHTML.indexOf("<div id=\"slidenav_id\"") - 2);
+			var result = submitCommand(request);
+			if(-1 !== result.indexOf("Error")) {
+				TINY.box.show({html:'Saving Failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
 				return;
+			}
+			TINY.box.show({html:result,animate:false,close:false,mask:false,boxid:'success',autohide:2,top:-14,left:-17});
 		}
-		var request = "command=PRESENTATION";
-		request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"), 
-				slides_div.innerHTML.indexOf("<div id=\"slidenav_id\"") - 2);
-		var result = submitCommand(request);
-		if(-1 !== result.indexOf("Error")) {
-			TINY.box.show({html:'Saving Failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
-			return;
+		else if(command === "dir") {
+			var request = "command=PRESENTATION";
+			request += "param=" + command; 
+			var result = submitCommand(request);
+			if(-1 !== result.indexOf("Error")) {
+				TINY.box.show({html:'Loading presentation list failed!',
+						animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350});
+				return;
+			}
+			TINY.box.show({html:result, boxid:'frameless', width:500, height:600});
 		}
-		TINY.box.show({html:result,animate:false,close:false,mask:false,boxid:'success',autohide:2,top:-14,left:-17})
 	}
 
 	/////////////////context menu functionality//////////////////////
