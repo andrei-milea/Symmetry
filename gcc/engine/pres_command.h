@@ -25,6 +25,15 @@ public:
 	}
 
 private:
+	void Dir();
+	void Save();
+	void Load();
+
+	void createSlidesImgs()const;
+
+
+
+private:
 	std::string m_Result;
 	std::string m_PresName;
 	std::string m_PresCommand;
