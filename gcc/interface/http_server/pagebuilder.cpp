@@ -32,10 +32,10 @@ namespace fs = boost::filesystem;
 
 using namespace engine;
 
-cPageBuilder *cPageBuilder::s_Instance = NULL;
+cPageBuilder *cPageBuilder::s_Instance = nullptr;
 std::string cPageBuilder::s_ResError = "Resource not available";
-std::string cPageBuilder::s_WebPagesPath = "../pages";
-std::string cPageBuilder::s_PresentationsPath = "../presentations";
+std::string cPageBuilder::s_WebPagesPath = "";
+std::string cPageBuilder::s_PresentationsPath = "";
 
 
 //macro for inserting HTML directly in C++
@@ -82,7 +82,7 @@ void cPageBuilder::LoadWebPages(const std::string &path)
 			file.open(dir_iter->path().string(), std::ios::binary);
 			std::string dir_path = dir_iter->path().string();
 			std::string file_path = "/" + dir_path.substr(dir_path.find("pages/") + 6);
-			m_Resources[file_path].assign(std::istreambuf_iterator<char>(file),
+			m_Resources[file_path].assign((std::istreambuf_iterator<char>(file)),
 				   	std::istreambuf_iterator<char>());
 		}
 	}
