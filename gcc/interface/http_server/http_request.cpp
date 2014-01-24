@@ -95,7 +95,7 @@ bool cRequest::ParseRequest()
 	                   >>' '
 	                   >>(+~boost::spirit::ascii::char_('\r'))
 	                   >>lit(CRLF)
-	                   >>(*(boost::spirit::ascii::char_)))
+	                   >>(*(boost::spirit::unicode::char_)))
 	               //////
 	               ,
 	               method_,
@@ -104,39 +104,45 @@ bool cRequest::ParseRequest()
 	               m_Headers
 	              );
 	m_Method = (REQ_METHOD)method_;
+	if(m_Fwd_begin != m_Fwd_end)
+		throw std::runtime_error(CONTEXT_STR + " Failed to parse http request.");
 	return result;
 };
 
 bool cRequest::ParseHeaders()
 {
 	std::string first_part;
-	bool result =  parse(m_Headers.begin(), m_Headers.end(),
+	auto begin_it = m_Headers.begin();
+	bool result =  parse(begin_it, m_Headers.end(),
 				 //grammar
 				 (
 
 	                (*(boost::spirit::ascii::char_ - lit(DBL_CRLF))
 					>>DBL_CRLF>>
-					*(boost::spirit::ascii::char_))
+					*(boost::spirit::unicode::char_))
 				 )
 				 ///////
 				 ,
 				 first_part,
 				 m_Command
 				);
+	if(begin_it != m_Headers.end())
+		throw std::runtime_error(CONTEXT_STR + " Failed to parse http header.");
 	return result;
 };
 
 bool cRequest::ParseCommand()
 {
 	short command_type;
-	bool result =  parse(m_Command.begin(), m_Command.end(),
+	auto begin_it = m_Command.begin();
+	bool result =  parse(begin_it, m_Command.end(),
 	                     //grammar
 	                     (
 	                         lit("id=")
 	                         >> int_
 	                         >>lit("command=") > command
 	                         >>lit("param=")
-	                         >(+boost::spirit::ascii::char_)
+	                         >(+boost::spirit::unicode::char_)
 	                     )
 	                     ///////
 	                     ,
@@ -144,6 +150,8 @@ bool cRequest::ParseCommand()
 	                     command_type,
 	                     m_Param
 	                    );
+	if(begin_it != m_Command.end())
+		throw std::runtime_error(CONTEXT_STR + " Failed to parse command.");
 	m_CommandId = (COMMAND_TYPE)command_type;
 	return result;
 };

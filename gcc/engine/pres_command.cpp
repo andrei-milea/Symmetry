@@ -148,8 +148,9 @@ void cPresCommand::Dir()
 					page_html.replace(content_it, 7, pres_content);
 					std::string image_data = cHtmlProcApp::GetInstance()->html_to_img(page_html, std::string(PAGES_PATH));
 					size_t image_data_sz = image_data.size();
-					m_Result += "<li onclick='ToolBox.load(this)'><img src='data:image/png;base64," + image_data + "' />";
-					m_Result += "<span>Name: <b>" + pres_iter->path().filename().stem().string() 
+					m_Result += "<li id='" + pres_iter->path().filename().stem().string()
+						+"' onclick=\"ToolBox.submitPresCommand('load', this)\"><img src='data:image/png;base64,"
+					   	+ image_data + "' /><span>Name: <b>" + pres_iter->path().filename().stem().string() 
 						+ "</b><br/>Author: <b> Andrei </b>" //TODO -- add author
 						+ "<br/> Created: " + to_simple_string(from_time_t(fs::last_write_time(pres_iter->path())).date()) 
 						+ "</span></li><hr width='100%'>";
@@ -165,6 +166,17 @@ void cPresCommand::Dir()
 
 void cPresCommand::Load()
 {
+	fs::path pres_path(std::string(PRES_PATH) + "/" + m_PresName + "/" + m_PresName + ".html");
+	if(!fs::exists(pres_path))
+		throw std::runtime_error(CONTEXT_STR + "presentation file does not exists");
+	std::ifstream file;
+	file.open(pres_path.string(), std::ios::binary);
+	if(!file.is_open())
+		throw std::runtime_error(CONTEXT_STR + "failed to open presentation file");
+
+	std::string pres_page_html((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+	m_Result = pres_page_html;
+	file.close();
 }
 
 unsigned int cPresCommand::EstimateRunTime(const cEstimator &estimator)const

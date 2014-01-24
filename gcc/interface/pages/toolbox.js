@@ -287,8 +287,7 @@ var ToolBox = function () {
 					return;
 			}
 			var request = "command=PRESENTATION";
-			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"), 
-					slides_div.innerHTML.indexOf("<div id=\"slidenav_id\"") - 2);
+			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"));
 			var result = submitCommand(request);
 			restoreSlides();
 			if(-1 !== result.indexOf("Error")) {
@@ -308,7 +307,17 @@ var ToolBox = function () {
 			}
 			TINY.box.show({html:result, boxid:'frameless', width:540, height:600});
 		}
-		else if(command === load) {
+		else if(command === "load") {
+			var request = "command=PRESENTATION";
+			request += "param=" + command + ":" + el.id; 
+			var result = submitCommand(request);
+			if(-1 !== result.indexOf("Error")) {
+				TINY.box.show({html:'Loading presentation failed!',
+						animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350});
+				return;
+			}
+			slidesOldHtml = result;
+			restoreSlides();
 		}
 	}
 
@@ -661,7 +670,6 @@ var ToolBox = function () {
 		editTitle : editTitle,
 		setTitle : setTitle,
 		preview : preview,
-		load : load,
 		submitPresCommand : submitPresCommand,
 		restoreSlides : restoreSlides,
 		prevSlide : prevSlide,
