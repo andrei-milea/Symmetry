@@ -41,21 +41,21 @@ void HtmlProc::renderImg(bool ok)
 		m_WebPage.setViewportSize(m_WebPage.mainFrame()->contentsSize());
 		QWebElement slide_div = m_WebPage.mainFrame()->findFirstElement("div#slide_id_1");
 		QRect geom = slide_div.geometry();
-		QImage img(geom.width(), geom.height(), QImage::Format_RGB32);
+		QImage img(geom.width(), geom.height(), QImage::Format_RGB16);
 		QPainter painter(&img);
 		slide_div.render(&painter);
 		painter.end();
-		img = img.scaledToHeight(128);
+		img = img.scaledToHeight(180, Qt::SmoothTransformation);
 		QByteArray ba;
 		QBuffer buffer(&ba);
 		buffer.open(QIODevice::WriteOnly);
-		if(false == img.save(&buffer, "JPEG", 30))
+		if(false == img.save(&buffer, "PNG", 100))
 			std::cout << "saving image failed";
 		QByteArray base64data = buffer.buffer().toBase64();
-		m_ResultStr = std::string(base64data.data(), (size_t)buffer.buffer().size());
-
-		QString img_path = "/root/projects/symmetry/absalg/gcc/interface/presentations/pres.jpg";
-		if(false == img.save(img_path, "JPEG", 100))
+		size_t buffer_size = base64data.size();
+		m_ResultStr = std::string(base64data.data(), buffer_size);
+		QString img_path = "/root/projects/symmetry/absalg/gcc/interface/presentations/pres.png";
+		if(false == img.save(img_path, "PNG", 100))
 			std::cout << "saving image failed";
 	}
 	else
