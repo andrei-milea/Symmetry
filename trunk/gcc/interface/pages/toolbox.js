@@ -275,9 +275,11 @@ var ToolBox = function () {
 		setTimeout(PresCmdMng.redoDrawCommands, 500);
 	}
 
-	function submitPresCommand(command) {
+	function submitPresCommand(command, el) {
 		if(command === "save") {
 			var slides_div = document.getElementById("slides_id");
+			slidesOldHtml = slides_div.innerHTML;
+			addTheme();
 			var pres_name = document.getElementById("pres_name_id").value;
 			if(pres_name.length === 0) {
 				TINY.box.show({html:'Please enter presentation name!',animate:false,close:false,mask:false,
@@ -288,6 +290,7 @@ var ToolBox = function () {
 			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"), 
 					slides_div.innerHTML.indexOf("<div id=\"slidenav_id\"") - 2);
 			var result = submitCommand(request);
+			restoreSlides();
 			if(-1 !== result.indexOf("Error")) {
 				TINY.box.show({html:'Saving Failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
 				return;
@@ -303,7 +306,9 @@ var ToolBox = function () {
 						animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350});
 				return;
 			}
-			TINY.box.show({html:result, boxid:'frameless', width:500, height:600});
+			TINY.box.show({html:result, boxid:'frameless', width:540, height:600});
+		}
+		else if(command === load) {
 		}
 	}
 
@@ -656,6 +661,7 @@ var ToolBox = function () {
 		editTitle : editTitle,
 		setTitle : setTitle,
 		preview : preview,
+		load : load,
 		submitPresCommand : submitPresCommand,
 		restoreSlides : restoreSlides,
 		prevSlide : prevSlide,

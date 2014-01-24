@@ -6,6 +6,7 @@
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/path.hpp>
 
+#include "boost/date_time/posix_time/posix_time.hpp"
 #include "html_processing/html_processing_inc.h"
 
 
@@ -19,6 +20,7 @@ namespace engine
 {
 
 namespace fs = boost::filesystem;
+using namespace boost::posix_time;
 
 cPresCommand::cPresCommand(const std::string &param)
 {
@@ -109,7 +111,7 @@ void cPresCommand::createSlidesImgs()const
 
 void cPresCommand::Dir()
 {
-	m_Result = "<div class='pres_list'> <ul>";
+	m_Result = "<div class='pres_list'><h1>Available Presentations:</h1><br/><br/><ul>";
 	fs::path dir_path(PRES_PATH);
 	if(!fs::exists(dir_path))
 		throw std::runtime_error(CONTEXT_STR + "invalid presentations directory");
@@ -144,10 +146,13 @@ void cPresCommand::Dir()
 					std::string page_html = pres_page_html;
 					auto content_it = page_html.find("CONTENT");
 					page_html.replace(content_it, 7, pres_content);
-					m_Result += "<li><img src='data:image/jpeg;base64," +
-					   	cHtmlProcApp::GetInstance()->html_to_img(page_html, std::string(PAGES_PATH)) +
-					   	"' height='232' width='320' />";
-					m_Result += "Filename: <a href='#'>" + pres_iter->path().filename().stem().string() + "</a></li>";
+					std::string image_data = cHtmlProcApp::GetInstance()->html_to_img(page_html, std::string(PAGES_PATH));
+					size_t image_data_sz = image_data.size();
+					m_Result += "<li onclick='ToolBox.load(this)'><img src='data:image/png;base64," + image_data + "' />";
+					m_Result += "<span>Name: <b>" + pres_iter->path().filename().stem().string() 
+						+ "</b><br/>Author: <b> Andrei </b>" //TODO -- add author
+						+ "<br/> Created: " + to_simple_string(from_time_t(fs::last_write_time(pres_iter->path())).date()) 
+						+ "</span></li><hr width='100%'>";
 				}
 				else
 					assert(false);
