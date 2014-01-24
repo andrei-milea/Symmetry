@@ -1,6 +1,8 @@
 #ifndef _HTTP_REQUEST
 #define _HTTP_REQUEST
 
+#define BOOST_SPIRIT_UNICODE
+
 #include <string>
 #include "http_header.h"
 #include "../../engine/command_creator.h"

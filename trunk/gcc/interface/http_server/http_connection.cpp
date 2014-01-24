@@ -59,6 +59,9 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 	if(!error)
 	{
 		std::istream is(&m_RequestBuf);
+//		debug
+//		const char* data_ = boost::asio::buffer_cast<const char*>(m_RequestBuf.data());
+//		std::string data(data_, m_RequestBuf.size());
 		cRequest _request(is);
 		if(false == _request.ParseRequest())
 		{
