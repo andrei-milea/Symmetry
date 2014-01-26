@@ -1,4 +1,5 @@
 #include "html_processing.h"
+#include "../logger.h"
 
 #include <QWebFrame>
 #include <QFile>
@@ -9,8 +10,9 @@
 #include <QWebElementCollection>
 #include <QBuffer>
 #include <QByteArray>
-#include <iostream>
-#include <cassert>
+#include <QTextDocument>
+#include <QTextCursor>
+
 
 	
 HtmlProc::HtmlProc(QObject *parent, const std::string& html, const std::string &base_url, int option)
@@ -40,6 +42,7 @@ void HtmlProc::renderImg(bool ok)
 	{
 		m_WebPage.setViewportSize(m_WebPage.mainFrame()->contentsSize());
 		QWebElement slide_div = m_WebPage.mainFrame()->findFirstElement("div#slide_id_1");
+		slide_div.setStyleProperty("display", "block");
 		QRect geom = slide_div.geometry();
 		QImage img(geom.width(), geom.height(), QImage::Format_RGB16);
 		QPainter painter(&img);
@@ -50,17 +53,14 @@ void HtmlProc::renderImg(bool ok)
 		QBuffer buffer(&ba);
 		buffer.open(QIODevice::WriteOnly);
 		if(false == img.save(&buffer, "PNG", 100))
-			std::cout << "saving image failed";
+			throw std::runtime_error(CONTEXT_STR + "saving image failed");
 		QByteArray base64data = buffer.buffer().toBase64();
 		size_t buffer_size = base64data.size();
 		m_ResultStr = std::string(base64data.data(), buffer_size);
-		QString img_path = "/root/projects/symmetry/absalg/gcc/interface/presentations/pres.png";
-		if(false == img.save(img_path, "PNG", 100))
-			std::cout << "saving image failed";
 	}
 	else
 	{
-		std::cout << "Error processing html";
+		throw std::runtime_error(CONTEXT_STR + "failed to load html");
 	}
 
 	emit finished();
@@ -79,14 +79,11 @@ void HtmlProc::renderImgs(bool ok)
 			QPainter painter(&img);
 			(*it).render(&painter);
 			painter.end();
-//			QString img_path = "/root/projects/symmetry/absalg/gcc/interface/presentations/pres.jpg";
-//			if(false == img.save(img_path, "JPEG", 100))
-//				std::cout << "saving image failed";
 		}
 	}
 	else
 	{
-		std::cout << "Error processing html";
+		throw std::runtime_error(CONTEXT_STR + "failed to load html");
 	}
 
 	emit finished();
@@ -96,20 +93,23 @@ void HtmlProc::renderPDF(bool ok)
 {
 	if(ok)
 	{
+		m_WebPage.setViewportSize(m_WebPage.mainFrame()->contentsSize());
+		QString js_command("makeVisible()");
+		m_WebPage.mainFrame()->evaluateJavaScript(js_command);
 		QPrinter printer(QPrinter::HighResolution);
+		//printer.setPageMargins(0.1, 0.1, 0.1, 0.1, QPrinter::Inch);
+		printer.setPaperSize(QSizeF(7.5, 5.5), QPrinter::Inch);
 		printer.setOutputFormat(QPrinter::PdfFormat);
 		QString pdf_path = "/root/projects/symmetry/absalg/gcc/interface/presentations/pres.pdf";
 		printer.setOutputFileName(pdf_path);
-
 		m_WebPage.mainFrame()->print(&printer);
 	}
 	else
 	{
-		std::cout << "Error processing html";
+		throw std::runtime_error(CONTEXT_STR + "failed to load html");
 	}
 
 	emit finished();
 }
-
 
 

@@ -3,6 +3,19 @@
 	<title>Symmetry: Interactive presentation framework</title>
 	<link rel="stylesheet" type="text/css" href="styles.css" />
 	<link type="text/css" rel="StyleSheet" href="slider/slider.css" />
+	<script LANGUAGE="JavaScript">
+	function makeVisible() {
+		var slidenav = document.getElementById("slidenav_id");
+		slidenav.style.display = "none";
+		var divs = document.getElementsByClassName("slide_div");
+		for(var i = 0; i < divs.length; i++) {
+			divs[i].style.display = "block";
+			divs[i].style.position = "relative";
+			divs[i].style.marginLeft = "auto";
+			divs[i].style.marginRight = "auto";
+		}
+	}
+	</script>
 </head>
 <body>
 CONTENT

@@ -28,7 +28,7 @@ private:
 	void Dir();
 	void Save();
 	void Load();
-
+	void Download();
 	void createSlidesImgs()const;
 
 

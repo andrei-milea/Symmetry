@@ -14,10 +14,12 @@ public:
 	std::string html_to_img(const std::string &html, const std::string &base_url);
 	std::vector<std::string> html_to_imgs(const std::string &html, const std::string &base_url);
 	std::string html_to_pdf(const std::string &html, const std::string &base_url);
+	std::string html_encode(const std::string &html)const;
 	
 
 private:
 	cHtmlProcApp();
+	~cHtmlProcApp();
 	cHtmlProcApp(const cHtmlProcApp&);
 	const cHtmlProcApp &operator=(const cHtmlProcApp&);
 
