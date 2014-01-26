@@ -34,7 +34,7 @@ cPresCommand::cPresCommand(const std::string &param)
 	else
 	{
 		m_PresCommand = param.substr(0, idx1);
-		if(m_PresCommand == "save")
+		if(m_PresCommand == "save" || m_PresCommand == "download")
 		{
 			std::size_t idx2 = param.find("<");
 			if(std::string::npos == idx2)
@@ -65,12 +65,19 @@ void cPresCommand::Execute()
 	{
 		Load();
 	}
+	else if(m_PresCommand == "download")
+	{
+		Download();
+	}
 	else
 		assert(false);
 }
 
 void cPresCommand::Save()
 {
+	//encode html
+	m_Html = cHtmlProcApp::GetInstance()->html_encode(m_Html);
+
 	bool overwrite = false;
 	fs::path pres_path(std::string(PRES_PATH) + "/" + m_PresName);
 	if(fs::exists(pres_path))
@@ -147,7 +154,6 @@ void cPresCommand::Dir()
 					auto content_it = page_html.find("CONTENT");
 					page_html.replace(content_it, 7, pres_content);
 					std::string image_data = cHtmlProcApp::GetInstance()->html_to_img(page_html, std::string(PAGES_PATH));
-					size_t image_data_sz = image_data.size();
 					m_Result += "<li id='" + pres_iter->path().filename().stem().string()
 						+"' onclick=\"ToolBox.submitPresCommand('load', this)\"><img src='data:image/png;base64,"
 					   	+ image_data + "' /><span>Name: <b>" + pres_iter->path().filename().stem().string() 
@@ -177,6 +183,21 @@ void cPresCommand::Load()
 	std::string pres_page_html((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 	m_Result = pres_page_html;
 	file.close();
+}
+
+void cPresCommand::Download()
+{
+	m_Html = cHtmlProcApp::GetInstance()->html_encode(m_Html);
+	
+	std::ifstream template_file;
+	template_file.open(std::string(PAGES_PATH) + "/pres_template.html", std::ios::binary);
+	if(!template_file.is_open())
+		throw std::runtime_error(CONTEXT_STR + "invalid presentation template file");
+	std::string pres_page_html((std::istreambuf_iterator<char>(template_file)), std::istreambuf_iterator<char>());
+
+	auto content_it = pres_page_html.find("CONTENT");
+	pres_page_html.replace(content_it, 7, m_Html);
+	std::string pdf_data = cHtmlProcApp::GetInstance()->html_to_pdf(pres_page_html, std::string(PAGES_PATH));
 }
 
 unsigned int cPresCommand::EstimateRunTime(const cEstimator &estimator)const

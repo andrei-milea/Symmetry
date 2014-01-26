@@ -29,7 +29,7 @@ var ToolBox = function () {
 		new_div.className = "slide_div";
 		new_div.onclick = ToolBox.showContextMenu;
 		new_div.style.display = "none";
-		insertAfter(document.getElementById("slide_id_1"), new_div);
+		insertAfter(document.getElementById("slide_id_" + (slideNo - 1).toString()), new_div);
 	}
 
 	function deleteLastSlide() {
@@ -219,10 +219,10 @@ var ToolBox = function () {
 	}
 
 	function addTheme() {
-		var math_elems = document.getElementsByClassName("math_elem");
-		for(i = 0; i < math_elems.length; i++) {
-			math_elems[i].style.background = "#E8E8E8";
-		}
+//		var math_elems = document.getElementsByClassName("math_elem");
+//		for(i = 0; i < math_elems.length; i++) {
+//			math_elems[i].style.background = "#E8E8E8";
+//		}
 
 		var parag_titles = document.getElementsByClassName("parag_title");
 		for(i = 0; i < parag_titles.length; i++) {
@@ -243,6 +243,8 @@ var ToolBox = function () {
 		var divs = document.getElementsByClassName("draggable");
 		for(i = 0; i < divs.length; i++) {
 			divs[i].style.border = "none";;
+			divs[i].style.resize = "none";;
+			divs[i].style.background = "#E8E8E8";
 		}
 	}
 
@@ -318,6 +320,27 @@ var ToolBox = function () {
 			}
 			slidesOldHtml = result;
 			restoreSlides();
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			TINY.box.hide();
+			var slides = document.getElementsByClassName("slide_div");
+			slideNo = slides.length;
+		}
+		else if(command === "download") {
+			var slides_div = document.getElementById("slides_id");
+			slidesOldHtml = slides_div.innerHTML;
+			addTheme();
+			var pres_name = document.getElementById("pres_name_id").value;
+			if(pres_name.length === 0)
+				pres_name = "unknown";
+			var request = "command=PRESENTATION";
+			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"));
+			var result = submitCommand(request);
+			restoreSlides();
+			if(-1 !== result.indexOf("Error")) {
+				TINY.box.show({html:'Saving Failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
+				return;
+			}
+			TINY.box.show({html:result,animate:false,close:false,mask:false,boxid:'success',autohide:2,top:-14,left:-17});
 		}
 	}
 

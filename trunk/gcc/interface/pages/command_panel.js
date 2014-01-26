@@ -24,7 +24,8 @@ function submitCommand (request) {
 
 	var _request = "id=" + sessionkeyTag.value + request;
 	xmlhttp.open("POST", self.location.hostname, false);
-	xmlhttp.setRequestHeader("Content-type", "text/plain; charset=US-ASCII");
+	xmlhttp.overrideMimeType('text/plain; charset=x-user-defined');
+	//xmlhttp.setRequestHeader("Content-type", "text/plain; charset=US-ASCII");
 	//xmlhttp.setRequestHeader("Content-length", _request.length);
 	//xmlhttp.setRequestHeader("Connection", "close");
 	xmlhttp.sendAsBin(_request);

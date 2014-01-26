@@ -770,7 +770,13 @@ html_processing.o: html_processing.cpp html_processing.h \
 		/usr/include/qt/QtGui/qpainter.h \
 		/usr/include/qt/QtGui/qtextoption.h \
 		/usr/include/qt/QtGui/qpen.h \
-		/usr/include/qt/QtGui/QImage
+		/usr/include/qt/QtGui/QImage \
+		/usr/include/qt/QtWebKit/QWebElement \
+		/usr/include/qt/QtWebKit/qwebelement.h \
+		/usr/include/qt/QtWebKit/QWebElementCollection \
+		/usr/include/qt/QtCore/QBuffer \
+		/usr/include/qt/QtCore/qbuffer.h \
+		/usr/include/qt/QtCore/QByteArray
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o html_processing.o html_processing.cpp
 
 html_processing_inc.o: html_processing_inc.cpp html_processing_inc.h \
