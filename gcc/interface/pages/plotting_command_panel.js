@@ -101,7 +101,7 @@ var PlottingPanel = function () {
 	function get_points(points_str) {
 		var points = [];
 		isSurface = false;
-		points_pairs = points_str.split(";");
+		var points_pairs = points_str.split(";");
 
 		pair_tst = points_pairs[0].split(",");
 		if(pair_tst.length === 3)

@@ -7,6 +7,9 @@
 
 class QApplication;
 
+namespace engine
+{
+
 class cHtmlProcApp
 {
 public:
@@ -27,5 +30,7 @@ private:
 	static cHtmlProcApp *sInst;
 	QApplication *m_App;
 };
+
+}
 
 #endif

@@ -385,6 +385,7 @@ compiler_moc_header_make_all: moc_html_processing.cpp moc_webpage.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_html_processing.cpp moc_webpage.cpp
 moc_html_processing.cpp: webpage.h \
+		../logger.h \
 		/usr/include/qt/QtCore/QDebug \
 		/usr/include/qt/QtCore/qdebug.h \
 		/usr/include/qt/QtCore/qalgorithms.h \
@@ -501,7 +502,8 @@ moc_html_processing.cpp: webpage.h \
 		html_processing.h
 	/usr/lib/qt/bin/moc $(DEFINES) $(INCPATH) -I/usr/lib/gcc/include/c++/4.8.2 -I/usr/lib/gcc/include/c++/4.8.2/x86_64-unknown-linux-gnu -I/usr/lib/gcc/include/c++/4.8.2/backward -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.2/include -I/usr/local/include -I/usr/lib/gcc/x86_64-unknown-linux-gnu/4.8.2/include-fixed -I/usr/include html_processing.h -o moc_html_processing.cpp
 
-moc_webpage.cpp: /usr/include/qt/QtCore/QDebug \
+moc_webpage.cpp: ../logger.h \
+		/usr/include/qt/QtCore/QDebug \
 		/usr/include/qt/QtCore/qdebug.h \
 		/usr/include/qt/QtCore/qalgorithms.h \
 		/usr/include/qt/QtCore/qglobal.h \
@@ -633,6 +635,7 @@ compiler_clean: compiler_moc_header_clean
 
 html_processing.o: html_processing.cpp html_processing.h \
 		webpage.h \
+		../logger.h \
 		/usr/include/qt/QtCore/QDebug \
 		/usr/include/qt/QtCore/qdebug.h \
 		/usr/include/qt/QtCore/qalgorithms.h \
@@ -776,12 +779,18 @@ html_processing.o: html_processing.cpp html_processing.h \
 		/usr/include/qt/QtWebKit/QWebElementCollection \
 		/usr/include/qt/QtCore/QBuffer \
 		/usr/include/qt/QtCore/qbuffer.h \
-		/usr/include/qt/QtCore/QByteArray
+		/usr/include/qt/QtCore/QByteArray \
+		/usr/include/qt/QtGui/QTextDocument \
+		/usr/include/qt/QtGui/qtextdocument.h \
+		/usr/include/qt/QtGui/QTextCursor \
+		/usr/include/qt/QtGui/qtextcursor.h \
+		/usr/include/qt/QtGui/qtextformat.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o html_processing.o html_processing.cpp
 
 html_processing_inc.o: html_processing_inc.cpp html_processing_inc.h \
 		html_processing.h \
 		webpage.h \
+		../logger.h \
 		/usr/include/qt/QtCore/QDebug \
 		/usr/include/qt/QtCore/qdebug.h \
 		/usr/include/qt/QtCore/qalgorithms.h \

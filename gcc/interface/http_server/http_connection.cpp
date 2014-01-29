@@ -216,7 +216,7 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 	catch(std::exception& e)
 	{
 		cLogger log(LOG_SEV_INFO);
-		log<< e.what();
+		log << e.what();
 		response.BuildResponse(OK, std::string("Error: ") + e.what(), "text/plain");
 	}
 }
