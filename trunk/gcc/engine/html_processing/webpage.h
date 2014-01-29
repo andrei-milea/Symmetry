@@ -1,10 +1,13 @@
 #ifndef _WEBPAGE_H
 #define _WEBPAGE_H 
 
+#include "../logger.h"
 
 #include <QtCore/QDebug>
 #include <QWebPage>
-#include <iostream>
+
+namespace engine
+{
 
 class WebPage : public QWebPage
 {
@@ -12,24 +15,29 @@ class WebPage : public QWebPage
 
 	public:
 
-	WebPage(QObject* parent = 0) : QWebPage(parent) {}  
+	WebPage(QObject* parent = 0) 
+		: QWebPage(parent)
+   	{}  
 
 	virtual bool extension(Extension extension, const ExtensionOption* option = 0, 
 							ExtensionReturn* output = 0)
 	{
+
 		if (extension != QWebPage::ErrorPageExtension)
 			return false;
 
-		ErrorPageExtensionOption *errorOption = (ErrorPageExtensionOption*) option;
-		std::cout << "Error loading " << qPrintable(errorOption->url.toString())  << std::endl;
-		if(errorOption->domain == QWebPage::QtNetwork)
-			std::cout << "Network error (" << errorOption->error << "): ";
-		else if(errorOption->domain == QWebPage::Http)
-			std::cout << "HTTP error (" << errorOption->error << "): ";
-		else if(errorOption->domain == QWebPage::WebKit)
-			std::cout << "WebKit error (" << errorOption->error << "): ";
+		cLogger Log(LOG_SEV_ERROR);
 
-		std::cout << qPrintable(errorOption->errorString) << std::endl;
+		ErrorPageExtensionOption *errorOption = (ErrorPageExtensionOption*) option;
+		Log << "Error loading " << qPrintable(errorOption->url.toString());
+		if(errorOption->domain == QWebPage::QtNetwork)
+			Log << "Network error (" << errorOption->error << "): ";
+		else if(errorOption->domain == QWebPage::Http)
+			Log << "HTTP error (" << errorOption->error << "): ";
+		else if(errorOption->domain == QWebPage::WebKit)
+			Log << "WebKit error (" << errorOption->error << "): ";
+
+		Log << qPrintable(errorOption->errorString);
 
 		return false;
 
@@ -44,6 +52,8 @@ class WebPage : public QWebPage
 		return false;
 	}  
 };
+
+}
 
 #endif
 

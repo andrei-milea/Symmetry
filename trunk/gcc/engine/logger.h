@@ -26,6 +26,7 @@ namespace engine
 typedef boost::variant<int, std::string, std::exception, double> SupportedTypes;
 
 /*
+   TODO -- make it a singleton
    logger class -- implements the pattern MONITOR OBJECT for synchronization
    writes log to GLOBAL_LOG_FILE
 */

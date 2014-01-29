@@ -5,6 +5,9 @@
 #include <string>
 #include <vector>
 
+namespace engine
+{
+
 #define IMG 1
 #define IMGS 2 
 #define PDF 3 
@@ -43,6 +46,8 @@ private:
 signals:
 	void finished();
 };
+
+}
 
 #endif
 

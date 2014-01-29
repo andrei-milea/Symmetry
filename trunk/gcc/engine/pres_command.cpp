@@ -34,7 +34,7 @@ cPresCommand::cPresCommand(const std::string &param)
 	else
 	{
 		m_PresCommand = param.substr(0, idx1);
-		if(m_PresCommand == "save" || m_PresCommand == "download")
+		if(m_PresCommand == "save" || m_PresCommand == "download" || m_PresCommand == "slides")
 		{
 			std::size_t idx2 = param.find("<");
 			if(std::string::npos == idx2)
@@ -53,7 +53,11 @@ cPresCommand::cPresCommand(const std::string &param)
 
 void cPresCommand::Execute()
 {
-	if(m_PresCommand == "save")
+	if(m_PresCommand == "slides")
+	{
+		createSlidesImgs();
+	}
+	else if(m_PresCommand == "save")
 	{
 		Save();
 	}
@@ -73,6 +77,7 @@ void cPresCommand::Execute()
 		assert(false);
 }
 
+
 void cPresCommand::Save()
 {
 	//encode html
@@ -87,15 +92,11 @@ void cPresCommand::Save()
 
 	std::ofstream file;
 	file.open(pres_path.string() + "/" + m_PresName + ".html", std::ios::binary);
-	if(file.is_open())
-	{
-		file << m_Html;
-		file.close();
-	}
-	else
-	{
+	if(!file.is_open())
 		throw std::runtime_error(CONTEXT_STR + "failed to save presentation");
-	}
+
+	file << m_Html;
+	file.close();
 
 	if(overwrite)
 		m_Result = "Presentation " + m_PresName + " was successfuly overwritten.";
@@ -105,14 +106,21 @@ void cPresCommand::Save()
 
 
 
-void cPresCommand::createSlidesImgs()const
+void cPresCommand::createSlidesImgs()
 {
+	m_Html = cHtmlProcApp::GetInstance()->html_encode(m_Html);
 	std::ifstream file;
 	file.open(std::string(PAGES_PATH) + "/pres_template.html", std::ios::binary);
 	std::string pres_page_html((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 	auto content_it = pres_page_html.find("CONTENT");
 	pres_page_html.replace(content_it, 7, m_Html);
-	cHtmlProcApp::GetInstance()->html_to_img(pres_page_html, std::string(PRES_PATH));
+	auto imgs = cHtmlProcApp::GetInstance()->html_to_imgs(pres_page_html, std::string(PAGES_PATH));
+
+	if(0 == imgs.size())
+		throw std::runtime_error(CONTEXT_STR + "failed to create slides");
+
+	for(auto it : imgs)
+		m_Result += "slide:" + it;
 }
 
 
@@ -181,8 +189,11 @@ void cPresCommand::Load()
 		throw std::runtime_error(CONTEXT_STR + "failed to open presentation file");
 
 	std::string pres_page_html((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
+
 	m_Result = pres_page_html;
-	file.close();
+
+	if(0 == m_Result.size())
+		throw std::runtime_error(CONTEXT_STR + "failed to load presentation");
 }
 
 void cPresCommand::Download()
@@ -197,7 +208,10 @@ void cPresCommand::Download()
 
 	auto content_it = pres_page_html.find("CONTENT");
 	pres_page_html.replace(content_it, 7, m_Html);
-	std::string pdf_data = cHtmlProcApp::GetInstance()->html_to_pdf(pres_page_html, std::string(PAGES_PATH));
+	m_Result = cHtmlProcApp::GetInstance()->html_to_pdf(pres_page_html, std::string(PAGES_PATH));
+	
+	if(0 == m_Result.size())
+		throw std::runtime_error(CONTEXT_STR + "failed to create PDF");
 }
 
 unsigned int cPresCommand::EstimateRunTime(const cEstimator &estimator)const

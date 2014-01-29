@@ -34,6 +34,8 @@
 	<script src="curve.js" type="text/javascript"></script>
 	<script src="surface.js" type="text/javascript"></script>
 	<script src="plotting.js" type="text/javascript"></script>
+	<script src="slide_geometry.js" type="text/javascript"></script>
+	<script src="pres_vis_fg.js" type="text/javascript"></script>
 
 
 
@@ -104,8 +106,10 @@ Theme:
 </label>
 Transition:
 <label class="boxlabel">
-	<select class="boxselect">
+	<select id="vis_sel_id" class="boxselect">
 		<option selected="selected">Simple</option>
+		<option>Fading</option>
+		<option>Foreground(3d accelerated)</option>
 		<option>Paper(3d accelerated)</option>
 		<option>Universe(3d accelerated)</option>
 	</select>
@@ -119,7 +123,7 @@ Name: <input type="text" id='pres_name_id' size="18"></input>
 <hr width="100%">
 Cursor:
 <label class="boxlabel">
-	<select class="boxselect" onchange="ToolBox.onCursorChange(this)">
+	<select id="cursor_sel_id" class="boxselect" onchange="ToolBox.onCursorChange(this)">
 		<option selected="selected">Select</option>
 		<option>Insert</option>
 		<option>Move & Resize</option>

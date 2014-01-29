@@ -17,6 +17,7 @@ var ToolBox = function () {
 	var startX = 0;
 	var dragg_width = 0;
 	var dragg_height = 0;
+	var isPreview = false;
 
 	function addSlide() {
 		PresCmdMng.addCommand(this.addSlide);
@@ -90,29 +91,35 @@ var ToolBox = function () {
 	}
 
 	function prevSlide() {
-		PresCmdMng.addCommand(this.prevSlide);
+		var sel = document.getElementById("vis_sel_id");
+		if(isPreview === false || sel.selectedIndex === 0) {
+			PresCmdMng.addCommand(this.prevSlide);
 
-		if(currentSlide === 1)
-			return;
+			if(currentSlide === 1)
+				return;
 
-		document.getElementById("slide_id_" + currentSlide.toString()).style.display = "none";
-		currentSlide--;
-		var slideNoTxt = document.getElementById("slide_no_id");
-		slideNoTxt.defaultValue = currentSlide.toString() + "/" + slideNo.toString();
-		document.getElementById("slide_id_" + currentSlide.toString()).style.display = "block";
+			document.getElementById("slide_id_" + currentSlide.toString()).style.display = "none";
+			currentSlide--;
+			var slideNoTxt = document.getElementById("slide_no_id");
+			slideNoTxt.defaultValue = currentSlide.toString() + "/" + slideNo.toString();
+			document.getElementById("slide_id_" + currentSlide.toString()).style.display = "block";
+		}
 	}
 
 	function nextSlide() {
-		PresCmdMng.addCommand(this.prevSlide);
+		var sel = document.getElementById("vis_sel_id");
+		if(isPreview === false || sel.selectedIndex === 0) {
+			PresCmdMng.addCommand(this.prevSlide);
 
-		if(currentSlide === slideNo)
-			return;
+			if(currentSlide === slideNo)
+				return;
 
-		document.getElementById("slide_id_" + currentSlide.toString()).style.display = "none";
-		currentSlide++;
-		var slideNoTxt = document.getElementById("slide_no_id");
-		slideNoTxt.defaultValue = currentSlide.toString() + "/" + slideNo.toString();
-		document.getElementById("slide_id_" + currentSlide.toString()).style.display = "block";
+			document.getElementById("slide_id_" + currentSlide.toString()).style.display = "none";
+			currentSlide++;
+			var slideNoTxt = document.getElementById("slide_no_id");
+			slideNoTxt.defaultValue = currentSlide.toString() + "/" + slideNo.toString();
+			document.getElementById("slide_id_" + currentSlide.toString()).style.display = "block";
+		}
 	}
 
 	function onCursorChange(sel) {
@@ -219,11 +226,6 @@ var ToolBox = function () {
 	}
 
 	function addTheme() {
-//		var math_elems = document.getElementsByClassName("math_elem");
-//		for(i = 0; i < math_elems.length; i++) {
-//			math_elems[i].style.background = "#E8E8E8";
-//		}
-
 		var parag_titles = document.getElementsByClassName("parag_title");
 		for(i = 0; i < parag_titles.length; i++) {
 			parag_titles[i].style.color = "white";
@@ -248,6 +250,30 @@ var ToolBox = function () {
 		}
 	}
 
+	function removeTheme() {
+		var parag_titles = document.getElementsByClassName("parag_title");
+		for(i = 0; i < parag_titles.length; i++) {
+			parag_titles[i].style.color = "#6b727c";
+			parag_titles[i].style.background = "#F8FAFB";
+		}
+		var parag_texts = document.getElementsByClassName("parag_text");
+		for(i = 0; i < parag_texts.length; i++) {
+			parag_texts[i].style.color = "black";
+			parag_texts[i].style.background = "#F8FAFB";
+		}
+
+		var title_txt = document.getElementById("title_txt_id")
+		if(title_txt !== null && title_txt !== undefined) {
+			title_txt.style.color = "#6b727c";
+		}
+
+		var divs = document.getElementsByClassName("draggable");
+		for(i = 0; i < divs.length; i++) {
+			divs[i].style.border = "2px solid #6b727c";
+			divs[i].style.background = "rgba(255, 255, 255, 0.0)";
+		}
+	}
+
 	function preview() {
 		var slides_div = document.getElementById("slides_id");
 		slidesOldHtml = slides_div.innerHTML;
@@ -258,6 +284,7 @@ var ToolBox = function () {
 			slides[i].style.marginLeft = "20px";
 			slides[i].style.marginTop = "1px";
 			slides[i].style.border = "1px solid #bbb"
+			slides[i].style.cursor = "default";
 		}
 		
 		var slidenav = document.getElementById("slidenav_id");
@@ -265,20 +292,71 @@ var ToolBox = function () {
 		slidenav.style.marginTop = "585px";
 
 		var slidesHtml =  slides_div.innerHTML;
-		slides_div.innerHTML = "";
-		TINY.box.show({html:slidesHtml, animate:true, width:850, height:610, top:1, maskid:'bluemask', opacity: 80,
-			   	closejs:ToolBox.restoreSlides});
-		setTimeout(PresCmdMng.redoDrawCommands, 800);
+		isPreview = true;
+		var sel = document.getElementById("vis_sel_id");
+		if(sel.selectedIndex < 2) {
+			slides_div.innerHTML = "";
+			TINY.box.show({html:slidesHtml, animate:true, width:850, height:610, top:1, maskid:'bluemask', opacity: 80,
+					closejs:ToolBox.restoreSlides});
+			setTimeout(PresCmdMng.redoDrawCommands, 800);
+		}
+		else if(2 === sel.selectedIndex) {
+			var result = submitPresCommand("slides");
+			if(result === undefined)
+				return;
+			slides_div.innerHTML = "";
+			var window_width = parseInt(window.screen.availWidth) - 50;
+			var window_height = parseInt(window.screen.availHeight) - 120;
+			var canvas_html = "<canvas id='main_canvas' width='1200px' height='550px'></canvas>";
+			TINY.box.show({html:canvas_html, animate:true, width:window_width, height:window_height, top:1, maskid:'bluemask', opacity: 80,
+					closejs:ToolBox.restoreSlides});
+			
+			setTimeout(function() {	addVisualization(result); }, 800);
+		}
+	}
+
+	function addVisualization(slides_data) {
+		var webgl_context = new WebGlContext();
+		webgl_context.initWebGL("main_canvas");
+		PresVisFg.setGlContext(webgl_context);
+		PresVisFg.addSlides(slides_data);
 	}
 
 	function restoreSlides() {
-		var slides = document.getElementById("slides_id");
-		slides.innerHTML = slidesOldHtml;
+		var slides_div = document.getElementById("slides_id");
+		slides_div.innerHTML = slidesOldHtml;
+
+		//restore onclick handler
+		var slides = document.getElementsByClassName("slide_div");
+		for(i = 0; i < slides.length; i++)
+			slides[i].onclick = ToolBox.showContextMenu;
+
+		var slideDiv = document.getElementById("slide_id_" + currentSlide.toString());
+		if("pointer" === slideDiv.style.cursor)
+			addListeners();
 		setTimeout(PresCmdMng.redoDrawCommands, 500);
+		isPreview = false;
 	}
 
 	function submitPresCommand(command, el) {
-		if(command === "save") {
+		if(command === "slides") {
+			var slides_div = document.getElementById("slides_id");
+			slidesOldHtml = slides_div.innerHTML;
+			addTheme();
+			var pres_name = document.getElementById("pres_name_id").value;
+			if(pres_name.length === 0) {
+				pres_name = "unknown";
+			}
+			var request = "command=PRESENTATION";
+			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"));
+			var result = submitCommand(request);
+			if(0 === result.indexOf("Error")) {
+				TINY.box.show({html:'Slides processing failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
+				return;
+			}
+			return result;
+		}
+		else if(command === "save") {
 			var slides_div = document.getElementById("slides_id");
 			slidesOldHtml = slides_div.innerHTML;
 			addTheme();
@@ -292,7 +370,7 @@ var ToolBox = function () {
 			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"));
 			var result = submitCommand(request);
 			restoreSlides();
-			if(-1 !== result.indexOf("Error")) {
+			if(0 === result.indexOf("Error")) {
 				TINY.box.show({html:'Saving Failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
 				return;
 			}
@@ -302,7 +380,7 @@ var ToolBox = function () {
 			var request = "command=PRESENTATION";
 			request += "param=" + command; 
 			var result = submitCommand(request);
-			if(-1 !== result.indexOf("Error")) {
+			if(0 === result.indexOf("Error")) {
 				TINY.box.show({html:'Loading presentation list failed!',
 						animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350});
 				return;
@@ -313,7 +391,7 @@ var ToolBox = function () {
 			var request = "command=PRESENTATION";
 			request += "param=" + command + ":" + el.id; 
 			var result = submitCommand(request);
-			if(-1 !== result.indexOf("Error")) {
+			if(0 === result.indexOf("Error")) {
 				TINY.box.show({html:'Loading presentation failed!',
 						animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350});
 				return;
@@ -321,6 +399,12 @@ var ToolBox = function () {
 			slidesOldHtml = result;
 			restoreSlides();
 			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+			removeTheme();
+			removeListeners();
+			var cursor_sel = document.getElementById("cursor_sel_id");
+			cursor_sel.value = "Select";
+			var slideDiv = document.getElementById("slide_id_" + currentSlide.toString());
+			slideDiv.style.cursor = "default";
 			TINY.box.hide();
 			var slides = document.getElementsByClassName("slide_div");
 			slideNo = slides.length;
@@ -336,11 +420,11 @@ var ToolBox = function () {
 			request += "param=" + command + ":" + pres_name + slides_div.innerHTML.substr(slides_div.innerHTML.indexOf("<"));
 			var result = submitCommand(request);
 			restoreSlides();
-			if(-1 !== result.indexOf("Error")) {
+			if(0 === result.indexOf("Error")) {
 				TINY.box.show({html:'Saving Failed!',animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350})
 				return;
 			}
-			TINY.box.show({html:result,animate:false,close:false,mask:false,boxid:'success',autohide:2,top:-14,left:-17});
+			window.open("data:application/pdf;base64," + result);
 		}
 	}
 

@@ -5,6 +5,9 @@
 #include <QTimer>
 #include <QApplication>
 
+namespace engine
+{
+
 cHtmlProcApp* cHtmlProcApp::sInst = NULL;
 
 cHtmlProcApp *cHtmlProcApp::GetInstance()
@@ -74,4 +77,5 @@ std::string cHtmlProcApp::html_to_pdf(const std::string &html, const std::string
 	return html_proc.getResultStr();
 }
 
+}
 
