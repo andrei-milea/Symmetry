@@ -305,10 +305,10 @@ var ToolBox = function () {
 			if(result === undefined)
 				return;
 			slides_div.innerHTML = "";
-			var window_width = parseInt(window.screen.availWidth) - 50;
-			var window_height = parseInt(window.screen.availHeight) - 120;
-			var canvas_html = "<canvas id='main_canvas' width='1200px' height='550px'></canvas>";
-			TINY.box.show({html:canvas_html, animate:true, width:window_width, height:window_height, top:1, maskid:'bluemask', opacity: 80,
+			var canvas_div_html = "<div class='canvas_pres_div'><a href='#'></a>"
+						+ "<div class='nav'><label class='prev' for='main_canvas'>&#x2039;</label><label class='next'>&#x203a;</label></div>"
+						+ "<canvas id='main_canvas' class='canvas_pres' width='840px' height='600px'></canvas></div>";
+			TINY.box.show({html:canvas_div_html, animate:true, width:1100, height:610, top:1, maskid:'bluemask', opacity: 80,
 					closejs:ToolBox.restoreSlides});
 			
 			setTimeout(function() {	addVisualization(result); }, 800);
@@ -341,8 +341,6 @@ var ToolBox = function () {
 	function submitPresCommand(command, el) {
 		if(command === "slides") {
 			var slides_div = document.getElementById("slides_id");
-			slidesOldHtml = slides_div.innerHTML;
-			addTheme();
 			var pres_name = document.getElementById("pres_name_id").value;
 			if(pres_name.length === 0) {
 				pres_name = "unknown";

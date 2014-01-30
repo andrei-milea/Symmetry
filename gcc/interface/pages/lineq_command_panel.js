@@ -277,7 +277,8 @@ var LinEqPanel = function () {
 			system_str += "$";
 
 			//add to page
-			new_div.innerHTML += "<input type='radio' onclick='LinGeometry.highlightEquation(value)' name='group1' value='" + i.toString() + "'>" + system_str + "</br>";
+			new_div.innerHTML += "<input type='radio' onclick='LinGeometry.highlightEquation(value)' name='group1' value='" 
+				+ i.toString() + "'>" + system_str + "<br/>";
 		}
 
 		var canvasDiv = document.getElementById("canvas_id");

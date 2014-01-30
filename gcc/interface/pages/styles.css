@@ -146,11 +146,11 @@ color: #000;
 	text-align: center;
 	width: 100%;
 }
-input[type="radio"] {
+.sradio input[type="radio"] {
 	opacity: 0;
 	position: absolute;
 }
-input[type="radio"] + label > span {
+.sradio input[type="radio"] + label > span {
 	position: relative;
 	border-radius: 14px;
 	width: 20px;
@@ -162,13 +162,13 @@ input[type="radio"] + label > span {
 	display: inline-block;
 	vertical-align: middle;
 }
-input[type="radio"]:checked + label > span {
+.sradio input[type="radio"]:checked + label > span {
 	background: linear-gradient(#a0e5f8, #75c7dc);
 	background: -webkit-linear-gradient(#a0e5f8, #75c7dc);
 	border-color: #41a6bf;
 	box-shadow: 0px 1px 2px rgba(65, 166, 191, 0.9) inset;
 }
-input[type="radio"]:checked + label > span span {
+.sradio input[type="radio"]:checked + label > span span {
     display: inline-block;
     width: 8px;
     height: 8px;
@@ -180,7 +180,7 @@ input[type="radio"]:checked + label > span span {
     background: #167c95;
     box-shadow: 0px 1px rgba(255, 255, 255, 0.3);
 }
-input[type="radio"]:focus + label > span {
+.sradio input[type="radio"]:focus + label > span {
 	box-shadow: 0px 0px 6px rgba(63, 165, 190, 1);
 }
 
@@ -609,7 +609,7 @@ select, textarea, select option
 .slide_div {
 margin-left: 300px;
 margin-right: auto;
-margin-top: 20px;
+margin-top: 1px;
 position: absolute;
 overflow: auto;
 cursor: default;
@@ -623,29 +623,37 @@ background: #F8FAFB;
 -o-user-select: none;
 }
 
-.back_button {
-	border:2px groove #b8b8b8;
-	font-size:		14px;
-	background-color:	#efefef;
-	background: -webkit-gradient(linear, left top, left bottom, from(#efefef), to(#b8b8b8));
-	background: -webkit-linear-gradient(top, #efefef, #b8b8b8);
-	background: -moz-linear-gradient(top, #efefef, #b8b8b8);
-	background: -o-linear-gradient(top, #efefef, #b8b8b8);
-	background: linear-gradient(top, #efefef, #b8b8b8);
-	-webkit-border-radius: 15px 0px 0px 15px;
-	-moz-border-radius: 15px 0px 0px 15px;
-	border-radius: 15px 0px 0px 15px;
-	-webkit-box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
-	-moz-box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
-	box-shadow: rgba(0, 0, 0, .75) 0 2px 6px;
-	color:			#000000;
-	text-decoration : none;
-	padding: 2px 5px;
-	float: left;
+.back_button a{
+	background: #DCE2E7;
+	color: #728FCE;
+	font: bold 12px "Helvetica";
+	padding: 8px;
+	text-decoration: none;
+
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+	transition: all 0.3s ease;
 }
-.back_button:hover {
-	background:	#ddf;
+.back_button a:hover{
+	color: black;
 }
+.back_button a:before{
+	background: #003366;
+	color: #FFF;
+	content: "<";
+	display: inline-block;
+	font: bold 11px "Georgia";
+	height: 25px;
+	line-height: 25px;
+	margin-right: 10px;
+	text-align: center;
+	width: 25px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	border-radius: 20px;
+}
+
 .fwd_button {
 	border:2px groove #b8b8b8;
 	font-size:		14px;
@@ -837,7 +845,7 @@ background: #F8FAFB;
 	-webkit-user-select: none; 
 	-o-user-select: none;
 	width: 300px; 
-	margin-top: 610px;
+	margin-top: 600px;
 	margin-left: 550px;
 	margin-right: auto;
 	text-align: center;
@@ -1068,5 +1076,51 @@ h1 {
 .pres_list a:hover {
     border-bottom:3px solid #ADD8E6;
     color:#444;
+}
+
+.canvas_pres_div {
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	-moz-user-select: none; 
+	-khtml-user-select: none; 
+	-webkit-user-select: none; 
+	-o-user-select: none;
+}
+
+.canvas_pres {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.nav {
+	width: 60px;
+}
+.nav label {
+	width: 50px;
+	height: 50%;
+	margin-top: 70px;
+
+	opacity: 0.2;
+	z-index: 9;
+	cursor: pointer;
+	position: absolute;
+	transition: opacity .2s;
+
+	color: #FFF;
+	font-size: 156pt;
+	text-align: center;
+	line-height: 380px;
+	font-family: "Varela Round", sans-serif;
+	background-color: rgba(255, 255, 255, .3);
+	text-shadow: 0px 0px 15px rgb(119, 119, 119);
+}
+
+.canvas_pres:hover + .nav label { opacity: 0.5; }
+
+.nav label:hover { opacity: 1; }
+
+.nav .next {
+	right: 80px; 
 }
 
