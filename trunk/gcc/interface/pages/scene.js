@@ -97,7 +97,7 @@ var Scene = function() {
 				this.angle += this.rotationSpeed * elapsed / 1000.0;
 				if(this.angle > 360.0)
 					this.angle = 0.0
-				mat4.rotate(this.mvMatrix, this.degToRad(angle), [0, 1, 0]);
+				mat4.rotate(this.mvMatrix, this.degToRad(this.angle), [0, 1, 0]);
 			}
 		}
 		this.animLastTime = timeNow;

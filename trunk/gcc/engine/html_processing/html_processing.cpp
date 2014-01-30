@@ -88,8 +88,8 @@ void HtmlProc::renderImgs(bool ok)
 			(*it).render(&painter);
 			painter.end();
 
-			img = img.scaled(512, 512, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
-			//img = img.scaledToHeight(180, Qt::SmoothTransformation);
+			//img = img.scaled(512, 512, Qt::IgnoreAspectRatio, Qt::SmoothTransformation);
+			//img = img.scaledToHeight(512, Qt::SmoothTransformation);
 			QByteArray ba;
 			QBuffer buffer(&ba);
 			buffer.open(QIODevice::WriteOnly);
