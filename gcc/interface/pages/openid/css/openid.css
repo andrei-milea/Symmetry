@@ -9,7 +9,7 @@
 	width: 480px;
 	position: absolute;
 	margin-left: 630px;
-	top: 40px;
+	top: 45px;
 	color: #757575;
 }
 
@@ -32,7 +32,7 @@
 
 #openid_highlight {
 	padding: 3px;
-	background-color: #FFFCC9;
+	background-color: #3e779d;
 	float: left;
 }
 

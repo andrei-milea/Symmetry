@@ -57,7 +57,7 @@ public:
 		for(auto elem_iter = relation.m_Elements.begin(); elem_iter != relation.m_Elements.end(); elem_iter++)
 		{
 			if(elem_iter != relation.m_Elements.begin())
-				out<<" \\times ";
+				out<<" \\cdot ";
 			out<<"g_"<<elem_iter->first<<" ^ "<<elem_iter->second;
 
 		}

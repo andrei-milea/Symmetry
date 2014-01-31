@@ -175,15 +175,17 @@ var GrpPanel = function () {
 			request	+= static_vars.generators;
 			var main_view = document.getElementById("main_view_id");
 			main_view.innerHTML = submitCommand(request);
+			MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 			main_view.style.display = "block";
-			var canvasDiv = document.getElementById("canvas_id");
-			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'></canvas>";
-
-			var webgl_context = new WebGlContext();
-			webgl_context.initWebGL("main_canvas");
-			DihedralRep.setGlContext(webgl_context);
 
 			if(command === "GET_ELEMENTS") {
+				var canvasDiv = document.getElementById("canvas_id");
+				canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='512' height='512'></canvas>";
+
+				var webgl_context = new WebGlContext();
+				webgl_context.initWebGL("main_canvas");
+				DihedralRep.setGlContext(webgl_context);
+
 				if(static_vars.group_type === "Dihedral Group")	{
 					var generatorsTag = document.getElementById("generators_id");
 					var size = (generatorsTag.options[0].text.length - 1) / 2;
