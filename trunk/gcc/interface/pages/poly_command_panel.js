@@ -102,7 +102,6 @@ var PolyPanel = function () {
 	var canvasDiv = document.getElementById("canvas_id");
 		if(canvasDiv.style.display === "block") {
 			canvasDiv.innerHTML = "<canvas id='main_canvas' class='scanvas' width='700' height='700'>Your browser doesn't support canvas tag. Please update to a recent version in order to take full advantage when viewing this page.</canvas>";
-			WebGlContext.initWebGL("main_canvas");
 			canvasDiv.style.display = "none";
 		}
 		canvasDiv.style.display = "block";
@@ -120,8 +119,9 @@ var PolyPanel = function () {
 		s.setMinimum(-29);
 		s.setMaximum(-1);
 		s.setValue(-15);
+		var plotting = new Plotting();
 		s.onchange = function () {
-			Plotting.setZoom(s.getValue());
+			plotting.setZoom(s.getValue());
 		}
 
 
@@ -129,10 +129,12 @@ var PolyPanel = function () {
 		var main_canvas = document.getElementById("main_canvas");
 		main_canvas.width = 700;
 		main_canvas.height = 700;
-		WebGlContext.initWebGL("main_canvas");
-		Plotting.clear();
-		Plotting.addAxes(false);
-		Plotting.addCurve(points);
+		var webgl_context = new WebGlContext();
+		webgl_context.initWebGL("main_canvas");
+		plotting.setGlContext(webgl_context);
+		plotting.clear();
+		plotting.addAxes(false);
+		plotting.addCurve(points);
 	}
 
 	function get_points(points_str) {
