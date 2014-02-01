@@ -3,11 +3,23 @@
 var PresVisFg = function () {
 	var _scene = null;
 	var webgl_context;
+	var slides = [];
+	var current_slide_idx = 0;
 
 	function nextSlide() {
+		if(current_slide_idx < slides.length - 1) {
+			slides[current_slide_idx].moveBack();
+			current_slide_idx++;
+			slides[current_slide_idx].moveFront();
+		}
 	}
 
 	function prevSlide() {
+		if(current_slide_idx > 0) {
+			slides[current_slide_idx].moveBack();
+			current_slide_idx--;
+			slides[current_slide_idx].moveFront();
+		}
 	}
 
 	function exitVis(elem) {
@@ -20,11 +32,14 @@ var PresVisFg = function () {
 		_scene = new Scene();
 		_scene.setGl(webgl_context.getGl());
 		var slides_data = slides_data.split("slide:");
+		slides = [];
 		for(var idx = 1; idx < slides_data.length; idx++) {
 			var slide = new SlideGeom();
-			slide.setSlide(webgl_context.getGl(), slides_data[idx]);
+			slide.setSlideData(webgl_context.getGl(), slides_data[idx]);
 			_scene.addModel(slide);
+			slides.push(slide);
 		}
+		slides[0].moveFront();
 		_scene.setGl(webgl_context.getGl());
 		_scene.anim_loop();
 	}
