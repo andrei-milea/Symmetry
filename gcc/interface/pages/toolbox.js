@@ -306,7 +306,8 @@ var ToolBox = function () {
 				return;
 			slides_div.innerHTML = "";
 			var canvas_div_html = "<div class='canvas_pres_div'><a href='#'></a>"
-						+ "<div class='nav'><label class='prev' for='main_canvas'>&#x2039;</label><label class='next'>&#x203a;</label></div>"
+						+ "<div class='nav'><label onclick='PresVisFg.prevSlide()' class='prev' for='main_canvas'>&#x2039;</label>"
+						+ "<label onclick='PresVisFg.nextSlide()' class='next'>&#x203a;</label></div>"
 						+ "<canvas id='main_canvas' class='canvas_pres' width='840px' height='600px'></canvas></div>";
 			TINY.box.show({html:canvas_div_html, animate:true, width:1100, height:610, top:1, maskid:'bluemask', opacity: 80,
 					closejs:ToolBox.restoreSlides});

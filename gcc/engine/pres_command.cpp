@@ -119,8 +119,8 @@ void cPresCommand::createSlidesImgs()
 	if(0 == imgs.size())
 		throw std::runtime_error(CONTEXT_STR + "failed to create slides");
 
-	for(auto it : imgs)
-		m_Result += "slide:" + it;
+	for(auto it = imgs.begin(); it != imgs.end(); it++)
+		m_Result += "slide:" + (*it);
 }
 
 

@@ -54,10 +54,6 @@ var Plotting = function() {
 		_scene.setZoom(zoom);
 	}
 
-	function zoom_out() {
-		_scene.zoom_out();
-	}
-
 	function addCurve(points) {
 		curve = new Curve();
 		curve.setPoints(points);

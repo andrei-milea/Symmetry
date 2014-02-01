@@ -11,11 +11,14 @@ var Scene = function() {
 
 	this.zdist = -9.0;
 
+
 	this.setDefaultCamera = function() {
 		mat4.perspective(45, 1, 0.1, 100.0, this.pMatrix);
 		mat4.identity(this.mvMatrix);
 		mat4.translate(this.mvMatrix, [0.0, 0.0, this.zdist]);
 	}
+
+	this.setDefaultCamera();
 
 	this.toggleCameraRotation = function() {
 		if(this.rotate === true)
@@ -60,7 +63,6 @@ var Scene = function() {
 	this.addModel = function(model) {
 		model.initBuffers(this.gl);
 		this.scene_graph.push(model);
-		this.setDefaultCamera();
 	}
 
 	this.clearScene = function() {

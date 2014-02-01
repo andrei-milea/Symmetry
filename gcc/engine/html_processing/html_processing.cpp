@@ -77,11 +77,12 @@ void HtmlProc::renderImgs(bool ok)
 {
 	if(ok)
 	{
-		m_WebPage.setViewportSize(m_WebPage.mainFrame()->contentsSize());
 		m_WebPage.mainFrame()->evaluateJavaScript("makeVisible()");
+		m_WebPage.setViewportSize(m_WebPage.mainFrame()->contentsSize());
 		QWebElementCollection slide_divs = m_WebPage.mainFrame()->findAllElements("*.slide_div");
 		for(QWebElementCollection::iterator it = slide_divs.begin(); it != slide_divs.end(); it++)
 		{
+			//(*it).setStyleProperty("display", "block");
 			QRect geom = (*it).geometry();
 			QImage img(geom.width(), geom.height(), QImage::Format_ARGB32);
 			QPainter painter(&img);
@@ -101,7 +102,8 @@ void HtmlProc::renderImgs(bool ok)
 			}
 			QByteArray base64data = buffer.buffer().toBase64();
 			size_t buffer_size = base64data.size();
-			m_ResultVec.push_back(std::string(base64data.data(), buffer_size));
+			std::string slide_str(base64data.data(), buffer_size);
+			m_ResultVec.push_back(slide_str);
 		}
 	}
 	else
