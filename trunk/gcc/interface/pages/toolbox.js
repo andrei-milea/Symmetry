@@ -230,11 +230,13 @@ var ToolBox = function () {
 		for(i = 0; i < parag_titles.length; i++) {
 			parag_titles[i].style.color = "white";
 			parag_titles[i].style.background = "#3333CC";
+			parag_titles[i].style.padding = "0 20px";
 		}
 		var parag_texts = document.getElementsByClassName("parag_text");
 		for(i = 0; i < parag_texts.length; i++) {
 			parag_texts[i].style.color = "black";
 			parag_texts[i].style.background = "#E8E8E8";
+			parag_texts[i].style.padding = "10px";
 		}
 
 		var title_txt = document.getElementById("title_txt_id")
@@ -508,23 +510,55 @@ var ToolBox = function () {
 
 	}
 
+	function onParagChange() {
+		var parag_sel = document.getElementById("paragraph_select_id");
+		if(parag_sel.options[parag_sel.selectedIndex].value === "Custom Title") {
+			var input = document.createElement("input");
+			input.setAttribute("id", "custom_tit_id");
+			input.setAttribute("type", "text");
+			input.setAttribute("size", "20");
+			insertAfter(parag_sel, input);
+		}
+		else {
+			var parag_tit = document.getElementById("custom_tit_id");
+			if(parag_tit !== null && parag_tit !== undefined)
+				parag_tit.parentNode.removeChild(parag_tit);
+
+		}
+	}
+
 	function addParagraph() {
 		var parag_sel = document.getElementById("paragraph_select_id");
 		var parag_txt = document.getElementById("paragraph_text_id").value;
 		var parag_title = parag_sel.options[parag_sel.selectedIndex].value;
 
 		new_div = document.createElement("div");
-		h1 = document.createElement("h1");
-		h1.className = "parag_title";
-		txt_div = document.createElement("div");
-		txt_div.className = "parag_text";
-		h1.innerHTML = parag_title;
-		txt_div.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + parag_txt + "</br></br>";
-
 		new_div.style.border = "2px groove #6b727c";
+		
+		if(parag_title === "Custom Title") {
+			var parag_tit = document.getElementById("custom_tit_id");
+			if(parag_tit !== null && parag_tit !== undefined && parag_tit.value.length !== 0) {
+				h1 = document.createElement("h1");
+				h1.className = "parag_title";
+				h1.innerHTML = parag_tit.value;
+				new_div.appendChild(h1);
+			}
+		}
+		else {
+			h1 = document.createElement("h1");
+			h1.className = "parag_title";
+			h1.innerHTML = parag_title;
+			new_div.appendChild(h1);
+		}
 
-		new_div.appendChild(h1);
-		new_div.appendChild(txt_div);
+
+		if(parag_txt.length !== 0) {
+			txt_div = document.createElement("div");
+			txt_div.className = "parag_text";
+			txt_div.innerHTML = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + parag_txt + "</br></br>";
+			new_div.appendChild(txt_div);
+		}
+	
 		addDraggableDiv(new_div);
 	}
 
@@ -801,6 +835,7 @@ var ToolBox = function () {
 		hideContextMenu : hideContextMenu,
 		onElementChange : onElementChange,
 		addTextArea : addTextArea,
+		onParagChange : onParagChange,
 		addParagraph : addParagraph,
 		insertChart : insertChart,
 		addChart : addChart,
