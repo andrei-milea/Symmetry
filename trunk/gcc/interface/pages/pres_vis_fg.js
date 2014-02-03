@@ -8,17 +8,17 @@ var PresVisFg = function () {
 
 	function nextSlide() {
 		if(current_slide_idx < slides.length - 1) {
-			slides[current_slide_idx].moveBack();
+			slides[current_slide_idx].moveBackLeft();
 			current_slide_idx++;
-			slides[current_slide_idx].moveFront();
+			slides[current_slide_idx].moveFrontLeft();
 		}
 	}
 
 	function prevSlide() {
 		if(current_slide_idx > 0) {
-			slides[current_slide_idx].moveBack();
+			slides[current_slide_idx].moveBackRight();
 			current_slide_idx--;
-			slides[current_slide_idx].moveFront();
+			slides[current_slide_idx].moveFrontRight();
 		}
 	}
 
@@ -39,8 +39,7 @@ var PresVisFg = function () {
 			_scene.addModel(slide);
 			slides.push(slide);
 		}
-		slides[0].moveFront();
-		_scene.setGl(webgl_context.getGl());
+		slides[0].initFall();
 		_scene.anim_loop();
 	}
 

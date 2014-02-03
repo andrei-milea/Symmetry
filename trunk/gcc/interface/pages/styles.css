@@ -878,17 +878,15 @@ background: #F8FAFB;
 	-webkit-user-select: none; 
 	-o-user-select: none;
 	background: rgba(10,10,150,0.1);
-	border: 2px solid #6b727c;
 	border-radius: 7px;
 	text-align: center;
-	min-height: 370px;
+	min-height: 383px;
 	width: 600px;
 	max-width: 750px;
 	overflow: auto;
 }
 .title_div {
 	background: rgba(10,10,150,0.1);
-	border: 2px solid #6b727c;
 	border-radius: 7px;
 	text-align: center;
 	min-height: 150px;
@@ -920,8 +918,6 @@ h1 {
 	width: auto;
 }
 .sinsert_div {
-	border: 2px solid #ddf;
-	border-radius: 3px;  
 	margin-left: 20px;
 	text-align: center;
 	background: rgba(250,250,255,0.8);
@@ -993,6 +989,8 @@ h1 {
 .pres_list {
 	display: inline-block;
 	text-align: center;
+	width: 100%;
+	background: rgba(10,10,150,0.1);
 }
 
 .pres_list span {
@@ -1005,7 +1003,7 @@ h1 {
 	font-size: 22px;
 	background: rgba(10,10,150,0.5);
 	position: absolute;
-	width: 84%;
+	width: 91.3%;
 	font-family: Arial, Helvetica, sans-serif;
 	margin-top: 20px;
 	margin-bottom: 5px;
@@ -1019,16 +1017,14 @@ h1 {
 	text-align: center;
 	list-style: none;
 	border: none;
-	width:95%;
+	width: 96%;
 	margin-top: 20px;
-	margin-left: 10px;
-	margin-right: 10px;
 }
 
 .pres_list li {
 	margin-top: 20px;
 	margin-bottom: 20px;
-	width: 100%;
+	width: 94%;
 }
 .pres_list li:hover {
 	background: #99CCFF;
@@ -1053,6 +1049,7 @@ h1 {
 	-khtml-user-select: none; 
 	-webkit-user-select: none; 
 	-o-user-select: none;
+	background: rgba(10,10,150,0.1);
 }
 
 .canvas_pres {
@@ -1079,7 +1076,7 @@ h1 {
 	text-align: center;
 	line-height: 380px;
 	font-family: "Varela Round", sans-serif;
-	background-color: rgba(255, 255, 255, .3);
+	background-color: rgba(255, 255, 255, 0.0);
 	text-shadow: 0px 0px 15px rgb(119, 119, 119);
 }
 

@@ -274,31 +274,43 @@ var ToolBox = function () {
 		}
 	}
 
+	function setFirstActive() {
+		if(currentSlide === 1)
+			return;
+		var first_slide = 1;
+		document.getElementById("slide_id_" + currentSlide.toString()).style.display = "none";
+		document.getElementById("slide_id_" + first_slide.toString()).style.display = "block";
+		currentSlide = 1;
+		var slideNoTxt = document.getElementById("slide_no_id");
+		slideNoTxt.defaultValue = currentSlide.toString() + "/" + slideNo.toString();
+	}
+
 	function preview() {
+		setFirstActive();
 		var slides_div = document.getElementById("slides_id");
 		slidesOldHtml = slides_div.innerHTML;
 
 		addTheme();
 		var slides = document.getElementsByClassName("slide_div");
 		for(i = 0; i < slides.length; i++) {
-			slides[i].style.marginLeft = "20px";
-			slides[i].style.marginTop = "1px";
+			slides[i].style.marginLeft = "50px";
+			slides[i].style.marginTop = "15px";
 			slides[i].style.border = "1px solid #bbb"
 			slides[i].style.cursor = "default";
 		}
 		
 		var slidenav = document.getElementById("slidenav_id");
 		slidenav.style.marginLeft = "300px";
-		slidenav.style.marginTop = "585px";
+		slidenav.style.marginTop = "600px";
 
 		var slidesHtml =  slides_div.innerHTML;
 		isPreview = true;
 		var sel = document.getElementById("vis_sel_id");
 		if(sel.selectedIndex < 2) {
 			slides_div.innerHTML = "";
-			TINY.box.show({html:slidesHtml, animate:true, width:850, height:610, top:1, maskid:'bluemask', opacity: 80,
+			TINY.box.show({html:slidesHtml, animate:true, width:900, height:640, top:1, maskid:'bluemask', opacity: 80,
 					closejs:ToolBox.restoreSlides});
-			setTimeout(PresCmdMng.redoDrawCommands, 800);
+			setTimeout(PresCmdMng.redoDrawCommands, 1000);
 		}
 		else if(2 === sel.selectedIndex) {
 			var result = submitPresCommand("slides");
@@ -308,11 +320,11 @@ var ToolBox = function () {
 			var canvas_div_html = "<div class='canvas_pres_div'><a href='#'></a>"
 						+ "<div class='nav'><label onclick='PresVisFg.prevSlide()' class='prev' for='main_canvas'>&#x2039;</label>"
 						+ "<label onclick='PresVisFg.nextSlide()' class='next'>&#x203a;</label></div>"
-						+ "<canvas id='main_canvas' class='canvas_pres' width='840px' height='600px'></canvas></div>";
-			TINY.box.show({html:canvas_div_html, animate:true, width:1100, height:610, top:1, maskid:'bluemask', opacity: 80,
+						+ "<canvas id='main_canvas' class='canvas_pres' width='840px' height='650px'></canvas></div>";
+			TINY.box.show({html:canvas_div_html, boxid: 'frameless', close: true, animate:true, width:1100, height:650, top:0, maskid:'bluemask', opacity: 80,
 					closejs:ToolBox.restoreSlides});
 			
-			setTimeout(function() {	addVisualization(result); }, 800);
+			setTimeout(function() {	addVisualization(result); }, 1000);
 		}
 	}
 
@@ -356,6 +368,7 @@ var ToolBox = function () {
 			return result;
 		}
 		else if(command === "save") {
+			setFirstActive();
 			var slides_div = document.getElementById("slides_id");
 			slidesOldHtml = slides_div.innerHTML;
 			addTheme();
@@ -384,7 +397,7 @@ var ToolBox = function () {
 						animate:false,close:false,mask:false,boxid:'error',autohide:2,top:-10,left:350});
 				return;
 			}
-			TINY.box.show({html:result, boxid:'frameless', width:540, height:600});
+			TINY.box.show({html:result, boxid:'frameless_scroll', width:1000, height:600, top: 1, maskid:'bluemask', opacity: 70});
 		}
 		else if(command === "load") {
 			var request = "command=PRESENTATION";
