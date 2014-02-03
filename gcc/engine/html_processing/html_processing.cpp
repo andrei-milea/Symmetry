@@ -41,6 +41,7 @@ void HtmlProc::renderImg(bool ok)
 {
 	if(ok)
 	{
+		m_WebPage.mainFrame()->evaluateJavaScript("makeVisible()");
 		m_WebPage.setViewportSize(m_WebPage.mainFrame()->contentsSize());
 		QWebElement slide_div = m_WebPage.mainFrame()->findFirstElement("div#slide_id_1");
 		slide_div.setStyleProperty("display", "block");

@@ -123,6 +123,7 @@ var WebGlContext = function() {
 		shaderProgram.pMatrixUniform = gl.getUniformLocation(shaderProgram, "uPMatrix");
 		shaderProgram.mvMatrixUniform = gl.getUniformLocation(shaderProgram, "uMVMatrix");
 		shaderProgram.shaderSamplerUniform = gl.getUniformLocation(shaderProgram, "uSampler");
+		shaderProgram.alphaUniform = gl.getUniformLocation(shaderProgram, "uAlpha");
 	}
 
 	function clearContext() {
