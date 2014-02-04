@@ -2,6 +2,8 @@
 #include "getrref_command.h"
 #include "../lib/matrix.h"
 
+#include <sstream>
+
 namespace engine
 {
 
@@ -25,6 +27,32 @@ void cGetRREFCommand::Execute()
 			m_Result(rows_idx, cols_idx) = mat->elements[cols_idx + rows_idx*cols_no];
 
 	rref(m_Result);
+}
+
+
+std::string cGetRREFCommand::GetResultStr()const
+{
+	std::stringstream ss;
+	ss.precision(std::numeric_limits<double>::digits10);
+	std::string result_str;
+	result_str = "$\\begin{bmatrix} ";
+	for(std::size_t rows_idx = 0; rows_idx < m_Result.size1(); rows_idx++)
+	{
+		for(std::size_t cols_idx = 0; cols_idx < m_Result.size2(); cols_idx++)
+		{
+			ss.str("");
+			ss << m_Result(rows_idx, cols_idx);
+			result_str += ss.str(); 
+
+			if(cols_idx < m_Result.size2() - 1)
+				result_str += " & ";
+		}
+
+		if(rows_idx < m_Result.size1() - 1)
+			result_str += " \\\\ ";
+	}
+	result_str += " \\end{bmatrix}$";
+	return result_str;
 }
 
 unsigned int cGetRREFCommand::EstimateRunTime(const cEstimator &estimator)const

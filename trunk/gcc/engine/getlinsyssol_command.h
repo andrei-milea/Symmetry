@@ -24,8 +24,7 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const bnu::matrix<double>& GetResult()const
-	{	return m_Result;	};
+	std::string GetResultStr()const;
 
 private:
 	sLinExpression m_Expression;

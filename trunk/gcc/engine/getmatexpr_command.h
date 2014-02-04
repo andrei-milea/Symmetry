@@ -21,10 +21,7 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const boost::numeric::ublas::matrix<double>& GetResult()const
-	{
-		return m_MatrixResult;
-	};
+	std::string GetResultStr()const;
 	
 
 private:
