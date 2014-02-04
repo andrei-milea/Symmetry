@@ -25,10 +25,7 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const std::vector<std::pair<double,double> >& GetResult()const
-	{
-		return m_Result;
-	}
+	std::string GetResultStr()const;
 
 private:
 	cUnivarPolynomial<double> m_Poly;

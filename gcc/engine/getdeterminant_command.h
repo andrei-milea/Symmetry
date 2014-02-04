@@ -25,11 +25,7 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	double GetResult()const
-	{	return m_Result;	};
-
-	double GetTrace()const
-	{	return m_Trace;	};
+	std::string GetResultStr()const;
 
 private:
 	sLinExpression m_Expression;

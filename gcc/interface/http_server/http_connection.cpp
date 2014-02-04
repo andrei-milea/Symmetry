@@ -197,7 +197,7 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 			if( runtime_estimation <= 360/*seconds*/)
 			{
 				session->RunCommand(command);
-				response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(command, ses_id), "text/plain");
+				response.BuildResponse(OK, command->GetResultStr(), "text/plain");
 			}
 			else
 			{
@@ -209,8 +209,7 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 		}
 		else if(session->GetState() == STATE_RESULT_PENDING)
 		{
-			response.BuildResponse(OK, cPageBuilder::GetInstance()->GetPage(
-									   session->GetPendingCommand(), ses_id), "text/plain");
+			response.BuildResponse(OK, session->GetPendingCommand()->GetResultStr(), "text/plain");
 		}
 	}
 	catch(std::exception& e)

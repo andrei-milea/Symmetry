@@ -2,6 +2,8 @@
 #include "command.h"
 #include "group_factory.h"
 
+#include <sstream>
+
 namespace engine
 {
 
@@ -33,6 +35,28 @@ void cGetRelCommand::Execute()
 		for(auto it = m_Result.begin(); it != m_Result.end(); it++)
 			it->Simplify();
 	}
+}
+
+
+std::string cGetRelCommand::GetResultStr()const
+{
+	std::string result_str;
+	std::stringstream ss;
+	if(SYMMETRIC_GROUP != m_GrpType && CYCLIC_GROUP != m_GrpType && DIHEDRAL_GROUP != m_GrpType)
+		throw std::runtime_error(CONTEXT_STR + "invalid group type");
+
+	result_str = "<br/>Defining Relations:</br></br>";
+	std::string str;
+
+	ss.str("");
+	std::size_t index = 1;
+	for(auto rel_iter = m_Result.begin(); rel_iter != m_Result.end(); rel_iter++)
+	{
+		ss << index << ". $" << *rel_iter << "$<br/>";
+		index++;
+	}	
+	result_str += ss.str();
+	return result_str;
 }
 
 unsigned int cGetRelCommand::EstimateRunTime(const cEstimator &estimator)const

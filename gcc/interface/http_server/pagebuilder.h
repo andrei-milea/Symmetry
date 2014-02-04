@@ -36,8 +36,6 @@ public:
 
 	const std::string& GetPageResource(const std::string& resource)const;
 
-	const std::string& GetPage(boost::shared_ptr<engine::cCommand> pCommand, const std::size_t ses_id)const;
-
 	const std::string GetLoadingPage(const std::size_t estimation, const std::size_t ses_id)const;
 
 	const std::string& GetPlainContent(const std::string& planecontent)const;

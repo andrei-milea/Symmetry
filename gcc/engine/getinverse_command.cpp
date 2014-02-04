@@ -1,6 +1,7 @@
 
 #include "getinverse_command.h" 
 #include "../lib/matrix.h"
+#include <sstream>
 
 namespace engine
 {
@@ -27,6 +28,31 @@ void cGetInverseCommand::Execute()
 	bool res = get_inverse(input_matrix, m_Result);
 	if(false == res)
 		throw std::runtime_error("Invalid input. Matrix not invertible.");
+}
+
+std::string cGetInverseCommand::GetResultStr()const
+{
+	std::string result_str;
+	std::stringstream ss;
+	result_str = "$\\begin{bmatrix} ";
+	boost::numeric::ublas::matrix<double> mat;
+	for(std::size_t rows_idx = 0; rows_idx < m_Result.size1(); rows_idx++)
+	{
+		for(std::size_t cols_idx = 0; cols_idx < m_Result.size2(); cols_idx++)
+		{
+			ss.str("");
+			ss << m_Result(rows_idx, cols_idx);
+			result_str += ss.str(); 
+
+			if(cols_idx < m_Result.size2() - 1)
+				result_str += " & ";
+		}
+
+		if(rows_idx < m_Result.size1() - 1)
+			result_str += " \\\\ ";
+	}
+	result_str += " \\end{bmatrix}$";
+	return result_str;
 }
 
 unsigned int cGetInverseCommand::EstimateRunTime(const cEstimator &estimator)const

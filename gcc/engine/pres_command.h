@@ -19,7 +19,7 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const std::string& GetResult()const
+	std::string GetResultStr()const
 	{
 		return m_Result;
 	}

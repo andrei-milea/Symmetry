@@ -1,9 +1,8 @@
 #ifndef _COMMAND_H
 #define _COMMAND_H
 
-#include <string>
 #include "estimate.h"
-
+#include <string>
 
 /*!
  base class for commands (Command design pattern)
@@ -43,6 +42,8 @@ public:
 	};
 
 	virtual void Execute()=0;
+
+	virtual std::string GetResultStr()const=0;
 
 	/*!
 	  uses the visitor based on cEstimator to return a rough estimation

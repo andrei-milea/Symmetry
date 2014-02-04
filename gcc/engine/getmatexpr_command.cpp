@@ -3,6 +3,7 @@
 
 #include <cmath>
 #include <boost/numeric/ublas/io.hpp>
+#include <sstream>
 
 namespace engine
 {
@@ -113,6 +114,33 @@ boost::variant<matrix<double>, double> cGetMatExprCommand::EvalFactor(const sLin
 		assert(expression);
 		return ComputeExpression(*expression);
 	}
+}
+
+
+std::string cGetMatExprCommand::GetResultStr()const
+{
+	std::string result_str;
+	std::stringstream ss;
+	ss.precision(std::numeric_limits<double>::digits10);
+	result_str = "$\\begin{bmatrix} ";
+	boost::numeric::ublas::matrix<double> mat;
+	for(std::size_t rows_idx = 0; rows_idx < m_MatrixResult.size1(); rows_idx++)
+	{
+		for(std::size_t cols_idx = 0; cols_idx < m_MatrixResult.size2(); cols_idx++)
+		{
+			ss.str("");
+			ss << m_MatrixResult(rows_idx, cols_idx);
+			result_str += ss.str(); 
+
+			if(cols_idx < m_MatrixResult.size2() - 1)
+				result_str += " & ";
+		}
+
+		if(rows_idx < m_MatrixResult.size1() - 1)
+			result_str += " \\\\ ";
+	}
+	result_str += " \\end{bmatrix}$";
+	return result_str;
 }
 
 unsigned int cGetMatExprCommand::EstimateRunTime(const cEstimator &estimator)const

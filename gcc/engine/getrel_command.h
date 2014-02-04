@@ -20,8 +20,7 @@ public:
 	void Execute();
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const std::vector<cGroupRelation> &GetResult()const
-	{	return m_Result;	};
+	std::string GetResultStr()const;
 
 private:
 	std::vector<cGroupRelation> m_Result;

@@ -4,6 +4,8 @@
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
 
+#include <sstream>
+
 namespace engine
 {
 
@@ -21,6 +23,16 @@ void cGetNormCommand::Execute()
 	for(std::size_t idx = 0; idx < mat->rows_no; idx++)
 		vec(idx) = mat->elements[idx];
 	m_Result = norm_2(vec);
+}
+
+std::string cGetNormCommand::GetResultStr()const
+{
+	std::stringstream ss;
+	ss.precision(std::numeric_limits<double>::digits10);
+	std::string result_str;
+	ss << m_Result;
+	result_str = "$ " + ss.str() + " $";
+	return result_str;
 }
 
 unsigned int cGetNormCommand::EstimateRunTime(const cEstimator &estimator)const

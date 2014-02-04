@@ -42,6 +42,33 @@ void cGetLinSysSolCommand::Execute()
 		m_Result(idx,0) = result(idx);
 }
 
+
+std::string cGetLinSysSolCommand::GetResultStr()const
+{
+	std::stringstream ss;
+	ss.precision(std::numeric_limits<double>::digits10);
+	std::string result_str;
+	result_str = "$\\begin{bmatrix} ";
+	for(std::size_t rows_idx = 0; rows_idx < m_Result.size1(); rows_idx++)
+	{
+		for(std::size_t cols_idx = 0; cols_idx < m_Result.size2(); cols_idx++)
+		{
+			ss.str("");
+			ss << m_Result(rows_idx, cols_idx);
+			result_str += ss.str(); 
+
+			if(cols_idx < m_Result.size2() - 1)
+				result_str += " & ";
+		}
+
+		if(rows_idx < m_Result.size1() - 1)
+			result_str += " \\\\ ";
+	}
+	result_str += " \\end{bmatrix}$";
+	return result_str;
+
+}
+
 unsigned int cGetLinSysSolCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 1;

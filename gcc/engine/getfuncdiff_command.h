@@ -24,10 +24,8 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const std::string& GetResult()const
-	{
-		return m_Result;
-	}
+	std::string GetResultStr()const
+	{	return m_Result;	}
 
 private:
 	cFuncExpr m_FuncExpr;

@@ -20,10 +20,7 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const double GetResult()const
-	{
-		return m_Result;
-	};
+	std::string GetResultStr()const;
 
 private:
 	sLinExpression m_Expression;

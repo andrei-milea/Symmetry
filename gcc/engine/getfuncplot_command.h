@@ -26,12 +26,9 @@ public:
 
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
 
-	const std::vector<std::tuple<double, double, double> >& GetResult()const
-	{
-		return m_Result;
-	}
+	std::string GetResultStr()const;
 
-	bool isSurface()
+	bool isSurface()const
 	{	return	(m_FuncExpr.getVariables().size() == 2);	}
 
 private:

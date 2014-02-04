@@ -19,8 +19,7 @@ public:
 
 	void Execute();
 	unsigned int EstimateRunTime(const cEstimator &estimator)const;
-	const cCayleyGrf<SymmGrp> &GetResult()const
-	{	return m_Result;	};
+	std::string GetResultStr()const;
 private:
 	cCayleyGrf<SymmGrp> m_Result;
 };

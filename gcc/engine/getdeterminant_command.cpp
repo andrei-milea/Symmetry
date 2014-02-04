@@ -29,6 +29,20 @@ void cGetDeterminantCommand::Execute()
 	m_Result = get_determinant(matrix);
 }
 
+
+std::string cGetDeterminantCommand::GetResultStr()const
+{
+	std::stringstream ss;
+	ss.precision(std::numeric_limits<double>::digits10);
+	std::string result_str;
+	ss << m_Result;
+	result_str = "$ " + ss.str() + " ; ";
+	ss.str("");
+	ss << m_Trace;
+	result_str += ss.str() + " $";
+	return result_str;
+}
+
 unsigned int cGetDeterminantCommand::EstimateRunTime(const cEstimator &estimator)const
 {
 	return 1;
