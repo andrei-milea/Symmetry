@@ -575,7 +575,7 @@ background: #F8FAFB;
 }
 
 .back_button a{
-	background: #DCE2E7;
+	background: white;
 	color: #728FCE;
 	font: bold 12px "Helvetica";
 	padding: 8px;
@@ -935,7 +935,7 @@ h1 {
 	-o-transform: skewY(-10deg);
 	transform: skewY(-10deg);
 	float: left;
-	background: rgba(10,10,150,0.1);
+	background: rgba(204,204,255,0.7);
 	/*background: rgba(216,217,253,1.0);*/
 	list-style: none;
 	margin-left: 30px;
@@ -958,7 +958,7 @@ h1 {
 
 .right_menu {
 	float: right;
-	background: rgba(10,10,150,0.1);
+	background: rgba(204,204,255,0.7);
 	list-style: none;
 	margin-right: 40px;
 	margin-top: 80px;

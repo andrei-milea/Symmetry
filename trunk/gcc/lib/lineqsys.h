@@ -34,7 +34,7 @@ public:
 		m_ConstantTermVec.resize(rows);
 		for(std::size_t row = 0; row < rows; row++)	
 			m_ConstantTermVec(row) = elems[row][cols - 1];
-	};
+	}
 
 	cLinEqSys(bnu::matrix<T>& mat)
 	{
@@ -48,11 +48,11 @@ public:
 		m_ConstantTermVec.resize(mat.size1());
 		for(std::size_t row = 0; row < mat.size1(); row++)	
 			m_ConstantTermVec(row) = mat(row, mat.size2() - 1);
-	};
+	}
 
 	~cLinEqSys()
 	{
-	};
+	}
 
 	/*!
 	 solve the linear system when there is a unique solution
@@ -67,7 +67,7 @@ public:
 			throw bnu::singular("no solution, singular matrix");
 		bnu::lu_substitute(m_CoeffMatrix, pmMat, m_ConstantTermVec);
 		return m_ConstantTermVec;
-	};
+	}
 
 	/*!
 	 solve an overdetermined linear system
@@ -85,7 +85,7 @@ public:
 			throw bnu::singular("no solution, trans(A) * A should not be singular");
 		bnu::matrix<T> temp1 = bnu::prod(inverse, bnu::trans(m_CoeffMatrix));
 		return bnu::prod(temp1, m_ConstantTermVec);
-	};
+	}
 
 	/*!
 	 solve an underdetermined linear system 
@@ -95,7 +95,7 @@ public:
 	{
 		assert(m_CoeffMatrix.size1() > m_CoeffMatrix.size2());
 		//TODO
-	};
+	}
 
 private:
 	bnu::matrix<T> m_CoeffMatrix;

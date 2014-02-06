@@ -36,32 +36,32 @@ public:
 public:
 	cCayleyGrf()
 		:m_Graph(nullptr)
-	{};
+	{}
 
 	cCayleyGrf(std::vector<ElemType> &elements, std::vector<ElemType> &generators)
 		:m_Elements(elements),
 		 m_Generators(generators),
 		 m_Graph(nullptr)
-	{};
+	{}
 
 	cCayleyGrf(G &group)
 		:m_Graph(nullptr)
 	{
 		m_Elements = group.GetElementsDimino();
 		m_Generators = group.GetGeneratorsSet();
-	};
+	}
 
 	~cCayleyGrf()
 	{
 		if(nullptr != m_Graph)
 			delete m_Graph;
-	};
+	}
 
 	void initGraph(const std::vector<ElemType> &elements, const std::vector<ElemType> &generators)
 	{
 		m_Elements = elements;
 		m_Generators = generators;
-	};
+	}
 
 	//copy constructor and assignment op
 	cCayleyGrf(const cCayleyGrf &graph)
@@ -70,7 +70,7 @@ public:
 		m_Generators = graph.m_Generators;
 		if(nullptr != graph.m_Graph)
 			m_Graph = new Graph(*graph.GetGraph());
-	};
+	}
 	cCayleyGrf &operator=(const cCayleyGrf &graph)
 	{
 		if(this != &graph)
@@ -81,7 +81,7 @@ public:
 				m_Graph = new Graph(*graph.GetGraph());
 			return *this;
 		}
-	};
+	}
 
 	/*!
 	  builds the Cayle graph as and adjacency list: the nodes are the indexes
@@ -117,7 +117,7 @@ public:
 				(*m_Graph)[edge].second = false;
 			}
 		}
-	};
+	}
 
 	/*!
 	  extract the set of defining relations using Cannon's algorithm
@@ -147,7 +147,7 @@ public:
 				TraceRelations();
 			}
 		}
-	};
+	}
 
 	//output operator overloaded
 	friend std::ostream& operator<<(std::ostream& out, const cCayleyGrf &graph)
@@ -171,12 +171,12 @@ public:
 
 
 		return out;
-	};
+	}
 
 	const std::vector<cGroupRelation>& GetDefRelations()const
 	{
 		return m_DefRelations;
-	};
+	}
 
 	/*!
 	  returns the underlying graph representation (adjacency list)
@@ -184,7 +184,7 @@ public:
 	Graph* GetGraph()const
 	{
 		return m_Graph;
-	};
+	}
 
 private:
 	/*!
@@ -218,7 +218,7 @@ private:
 		if(tgt_index != spanning_tree[tgt_index])
 			new_relation.AddElement((*m_Graph)[boost::edge(spanning_tree[tgt_index], tgt_index, *m_Graph).first].first, -1);
 		m_DefRelations.push_back(new_relation);
-	};
+	}
 
 	/*!
 	  trace the relations around all the nodes in the graph
@@ -288,7 +288,7 @@ private:
 				}
 			}
 		}
-	};
+	}
 
 	//inner class that colours the edges in the spanning tree used in
 	//the colouring algorithm  to obtain a set of defining relations
@@ -303,7 +303,7 @@ private:
 		{
 			//root is it's own predecesor
 			m_SpanningTree.push_back(0);
-		};
+		}
 		~cColourEdgesVis()		{};
 
 		void tree_edge(E edge, const Grf& graph)
@@ -311,21 +311,21 @@ private:
 			//found edge in the spaning tree -> colour edge
 			(*const_cast<Grf*>(&graph))[edge].second = true;
 			m_SpanningTree[boost::target(edge, graph)] = boost::source(edge, graph);
-		};
+		}
 
 		void back_edge(E edge, const Grf& graph)
 		{
 			//found edge not in the spaning tree
 			//add it to the list of uncoloured edges
 			m_UncolouredEdges.push_back(edge);
-		};
+		}
 
 		void forward_or_cross_edge(E edge, const Grf& graph)
 		{
 			//found edge not in the spaning tree
 			//add it to the list of uncoloured edges
 			m_UncolouredEdges.push_back(edge);
-		};
+		}
 
 	private:
 		std::vector<E> &m_UncolouredEdges;

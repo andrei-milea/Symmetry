@@ -22,8 +22,7 @@ void make_daemon()
 		}
 		else
 		{
-			cLogger log(LOG_SEV_ERROR);
-			log << "failed to make the process a daemon, fork failed";
+			std::cout << "failed to make the process a daemon, fork failed";
 			return;
 		}
 	}
@@ -45,8 +44,7 @@ void make_daemon()
 	//remove standard input.
 	if (open("/dev/null", O_RDONLY) < 0)
 	{
-		cLogger log(LOG_SEV_ERROR);
-		log << "failed to open /dev/null";
+		std::cout << "failed to open /dev/null";
 	}
 }
 

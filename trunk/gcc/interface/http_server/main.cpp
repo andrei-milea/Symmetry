@@ -19,6 +19,7 @@ int main()
 	unsigned int port = 80;
 	std::string web_pages_path;
 	std::string presentations_path;
+	std::string log_path;
 
 	try
 	{
@@ -31,17 +32,21 @@ int main()
 		port = pt.get<unsigned int>("symmetry_config.address.port");
 		web_pages_path = pt.get<std::string>("symmetry_config.paths.web_pages");
 		presentations_path = pt.get<std::string>("symmetry_config.paths.presentations");
+		log_path = pt.get<std::string>("symmetry_config.paths.log");
 
 	}
 	catch(std::exception& e)
 	{
-		cLogger log(LOG_SEV_ERROR);
-		log << std::string("failed to load configuration: ") + e.what();
+		std::cout << std::string("failed to load configuration: ") + e.what();
 		return -1;
 	}
 
 	//make this a daemon process
 	make_daemon();
+
+	//start logging thread
+	cLogger::getInstance().setLogFile(log_path);
+	cLogger::getInstance().runLogLoop();
 
 	while(true)
 	{
@@ -52,8 +57,7 @@ int main()
 		}
 		catch(std::exception& e)
 		{
-			cLogger log(LOG_SEV_ERROR);
-			log<< e.what();
+			cLogger::getInstance().print(e);
 			continue;
 		}
 		return 0;

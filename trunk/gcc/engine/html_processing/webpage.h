@@ -26,21 +26,19 @@ class WebPage : public QWebPage
 		if (extension != QWebPage::ErrorPageExtension)
 			return false;
 
-		cLogger Log(LOG_SEV_ERROR);
 
 		ErrorPageExtensionOption *errorOption = (ErrorPageExtensionOption*) option;
-		Log << "Error loading " << qPrintable(errorOption->url.toString());
+		cLogger::getInstance().print(std::string("Error loading ") + qPrintable(errorOption->url.toString()));
 		if(errorOption->domain == QWebPage::QtNetwork)
-			Log << "Network error (" << errorOption->error << "): ";
+			cLogger::getInstance().print("Network error ");
 		else if(errorOption->domain == QWebPage::Http)
-			Log << "HTTP error (" << errorOption->error << "): ";
+			cLogger::getInstance().print("HTTP error ");
 		else if(errorOption->domain == QWebPage::WebKit)
-			Log << "WebKit error (" << errorOption->error << "): ";
+			cLogger::getInstance().print("WebKit error ");
 
-		Log << qPrintable(errorOption->errorString);
+		cLogger::getInstance().print(qPrintable(errorOption->errorString));
 
 		return false;
-
 	}
 
 	virtual bool supportsExtension(Extension extension)const

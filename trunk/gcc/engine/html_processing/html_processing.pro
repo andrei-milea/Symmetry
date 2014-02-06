@@ -3,7 +3,7 @@
 ######################################################################
 
 TEMPLATE = lib
-CONFIG += debug
+CONFIG += debug c++11
 TARGET = html_processing
 INCLUDEPATH += .
 DEFINES += HTML_PROCESSING_LIBRARY

@@ -5,5 +5,6 @@
 	<paths>
 		<web_pages>/root/projects/symmetry/absalg/gcc/interface/pages</web_pages> 
 		<presentations>/root/projects/symmetry/absalg/gcc/interface/presentations</presentations> 
+		<log>/var/log/symmetry_log.txt</log> 
 	</paths>
 </symmetry_config>

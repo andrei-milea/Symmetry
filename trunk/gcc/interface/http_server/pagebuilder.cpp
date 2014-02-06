@@ -1,23 +1,9 @@
 #include "pagebuilder.h"
-#include "../../engine/logger.h"
-#include "../../engine/groupgen_command.h"
-#include "../../engine/getcgraph_command.h"
-#include "../../engine/getrel_command.h"
-#include "../../engine/getmatexpr_command.h"
-#include "../../engine/getnorm_command.h"
-#include "../../engine/getdeterminant_command.h"
-#include "../../engine/getinverse_command.h"
-#include "../../engine/getrref_command.h"
-#include "../../engine/getlinsyssol_command.h"
-#include "../../engine/getpolyzeros_command.h"
-#include "../../engine/getpolyplot_command.h"
-#include "../../engine/getfuncplot_command.h"
-#include "../../engine/getfuncdiff_command.h"
-#include "../../engine/pres_command.h"
-#include <cassert>
 #include "../../lib/std_ex.h"
+#include "../../engine/logger.h"
 #include <sstream>
 #include <iostream>
+#include <cassert>
 
 #define BOOST_FILESYSTEM_NO_DEPRECATED
 #include <boost/filesystem.hpp>
@@ -33,19 +19,14 @@ namespace fs = boost::filesystem;
 using namespace engine;
 
 cPageBuilder *cPageBuilder::s_Instance = nullptr;
-std::string cPageBuilder::s_ResError = "Resource not available";
-std::string cPageBuilder::s_WebPagesPath = "";
-std::string cPageBuilder::s_PresentationsPath = "";
-
 
 //macro for inserting HTML directly in C++
 #define HTML(...) #__VA_ARGS__
 
 
-
 cPageBuilder* cPageBuilder::GetInstance()
 {
-	if(NULL == s_Instance)
+	if(nullptr == s_Instance)
 		s_Instance = new cPageBuilder;
 	return s_Instance;
 }
@@ -53,16 +34,15 @@ cPageBuilder* cPageBuilder::GetInstance()
 
 void cPageBuilder::SetPaths(const std::string& web_pages_path, const std::string& presentations_path)
 {
-	cPageBuilder::s_WebPagesPath = web_pages_path;
-	cPageBuilder::s_PresentationsPath = presentations_path;
+	m_WebPagesPath = web_pages_path;
+	m_PresentationsPath = presentations_path;
 }
 
 cPageBuilder::cPageBuilder()
-{
-	LoadWebPages(cPageBuilder::s_WebPagesPath);
-}
+	:m_ResError("Resource not available")
+{}
 
-void cPageBuilder::LoadWebPages(const std::string &path)
+void cPageBuilder::LoadWebPages(const std::string& path)
 {
 	fs::path dir_path(path);
 	if(!fs::exists(dir_path))
@@ -93,7 +73,7 @@ const std::string& cPageBuilder::GetIndexPage(const std::size_t session_id)
 {
 	auto map_iter = m_Resources.find("/index.html");
 	if(map_iter == m_Resources.end())
-		return cPageBuilder::s_ResError;
+		return cPageBuilder::GetInstance()->GetResError();
 
 	static size_t IdPosition = map_iter->second.find("00");
 	static size_t IdSize = 2;
@@ -109,7 +89,7 @@ const std::string& cPageBuilder::GetPresPage(const std::size_t session_id)
 {
 	auto map_iter = m_Resources.find("/pres.html");
 	if(map_iter == m_Resources.end())
-		return cPageBuilder::s_ResError;
+		return cPageBuilder::GetInstance()->GetResError();
 
 	static size_t IdPosition = map_iter->second.find("00");
 	static size_t IdSize = 2;
@@ -128,7 +108,7 @@ const std::string& cPageBuilder::GetPageResource(const std::string& resource)con
 	if(map_iter != m_Resources.end())
 		return map_iter->second;
 	else
-		return cPageBuilder::s_ResError;
+		return cPageBuilder::GetInstance()->GetResError();
 }
 
 const std::string cPageBuilder::GetLoadingPage(const std::size_t estimation, const std::size_t ses_id)const
