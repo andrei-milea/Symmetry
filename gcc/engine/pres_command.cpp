@@ -1,5 +1,6 @@
 
 #include "pres_command.h"
+#include "../interface/http_server/pagebuilder.h"
 #include "logger.h"
 
 #define BOOST_FILESYSTEM_NO_DEPRECATED
@@ -11,16 +12,12 @@
 
 
 
-//TODO -- get the path from pagebuilder
-#define PRES_PATH "/root/projects/symmetry/absalg/gcc/interface/presentations"
-#define PAGES_PATH "/root/projects/symmetry/absalg/gcc/interface/pages"
-const std::string library_path = "/root/projects/symmetry/absalg/gcc/engine/html_processing/libhtml_processing.so";
-
 namespace engine
 {
 
 namespace fs = boost::filesystem;
 using namespace boost::posix_time;
+using namespace http_server;
 
 cPresCommand::cPresCommand(const std::string &param)
 {
@@ -84,7 +81,7 @@ void cPresCommand::Save()
 	m_Html = cHtmlProcApp::GetInstance()->html_encode(m_Html);
 
 	bool overwrite = false;
-	fs::path pres_path(std::string(PRES_PATH) + "/" + m_PresName);
+	fs::path pres_path(cPageBuilder::GetInstance()->GetPresPath() + "/" + m_PresName);
 	if(fs::exists(pres_path))
 		overwrite = true;
 	else
@@ -110,11 +107,11 @@ void cPresCommand::createSlidesImgs()
 {
 	m_Html = cHtmlProcApp::GetInstance()->html_encode(m_Html);
 	std::ifstream file;
-	file.open(std::string(PAGES_PATH) + "/pres_template.html", std::ios::binary);
+	file.open(cPageBuilder::GetInstance()->GetWebPagesPath() + "/pres_template.html", std::ios::binary);
 	std::string pres_page_html((std::istreambuf_iterator<char>(file)), std::istreambuf_iterator<char>());
 	auto content_it = pres_page_html.find("CONTENT");
 	pres_page_html.replace(content_it, 7, m_Html);
-	auto imgs = cHtmlProcApp::GetInstance()->html_to_imgs(pres_page_html, std::string(PAGES_PATH));
+	auto imgs = cHtmlProcApp::GetInstance()->html_to_imgs(pres_page_html, cPageBuilder::GetInstance()->GetWebPagesPath());
 
 	if(0 == imgs.size())
 		throw std::runtime_error(CONTEXT_STR + "failed to create slides");
@@ -127,14 +124,14 @@ void cPresCommand::createSlidesImgs()
 void cPresCommand::Dir()
 {
 	m_Result = "<div class='pres_list'><h1>Available Presentations:</h1><br/><br/><ul>";
-	fs::path dir_path(PRES_PATH);
+	fs::path dir_path(cPageBuilder::GetInstance()->GetPresPath());
 	if(!fs::exists(dir_path))
 		throw std::runtime_error(CONTEXT_STR + "invalid presentations directory");
 		
 	fs::directory_iterator end_iter;
 
 	std::ifstream template_file;
-	template_file.open(std::string(PAGES_PATH) + "/pres_template.html", std::ios::binary);
+	template_file.open(cPageBuilder::GetInstance()->GetWebPagesPath() + "/pres_template.html", std::ios::binary);
 	if(!template_file.is_open())
 		throw std::runtime_error(CONTEXT_STR + "invalid presentation template file");
 	std::string pres_page_html((std::istreambuf_iterator<char>(template_file)), std::istreambuf_iterator<char>());
@@ -161,7 +158,7 @@ void cPresCommand::Dir()
 					std::string page_html = pres_page_html;
 					auto content_it = page_html.find("CONTENT");
 					page_html.replace(content_it, 7, pres_content);
-					std::string image_data = cHtmlProcApp::GetInstance()->html_to_img(page_html, std::string(PAGES_PATH));
+					std::string image_data = cHtmlProcApp::GetInstance()->html_to_img(page_html, cPageBuilder::GetInstance()->GetWebPagesPath());
 					m_Result += "<li id='" + pres_iter->path().filename().stem().string()
 						+"' onclick=\"ToolBox.submitPresCommand('load', this)\"><img src='data:image/png;base64,"
 					   	+ image_data + "' /><span>Name: <b>" + pres_iter->path().filename().stem().string() 
@@ -180,7 +177,7 @@ void cPresCommand::Dir()
 
 void cPresCommand::Load()
 {
-	fs::path pres_path(std::string(PRES_PATH) + "/" + m_PresName + "/" + m_PresName + ".html");
+	fs::path pres_path(cPageBuilder::GetInstance()->GetPresPath() + "/" + m_PresName + "/" + m_PresName + ".html");
 	if(!fs::exists(pres_path))
 		throw std::runtime_error(CONTEXT_STR + "presentation file does not exists");
 	std::ifstream file;
@@ -201,14 +198,14 @@ void cPresCommand::Download()
 	m_Html = cHtmlProcApp::GetInstance()->html_encode(m_Html);
 	
 	std::ifstream template_file;
-	template_file.open(std::string(PAGES_PATH) + "/pres_template.html", std::ios::binary);
+	template_file.open(cPageBuilder::GetInstance()->GetWebPagesPath() + "/pres_template.html", std::ios::binary);
 	if(!template_file.is_open())
 		throw std::runtime_error(CONTEXT_STR + "invalid presentation template file");
 	std::string pres_page_html((std::istreambuf_iterator<char>(template_file)), std::istreambuf_iterator<char>());
 
 	auto content_it = pres_page_html.find("CONTENT");
 	pres_page_html.replace(content_it, 7, m_Html);
-	m_Result = cHtmlProcApp::GetInstance()->html_to_pdf(pres_page_html, std::string(PAGES_PATH));
+	m_Result = cHtmlProcApp::GetInstance()->html_to_pdf(pres_page_html, cPageBuilder::GetInstance()->GetWebPagesPath());
 	
 	if(0 == m_Result.size())
 		throw std::runtime_error(CONTEXT_STR + "failed to create PDF");

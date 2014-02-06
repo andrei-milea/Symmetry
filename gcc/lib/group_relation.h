@@ -13,9 +13,9 @@ class cGroupRelation
 {
 public:
 	cGroupRelation()
-	{};
+	{}
 	~cGroupRelation()
-	{};
+	{}
 
 	/*!
 	  the element corresponds to the index of a generator of the group
@@ -24,7 +24,7 @@ public:
 	void AddElement(std::size_t element, int power)
 	{
 		m_Elements.push_back(std::pair<std::size_t, int>(element, power));
-	};
+	}
 
 	void Simplify()
 	{
@@ -39,17 +39,17 @@ public:
 				index--;
 			}
 		}
-	};
+	}
 
 	std::vector<std::pair<std::size_t,int> >::iterator begin()
 	{
 		return m_Elements.begin();
-	};
+	}
 
 	std::vector<std::pair<std::size_t,int> >::iterator end()
 	{
 		return m_Elements.end();
-	};
+	}
 
 	friend std::ostream& operator<<(std::ostream& out, const cGroupRelation& relation)
 	{
@@ -63,7 +63,7 @@ public:
 		}
 		out<<"\n";
 		return out;
-	};
+	}
 
 
 private:

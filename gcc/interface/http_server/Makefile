@@ -1,6 +1,6 @@
 all:main	
 VPATH = ../../engine : ../../lib
-CFLAGS =-c -std=c++0x -g -Wall -I /usr/include/boost
+CFLAGS =-c -std=c++11 -g -Wall -I /usr/include/boost
 LFLAGS =-L ../../engine/html_processing -lboost_system -pthread -lboost_thread -lboost_date_time -lboost_filesystem -lhtml_processing
 GCC = g++
 

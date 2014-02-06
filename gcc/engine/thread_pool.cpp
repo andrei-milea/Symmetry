@@ -32,8 +32,7 @@ void cThreadPool::StartPool()
 	}
 	catch(std::exception &ex)
 	{
-		cLogger log(LOG_SEV_ERROR);
-		log<<CONTEXT_STR << ex.what();
+		cLogger::getInstance().print(ex);
 	}
 }
 
@@ -63,16 +62,14 @@ void cThreadPool::Run()
 			}
 			catch(const std::exception &ex)
 			{
-				cLogger log(LOG_SEV_ERROR);
-				log<<ex.what();
+				cLogger::getInstance().print(ex);
 			}
 			boost::this_thread::interruption_point();
 		}
 	}
 	catch(const boost::thread_interrupted&)
 	{
-		cLogger log(LOG_SEV_INFO);
-		log<<CONTEXT_STR<<"Thread interrupted";
+		cLogger::getInstance().print(CONTEXT_STR + "Thread interrupted", LOG_SEV_INFO);
 	}
 }
 

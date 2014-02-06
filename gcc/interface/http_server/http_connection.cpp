@@ -68,8 +68,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 			std::string request_str;
 			is >> request_str;
 
-			cLogger log(LOG_SEV_INFO);
-			log << CONTEXT_STR + "failed to parse request :" + request_str;
+			cLogger::getInstance().print(CONTEXT_STR + "failed to parse request :" + request_str, LOG_SEV_INFO);
 
 			cResponse response(m_ResponseBuf);
 			response.BuildResponse(OK, std::string("Error: ") + "invalid request", "text/plain");
@@ -99,7 +98,7 @@ void cHttpConnection::HandleRequest(const boost::system::error_code& error)
 
 				response.BuildResponse(OK, index_page, "text/html");
 			}
-			else if(cPageBuilder::s_ResError != cPageBuilder::GetInstance()->GetPageResource(_request.GetResource()))
+			else if(cPageBuilder::GetInstance()->GetResError() != cPageBuilder::GetInstance()->GetPageResource(_request.GetResource()))
 			{
 				cResponse response(m_ResponseBuf);
 				const std::string resource = cPageBuilder::GetInstance()->GetPageResource(
@@ -214,8 +213,7 @@ void cHttpConnection::HandleExistingSession(cResponse& response, const cRequest&
 	}
 	catch(std::exception& e)
 	{
-		cLogger log(LOG_SEV_INFO);
-		log << e.what();
+		cLogger::getInstance().print(e, LOG_SEV_INFO);
 		response.BuildResponse(OK, std::string("Error: ") + e.what(), "text/plain");
 	}
 }

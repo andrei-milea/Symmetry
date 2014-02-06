@@ -3,20 +3,21 @@
 
 #include <fstream>
 #include <string>
-#include <boost/scoped_ptr.hpp>
+#include <mutex>
+#include <condition_variable>
+#include <thread>
+#include <queue>
+
 #include <boost/lexical_cast.hpp>
 #include <boost/variant.hpp>
 #include <boost/date_time/posix_time/posix_time.hpp>
 #include <boost/date_time/posix_time/posix_time_io.hpp>
-#include <boost/thread.hpp>
 #include <boost/current_function.hpp>
 
 namespace engine
 {
 
-#define CONTEXT_STR std::string(BOOST_CURRENT_FUNCTION + std::string(" :: thread id:: ") + boost::lexical_cast<std::string>(boost::this_thread::get_id()) + " ")
-
-#define GLOBAL_LOG_FILE "/var/log/symmetry_log.txt"
+#define CONTEXT_STR std::string(BOOST_CURRENT_FUNCTION + std::string(" :: thread id:: ") + boost::lexical_cast<std::string>(std::this_thread::get_id()) + " ")
 
 #define LOG_SEV_ERROR		1
 #define LOG_SEV_WARNING		2
@@ -26,27 +27,48 @@ namespace engine
 typedef boost::variant<int, std::string, std::exception, double> SupportedTypes;
 
 /*
-   TODO -- make it a singleton
-   logger class -- implements the pattern MONITOR OBJECT for synchronization
-   writes log to GLOBAL_LOG_FILE
+   logger class -- uses a synchronized queue and runs in its own thread
+   the log file must be set and the logging thread must be start before logging messages
 */
 class cLogger
 {
 public:
-	cLogger(int severity);
-	~cLogger();
+	static cLogger& getInstance();
 
-	const std::string &GetSeverity()const;
+	void setLogFile(const std::string& logfile)
+	{
+		m_LogFile = logfile;
+	}
 
-	cLogger& operator<<(SupportedTypes type_variant);
+	const std::string &GetLogFile()const
+	{
+		return m_LogFile;
+	}
+
+	void print(SupportedTypes type_variant, int severity = LOG_SEV_ERROR);
+
+	void runLogLoop();
 
 private:
-	std::string GetCurrentDate()const;
+	std::string GetCurrentDate()const
+	{
+		boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
+		return boost::posix_time::to_simple_string(now);
+	}
+
+	cLogger()
+		:m_Thread(nullptr)
+	{}
+
+	void pushLogMessage(const std::string&&);
+	std::string popLogMessage();
 
 private:
-	static boost::mutex s_Mutex;
-	std::string m_Severity;
-
+	std::queue<std::string> m_LogQueue;
+	std::string m_LogFile;
+	std::mutex m_Mutex;
+	std::condition_variable m_CondVar;
+	std::thread *m_Thread;
 };
 
 }

@@ -8,11 +8,6 @@
 #include <sstream>
 #include <map>
 
-namespace engine
-{
-	class cCommand;
-};
-
 namespace http_server
 {
 
@@ -26,9 +21,14 @@ public:
 
 	static cPageBuilder* GetInstance();
 
-	static std::string s_ResError;
 
-	static void SetPaths(const std::string& web_pages_path, const std::string& presentations_path);
+	void SetPaths(const std::string& web_pages_path, const std::string& presentations_path);
+
+	const std::string& GetWebPagesPath()const	{	return m_WebPagesPath;	}
+
+	const std::string& GetPresPath()const	{	return m_PresentationsPath;	}
+
+	const std::string& GetResError()const	{	return m_ResError;	}
 
 	const std::string& GetIndexPage(const std::size_t session_id);
 
@@ -40,19 +40,22 @@ public:
 
 	const std::string& GetPlainContent(const std::string& planecontent)const;
 
+	void LoadWebPages(const std::string& path);
+
 protected:
 	cPageBuilder();
-	cPageBuilder(const cPageBuilder &page_bld)
-	{}
 
-	void LoadWebPages(const std::string& pages);
+	cPageBuilder(const cPageBuilder &page_bld)=delete;
+	cPageBuilder(const cPageBuilder &&page_bld)=delete;
+	cPageBuilder& operator=(const cPageBuilder &page_bld)=delete;
+	cPageBuilder& operator=(const cPageBuilder &&page_bld)=delete;
 
 private:
 	static cPageBuilder *s_Instance;
-	static std::string s_WebPagesPath;
-	static std::string s_PresentationsPath;
 	std::map<std::string, std::string> m_Resources;
-	mutable std::string m_ResultStr;
+	std::string m_ResError;
+	std::string m_WebPagesPath;
+	std::string m_PresentationsPath;
 };
 
 

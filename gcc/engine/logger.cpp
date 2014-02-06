@@ -3,8 +3,6 @@
 namespace engine
 {
 
-boost::mutex cLogger::s_Mutex;
-
 /*!
   class implementing the strategy pattern in order 
   interpret different types of objects as errors
@@ -52,52 +50,63 @@ private:
 };
 
 
+///////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////
 
-cLogger::cLogger(int severity = LOG_SEV_ERROR)
+cLogger& cLogger::getInstance()
 {
+	static cLogger instance;
+	return instance;
+}
+
+void cLogger::runLogLoop()
+{
+	m_Thread = new std::thread([this]()
+		{
+			std::ofstream file(m_LogFile, std::ios_base::out | std::ios_base::app);
+			while(true)
+				file << popLogMessage();
+			file.close();
+		});
+}
+
+
+void cLogger::pushLogMessage(const std::string&& message)
+{
+	std::unique_lock<std::mutex> mlock(m_Mutex);
+	m_LogQueue.push(std::move(message));
+	mlock.unlock();
+	m_CondVar.notify_one();	
+}
+
+std::string cLogger::popLogMessage()
+{
+	std::unique_lock<std::mutex> mlock(m_Mutex);
+	while(m_LogQueue.empty())
+		m_CondVar.wait(mlock);
+	std::string message = m_LogQueue.front();
+	m_LogQueue.pop();
+	return message;
+}
+
+void cLogger::print(SupportedTypes type_variant, int severity)
+{
+	std::string severity_str;
 	//init severirity types
 	if(LOG_SEV_INFO == severity)
 	{
-		m_Severity = "INFO";
+		severity_str = "INFO";
 	}
 	else
 	{
-		m_Severity = (LOG_SEV_ERROR == severity) ? "ERROR" : "WARNING";
+		severity_str = (LOG_SEV_ERROR == severity) ? "ERROR" : "WARNING";
 	}
-}
-
-
-cLogger::~cLogger()
-{}
-
-const std::string& cLogger::GetSeverity()const
-{
-	return m_Severity;
-}
-
-cLogger& cLogger::operator<<(SupportedTypes type_variant)
-{
 	std::string message;
-	std::string final_message;
 	cVariantVisitor variant_visitor(&message);
 	boost::apply_visitor(variant_visitor, type_variant);
-	final_message += m_Severity + " : " + GetCurrentDate() + " -- " + message + "\n";
-
-	//write to disk
-	boost::mutex::scoped_lock lock(cLogger::s_Mutex);
-	std::ofstream file(GLOBAL_LOG_FILE, std::ios_base::out | std::ios_base::app);
-	file<<final_message;
-	file.close();
-	return *this;
+	std::string final_message = severity_str + " : " + GetCurrentDate() + " -- " + message + "\n";
+	pushLogMessage(std::move(final_message));
 }
-
-std::string cLogger::GetCurrentDate()const
-{
-	boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
-	return boost::posix_time::to_simple_string(now);
-}
-
-
 
 }
 

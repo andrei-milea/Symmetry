@@ -26,7 +26,9 @@ cHttpServer::cHttpServer(unsigned int port, const std::string&  web_pages_path, 
 
 	m_Acceptor.set_option(boost::asio::ip::tcp::acceptor::reuse_address(true));
 
-	cPageBuilder::SetPaths(web_pages_path, presentations_path);
+	cPageBuilder::GetInstance()->SetPaths(web_pages_path, presentations_path);
+
+	cPageBuilder::GetInstance()->LoadWebPages(web_pages_path);
 
 	StartAccept();
 }
@@ -55,22 +57,19 @@ void cHttpServer::HandleConnection(connection_ptr new_connection,
 	}
 	else
 	{
-		cLogger log(LOG_SEV_ERROR);
-		log<< CONTEXT_STR + error.message();
+		cLogger::getInstance().print(CONTEXT_STR + error.message());
 	}
 }
 
 void cHttpServer::Start()
 {
-	cLogger log(LOG_SEV_INFO);
-	log<< CONTEXT_STR + "SYMMETRY server starting ... ";
+	cLogger::getInstance().print(CONTEXT_STR + "SYMMETRY server starting ... ", LOG_SEV_INFO);
 	m_IOService.run();
 }
 
 void cHttpServer::Stop()
 {
-	cLogger log(LOG_SEV_INFO);
-	log<< CONTEXT_STR + "Server is stopping...ignore further errors";
+	cLogger::getInstance().print(CONTEXT_STR + "Server is stopping...ignore further errors", LOG_SEV_INFO);
 	m_Acceptor.close();
 	m_ConnectionManager.StopAllConnections();
 }

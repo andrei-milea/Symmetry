@@ -14,7 +14,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DHTML_PROCESSING_LIBRARY -DQT_WEBKITWIDGETS_LIB -DQT_QUICK_LIB -DQT_POSITIONING_LIB -DQT_OPENGL_LIB -DQT_PRINTSUPPORT_LIB -DQT_QML_LIB -DQT_WEBKIT_LIB -DQT_WIDGETS_LIB -DQT_SENSORS_LIB -DQT_NETWORK_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-CXXFLAGS      = -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
+CXXFLAGS      = -pipe -g -std=c++0x -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 INCPATH       = -I/usr/lib/qt/mkspecs/linux-g++ -I. -I. -I/usr/include/qt -I/usr/include/qt/QtWebKitWidgets -I/usr/include/qt/QtQuick -I/usr/include/qt/QtPositioning -I/usr/include/qt/QtOpenGL -I/usr/include/qt/QtPrintSupport -I/usr/include/qt/QtQml -I/usr/include/qt/QtWebKit -I/usr/include/qt/QtWidgets -I/usr/include/qt/QtSensors -I/usr/include/qt/QtNetwork -I/usr/include/qt/QtGui -I/usr/include/qt/QtCore -I.
 LINK          = g++
 LFLAGS        = -Wl,-O1,--sort-common,--as-needed,-z,relro -Wl,-rpath-link,/usr/lib -shared -Wl,-soname,libhtml_processing.so.1
@@ -113,6 +113,7 @@ DIST          = /usr/lib/qt/mkspecs/features/spec_pre.prf \
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
 		/usr/lib/qt/mkspecs/features/resolve_config.prf \
 		/usr/lib/qt/mkspecs/features/default_post.prf \
+		/usr/lib/qt/mkspecs/features/c++11.prf \
 		/usr/lib/qt/mkspecs/features/unix/gdb_dwarf_index.prf \
 		/usr/lib/qt/mkspecs/features/warn_on.prf \
 		/usr/lib/qt/mkspecs/features/qt.prf \
@@ -238,6 +239,7 @@ Makefile: html_processing.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/
 		/usr/lib/qt/mkspecs/features/default_pre.prf \
 		/usr/lib/qt/mkspecs/features/resolve_config.prf \
 		/usr/lib/qt/mkspecs/features/default_post.prf \
+		/usr/lib/qt/mkspecs/features/c++11.prf \
 		/usr/lib/qt/mkspecs/features/unix/gdb_dwarf_index.prf \
 		/usr/lib/qt/mkspecs/features/warn_on.prf \
 		/usr/lib/qt/mkspecs/features/qt.prf \
@@ -325,6 +327,7 @@ Makefile: html_processing.pro /usr/lib/qt/mkspecs/linux-g++/qmake.conf /usr/lib/
 /usr/lib/qt/mkspecs/features/default_pre.prf:
 /usr/lib/qt/mkspecs/features/resolve_config.prf:
 /usr/lib/qt/mkspecs/features/default_post.prf:
+/usr/lib/qt/mkspecs/features/c++11.prf:
 /usr/lib/qt/mkspecs/features/unix/gdb_dwarf_index.prf:
 /usr/lib/qt/mkspecs/features/warn_on.prf:
 /usr/lib/qt/mkspecs/features/qt.prf:

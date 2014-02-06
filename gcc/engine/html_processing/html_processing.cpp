@@ -56,8 +56,7 @@ void HtmlProc::renderImg(bool ok)
 		buffer.open(QIODevice::WriteOnly);
 		if(false == img.save(&buffer, "PNG", 100))
 		{
-			cLogger Log(LOG_SEV_ERROR);
-			Log << CONTEXT_STR + "saving image failed";
+			cLogger::getInstance().print(CONTEXT_STR + "saving image failed");
 			emit finished();
 			return;
 		}
@@ -67,8 +66,7 @@ void HtmlProc::renderImg(bool ok)
 	}
 	else
 	{
-		cLogger Log(LOG_SEV_ERROR);
-		Log << CONTEXT_STR + "failed to load html";
+		cLogger::getInstance().print(CONTEXT_STR + "failed to load html");
 	}
 
 	emit finished();
@@ -97,8 +95,7 @@ void HtmlProc::renderImgs(bool ok)
 			buffer.open(QIODevice::WriteOnly);
 			if(false == img.save(&buffer, "PNG", 100))
 			{
-				cLogger Log(LOG_SEV_ERROR);
-				Log << CONTEXT_STR + "saving image failed";
+				cLogger::getInstance().print(CONTEXT_STR + "saving image failed");
 				break;
 			}
 			QByteArray base64data = buffer.buffer().toBase64();
@@ -109,9 +106,7 @@ void HtmlProc::renderImgs(bool ok)
 	}
 	else
 	{
-
-		cLogger Log(LOG_SEV_ERROR);
-		Log << CONTEXT_STR + "failed to load html";
+		cLogger::getInstance().print(CONTEXT_STR + "failed to load html");
 	}
 
 	emit finished();
@@ -133,8 +128,7 @@ void HtmlProc::renderPDF(bool ok)
 		QFile file(pdf_path);
 		if(!file.open(QIODevice::ReadOnly))
 		{
-			cLogger Log(LOG_SEV_ERROR);
-			Log << CONTEXT_STR + "failed to open pdf file";
+			cLogger::getInstance().print(CONTEXT_STR + "failed to open pdf file");
 			emit finished();
 			return;
 		}
@@ -144,8 +138,7 @@ void HtmlProc::renderPDF(bool ok)
 	}
 	else
 	{
-		cLogger Log(LOG_SEV_ERROR);
-		Log << CONTEXT_STR + "failed to load html";
+		cLogger::getInstance().print(CONTEXT_STR + "failed to load html");
 	}
 
 	emit finished();
