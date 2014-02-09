@@ -1,8 +1,7 @@
 
 
 #include "command_queue.h"
-#include "getelem_command.h"
-#include "getcenter_command.h"
+#include "session.h"
 
 namespace engine
 {
@@ -22,7 +21,14 @@ cCommandQueue::~cCommandQueue()
 {
 }
 
-void cCommandQueue::Put(boost::shared_ptr<cCommand>& command)
+void cCommandQueue::Put(session_command& command)
+{
+	lock_guard lock(m_Mutex);
+	Put_i(command);
+	m_NotEmptyCond.notify_one();
+}
+
+void cCommandQueue::Put(session_command&& command)
 {
 	lock_guard lock(m_Mutex);
 	Put_i(command);
@@ -30,7 +36,7 @@ void cCommandQueue::Put(boost::shared_ptr<cCommand>& command)
 }
 
 
-boost::shared_ptr<cCommand> cCommandQueue::Remove()
+session_command cCommandQueue::Remove()
 {
 	lock_guard lock(m_Mutex);
 	while(Empty_i())
@@ -57,14 +63,14 @@ std::size_t cCommandQueue::GetSize()
 ////////////implementation////////////////
 *****************************************/
 
-void cCommandQueue::Put_i(boost::shared_ptr<cCommand>& command)
+void cCommandQueue::Put_i(session_command& command)
 {
 	m_Queue.push(command);
 }
 
-boost::shared_ptr<cCommand> cCommandQueue::Remove_i()
+session_command cCommandQueue::Remove_i()
 {
-	boost::shared_ptr<cCommand> command = m_Queue.front();
+	auto command = m_Queue.front();
 	m_Queue.pop();
 	return command;
 }

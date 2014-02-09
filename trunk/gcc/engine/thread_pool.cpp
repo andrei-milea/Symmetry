@@ -2,6 +2,7 @@
 #include <cassert>
 #include "logger.h"
 #include "command.h"
+#include "session.h"
 
 #define MAX_THREADS_NUM 100
 
@@ -43,9 +44,9 @@ void cThreadPool::StopPool()
 	m_Started = false;
 }
 
-void cThreadPool::AddToCommandQueue(boost::shared_ptr<cCommand>& command)
+void cThreadPool::AddToCommandQueue(std::shared_ptr<cCommand>& command, cSession* session)
 {
-	m_CommandQueue.Put(command);
+	m_CommandQueue.Put(std::make_pair(command, session));
 }
 
 
@@ -55,14 +56,16 @@ void cThreadPool::Run()
 	{
 		while(true)
 		{
-			boost::shared_ptr<cCommand> pCommand(m_CommandQueue.Remove());
+			auto command(m_CommandQueue.Remove());
 			try
 			{
-				pCommand->Execute();
+				command.first->Execute();
+				command.second->SetPendingCommand(command.first);
 			}
 			catch(const std::exception &ex)
 			{
 				cLogger::getInstance().print(ex);
+				throw ex;
 			}
 			boost::this_thread::interruption_point();
 		}

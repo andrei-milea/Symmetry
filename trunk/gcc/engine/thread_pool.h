@@ -19,7 +19,7 @@ public:
 	void StartPool();
 	void StopPool();
 
-	void AddToCommandQueue(boost::shared_ptr<cCommand>& command);
+	void AddToCommandQueue(std::shared_ptr<cCommand>& command, cSession* session);
 
 	bool isStarted()const
 	{
