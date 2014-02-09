@@ -2,11 +2,14 @@
 #define _COMMAND_QUEUE
 
 #include <queue>
+#include <utility>
 #include <boost/thread.hpp>
 #include "command.h"
 
 namespace engine
 {
+	class cSession;
+	using session_command = std::pair<std::shared_ptr<cCommand>, cSession*>;
 
 
 /*!
@@ -23,21 +26,22 @@ public:	//guarded methods -- interface
 	~cCommandQueue();
 
 	//synchronized methods
-	void Put(boost::shared_ptr<cCommand>& command);
-	boost::shared_ptr<cCommand> Remove();
+	void Put(session_command& command);
+	void Put(session_command&& command);
+	session_command Remove();
 
 	bool Empty();
 
 	std::size_t GetSize();
 
 protected:	//not guarded methods
-	inline void Put_i(boost::shared_ptr<cCommand>& command);
-	inline boost::shared_ptr<cCommand> Remove_i();
+	inline void Put_i(session_command& command);
+	inline session_command Remove_i();
 	inline bool Empty_i()const;
 	std::size_t GetSize_i()const;
 
 private:
-	std::queue<boost::shared_ptr<cCommand> > m_Queue;
+	std::queue<session_command> m_Queue;
 	boost::mutex m_Mutex;
 	boost::condition_variable m_NotEmptyCond;
 

@@ -4,6 +4,7 @@
 #include <string>
 #include "command_queue.h"
 #include "thread_pool.h"
+#include <memory>
 
 namespace engine
 {
@@ -32,30 +33,40 @@ public:
 	/*!
 	  runs a command and returns the result as soon as it finishes
 	*/
-	void RunCommand(boost::shared_ptr<cCommand>& command);
+	void RunCommand(std::shared_ptr<cCommand>& command);
 
 	/*!
 	  puts a command in the wait queue to be processed by the thread pool
 	*/
-	void ScheduleCommand(boost::shared_ptr<cCommand>& command);
+	void ScheduleCommand(std::shared_ptr<cCommand>& command);
+
+	std::shared_ptr<cCommand>& GetPendingCommand()
+	{
+		assert(m_State == STATE_RESULT_PENDING);
+		return m_PendingCommand;
+	}
 
 	/*!
 	  cancels a command received previously
 	*/
 	void TerminateCommand();
 
-	boost::shared_ptr<cCommand> GetPendingCommand()
-	{	return m_PendingCommand;	};
+	int GetState()const
+	{
+		return m_State;
+	}
 
-	int GetState()const;
-
-	void SetState(int state);
+	void SetPendingCommand(std::shared_ptr<cCommand> command)
+	{
+		m_PendingCommand = std::move(command);
+		m_State = STATE_RESULT_PENDING;
+	}
 
 private:
 	static cThreadPool sThreadPool;
 	std::size_t m_SessionId;
 	volatile int m_State;
-	boost::shared_ptr<cCommand> m_PendingCommand;
+	std::shared_ptr<cCommand> m_PendingCommand;
 };
 
 }
