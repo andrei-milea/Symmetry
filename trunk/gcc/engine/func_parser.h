@@ -122,7 +122,7 @@ public:
 		:m_Params(params)
 	{}
 
-	const cFuncExpr& GetFuncExpr()const
+	cFuncExpr GetFuncExpr()const
 	{
 		return m_FuncExpr;	 
 	}

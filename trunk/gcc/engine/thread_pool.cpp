@@ -4,7 +4,6 @@
 #include "command.h"
 #include "session.h"
 
-#define MAX_THREADS_NUM 100
 
 namespace engine
 {
@@ -13,7 +12,6 @@ cThreadPool::cThreadPool(unsigned int num_threads)
 	:m_Num_Threads(num_threads),
 	 m_Started(false)
 {
-	assert(num_threads <= MAX_THREADS_NUM);
 }
 
 cThreadPool::~cThreadPool()
@@ -31,9 +29,10 @@ void cThreadPool::StartPool()
 			m_ThreadPool.create_thread(boost::bind(&cThreadPool::Run, this));
 		}
 	}
-	catch(std::exception &ex)
+	catch(const std::exception &ex)
 	{
 		cLogger::getInstance().print(ex);
+		throw;
 	}
 }
 
@@ -65,7 +64,7 @@ void cThreadPool::Run()
 			catch(const std::exception &ex)
 			{
 				cLogger::getInstance().print(ex);
-				throw ex;
+				throw;
 			}
 			boost::this_thread::interruption_point();
 		}

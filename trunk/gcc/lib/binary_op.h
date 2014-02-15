@@ -24,12 +24,12 @@ public:
 		return result;
 	}
 
-	bool operator==(const Addition &add)const
+	constexpr bool operator==(const Addition &add)const
 	{
 		return true;
 	}
 
-	bool isCommutative()const
+	constexpr bool isCommutative()const
 	{
 		return true;
 	}
@@ -58,12 +58,12 @@ public:
 		return result;
 	}
 
-	bool operator==(const Multiplication &mult)const
+	constexpr bool operator==(const Multiplication &mult)const
 	{
 		return true;
 	}
 
-	bool isCommutative()const
+	constexpr bool isCommutative()const
 	{
 		return true;
 	}
@@ -92,12 +92,12 @@ public:
 		return result;
 	}
 
-	bool operator==(const Composition &comp)const
+	constexpr bool operator==(const Composition &comp)const
 	{
 		return true;
 	}
 
-	bool isCommutative()const
+	constexpr bool isCommutative()const
 	{
 		return false;
 	}
@@ -125,12 +125,12 @@ public:
 		return result;
 	}
 
-	bool operator==(const Subtraction &sub)const
+	constexpr bool operator==(const Subtraction &sub)const
 	{
 		return true;
 	}
 	
-	bool isCommutative()const
+	constexpr bool isCommutative()const
 	{
 		return false;
 	}
@@ -154,12 +154,12 @@ public:
 		return result;
 	}
 
-	bool operator==(const Division &div)const
+	constexpr bool operator==(const Division &div)const
 	{
 		return true;
 	}
 
-	bool isCommutative()const
+	constexpr bool isCommutative()const
 	{
 		return false;
 	}
@@ -195,12 +195,12 @@ public:
 	template<typename T>
 	T operator()(const double power, const T &ob2)const;
 
-	bool operator==(const Power &pow)const
+	constexpr bool operator==(const Power &pow)const
 	{
 		return true;
 	}
 
-	bool isCommutative()const
+	constexpr bool isCommutative()const
 	{
 		return false;
 	}
@@ -213,12 +213,12 @@ inline std::ostream& operator<<(std::ostream& out, const Power& pow)
 
 struct NoOp
 {
-	bool operator==(const NoOp &no_op)const
+	constexpr bool operator==(const NoOp &no_op)const
 	{
 		return true;
 	}
 
-	bool isCommutative()const
+	constexpr bool isCommutative()const
 	{
 		return true;
 	}

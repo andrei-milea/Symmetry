@@ -28,7 +28,7 @@ template <typename T>
 class cSine
 {
 public:
-	cAsine<T> inverse()const
+	constexpr cAsine<T> inverse()const
 	{
 		return cAsine<T>();
 	}
@@ -38,7 +38,7 @@ public:
 		return std::sin(value);
 	}
 
-	bool operator==(const cSine &sine)const
+	constexpr bool operator==(const cSine &sine)const
 	{
 		return true;
 	}
@@ -48,7 +48,7 @@ template <typename T>
 class cCosine
 {
 public:
-	cAcosine<T> inverse()const
+	constexpr cAcosine<T> inverse()const
 	{
 		return cAcosine<T>();
 	}
@@ -58,7 +58,7 @@ public:
 		return std::cos(value);
 	}
 
-	bool operator==(const cCosine &cosine)const
+	constexpr bool operator==(const cCosine &cosine)const
 	{
 		return true;
 	}
@@ -68,7 +68,7 @@ template <typename T>
 class cTangent
 {
 public:
-	cAtangent<T> inverse()const
+	constexpr cAtangent<T> inverse()const
 	{
 		return cAtangent<T>();
 	}
@@ -81,7 +81,7 @@ public:
 		return std::sin(value)/std::cos(value);
 	}
 
-	bool operator==(const cTangent &tangent)const
+	constexpr bool operator==(const cTangent &tangent)const
 	{
 		return true;
 	}
@@ -91,7 +91,7 @@ template <typename T>
 class cCotangent
 {
 public:
-	cAcotangent<T> inverse()const
+	constexpr cAcotangent<T> inverse()const
 	{
 		return cAcotangent<T>();
 	}
@@ -105,7 +105,7 @@ public:
 		return std::cos(value)/sin_val;
 	}
 
-	bool operator==(const cCotangent &cotangent)const
+	constexpr bool operator==(const cCotangent &cotangent)const
 	{
 		return true;
 	}
@@ -115,7 +115,7 @@ template <typename T>
 class cAsine
 {
 public:
-	cSine<T> inverse()const
+	constexpr cSine<T> inverse()const
 	{
 		return cSine<T>();
 	}
@@ -128,7 +128,7 @@ public:
 		return std::asin(value);
 	}
 
-	bool operator==(const cAsine &asine)const
+	constexpr bool operator==(const cAsine &asine)const
 	{
 		return true;
 	}
@@ -138,7 +138,7 @@ template <typename T>
 class cAcosine
 {
 public:
-	cCosine<T> inverse()const
+	constexpr cCosine<T> inverse()const
 	{
 		return cCosine<T>();
 	}
@@ -151,7 +151,7 @@ public:
 		return std::acos(value);
 	}
 	
-	bool operator==(const cAcosine &acosine)const
+	constexpr bool operator==(const cAcosine &acosine)const
 	{
 		return true;
 	}
@@ -161,7 +161,7 @@ template <typename T>
 class cAtangent
 {
 public:
-	cTangent<T> inverse()const
+	constexpr cTangent<T> inverse()const
 	{
 		return cTangent<T>();
 	}
@@ -171,7 +171,7 @@ public:
 		return std::atan(value);
 	}
 
-	bool operator==(const cAtangent &atangent)const
+	constexpr bool operator==(const cAtangent &atangent)const
 	{
 		return true;
 	}
@@ -181,7 +181,7 @@ template <typename T>
 class cAcotangent
 {
 public:
-	cCotangent<T> inverse()const
+	constexpr cCotangent<T> inverse()const
 	{
 		return cCotangent<T>();
 	}
@@ -194,7 +194,7 @@ public:
 		return std::atan(1.0/value);
 	}
 
-	bool operator==(const cAcotangent &acotangent)const
+	constexpr bool operator==(const cAcotangent &acotangent)const
 	{
 		return true;
 	}

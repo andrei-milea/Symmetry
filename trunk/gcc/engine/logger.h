@@ -57,7 +57,8 @@ private:
 	}
 
 	cLogger()
-		:m_Thread(nullptr)
+		:m_Thread(nullptr),
+		m_LogFailed(false)
 	{}
 
 	void pushLogMessage(const std::string&&);
@@ -69,6 +70,7 @@ private:
 	std::mutex m_Mutex;
 	std::condition_variable m_CondVar;
 	std::thread *m_Thread;
+	volatile bool m_LogFailed;
 };
 
 }

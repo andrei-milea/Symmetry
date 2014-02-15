@@ -12,7 +12,7 @@ namespace engine
 class cCommand;
 
 /*!
-
+ the session can be in one of these 3 states
 */
 #define STATE_FREE 0
 #define STATE_COMMAND_PENDING 1
