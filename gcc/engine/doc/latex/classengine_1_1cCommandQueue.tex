@@ -1,0 +1,71 @@
+\hypertarget{classengine_1_1cCommandQueue}{\section{engine\-:\-:c\-Command\-Queue Class Reference}
+\label{classengine_1_1cCommandQueue}\index{engine\-::c\-Command\-Queue@{engine\-::c\-Command\-Queue}}
+}
+
+
+{\ttfamily \#include $<$command\-\_\-queue.\-h$>$}
+
+
+
+Collaboration diagram for engine\-:\-:c\-Command\-Queue\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classengine_1_1cCommandQueue__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a8d4177c05ac9c763d526c050d501df08}{void {\bfseries Put} (session\-\_\-command \&command)}\label{classengine_1_1cCommandQueue_a8d4177c05ac9c763d526c050d501df08}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a70a078f46f2e5c0e27db2de65d67d797}{void {\bfseries Put} (session\-\_\-command \&\&command)}\label{classengine_1_1cCommandQueue_a70a078f46f2e5c0e27db2de65d67d797}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_abd8ffcd2a0dc1795a5157d11f0883e5c}{session\-\_\-command {\bfseries Remove} ()}\label{classengine_1_1cCommandQueue_abd8ffcd2a0dc1795a5157d11f0883e5c}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a727d36f68de37caba84869e3f973ccbc}{bool {\bfseries Empty} ()}\label{classengine_1_1cCommandQueue_a727d36f68de37caba84869e3f973ccbc}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_af6b95fb876418671d6285ee368abca25}{std\-::size\-\_\-t {\bfseries Get\-Size} ()}\label{classengine_1_1cCommandQueue_af6b95fb876418671d6285ee368abca25}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a21549c27cc7a5833a7a0cae02fdc3bc8}{void {\bfseries Put\-\_\-i} (session\-\_\-command \&command)}\label{classengine_1_1cCommandQueue_a21549c27cc7a5833a7a0cae02fdc3bc8}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_afb802d8459ac29daf1c11c0274650fc4}{session\-\_\-command {\bfseries Remove\-\_\-i} ()}\label{classengine_1_1cCommandQueue_afb802d8459ac29daf1c11c0274650fc4}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a7c8a6bd8dae5c050634cededcb77ef4d}{bool {\bfseries Empty\-\_\-i} () const }\label{classengine_1_1cCommandQueue_a7c8a6bd8dae5c050634cededcb77ef4d}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a2b729f6d9866c6e9b50e142f7e475b05}{std\-::size\-\_\-t {\bfseries Get\-Size\-\_\-i} () const }\label{classengine_1_1cCommandQueue_a2b729f6d9866c6e9b50e142f7e475b05}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a908b7233fca4a42a5a096f76ac4a17eb}{std\-::queue$<$ session\-\_\-command $>$ {\bfseries m\-\_\-\-Queue}}\label{classengine_1_1cCommandQueue_a908b7233fca4a42a5a096f76ac4a17eb}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a3382d012fe90188199630bef438d7901}{boost\-::mutex {\bfseries m\-\_\-\-Mutex}}\label{classengine_1_1cCommandQueue_a3382d012fe90188199630bef438d7901}
+
+\item 
+\hypertarget{classengine_1_1cCommandQueue_a7edc3ed909364aca4956ff6b8d95b912}{boost\-::condition\-\_\-variable {\bfseries m\-\_\-\-Not\-Empty\-Cond}}\label{classengine_1_1cCommandQueue_a7edc3ed909364aca4956ff6b8d95b912}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+thread safe class that implements a commands queue used to keep the command until the worker threads from the pool executes them (half sync half async pattern) used design patterns\-: thread safe interface, monitor object, half-\/sync, half-\/async 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+command\-\_\-queue.\-h\item 
+command\-\_\-queue.\-cpp\end{DoxyCompactItemize}
