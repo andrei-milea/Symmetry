@@ -235,7 +235,7 @@ void cHttpConnection::HandleWriteResponse(const boost::system::error_code& error
 			m_ConnectionManager.StopConnection(shared_from_this());
 		}
 	}
-};
+}
 
 void cHttpConnection::Stop()
 {

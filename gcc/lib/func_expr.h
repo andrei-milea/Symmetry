@@ -71,7 +71,11 @@ public:
 
 	cFuncExpr(const cFuncExpr &func_expr);
 
+	cFuncExpr(cFuncExpr &&func_expr);
+
 	cFuncExpr &operator=(const cFuncExpr& func_expr);
+
+	cFuncExpr &operator=(cFuncExpr&& func_expr);
 	
 	bool operator==(const cFuncExpr& fnc_expr)const;
 

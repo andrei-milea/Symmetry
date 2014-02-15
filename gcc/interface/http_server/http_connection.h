@@ -38,12 +38,12 @@ public:
 	static connection_ptr Create(boost::asio::io_service& io_service, cConnectionManager &conn_manager)
 	{
 		return connection_ptr(new cHttpConnection(io_service, conn_manager));
-	};
+	}
 
 	boost::asio::ip::tcp::socket& GetSocket()
 	{
 		return m_Socket;
-	};
+	}
 
 	void HandleClient();
 	void HandleRequest(const boost::system::error_code& error);
@@ -53,7 +53,7 @@ public:
 	static void ClearSessions()
 	{
 		s_Sessions.clear();
-	};
+	}
 
 
 private:
@@ -61,7 +61,7 @@ private:
 		:m_Socket(io_service),
 		 m_ConnectionManager(conn_manager)
 	{
-	};
+	}
 
 	static std::size_t GetRandUniqueId()
 	{
@@ -78,7 +78,7 @@ private:
 			return random_id;
 		else
 			return GetRandUniqueId();
-	};
+	}
 
 private:
 	boost::asio::ip::tcp::socket m_Socket;

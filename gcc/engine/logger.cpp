@@ -63,10 +63,16 @@ void cLogger::runLogLoop()
 {
 	m_Thread = new std::thread([this]()
 		{
-			std::ofstream file(m_LogFile, std::ios_base::out | std::ios_base::app);
-			while(true)
-				file << popLogMessage();
-			file.close();
+			try
+			{
+				std::ofstream file(m_LogFile, std::ios_base::out | std::ios_base::app);
+				while(true)
+					file << popLogMessage();
+			}
+			catch(...)
+			{
+				m_LogFailed = true;
+			}
 		});
 }
 
@@ -74,6 +80,8 @@ void cLogger::runLogLoop()
 void cLogger::pushLogMessage(const std::string&& message)
 {
 	std::unique_lock<std::mutex> mlock(m_Mutex);
+	if(m_LogFailed)
+		std::terminate();
 	m_LogQueue.push(std::move(message));
 	mlock.unlock();
 	m_CondVar.notify_one();	

@@ -46,6 +46,7 @@ private:
 
 template <typename Y>
 friend std::ostream& operator<<(std::ostream& out, const cExponential<Y>& exp);
+
 };
 
 template <typename T>

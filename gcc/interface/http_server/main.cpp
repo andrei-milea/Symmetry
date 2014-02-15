@@ -4,6 +4,8 @@
 #include "daemon.h"
 
 #include <iostream>
+#include <chrono>
+#include <thread>
 #include <boost/property_tree/xml_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 
@@ -35,7 +37,7 @@ int main()
 		log_path = pt.get<std::string>("symmetry_config.paths.log");
 
 	}
-	catch(std::exception& e)
+	catch(const std::exception& e)
 	{
 		std::cout << std::string("failed to load configuration: ") + e.what();
 		return -1;
@@ -45,22 +47,35 @@ int main()
 	make_daemon();
 
 	//start logging thread
-	cLogger::getInstance().setLogFile(log_path);
-	cLogger::getInstance().runLogLoop();
+	try
+	{
+		cLogger::getInstance().setLogFile(log_path);
+		cLogger::getInstance().runLogLoop();
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << std::string("failed to start logging") + e.what();
+		return -1;
+	}
 
-	while(true)
+	//run server
+	unsigned short tries = 0;
+	unsigned short max_fails = 5;
+	while(tries < max_fails)
 	{
 		try
 		{
+			tries++;
 			cHttpServer _http_server(port, web_pages_path, presentations_path);
 			_http_server.Start();
 		}
-		catch(std::exception& e)
+		catch(const std::exception& e)
 		{
 			cLogger::getInstance().print(e);
+			std::this_thread::sleep_for(std::chrono::milliseconds(3000));
 			continue;
 		}
-		return 0;
 	}
-
+	return -1;
 };
+

@@ -42,12 +42,12 @@ public:
 		else
 			return var;
 	}
-	expr_type operator()(const cEmptyExpr& expr)const
+	constexpr expr_type operator()(const cEmptyExpr& expr)const
 	{
 		return expr;
 	}
 
-	expr_type operator()(const T& val)const
+	constexpr expr_type operator()(const T& val)const
 	{
 		return val;
 	}

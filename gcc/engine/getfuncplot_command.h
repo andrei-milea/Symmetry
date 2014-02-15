@@ -20,6 +20,11 @@ public:
 		:m_FuncExpr(fnc_expr)
 	{
 	}
+
+	cGetFuncPlotCommand(cFuncExpr &&fnc_expr)
+		:m_FuncExpr(std::move(fnc_expr))
+	{
+	}
 	~cGetFuncPlotCommand(){}
 	
 	void Execute();

@@ -44,6 +44,13 @@ cFuncExpr::cFuncExpr(const cFuncExpr &func_expr)
 	m_RHSExpr = func_expr.m_RHSExpr;	
 }
 
+cFuncExpr::cFuncExpr(cFuncExpr &&func_expr)
+{
+	m_Operation = func_expr.m_Operation;
+	m_LHSExpr = std::move(func_expr.m_LHSExpr);
+	m_RHSExpr = std::move(func_expr.m_RHSExpr);	
+}
+
 cFuncExpr& cFuncExpr::operator=(const cFuncExpr& func_expr)
 {
 	if(&func_expr != this)
@@ -51,6 +58,18 @@ cFuncExpr& cFuncExpr::operator=(const cFuncExpr& func_expr)
 		m_Operation = func_expr.m_Operation;
 		m_LHSExpr = func_expr.m_LHSExpr;
 		m_RHSExpr = func_expr.m_RHSExpr;
+		
+	}
+	return *this;
+}
+
+cFuncExpr& cFuncExpr::operator=(cFuncExpr&& func_expr)
+{
+	if(&func_expr != this)
+	{
+		m_Operation = func_expr.m_Operation;
+		m_LHSExpr = std::move(func_expr.m_LHSExpr);
+		m_RHSExpr = std::move(func_expr.m_RHSExpr);
 		
 	}
 	return *this;
