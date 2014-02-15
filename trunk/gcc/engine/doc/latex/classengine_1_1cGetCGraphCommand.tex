@@ -1,0 +1,71 @@
+\hypertarget{classengine_1_1cGetCGraphCommand}{\section{engine\-:\-:c\-Get\-C\-Graph\-Command Class Reference}
+\label{classengine_1_1cGetCGraphCommand}\index{engine\-::c\-Get\-C\-Graph\-Command@{engine\-::c\-Get\-C\-Graph\-Command}}
+}
+
+
+{\ttfamily \#include $<$getcgraph\-\_\-command.\-h$>$}
+
+
+
+Inheritance diagram for engine\-:\-:c\-Get\-C\-Graph\-Command\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=240pt]{classengine_1_1cGetCGraphCommand__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for engine\-:\-:c\-Get\-C\-Graph\-Command\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classengine_1_1cGetCGraphCommand__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cGetCGraphCommand_a7fad17f3378da72ef8663f2587466bcc}{{\bfseries c\-Get\-C\-Graph\-Command} (G\-R\-O\-U\-P\-\_\-\-T\-Y\-P\-E group\-\_\-type, const std\-::vector$<$ boost\-::any $>$ \&generators)}\label{classengine_1_1cGetCGraphCommand_a7fad17f3378da72ef8663f2587466bcc}
+
+\item 
+\hypertarget{classengine_1_1cGetCGraphCommand_a94b83bc4b3103138411ec5bf1ccca84c}{void {\bfseries Execute} ()}\label{classengine_1_1cGetCGraphCommand_a94b83bc4b3103138411ec5bf1ccca84c}
+
+\item 
+unsigned int \hyperlink{classengine_1_1cGetCGraphCommand_a0a3d07c4f82227b7f0ffbcf01f7fcec2}{Estimate\-Run\-Time} (const \hyperlink{classengine_1_1cEstimator}{c\-Estimator} \&estimator) const 
+\item 
+\hypertarget{classengine_1_1cGetCGraphCommand_a623f8e7a207e148a8b026f0980920626}{std\-::string {\bfseries Get\-Result\-Str} () const }\label{classengine_1_1cGetCGraphCommand_a623f8e7a207e148a8b026f0980920626}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cGetCGraphCommand_ab815ffa24d00a0c326068b7f41ca28c1}{c\-Cayley\-Grf$<$ Symm\-Grp $>$ {\bfseries m\-\_\-\-Result}}\label{classengine_1_1cGetCGraphCommand_ab815ffa24d00a0c326068b7f41ca28c1}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+command that obtains Cayley graph of the group 
+
+\subsection{Member Function Documentation}
+\hypertarget{classengine_1_1cGetCGraphCommand_a0a3d07c4f82227b7f0ffbcf01f7fcec2}{\index{engine\-::c\-Get\-C\-Graph\-Command@{engine\-::c\-Get\-C\-Graph\-Command}!Estimate\-Run\-Time@{Estimate\-Run\-Time}}
+\index{Estimate\-Run\-Time@{Estimate\-Run\-Time}!engine::cGetCGraphCommand@{engine\-::c\-Get\-C\-Graph\-Command}}
+\subsubsection[{Estimate\-Run\-Time}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int engine\-::c\-Get\-C\-Graph\-Command\-::\-Estimate\-Run\-Time (
+\begin{DoxyParamCaption}
+\item[{const {\bf c\-Estimator} \&}]{estimator}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classengine_1_1cGetCGraphCommand_a0a3d07c4f82227b7f0ffbcf01f7fcec2}
+uses the visitor based on \hyperlink{classengine_1_1cEstimator}{c\-Estimator} to return a rough estimation of the running time of a given command 
+
+Implements \hyperlink{classengine_1_1cCommand_a8b5b45ad34530c454722a44e41ce9e78}{engine\-::c\-Command}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+getcgraph\-\_\-command.\-h\item 
+getcgraph\-\_\-command.\-cpp\end{DoxyCompactItemize}

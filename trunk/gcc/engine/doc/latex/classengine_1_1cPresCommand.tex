@@ -1,0 +1,90 @@
+\hypertarget{classengine_1_1cPresCommand}{\section{engine\-:\-:c\-Pres\-Command Class Reference}
+\label{classengine_1_1cPresCommand}\index{engine\-::c\-Pres\-Command@{engine\-::c\-Pres\-Command}}
+}
+
+
+Inheritance diagram for engine\-:\-:c\-Pres\-Command\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=208pt]{classengine_1_1cPresCommand__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for engine\-:\-:c\-Pres\-Command\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=309pt]{classengine_1_1cPresCommand__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cPresCommand_a81a6521956d3d2d61048bb907ea63b94}{{\bfseries c\-Pres\-Command} (const std\-::string \&param)}\label{classengine_1_1cPresCommand_a81a6521956d3d2d61048bb907ea63b94}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a875b5daa49972be454095e0ea499569f}{void {\bfseries Execute} ()}\label{classengine_1_1cPresCommand_a875b5daa49972be454095e0ea499569f}
+
+\item 
+unsigned int \hyperlink{classengine_1_1cPresCommand_a4c0ce6703473a24a5b2b71cd6760a4b3}{Estimate\-Run\-Time} (const \hyperlink{classengine_1_1cEstimator}{c\-Estimator} \&estimator) const 
+\item 
+\hypertarget{classengine_1_1cPresCommand_a9bc204e529d366339d703bb5a384753c}{std\-::string {\bfseries Get\-Result\-Str} () const }\label{classengine_1_1cPresCommand_a9bc204e529d366339d703bb5a384753c}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cPresCommand_a2691f91a41ab1899aaeccdb62774dedd}{void {\bfseries Dir} ()}\label{classengine_1_1cPresCommand_a2691f91a41ab1899aaeccdb62774dedd}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a5eea1c700878016231ee3ba293108061}{void {\bfseries Save} ()}\label{classengine_1_1cPresCommand_a5eea1c700878016231ee3ba293108061}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a720eceeb1e5df8862aca3c0ac96f68f7}{void {\bfseries Load} ()}\label{classengine_1_1cPresCommand_a720eceeb1e5df8862aca3c0ac96f68f7}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a3e4945fdcba13b6902f3b63a68bf369e}{void {\bfseries Download} ()}\label{classengine_1_1cPresCommand_a3e4945fdcba13b6902f3b63a68bf369e}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a40d13bab28e7ec4914cc24db92af9ea4}{void {\bfseries create\-Slides\-Imgs} ()}\label{classengine_1_1cPresCommand_a40d13bab28e7ec4914cc24db92af9ea4}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classengine_1_1cPresCommand_af931ffe60b40b7a482dda09891087d0b}{std\-::string {\bfseries m\-\_\-\-Result}}\label{classengine_1_1cPresCommand_af931ffe60b40b7a482dda09891087d0b}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a96569d570fad64ed1adf0f0af95ab948}{std\-::string {\bfseries m\-\_\-\-Pres\-Name}}\label{classengine_1_1cPresCommand_a96569d570fad64ed1adf0f0af95ab948}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a4ca21e159717eb396fc9642521ccd829}{std\-::string {\bfseries m\-\_\-\-Pres\-Command}}\label{classengine_1_1cPresCommand_a4ca21e159717eb396fc9642521ccd829}
+
+\item 
+\hypertarget{classengine_1_1cPresCommand_a4b154b881ac936d7ab5e246fde355701}{std\-::string {\bfseries m\-\_\-\-Html}}\label{classengine_1_1cPresCommand_a4b154b881ac936d7ab5e246fde355701}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classengine_1_1cPresCommand_a4c0ce6703473a24a5b2b71cd6760a4b3}{\index{engine\-::c\-Pres\-Command@{engine\-::c\-Pres\-Command}!Estimate\-Run\-Time@{Estimate\-Run\-Time}}
+\index{Estimate\-Run\-Time@{Estimate\-Run\-Time}!engine::cPresCommand@{engine\-::c\-Pres\-Command}}
+\subsubsection[{Estimate\-Run\-Time}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int engine\-::c\-Pres\-Command\-::\-Estimate\-Run\-Time (
+\begin{DoxyParamCaption}
+\item[{const {\bf c\-Estimator} \&}]{estimator}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [virtual]}}}\label{classengine_1_1cPresCommand_a4c0ce6703473a24a5b2b71cd6760a4b3}
+uses the visitor based on \hyperlink{classengine_1_1cEstimator}{c\-Estimator} to return a rough estimation of the running time of a given command 
+
+Implements \hyperlink{classengine_1_1cCommand_a8b5b45ad34530c454722a44e41ce9e78}{engine\-::c\-Command}.
+
+
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+pres\-\_\-command.\-h\item 
+pres\-\_\-command.\-cpp\end{DoxyCompactItemize}
