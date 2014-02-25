@@ -1,0 +1,89 @@
+\hypertarget{classresultsDB_1_1cLruHashMap}{\section{results\-D\-B\-:\-:c\-Lru\-Hash\-Map$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$ Class Template Reference}
+\label{classresultsDB_1_1cLruHashMap}\index{results\-D\-B\-::c\-Lru\-Hash\-Map$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$@{results\-D\-B\-::c\-Lru\-Hash\-Map$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$}}
+}
+
+
+{\ttfamily \#include $<$lrumap.\-h$>$}
+
+
+
+Inheritance diagram for results\-D\-B\-:\-:c\-Lru\-Hash\-Map$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=280pt]{classresultsDB_1_1cLruHashMap__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for results\-D\-B\-:\-:c\-Lru\-Hash\-Map$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classresultsDB_1_1cLruHashMap__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_a529a79f7a33b289760db7771e368aca3}{{\bfseries c\-Lru\-Hash\-Map} (std\-::size\-\_\-t size)}\label{classresultsDB_1_1cLruHashMap_a529a79f7a33b289760db7771e368aca3}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_a3936bc57867e3eef937226df4c45752e}{void {\bfseries resize} (std\-::size\-\_\-t size)}\label{classresultsDB_1_1cLruHashMap_a3936bc57867e3eef937226df4c45752e}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_af251ed1c01101b439f637e1ebd0a9113}{void {\bfseries insert} (K\-E\-Y key, M\-A\-P\-P\-E\-D \&item)}\label{classresultsDB_1_1cLruHashMap_af251ed1c01101b439f637e1ebd0a9113}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_a2f7d334ea70e8ea5de3ad5aa7416bd4a}{const M\-A\-P\-P\-E\-D \& {\bfseries get} (K\-E\-Y key) const }\label{classresultsDB_1_1cLruHashMap_a2f7d334ea70e8ea5de3ad5aa7416bd4a}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_acf89071b5fd13acbde66a9644c661c59}{std\-::size\-\_\-t {\bfseries size} () const }\label{classresultsDB_1_1cLruHashMap_acf89071b5fd13acbde66a9644c661c59}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_a5f1cad81321c5af7ba5fbcebcf40de46}{const\-\_\-iter {\bfseries find} (K\-E\-Y key) const }\label{classresultsDB_1_1cLruHashMap_a5f1cad81321c5af7ba5fbcebcf40de46}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_ad4f8fb406ed151d4f08960565a025131}{const\-\_\-iter {\bfseries end} () const }\label{classresultsDB_1_1cLruHashMap_ad4f8fb406ed151d4f08960565a025131}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_aa6825e373718e1cf5718d784ae3f3c9a}{typedef boost\-::unordered\-\_\-map\\*
+$<$ K\-E\-Y, typename std\-::list\\*
+$<$ std\-::pair$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$\\*
+ $>$\-::iterator $>$\-::const\-\_\-iterator {\bfseries const\-\_\-iter}}\label{classresultsDB_1_1cLruHashMap_aa6825e373718e1cf5718d784ae3f3c9a}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_ab2d2befb97adb02f08257dea126f47ea}{std\-::size\-\_\-t {\bfseries m\-\_\-\-Size}}\label{classresultsDB_1_1cLruHashMap_ab2d2befb97adb02f08257dea126f47ea}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_a5f15d6ae1f4312e24fc2cad11d0435df}{std\-::size\-\_\-t {\bfseries m\-\_\-\-Entries}}\label{classresultsDB_1_1cLruHashMap_a5f15d6ae1f4312e24fc2cad11d0435df}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_afcbba62846fc3c7b167fe0abb529dd1a}{boost\-::unordered\-\_\-map$<$ K\-E\-Y, \\*
+typename std\-::list$<$ std\-::pair\\*
+$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$ $>$\-::iterator $>$ {\bfseries m\-\_\-\-Hash\-Table}}\label{classresultsDB_1_1cLruHashMap_afcbba62846fc3c7b167fe0abb529dd1a}
+
+\item 
+\hypertarget{classresultsDB_1_1cLruHashMap_ae9194470ecb43ca81b246ee1360e9d59}{std\-::list$<$ std\-::pair$<$ K\-E\-Y, \\*
+M\-A\-P\-P\-E\-D $>$ $>$ {\bfseries m\-\_\-\-Items\-List}}\label{classresultsDB_1_1cLruHashMap_ae9194470ecb43ca81b246ee1360e9d59}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename K\-E\-Y, typename M\-A\-P\-P\-E\-D$>$class results\-D\-B\-::c\-Lru\-Hash\-Map$<$ K\-E\-Y, M\-A\-P\-P\-E\-D $>$}
+
+hashtable that implements a L\-R\-U strategy insert overwrites the oldest entry 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+lrumap.\-h\item 
+lrumap.\-cpp\end{DoxyCompactItemize}

@@ -1,0 +1,274 @@
+\hypertarget{classcFuncExpr}{\section{c\-Func\-Expr Class Reference}
+\label{classcFuncExpr}\index{c\-Func\-Expr@{c\-Func\-Expr}}
+}
+
+
+{\ttfamily \#include $<$func\-\_\-expr.\-h$>$}
+
+
+
+Collaboration diagram for c\-Func\-Expr\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=176pt]{classcFuncExpr__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcFuncExpr_a71288f1b0941126d468680a2a65fcab7}{{\bfseries c\-Func\-Expr} (expr\-\_\-type univar\-\_\-func)}\label{classcFuncExpr_a71288f1b0941126d468680a2a65fcab7}
+
+\item 
+\hypertarget{classcFuncExpr_a7843efed00c4ad1d5c63a9a67f735b6c}{{\bfseries c\-Func\-Expr} (operation\-\_\-type operation, expr\-\_\-type univar\-\_\-func1, expr\-\_\-type univar\-\_\-func2)}\label{classcFuncExpr_a7843efed00c4ad1d5c63a9a67f735b6c}
+
+\item 
+\hypertarget{classcFuncExpr_ad66bab49b10724c06c928c7f44c1c2e4}{{\bfseries c\-Func\-Expr} (const \hyperlink{classcFuncExpr}{c\-Func\-Expr} \&func\-\_\-expr)}\label{classcFuncExpr_ad66bab49b10724c06c928c7f44c1c2e4}
+
+\item 
+\hypertarget{classcFuncExpr_aa08ea2f08807f5b4b117c67d4661af28}{{\bfseries c\-Func\-Expr} (\hyperlink{classcFuncExpr}{c\-Func\-Expr} \&\&func\-\_\-expr)}\label{classcFuncExpr_aa08ea2f08807f5b4b117c67d4661af28}
+
+\item 
+\hypertarget{classcFuncExpr_a16da4fe524fb54c6b303cd1c1249b80f}{\hyperlink{classcFuncExpr}{c\-Func\-Expr} \& {\bfseries operator=} (const \hyperlink{classcFuncExpr}{c\-Func\-Expr} \&func\-\_\-expr)}\label{classcFuncExpr_a16da4fe524fb54c6b303cd1c1249b80f}
+
+\item 
+\hypertarget{classcFuncExpr_a65cdfa6f9d59359de29e7268b4e3eef5}{\hyperlink{classcFuncExpr}{c\-Func\-Expr} \& {\bfseries operator=} (\hyperlink{classcFuncExpr}{c\-Func\-Expr} \&\&func\-\_\-expr)}\label{classcFuncExpr_a65cdfa6f9d59359de29e7268b4e3eef5}
+
+\item 
+\hypertarget{classcFuncExpr_a45aa9930e7835d9a5fa2ba11a2699db9}{bool {\bfseries operator==} (const \hyperlink{classcFuncExpr}{c\-Func\-Expr} \&fnc\-\_\-expr) const }\label{classcFuncExpr_a45aa9930e7835d9a5fa2ba11a2699db9}
+
+\item 
+operation\-\_\-type \hyperlink{classcFuncExpr_a169fe0532649d76e93c803ac850c764a}{get\-Operation} () const 
+\item 
+\hypertarget{classcFuncExpr_a0baf68ae9b7a1402a631eed6a1ff09b4}{expr\-\_\-type {\bfseries get\-L\-H\-S\-Expression} () const }\label{classcFuncExpr_a0baf68ae9b7a1402a631eed6a1ff09b4}
+
+\item 
+\hypertarget{classcFuncExpr_a0233b69abbaf1bf2090f74e124d5ba8d}{expr\-\_\-type {\bfseries get\-R\-H\-S\-Expression} () const }\label{classcFuncExpr_a0233b69abbaf1bf2090f74e124d5ba8d}
+
+\item 
+\hypertarget{classcFuncExpr_a418cd662a3e19f7af280c6359cb55e07}{void {\bfseries set\-Operation} (const operation\-\_\-type \&op)}\label{classcFuncExpr_a418cd662a3e19f7af280c6359cb55e07}
+
+\item 
+\hypertarget{classcFuncExpr_a7cf0fedd521acb4eaa4964a361fe89b3}{void {\bfseries set\-L\-H\-S\-Expression} (const expr\-\_\-type \&expr)}\label{classcFuncExpr_a7cf0fedd521acb4eaa4964a361fe89b3}
+
+\item 
+\hypertarget{classcFuncExpr_a1f1404af450d7d475047f050895d8723}{void {\bfseries set\-R\-H\-S\-Expression} (const expr\-\_\-type \&expr)}\label{classcFuncExpr_a1f1404af450d7d475047f050895d8723}
+
+\item 
+std\-::vector$<$ \hyperlink{classcVariable}{c\-Variable} $>$ \hyperlink{classcFuncExpr_aac4a25067ca6be3db2ba9e95501d136a}{get\-Variables} () const 
+\item 
+void \hyperlink{classcFuncExpr_a1e4d0890110908c3cfe17f390016074b}{simplify} ()
+\item 
+void \hyperlink{classcFuncExpr_a4f38c136189c0af3e361e4af67524664}{trig\-\_\-simplify} ()
+\item 
+void \hyperlink{classcFuncExpr_a54fb36206df1ca39175c4ef914f9b671}{expand} ()
+\item 
+void \hyperlink{classcFuncExpr_af00d2b6a18cea571adeebd1e8d986d6e}{factor} ()
+\item 
+\hypertarget{classcFuncExpr_a7c783da6cbbff4ab740d830a4b14cfd6}{\hyperlink{classcFuncExpr}{c\-Func\-Expr} {\bfseries derivative} () const }\label{classcFuncExpr_a7c783da6cbbff4ab740d830a4b14cfd6}
+
+\item 
+\hyperlink{classcFuncExpr}{c\-Func\-Expr} \hyperlink{classcFuncExpr_acc82c5fcb2cc98fdc8a6ec376a0e76d7}{partial\-\_\-derivative} (const \hyperlink{classcVariable}{c\-Variable} \&var) const 
+\item 
+\hypertarget{classcFuncExpr_a0cc206609ae5661f8975c3b71a50c530}{\hyperlink{classcFuncExpr}{c\-Func\-Expr} {\bfseries primitive} () const }\label{classcFuncExpr_a0cc206609ae5661f8975c3b71a50c530}
+
+\item 
+void \hyperlink{classcFuncExpr_a6651f4e191ec2dbbdfd053ef7a06fa15}{substitute} (const \hyperlink{classcVariable}{c\-Variable} \&var1, const \hyperlink{classcVariable}{c\-Variable} \&var2)
+\item 
+expr\-\_\-type \hyperlink{classcFuncExpr_a94a97933bf6508590d2a5bdd5d953632}{operator()} (const \hyperlink{classcVariable}{c\-Variable} \&var, double arg) const 
+\item 
+std\-::vector$<$ std\-::tuple\\*
+$<$ double, double, double $>$ $>$ \hyperlink{classcFuncExpr_a7f827c4d0d44e4a890129317d0568dfd}{plot\-Points} (double min, double max, double increment) const 
+\item 
+void \hyperlink{classcFuncExpr_a210c6958768883486f404c21bed9b53b}{print\-Tree} (const expr\-\_\-type $\ast$root=nullptr) const 
+\item 
+\hypertarget{classcFuncExpr_ac68cde87cc0284d6f750a9b0d7f220a9}{void {\bfseries print\-Op} () const }\label{classcFuncExpr_ac68cde87cc0284d6f750a9b0d7f220a9}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\-::vector$<$ std\-::tuple\\*
+$<$ double, double, double $>$ $>$ \hyperlink{classcFuncExpr_a80a2b818fdf41356c390d7d5acfae2b9}{plot\-Line} (std\-::size\-\_\-t pos, double var, double min, double max, double increment, bool fixed=false) const 
+\item 
+\hypertarget{classcFuncExpr_a75cfcc14129d9fe761796af5c99a2c0c}{double {\bfseries get\-Value} (const expr\-\_\-type \&expr) const }\label{classcFuncExpr_a75cfcc14129d9fe761796af5c99a2c0c}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcFuncExpr_a198c337af0292c7fafef007801cfee3a}{operation\-\_\-type {\bfseries m\-\_\-\-Operation}}\label{classcFuncExpr_a198c337af0292c7fafef007801cfee3a}
+
+\item 
+\hypertarget{classcFuncExpr_a678206897a682b72a34a6e1176e47592}{expr\-\_\-type {\bfseries m\-\_\-\-L\-H\-S\-Expr}}\label{classcFuncExpr_a678206897a682b72a34a6e1176e47592}
+
+\item 
+\hypertarget{classcFuncExpr_ae4acff93f9a21a7b5c472b9a0202acd5}{expr\-\_\-type {\bfseries m\-\_\-\-R\-H\-S\-Expr}}\label{classcFuncExpr_ae4acff93f9a21a7b5c472b9a0202acd5}
+
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcFuncExpr_ae37b92d9226a688089d270228c442608}{class {\bfseries c\-Expr\-Diff\-Visitor}}\label{classcFuncExpr_ae37b92d9226a688089d270228c442608}
+
+\item 
+\hypertarget{classcFuncExpr_aa6ab9d0d611acf7a332d381f703796e6}{class {\bfseries c\-Expr\-Part\-Diff\-Visitor}}\label{classcFuncExpr_aa6ab9d0d611acf7a332d381f703796e6}
+
+\item 
+\hypertarget{classcFuncExpr_a9fc7bf9f80422eb5d9255b49005b24b6}{class {\bfseries c\-Diff\-Visitor}}\label{classcFuncExpr_a9fc7bf9f80422eb5d9255b49005b24b6}
+
+\item 
+\hypertarget{classcFuncExpr_a53892c389b88a764b4b9c5385980f348}{class {\bfseries c\-Simplify\-Visitor}}\label{classcFuncExpr_a53892c389b88a764b4b9c5385980f348}
+
+\item 
+\hypertarget{classcFuncExpr_a08e7e27ba55da95f22853e6bfa89484e}{{\footnotesize template$<$typename T $>$ }\\class {\bfseries c\-Eval\-Exprl\-Visitor}}\label{classcFuncExpr_a08e7e27ba55da95f22853e6bfa89484e}
+
+\item 
+\hypertarget{classcFuncExpr_af2a8569148682f5f2a6226e47ed2e3ec}{{\footnotesize template$<$typename T $>$ }\\class {\bfseries c\-Eval\-Visitor}}\label{classcFuncExpr_af2a8569148682f5f2a6226e47ed2e3ec}
+
+\item 
+\hypertarget{classcFuncExpr_aaa0d90351f14b880688cece98cc467c7}{std\-::ostream \& {\bfseries operator$<$$<$} (std\-::ostream \&out, const \hyperlink{classcFuncExpr}{c\-Func\-Expr} \&func\-\_\-expr)}\label{classcFuncExpr_aaa0d90351f14b880688cece98cc467c7}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+holds a compound function expression (i.\-e. (sin(x) + e$^\wedge$x)$\ast$cos(x)) implements the 'symbolic' functionality 
+
+\subsection{Member Function Documentation}
+\hypertarget{classcFuncExpr_a54fb36206df1ca39175c4ef914f9b671}{\index{c\-Func\-Expr@{c\-Func\-Expr}!expand@{expand}}
+\index{expand@{expand}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{expand}]{\setlength{\rightskip}{0pt plus 5cm}void c\-Func\-Expr\-::expand (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcFuncExpr_a54fb36206df1ca39175c4ef914f9b671}
+expand multiplications and powers removing paranthesis \hypertarget{classcFuncExpr_af00d2b6a18cea571adeebd1e8d986d6e}{\index{c\-Func\-Expr@{c\-Func\-Expr}!factor@{factor}}
+\index{factor@{factor}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{factor}]{\setlength{\rightskip}{0pt plus 5cm}void c\-Func\-Expr\-::factor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcFuncExpr_af00d2b6a18cea571adeebd1e8d986d6e}
+try to factor expression \hypertarget{classcFuncExpr_a169fe0532649d76e93c803ac850c764a}{\index{c\-Func\-Expr@{c\-Func\-Expr}!get\-Operation@{get\-Operation}}
+\index{get\-Operation@{get\-Operation}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{get\-Operation}]{\setlength{\rightskip}{0pt plus 5cm}operation\-\_\-type c\-Func\-Expr\-::get\-Operation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcFuncExpr_a169fe0532649d76e93c803ac850c764a}
+setters and getters \hypertarget{classcFuncExpr_aac4a25067ca6be3db2ba9e95501d136a}{\index{c\-Func\-Expr@{c\-Func\-Expr}!get\-Variables@{get\-Variables}}
+\index{get\-Variables@{get\-Variables}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{get\-Variables}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ {\bf c\-Variable} $>$ c\-Func\-Expr\-::get\-Variables (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}}\label{classcFuncExpr_aac4a25067ca6be3db2ba9e95501d136a}
+returns a vector containing all the variables used in expression \hypertarget{classcFuncExpr_a94a97933bf6508590d2a5bdd5d953632}{\index{c\-Func\-Expr@{c\-Func\-Expr}!operator()@{operator()}}
+\index{operator()@{operator()}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{operator()}]{\setlength{\rightskip}{0pt plus 5cm}expr\-\_\-type c\-Func\-Expr\-::operator() (
+\begin{DoxyParamCaption}
+\item[{const {\bf c\-Variable} \&}]{var, }
+\item[{double}]{arg}
+\end{DoxyParamCaption}
+) const}}\label{classcFuncExpr_a94a97933bf6508590d2a5bdd5d953632}
+evaluates the expression by substituting the variable with the given value an exception is thrown if the substitution fails \hypertarget{classcFuncExpr_acc82c5fcb2cc98fdc8a6ec376a0e76d7}{\index{c\-Func\-Expr@{c\-Func\-Expr}!partial\-\_\-derivative@{partial\-\_\-derivative}}
+\index{partial\-\_\-derivative@{partial\-\_\-derivative}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{partial\-\_\-derivative}]{\setlength{\rightskip}{0pt plus 5cm}{\bf c\-Func\-Expr} c\-Func\-Expr\-::partial\-\_\-derivative (
+\begin{DoxyParamCaption}
+\item[{const {\bf c\-Variable} \&}]{var}
+\end{DoxyParamCaption}
+) const}}\label{classcFuncExpr_acc82c5fcb2cc98fdc8a6ec376a0e76d7}
+compute the partial derivative with respect to the given variable 
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=322pt]{classcFuncExpr_acc82c5fcb2cc98fdc8a6ec376a0e76d7_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classcFuncExpr_a80a2b818fdf41356c390d7d5acfae2b9}{\index{c\-Func\-Expr@{c\-Func\-Expr}!plot\-Line@{plot\-Line}}
+\index{plot\-Line@{plot\-Line}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{plot\-Line}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ std\-::tuple$<$ double, double, double $>$ $>$ c\-Func\-Expr\-::plot\-Line (
+\begin{DoxyParamCaption}
+\item[{std\-::size\-\_\-t}]{pos, }
+\item[{double}]{var, }
+\item[{double}]{min, }
+\item[{double}]{max, }
+\item[{double}]{increment, }
+\item[{bool}]{fixed = {\ttfamily false}}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [private]}}}\label{classcFuncExpr_a80a2b818fdf41356c390d7d5acfae2b9}
+returns the graph if the function has only 1 variable the first and second argument specify which variable is already computed and its value -- used in plot\-Points 
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcFuncExpr_a80a2b818fdf41356c390d7d5acfae2b9_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classcFuncExpr_a7f827c4d0d44e4a890129317d0568dfd}{\index{c\-Func\-Expr@{c\-Func\-Expr}!plot\-Points@{plot\-Points}}
+\index{plot\-Points@{plot\-Points}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{plot\-Points}]{\setlength{\rightskip}{0pt plus 5cm}std\-::vector$<$ std\-::tuple$<$ double, double, double $>$ $>$ c\-Func\-Expr\-::plot\-Points (
+\begin{DoxyParamCaption}
+\item[{double}]{min, }
+\item[{double}]{max, }
+\item[{double}]{increment}
+\end{DoxyParamCaption}
+) const}}\label{classcFuncExpr_a7f827c4d0d44e4a890129317d0568dfd}
+plots the functional expression using the plot\-Line function can be used only for expressions with one or two variables 
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcFuncExpr_a7f827c4d0d44e4a890129317d0568dfd_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classcFuncExpr_a210c6958768883486f404c21bed9b53b}{\index{c\-Func\-Expr@{c\-Func\-Expr}!print\-Tree@{print\-Tree}}
+\index{print\-Tree@{print\-Tree}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{print\-Tree}]{\setlength{\rightskip}{0pt plus 5cm}void c\-Func\-Expr\-::print\-Tree (
+\begin{DoxyParamCaption}
+\item[{const expr\-\_\-type $\ast$}]{root = {\ttfamily nullptr}}
+\end{DoxyParamCaption}
+) const}}\label{classcFuncExpr_a210c6958768883486f404c21bed9b53b}
+prints func expr as tree structure --for debugging purposes \hypertarget{classcFuncExpr_a1e4d0890110908c3cfe17f390016074b}{\index{c\-Func\-Expr@{c\-Func\-Expr}!simplify@{simplify}}
+\index{simplify@{simplify}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{simplify}]{\setlength{\rightskip}{0pt plus 5cm}void c\-Func\-Expr\-::simplify (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcFuncExpr_a1e4d0890110908c3cfe17f390016074b}
+siplifies the expression by partially evaluating subexpressions \hypertarget{classcFuncExpr_a6651f4e191ec2dbbdfd053ef7a06fa15}{\index{c\-Func\-Expr@{c\-Func\-Expr}!substitute@{substitute}}
+\index{substitute@{substitute}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{substitute}]{\setlength{\rightskip}{0pt plus 5cm}void c\-Func\-Expr\-::substitute (
+\begin{DoxyParamCaption}
+\item[{const {\bf c\-Variable} \&}]{var1, }
+\item[{const {\bf c\-Variable} \&}]{var2}
+\end{DoxyParamCaption}
+)}}\label{classcFuncExpr_a6651f4e191ec2dbbdfd053ef7a06fa15}
+substitute var1 with var2 in expression recursively \hypertarget{classcFuncExpr_a4f38c136189c0af3e361e4af67524664}{\index{c\-Func\-Expr@{c\-Func\-Expr}!trig\-\_\-simplify@{trig\-\_\-simplify}}
+\index{trig\-\_\-simplify@{trig\-\_\-simplify}!cFuncExpr@{c\-Func\-Expr}}
+\subsubsection[{trig\-\_\-simplify}]{\setlength{\rightskip}{0pt plus 5cm}void c\-Func\-Expr\-::trig\-\_\-simplify (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}\label{classcFuncExpr_a4f38c136189c0af3e361e4af67524664}
+siplifies the expression by matching trigonometric identities 
+
+The documentation for this class was generated from the following files\-:\begin{DoxyCompactItemize}
+\item 
+func\-\_\-expr.\-h\item 
+func\-\_\-expr.\-cpp\end{DoxyCompactItemize}
