@@ -1,7 +1,0 @@
-<map id="engine::cGroupGenCommand" name="engine::cGroupGenCommand">
-<area shape="rect" id="node3" href="$classengine_1_1cGetCenterCommand.html" title="{engine::cGetCenterCommand\n||+ cGetCenterCommand()\l+ ~cGetCenterCommand()\l+ Execute()\l+ EstimateRunTime()\l}" alt="" coords="5,397,213,518"/>
-<area shape="rect" id="node4" href="$classengine_1_1cGetCGraphCommand.html" title="{engine::cGetCGraphCommand\n|&#45; m_Result\l|+ cGetCGraphCommand()\l+ ~cGetCGraphCommand()\l+ Execute()\l+ EstimateRunTime()\l+ GetResultStr()\l}" alt="" coords="238,389,452,525"/>
-<area shape="rect" id="node5" href="$classengine_1_1cGetElemCommand.html" title="{engine::cGetElemCommand\n||+ cGetElemCommand()\l+ ~cGetElemCommand()\l+ Execute()\l+ EstimateRunTime()\l}" alt="" coords="477,397,672,518"/>
-<area shape="rect" id="node6" href="$classengine_1_1cGetRelCommand.html" title="{engine::cGetRelCommand\n|&#45; m_Result\l|+ cGetRelCommand()\l+ ~cGetRelCommand()\l+ Execute()\l+ EstimateRunTime()\l+ GetResultStr()\l}" alt="" coords="697,389,884,525"/>
-<area shape="rect" id="node2" href="$classengine_1_1cCommand.html" title="{engine::cCommand\n||+ ~cCommand()\l+ Execute()\l+ GetResultStr()\l+ EstimateRunTime()\l}" alt="" coords="383,6,536,127"/>
-</map>

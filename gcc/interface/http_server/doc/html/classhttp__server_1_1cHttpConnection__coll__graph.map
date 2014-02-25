@@ -1,5 +1,0 @@
-<map id="http_server::cHttpConnection" name="http_server::cHttpConnection">
-<area shape="rect" id="node3" title="STL class. " alt="" coords="421,147,544,224"/>
-<area shape="rect" id="node9" title="STL class. " alt="" coords="172,147,271,224"/>
-<area shape="rect" id="node6" href="$classhttp__server_1_1cConnectionManager.html" title="{http_server::cConnection\lManager\n||+ StartConnection()\l+ StopConnection()\l+ StopAllConnections()\l}" alt="" coords="247,446,425,567"/>
-</map>

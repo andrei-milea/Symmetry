@@ -1,4 +1,0 @@
-<map id="tree::btree_inorder_iterator&lt; T, btree_threaded_node&lt; T &gt; &gt;" name="tree::btree_inorder_iterator&lt; T, btree_threaded_node&lt; T &gt; &gt;">
-<area shape="rect" id="node2" href="$classtree_1_1btree__iterator_3_01T_00_01btree__threaded__node_3_01T_01_4_01_4.html" title="partial specialization for iterators in a threaded binary tree representation/// " alt="" coords="103,347,289,527"/>
-<area shape="rect" id="node4" href="$structtree_1_1btree__threaded__node.html" title="{tree::btree_threaded\l_node\&lt; T \&gt;\n|+ rTag\l+ lTag\l|+ btree_threaded_node()\l+ btree_threaded_node()\l}" alt="" coords="273,147,455,269"/>
-</map>

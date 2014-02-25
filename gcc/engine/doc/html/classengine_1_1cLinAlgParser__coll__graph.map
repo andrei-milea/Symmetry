@@ -1,8 +1,0 @@
-<map id="engine::cLinAlgParser" name="engine::cLinAlgParser">
-<area shape="rect" id="node2" href="$structengine_1_1sLinExpression.html" title="{engine::sLinExpression\n||}" alt="" coords="210,744,376,821"/>
-<area shape="rect" id="node4" href="$structengine_1_1sLinTerm.html" title="{engine::sLinTerm\n||}" alt="" coords="228,445,357,523"/>
-<area shape="rect" id="node6" title="STL class. " alt="" coords="238,147,356,224"/>
-<area shape="rect" id="node9" href="$structengine_1_1sLinFactor.html" title="{engine::sLinFactor\n|+ factor\l|}" alt="" coords="5,147,141,224"/>
-<area shape="rect" id="node10" title="STL class. " alt="" coords="411,744,492,821"/>
-<area shape="rect" id="node11" title="STL class. " alt="" coords="388,587,517,679"/>
-</map>

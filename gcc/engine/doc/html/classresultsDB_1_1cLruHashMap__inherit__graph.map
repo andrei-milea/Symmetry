@@ -1,3 +1,0 @@
-<map id="resultsDB::cLruHashMap&lt; KEY, MAPPED &gt;" name="resultsDB::cLruHashMap&lt; KEY, MAPPED &gt;">
-<area shape="rect" id="node2" href="$classresultsDB_1_1cLruHashMap.html" title="{resultsDB::cLruHashMap\l\&lt; std::size_t, std::unique\l_ptr\&lt; resultsDB::cResultsBucket \&gt; \&gt;\n|&#45; m_Size\l&#45; m_Entries\l&#45; m_HashTable\l&#45; m_ItemsList\l|+ cLruHashMap()\l+ ~cLruHashMap()\l+ resize()\l+ insert()\l+ get()\l+ size()\l+ find()\l+ end()\l}" alt="" coords="5,339,248,592"/>
-</map>

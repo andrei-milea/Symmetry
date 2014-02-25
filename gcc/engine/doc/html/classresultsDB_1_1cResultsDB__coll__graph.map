@@ -1,6 +1,0 @@
-<map id="resultsDB::cResultsDB" name="resultsDB::cResultsDB">
-<area shape="rect" id="node3" title="STL class. " alt="" coords="69,248,187,325"/>
-<area shape="rect" id="node7" title="STL class. " alt="" coords="245,147,341,224"/>
-<area shape="rect" id="node5" href="$classresultsDB_1_1cLruHashMap.html" title="{resultsDB::cLruHashMap\l\&lt; std::size_t, std::unique\l_ptr\&lt; resultsDB::cResultsBucket \&gt; \&gt;\n|&#45; m_Size\l&#45; m_Entries\l&#45; m_HashTable\l|+ cLruHashMap()\l+ ~cLruHashMap()\l+ resize()\l+ insert()\l+ get()\l+ size()\l+ find()\l+ end()\l}" alt="" coords="170,915,413,1154"/>
-<area shape="rect" id="node8" href="$classresultsDB_1_1cLruHashMap.html" title="{resultsDB::cLruHashMap\l\&lt; KEY, MAPPED \&gt;\n|&#45; m_Size\l&#45; m_Entries\l&#45; m_HashTable\l|+ cLruHashMap()\l+ ~cLruHashMap()\l+ resize()\l+ insert()\l+ get()\l+ size()\l+ find()\l+ end()\l}" alt="" coords="400,597,576,821"/>
-</map>
