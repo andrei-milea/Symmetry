@@ -1,0 +1,4 @@
+<map id="engine::cGetCenterCommand" name="engine::cGetCenterCommand">
+<area shape="rect" id="node2" href="$classengine_1_1cGroupGenCommand.html" title="{engine::cGroupGenCommand\n|# m_GrpType\l# m_Generators\l# m_Result\l|+ cGroupGenCommand()\l+ ~cGroupGenCommand()\l+ GetGroupType()\l+ GetResultStr()\l+ GetGenerators()\l}" alt="" coords="5,176,213,341"/>
+<area shape="rect" id="node3" href="$classengine_1_1cCommand.html" title="{engine::cCommand\n||+ ~cCommand()\l+ Execute()\l+ GetResultStr()\l+ EstimateRunTime()\l}" alt="" coords="32,6,185,127"/>
+</map>

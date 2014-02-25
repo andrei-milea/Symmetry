@@ -1,0 +1,206 @@
+\hypertarget{classcGroupElem}{\section{c\-Group\-Elem$<$ T, Binary\-Op $>$ Class Template Reference}
+\label{classcGroupElem}\index{c\-Group\-Elem$<$ T, Binary\-Op $>$@{c\-Group\-Elem$<$ T, Binary\-Op $>$}}
+}
+
+
+{\ttfamily \#include $<$group\-\_\-elem.\-h$>$}
+
+
+
+Inheritance diagram for c\-Group\-Elem$<$ T, Binary\-Op $>$\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classcGroupElem__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for c\-Group\-Elem$<$ T, Binary\-Op $>$\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=228pt]{classcGroupElem__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcGroupElem_a59d8e25f570c976b3c7f13756ada8dc4}{typedef \hyperlink{classcGroupElem}{c\-Group\-Elem}$<$ T, Binary\-Op $>$ {\bfseries Self\-Type}}\label{classcGroupElem_a59d8e25f570c976b3c7f13756ada8dc4}
+
+\item 
+\hypertarget{classcGroupElem_a49af5748a3d451f2256fb82266338bca}{typedef T {\bfseries Concrete\-El\-Type}}\label{classcGroupElem_a49af5748a3d451f2256fb82266338bca}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcGroupElem_ac677380fd35b7307be8230e01c47d24a}{{\bfseries c\-Group\-Elem} (T \&concrete\-\_\-obj)}\label{classcGroupElem_ac677380fd35b7307be8230e01c47d24a}
+
+\item 
+\hypertarget{classcGroupElem_a0e5fb191a65d35d9cc3865aaef02ce42}{{\bfseries c\-Group\-Elem} (std\-::size\-\_\-t size)}\label{classcGroupElem_a0e5fb191a65d35d9cc3865aaef02ce42}
+
+\item 
+\hypertarget{classcGroupElem_a7e61b42847fb382a00025af19baf2132}{{\bfseries c\-Group\-Elem} (const T \&concrete\-\_\-obj)}\label{classcGroupElem_a7e61b42847fb382a00025af19baf2132}
+
+\item 
+\hypertarget{classcGroupElem_a13a796803737218c08e3d6bb652732d1}{{\bfseries c\-Group\-Elem} (const std\-::initializer\-\_\-list$<$ std\-::size\-\_\-t $>$ \&perm\-\_\-sq)}\label{classcGroupElem_a13a796803737218c08e3d6bb652732d1}
+
+\item 
+\hypertarget{classcGroupElem_aaa558bbe798129dccc53712777e1bd4e}{{\bfseries c\-Group\-Elem} (std\-::size\-\_\-t size, const std\-::initializer\-\_\-list$<$ std\-::size\-\_\-t $>$ \&perm\-\_\-sq)}\label{classcGroupElem_aaa558bbe798129dccc53712777e1bd4e}
+
+\item 
+\hypertarget{classcGroupElem_af2fe12bf9a1291a5c30905449e2b3a2b}{{\bfseries c\-Group\-Elem} (const \hyperlink{classcGroupElem}{Self\-Type} \&group\-\_\-elem)}\label{classcGroupElem_af2fe12bf9a1291a5c30905449e2b3a2b}
+
+\item 
+\hypertarget{classcGroupElem_a75d7cd6508130c2632042fa42041b874}{\hyperlink{classcGroupElem}{Self\-Type} \& {\bfseries operator=} (const \hyperlink{classcGroupElem}{Self\-Type} \&elem)}\label{classcGroupElem_a75d7cd6508130c2632042fa42041b874}
+
+\item 
+std\-::size\-\_\-t \hyperlink{classcGroupElem_ac29fd7c4409752f596249999d87e64ca}{Get\-Order} () const 
+\item 
+std\-::size\-\_\-t \hyperlink{classcGroupElem_a6f563c99529cb747e414fc20a8915a20}{Get\-Order} (std\-::size\-\_\-t group\-\_\-order)
+\item 
+\hyperlink{classcGroupElem}{Self\-Type} \hyperlink{classcGroupElem_a17bf17389d7b17e8674ef33eabed9163}{Get\-Inverse} () const 
+\item 
+\hyperlink{classcGroupElem}{Self\-Type} \hyperlink{classcGroupElem_af58088ba8679e49a4b1a34b503a649e0}{Get\-Nth\-Power} (std\-::size\-\_\-t n) const 
+\item 
+bool \hyperlink{classcGroupElem_ab0e3d62bb8a37b59a371188f320bdbca}{Commutes\-With} (const \hyperlink{classcGroupElem}{Self\-Type} \&element) const 
+\item 
+bool \hyperlink{classcGroupElem_ab01a807aff26daecd39cea6837b01e8e}{Is\-Normalizer} (const std\-::vector$<$ \hyperlink{classcGroupElem}{Self\-Type} $>$ \&elements) const 
+\item 
+\hyperlink{classcGroupElem}{Self\-Type} \hyperlink{classcGroupElem_ae394d9b317db051ae804ae299f173e3d}{Get\-Identity} () const 
+\item 
+\hypertarget{classcGroupElem_ab715bd9431a5b66e0230f9477339cecb}{Binary\-Op {\bfseries Get\-Binary\-Op} () const }\label{classcGroupElem_ab715bd9431a5b66e0230f9477339cecb}
+
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcGroupElem}{Self\-Type} \hyperlink{classcGroupElem_a369cfffe505951aed65696857b25319b}{Get\-Nth\-Power} (std\-::size\-\_\-t n, const \hyperlink{classcGroupElem}{Self\-Type} \&element) const 
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{classcGroupElem_a9a6f51b4a5ce6a3b9dc8bff7a4812fec}{Binary\-Op {\bfseries m\-\_\-\-Bin\-Op}}\label{classcGroupElem_a9a6f51b4a5ce6a3b9dc8bff7a4812fec}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\subsubsection*{template$<$typename T, typename Binary\-Op$>$class c\-Group\-Elem$<$ T, Binary\-Op $>$}
+
+generic class that represents a group element must be instatiated with the concrete element type and the binary operation(used as a policy) that is going to used with the element 
+
+\subsection{Member Function Documentation}
+\hypertarget{classcGroupElem_ab0e3d62bb8a37b59a371188f320bdbca}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Commutes\-With@{Commutes\-With}}
+\index{Commutes\-With@{Commutes\-With}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Commutes\-With}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ bool {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Commutes\-With (
+\begin{DoxyParamCaption}
+\item[{const {\bf Self\-Type} \&}]{element}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcGroupElem_ab0e3d62bb8a37b59a371188f320bdbca}
+return true if the element commutes with the element given as parameter \hypertarget{classcGroupElem_ae394d9b317db051ae804ae299f173e3d}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Get\-Identity@{Get\-Identity}}
+\index{Get\-Identity@{Get\-Identity}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Get\-Identity}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ {\bf Self\-Type} {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Get\-Identity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcGroupElem_ae394d9b317db051ae804ae299f173e3d}
+returns the identity of the element type according to the binary operation \hypertarget{classcGroupElem_a17bf17389d7b17e8674ef33eabed9163}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Get\-Inverse@{Get\-Inverse}}
+\index{Get\-Inverse@{Get\-Inverse}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Get\-Inverse}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ {\bf Self\-Type} {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Get\-Inverse (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcGroupElem_a17bf17389d7b17e8674ef33eabed9163}
+returns the inverse of the element according to the given binaryu operation \hypertarget{classcGroupElem_af58088ba8679e49a4b1a34b503a649e0}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Get\-Nth\-Power@{Get\-Nth\-Power}}
+\index{Get\-Nth\-Power@{Get\-Nth\-Power}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Get\-Nth\-Power}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ {\bf Self\-Type} {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Get\-Nth\-Power (
+\begin{DoxyParamCaption}
+\item[{std\-::size\-\_\-t}]{n}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcGroupElem_af58088ba8679e49a4b1a34b503a649e0}
+returns the nth power of the element \hypertarget{classcGroupElem_a369cfffe505951aed65696857b25319b}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Get\-Nth\-Power@{Get\-Nth\-Power}}
+\index{Get\-Nth\-Power@{Get\-Nth\-Power}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Get\-Nth\-Power}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ {\bf Self\-Type} {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Get\-Nth\-Power (
+\begin{DoxyParamCaption}
+\item[{std\-::size\-\_\-t}]{n, }
+\item[{const {\bf Self\-Type} \&}]{element}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [private]}}}\label{classcGroupElem_a369cfffe505951aed65696857b25319b}
+recursive function that actually computes the nth power Complexity\-: $ O(log_2(n)) $ 
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcGroupElem_a369cfffe505951aed65696857b25319b_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classcGroupElem_ac29fd7c4409752f596249999d87e64ca}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Get\-Order@{Get\-Order}}
+\index{Get\-Order@{Get\-Order}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Get\-Order}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ std\-::size\-\_\-t {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Get\-Order (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcGroupElem_ac29fd7c4409752f596249999d87e64ca}
+returns the identity element corresponding to the given element type and the binary operation Complexity\-: O(n) multiplications and comparisons, where n is the order 
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcGroupElem_ac29fd7c4409752f596249999d87e64ca_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classcGroupElem_a6f563c99529cb747e414fc20a8915a20}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Get\-Order@{Get\-Order}}
+\index{Get\-Order@{Get\-Order}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Get\-Order}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ std\-::size\-\_\-t {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Get\-Order (
+\begin{DoxyParamCaption}
+\item[{std\-::size\-\_\-t}]{group\-\_\-order}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcGroupElem_a6f563c99529cb747e414fc20a8915a20}
+returns the identity element corresponding to the given element type and the binary operation using the given group order Complexity\-: O(n) multiplication and d comparisons, where n is the order, and d is the number of divisors of the order of the group 
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcGroupElem_a6f563c99529cb747e414fc20a8915a20_cgraph}
+\end{center}
+\end{figure}
+
+
+\hypertarget{classcGroupElem_ab01a807aff26daecd39cea6837b01e8e}{\index{c\-Group\-Elem@{c\-Group\-Elem}!Is\-Normalizer@{Is\-Normalizer}}
+\index{Is\-Normalizer@{Is\-Normalizer}!cGroupElem@{c\-Group\-Elem}}
+\subsubsection[{Is\-Normalizer}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T, typename Binary\-Op$>$ bool {\bf c\-Group\-Elem}$<$ T, Binary\-Op $>$\-::Is\-Normalizer (
+\begin{DoxyParamCaption}
+\item[{const std\-::vector$<$ {\bf Self\-Type} $>$ \&}]{elements}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}}\label{classcGroupElem_ab01a807aff26daecd39cea6837b01e8e}
+returns true if the element is a normalizer for the list of elements given as parameter 
+
+Here is the call graph for this function\-:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcGroupElem_ab01a807aff26daecd39cea6837b01e8e_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+The documentation for this class was generated from the following file\-:\begin{DoxyCompactItemize}
+\item 
+group\-\_\-elem.\-h\end{DoxyCompactItemize}
