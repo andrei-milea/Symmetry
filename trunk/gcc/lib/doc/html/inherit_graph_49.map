@@ -1,8 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node2" href="$classtree_1_1btree__iterator.html" title="tree::btree_iterator\l\&lt; T, N \&gt;" alt="" coords="197,87,336,129"/>
-<area shape="rect" id="node6" href="$classtree_1_1btree__iterator_3_01T_00_01btree__threaded__node_3_01T_01_4_01_4.html" title="partial specialization for iterators in a threaded binary tree representation/// " alt="" coords="173,168,360,224"/>
-<area shape="rect" id="node3" href="$classtree_1_1btree__inorder__iterator.html" title="tree::btree_inorder\l_iterator\&lt; T, N \&gt;" alt="" coords="425,5,564,46"/>
-<area shape="rect" id="node4" href="$classtree_1_1btree__postorder__iterator.html" title="tree::btree_postorder\l_iterator\&lt; T, N \&gt;" alt="" coords="417,70,572,111"/>
-<area shape="rect" id="node5" href="$classtree_1_1btree__preorder__iterator.html" title="tree::btree_preorder\l_iterator\&lt; T, N \&gt;" alt="" coords="421,135,569,177"/>
-<area shape="rect" id="node7" href="$classtree_1_1btree__inorder__iterator_3_01T_00_01btree__threaded__node_3_01T_01_4_01_4.html" title="tree::btree_inorder\l_iterator\&lt; T, btree\l_threaded_node\&lt; T \&gt; \&gt;" alt="" coords="409,200,581,256"/>
-</map>

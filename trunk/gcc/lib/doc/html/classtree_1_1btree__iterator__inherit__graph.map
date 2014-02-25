@@ -1,5 +1,0 @@
-<map id="tree::btree_iterator&lt; T, N &gt;" name="tree::btree_iterator&lt; T, N &gt;">
-<area shape="rect" id="node3" href="$classtree_1_1btree__inorder__iterator.html" title="{tree::btree_inorder\l_iterator\&lt; T, N \&gt;\n|&#45; m_NextNode\l&#45; m_Stack\l|+ btree_inorder_iterator()\l+ btree_inorder_iterator()\l+ increment()\l}" alt="" coords="5,360,187,496"/>
-<area shape="rect" id="node4" href="$classtree_1_1btree__postorder__iterator.html" title="{tree::btree_postorder\l_iterator\&lt; T, N \&gt;\n|&#45; m_NextNode\l&#45; m_Stack\l|+ btree_postorder_iterator()\l+ btree_postorder_iterator()\l+ increment()\l}" alt="" coords="211,360,409,496"/>
-<area shape="rect" id="node5" href="$classtree_1_1btree__preorder__iterator.html" title="{tree::btree_preorder\l_iterator\&lt; T, N \&gt;\n|&#45; m_NextNode\l&#45; m_Stack\l|+ btree_preorder_iterator()\l+ btree_preorder_iterator()\l+ increment()\l}" alt="" coords="434,360,627,496"/>
-</map>

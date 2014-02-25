@@ -1,7 +1,0 @@
-<map id="engine::cGetDeterminantCommand" name="engine::cGetDeterminantCommand">
-<area shape="rect" id="node2" href="$classengine_1_1cCommand.html" title="{engine::cCommand\n||+ ~cCommand()\l+ Execute()\l+ GetResultStr()\l+ EstimateRunTime()\l}" alt="" coords="5,745,159,866"/>
-<area shape="rect" id="node3" href="$structengine_1_1sLinExpression.html" title="{engine::sLinExpression\n||}" alt="" coords="185,767,351,844"/>
-<area shape="rect" id="node5" href="$structengine_1_1sLinTerm.html" title="{engine::sLinTerm\n||}" alt="" coords="411,445,540,523"/>
-<area shape="rect" id="node7" title="STL class. " alt="" coords="314,147,432,224"/>
-<area shape="rect" id="node10" href="$structengine_1_1sLinFactor.html" title="{engine::sLinFactor\n|+ factor\l|}" alt="" coords="523,147,660,224"/>
-</map>
